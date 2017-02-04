@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.user.dao.OrgMapper">
+	<resultMap id="resultMap" type="cn.com.cms.user.model.Org">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="parentID" column="Parent_ID" />
+		<result property="orderID" column="Order_ID" />
+		<result property="status" column="Status" />
+		<result property="inherit" column="Inherit" />
+		<result property="createTime" column="Create_Time" />
+		<result property="creatorId" column="Creator_ID" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="updaterId" column="Updater_ID" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO org(Name,Code,Parent_ID,Order_ID,Status,Inherit,Create_Time,Creator_ID,Update_Time,Updater_ID)
+		VALUES(#{name},#{code},#{parentID},#{orderID},#{status},#{inherit},#{createTime},#{creatorId},#{updateTime},#{updaterId})
+	</insert>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM org WHERE
+		ID=#{id}
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM org
+	</select>
+	
+	<select id="findByParentId" resultMap="resultMap">
+	    SELECT * FROM org WHERE Parent_ID=#{parentID}
+	</select>
+	
+	<select id="findByCodeAndParentId" resultMap = "resultMap" parameterType="java.util.Map">
+	    SELECT * FROM org WHERE Parent_ID=#{parentId} AND Code=#{code}
+	</select>
+	
+	<select id="findAllNoUserOrgs"  resultMap="resultMap">
+		SELECT * FROM org WHERE ID NOT IN (SELECT DISTINCT Org_ID FROM User)
+	</select>
+
+	<update id="update">
+		UPDATE org SET
+		Name = #{name},
+		Code = #{code},
+		Parent_ID = #{parentID},
+		Order_ID = #{orderID},
+		Status = #{status},
+		Inherit=#{inherit},
+		Update_Time = #{updateTime},
+		Updater_ID = #{updaterId}
+		WHERE ID=#{id}
+	</update>
+
+	<delete id="delete" parameterType="java.util.List">
+		DELETE FROM org WHERE
+		ID
+		= #{id}
+	</delete>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.user.dao.OrgGroupMapMapper">
+	<resultMap id="resultMap" type="cn.com.cms.user.model.OrgGroupMap">
+		<result property="id" column="ID" />
+		<result property="groupId" column="Group_ID" />
+		<result property="orgId" column="Org_ID" />
+	</resultMap>
+
+	<delete id="deleteByGroupId">
+		DELETE FROM org_group_map WHERE Group_ID=#{groupId}
+	</delete>
+
+	<select id="findGroupIdsByOrgId" resultType="java.lang.Integer">
+		SELECT Group_ID FROM
+		org_group_map WHERE Org_ID=#{orgId}
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		org_group_map(Group_ID,Org_ID)
+		VALUES
+		(#{groupId},#{orgId})
+	</insert>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO org_group_map
+		(Group_ID,Org_ID)
+		VALUES
+		<foreach collection="list" item="orgGroupMapList" index="index"
+			separator=",">
+			(#{orgGroupMapList.groupId},#{orgGroupMapList.orgId})
+		</foreach>
+	</insert>
+
+	<delete id="deleteByOrgId">
+		DELETE FROM org_group_map WHERE Org_ID=#{orgId}
+	</delete>
+</mapper>

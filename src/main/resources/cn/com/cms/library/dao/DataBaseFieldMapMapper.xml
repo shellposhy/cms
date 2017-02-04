@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.library.dao.DataBaseFieldMapMapper">
+	<resultMap id="resultMap" type="cn.com.cms.library.model.DataBaseFieldMap">
+		<result property="id" column="ID" />
+		<result property="baseId" column="Base_ID" />
+		<result property="fieldId" column="Field_ID" />
+		<result property="type" column="Type" />
+		<result property="isDisplay" column="Is_Display" />
+	</resultMap>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM data_base_field_map
+		WHERE ID=#{id}
+	</select>
+
+	<select id="findByDBId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT * FROM data_base_field_map WHERE Base_ID = #{dbId} ]]>
+	</select>
+
+	<delete id="deleteByDbIdAndFieldId" parameterType="java.util.Map">
+		DELETE FROM data_base_field_map WHERE Base_ID=#{dbId} AND Field_ID=#{fieldId}
+	</delete>
+
+	<select id="findByDBIdAndIsDisplay" resultMap="resultMap"
+		parameterType="Integer">
+		<![CDATA[ SELECT * FROM data_base_field_map WHERE Base_ID = #{dbId} AND  Is_Display= #{isDisplay}]]>
+	</select>
+
+
+	<select id="countByFieldId" resultType="int" parameterType="Integer">
+		SELECT COUNT(*) FROM data_base_field_map WHERE Field_ID = #{fieldId}
+	</select>
+
+	<select id="findBaseId" resultType="java.lang.Integer">
+		SELECT DISTINCT Base_ID FROM
+		data_base_field_map
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		data_base_field_map(Base_ID,Field_ID,Type, Is_Display)
+		VALUES
+		(#{baseId},#{fieldId},#{type},#{isDisplay})
+	</insert>
+
+	<update id="update">
+		UPDATE data_base_field_map SET
+		Base_ID = #{baseId},
+		Field_ID = #{fieldId},
+		Type = #{type}
+		Is_Display = #{isDisplay}
+		WHERE
+		ID=#{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM data_base_field_map WHERE ID=#{id}
+	</delete>
+
+	<delete id="batchDeleteByDBId" parameterType="Integer">
+		DELETE FROM
+		data_base_field_map WHERE Base_ID = #{dbId}
+	</delete>
+
+</mapper>

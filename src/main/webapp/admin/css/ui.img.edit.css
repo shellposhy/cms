@@ -1,0 +1,49 @@
+#toolBar li {
+	list-style: none;
+	height: 28px;
+}
+
+#toolBar span {
+	display: inline-block;
+	float: left;
+	padding: 5px 8px;
+	margin-right: 5px;
+}
+
+.visiting {
+	display: block;
+	z-index: 2;
+}
+
+.unvisiting {
+	display: none;
+}
+
+.corp_border {
+	border: 1px solid #333333;
+}
+
+.span_12 {
+	width: 94%;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.input_w {
+	width: 80px;
+	line-height: 15px;
+	height: 16px;
+	vertical-align: middle;
+}
+
+#editor {
+	z-index: 1;
+	margin-top: 20px;
+}
+
+#select_container {
+	min-height: 500px;
+	text-align: center;
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="application-name" content="数据" />
+<meta name="description" content="拼家网" />
+<title>${title!""}</title>
+<link href="${appPath}/static/default/css/jquery_css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="${appPath}/static/default/css/jquery_css/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" />
+<link href="${appPath}/static/default/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="${appPath}/static/default/css/jquery_css/jquery.noty.css" rel="stylesheet" type="text/css" />
+<link href="${appPath}/static/default/css/common.css" rel="stylesheet" type="text/css" />
+<link href="${appPath}/static/default/css/channel.css" rel="stylesheet" type="text/css" />
+<link href="${appPath}/static/default/css/favo_detail.css" rel="stylesheet" type="text/css" />
+<script src="${appPath}/static/default/js/plugin/jquery-1.8.2.js" type="text/javascript" ></script>
+<script src="${appPath}/static/default/js/plugin/jquery-ui.min.js" type="text/javascript"></script>
+<script src="${appPath}/static/default/js/plugin/jquery.ui.datepicker.js" type="text/javascript"></script>
+<script src="${appPath}/static/default/js/plugin/bootstrap.js" type="text/javascript" ></script>
+<script src="${appPath}/static/default/js/plugin/jquery.form.js" type="text/javascript" ></script>
+<script src="${appPath}/static/default/js/plugin/jquery.cookie.js" type="text/javascript" ></script>
+<script src="${appPath }/static/default/js/plugin/jquery.validate.min.js"></script>
+<script src="${appPath }/static/default/js/plugin/jquery.metadata.js"></script>
+<script src="${appPath}/static/default/js/plugin/jquery-spin.js" type="text/javascript" ></script>
+<script src="${appPath}/static/default/js/plugin/jquery.pagination.js" type="text/javascript"></script>
+<script src="${appPath}/static/default/js/plugin/jquery.jqprint-0.3.js" type="text/javascript"></script>
+<script src="${appPath}/static/default/js/common.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+    <script src="${appPath}/static/default/js/plugin/json2.js"></script>
+<![endif]-->
+<!-- ie6FixPng -->
+<!--[if lt IE 7]>
+  <script src="${appPath }/static/default/js/plugin/pngIE.js"></script>
+  <script type="text/javascript">
+    EvPNG.fix('i');
+  </script>
+<![endif]-->
+<script type="text/javascript">
+    var appPath = "${appPath}/";
+</script>
+</head>
+<body>
+<div id="container">
+    <div id="con" class="clearfix">
+        <div class="header_low">
+            <div class="warp980 clearfix">
+                <a href="${appPath}/" class="logo_min"></a>
+                <span class="header_low_title">${base.name}</span>
+                <span class="top_bar">
+                       <span class="top_bar_i" id="login_user">用户登录
+                            <div id="userlogin" class="userlogin">
+                                <h2>用户登录</h2>
+                                <div class="userlogin_form_div">
+                                    <form action="#" method="post">
+                                        <div class="left inputs_part">
+                                            <div class="input_name_bg">
+                                                <input name="j_username" type="text" maxlength="16" placeholder="用户名/阅读卡号">
+                                            </div>
+                                            <div class="input_pw_bg">
+                                                <input name="j_password" type="password" maxlength="16" placeholder="您的密码">
+                                            </div>
+                                        </div>
+                                        <input type="submit" class="input_s" value="登录">
+                                    </form>
+                                </div>
+                            </div>
+                    </span>
+                    <span class="top_bar_i" id="visitor" >欢迎您：<span class="c_r">游客 【在未登陆前，您将无法浏览全部内容！】</span></span> 
+                    <span class="top_bar_i none" id="welcome">欢迎您：<span class="c_r" id="UserName">sa</span></span>
+                    <a class="top_bar_i none" href="j_spring_security_logout" id="logout">退出</a>
+                </span>
+            </div>
+        </div>   
+        <div class="main_warp">
+        <ul class="detail_toolbar warp980 clearfix">
+            <li><a href="#"><i class="icon_back"></i>返回 </a></li>            
+            <li><a href="#"><i class="icon_pre"></i>上一篇 </a></li>
+             <li><a href="#"><i class="icon_next"></i>下一篇 </a></li>
+            <li><a href="#"  target="_blank"><i class="icon_print"  ></i>打印预览</a></li>
+            <li><a href="#"><i class="icon_down"></i>下 载</a></li>
+        </ul>
+         <div class="div_detail warp950">
+                <div class="title">${title!""}</div>
+                <div class="author">【作者：${authors!""}】</div>
+                <div class="info clearfix">
+                    <div class="sha_left">
+                        【<span>${doc_time!""}</span>】
+                    </div>
+                    <div class="right" >
+                        【字号：<a href="#" id="size_add" >加大</a>&nbsp;<a href="#" id="size_reset">还原</a>&nbsp;<a href="#" id="size_reduce">减小</a>】
+                    </div>
+                </div>
+                <div id="FontZoom" class="detail_con">
+                    ${content!""}
+                </div>
+            </div>
+         </div>
+        </div> 
+     	<div id="footer">拼家网数据 | 联系电话：010-65368285 | 邮箱：kf@51pjia.com<br /> 拼家网
+			Copyright © 1997-2013 by www.51pjia.com  all rights reserved<br />浏览本页面，建议将电脑显示屏的分辨率调为1024*768或以上
+		</div>
+    </div>
+</body>
+</html>

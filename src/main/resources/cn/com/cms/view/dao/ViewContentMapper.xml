@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.view.dao.ViewContentMapper">
+	<resultMap id="resultMap" type="cn.com.cms.view.model.ViewContent">
+		<result property="id" column="ID" />
+		<result property="pageId" column="Page_ID" />
+		<result property="itemId" column="Item_ID" />
+		<result property="name" column="Name" />
+		<result property="contentType" column="Content_Type" />
+		<result property="content" column="Content" />
+		<result property="filterCondition" column="Filter_Condition" />
+		<result property="listFormat" column="List_Format" />
+		<result property="nameLinkType" column="Name_Link_Type" />
+		<result property="nameLink" column="Name_Link" />
+	</resultMap>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		view_content(Page_ID,Item_ID,Content_Type,Content,Filter_Condition,List_Format,Name,Name_Link_Type,Name_Link)
+		VALUES(#{pageId},#{itemId},#{contentType},#{content},#{filterCondition},#{listFormat},#{name},#{nameLinkType},#{nameLink})
+	</insert>
+
+	<update id="update">
+		UPDATE view_content SET
+		Page_ID=#{pageId},
+		Item_ID=#{itemId},
+		Content_Type=#{contentType},
+		Content=#{content},
+		Filter_Condition=#{filterCondition},
+		List_Format=#{listFormat},
+		Name=#{name},
+		Name_Link_Type=#{nameLinkType},
+		Name_Link=#{nameLink}
+		WHERE ID=#{id}
+	</update>
+
+	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_content WHERE ID=#{id}
+	</select>
+	
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM view_content 
+	</select>
+
+	<select id="findByPageId" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_content WHERE Page_ID=#{pageId}
+	</select>
+
+	<select id="findByPageIdAndItemId" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_content WHERE Page_ID=#{pageId} AND Item_ID=#{itemId}
+	</select>
+
+	<delete id="deleteByPageIdAndItemId" parameterType="java.lang.Integer">
+		DELETE FROM view_content WHERE Page_ID=#{pageId} AND Item_ID=#{itemId}
+	</delete>
+
+	<delete id="deleteByPageId" parameterType="java.lang.Integer">
+		DELETE FROM view_content WHERE Page_ID=#{pageId}
+	</delete>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM view_content WHERE ID=#{id}
+	</delete>
+
+</mapper>

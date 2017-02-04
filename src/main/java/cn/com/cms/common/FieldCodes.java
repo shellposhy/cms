@@ -1,0 +1,44 @@
+package cn.com.cms.common;
+
+public final class FieldCodes {
+	public static final String ID = "ID";
+	public static final String UUID = "UUID";
+	public static final String FINGER_PRINT = "Finger_Print";
+	public static final String BASE_ID = "Base_ID";
+	public static final String TABLE_ID = "Table_ID";
+	public static final String SORT_IDS = "Sort_Ids";
+	public static final String DATA_STATUS = "Data_Status";
+	public static final String INDEX_TIME = "Index_Time";
+	public static final String CREATE_TIME = "Create_Time";
+	public static final String UPDATE_TIME = "Update_Time";
+	public static final String CREATOR_ID = "Creator_ID";
+	public static final String UPDATER_ID = "Updater_ID";
+	public static final String Edition_NO = "editionNo";
+	public static final String TITLE = "Title";
+	public static final String AUTHORS = "Authors";
+	public static final String CONTENT = "Content";
+	public static final String DOC_TIME = "Doc_Time";
+	public static final String DOC_YEAR = "Doc_Year";
+	public static final String DOC_MONTH = "Doc_Month";
+	public static final String DOC_DAY = "Doc_Day";
+	public static final String DOC_STATUS = "Doc_Status";
+	public static final String SCROLL_IMG = "Scroll_Img";
+	public static final String ORDER_ID = "Order_ID";
+	public static final String KEYWORDS = "Keywords";
+	public static final String SUMMARY = "Summary";
+	public static final String IMGS = "Imgs";
+	public static final String PAGE_NUM = "Page_Num";
+	public static final String PAGE_NANME = "Page_Name";
+	public static final String COORDS = "Coords";
+	public static final String STYLE = "Style";
+	public static final String INTROTITLE = "Intro_Title";
+	public static final String SUBTITLE = "Sub_Title";
+	public static final String SECRET_LEVEL = "Secret_Level";
+	public static final String ATTACH = "Attach";
+	public static final String File_ADDRESS = "File_Address";
+	public static final String Video_ADDRESS = "Video_Address";
+	public static final String Video_WEB_ADDRESS = "Video_Web_Address";
+	public static final String VIDEO_TYPE = "Video_Type";
+	public static final String VIDEO_THUMB = "Video_Thumb";
+	public static final String PROJECT_ID = "Project_ID";
+}

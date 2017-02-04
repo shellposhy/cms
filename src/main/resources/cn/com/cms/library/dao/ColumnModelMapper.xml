@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.library.dao.ColumnModelMapper">
+	<resultMap id="resultMap" type="cn.com.cms.library.model.ColumnModel">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="type" column="Type" />
+		<result property="describe" column="Fields_Describe" />
+		<result property="memo" column="Memo" />
+		<result property="forSys" column="For_Sys" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		<![CDATA[INSERT INTO column_model
+		(
+		Name,Code,Type,Fields_Describe,Memo,For_Sys)
+		VALUES(
+		#{name},#{code},#{type},#{describe},#{memo},#{forSys})
+		]]>
+	</insert>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM column_model WHERE
+		ID=#{id}
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM column_model
+	</select>
+
+	<select id="findAllByType" parameterType="int" resultMap="resultMap">
+		SELECT * FROM column_model WHERE Type = #{type}
+	</select>
+
+	<select id="findByName" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT * FROM column_model
+		<where>
+			<if test="name!=null">
+				Name like "%"#{name}"%"
+			</if>
+			<if test="type!=null">
+				AND Type = #{type}
+			</if>
+		</where>
+		order by ID limit #{firstResult},#{maxResult}
+	</select>
+
+	<select id="countByName" parameterType="java.util.Map"
+		resultType="int">
+		SELECT count(*) FROM column_model
+		<where>
+			<if test="name!=null">
+				Name like "%"#{name}"%"
+			</if>
+			<if test="type!=null">
+				AND Type = #{type}
+			</if>
+		</where>
+	</select>
+
+
+	<update id="update">
+		UPDATE column_model SET
+		Name = #{name},
+		Code = #{code},
+		Type = #{type},
+		Fields_Describe = #{describe},
+		Memo = #{memo}
+		WHERE
+		ID=#{id}
+	</update>
+
+	<delete id="delete" parameterType="java.util.List">
+		DELETE FROM column_model WHERE
+		ID
+		= #{id}
+	</delete>
+
+	<delete id="batchDelete" parameterType="java.util.List">
+		DELETE FROM column_model WHERE ID IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+</mapper>

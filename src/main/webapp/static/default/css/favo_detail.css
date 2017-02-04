@@ -1,0 +1,39 @@
+/* favo detail */
+.favo_tb tr td {
+	padding: 8px;
+	vertical-align: middle;
+}
+
+.favo_input {
+	display: inline-block;
+	width: 210px;
+	height: 18px;
+	padding: 4px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #555555;
+	border: 1px solid #cccccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.favo_input.favo_select {
+	height: auto;
+	width: 220px;
+}
+.ispartTr label{
+	height:28px;
+	line-height:28px;
+	font-size:12px;
+	padding-right:10px;
+}
+.favo_input_radio{
+	margin-right:4px;
+	vertical-align:text-bottom;
+}
+
+.favo_tb label.error {
+	margin-left: 5px;
+	color: #AA0000;
+}

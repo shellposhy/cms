@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/WEB-INF/layouts/">
+	<excludes>
+		<pattern>/admin/login</pattern>
+		<pattern>/admin/security/check</pattern>
+		<pattern>/admin/view/page/config/preview/*</pattern>
+		<pattern>/admin/css/**</pattern>
+		<pattern>/admin/js/**</pattern>
+		<pattern>/admin/jscript/**</pattern>
+		<pattern>/admin/img/**</pattern>
+		<pattern>/static/**</pattern>
+		<pattern>/exception</pattern>
+	</excludes>
+	
+	<decorator name="default" page="current.jsp">
+		<pattern>/admin/*</pattern>
+		<pattern>/admin</pattern>
+	</decorator>
+	
+	<decorator name="popup" page="popup.jsp">
+		<pattern>/admin/org/*/edit</pattern>
+		 <pattern>/admin/system/library/directory/*/edit</pattern>
+		 <pattern>/admin/system/library/data/new/*</pattern>
+		 <pattern>/admin/system/library/edit/*</pattern>
+		  <pattern>/admin/system/library/data/info/*/*</pattern>
+		 <pattern>/admin/view/model/directory/*/edit</pattern>
+		 <pattern>/admin/view/page/config/preview/*</pattern>
+		 <pattern>/admin/data/sort/*/edit</pattern>
+	</decorator>
+</decorators>

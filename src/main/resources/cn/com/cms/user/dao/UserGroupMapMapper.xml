@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.user.dao.UserGroupMapMapper">
+	<resultMap id="resultMap" type="cn.com.cms.user.model.UserGroupMap">
+		<result property="id" column="ID" />
+		<result property="groupID" column="Group_ID" />
+		<result property="userID" column="User_ID" />
+	</resultMap>
+
+	<delete id="deleteByGroupId">
+		DELETE FROM user_group_map WHERE Group_ID=#{groupId}
+	</delete>
+
+	<select id="findGroupIdsByUserId" resultType="java.lang.Integer">
+		SELECT Group_ID
+		FROM user_group_map WHERE User_ID=#{userId}
+	</select>
+
+	<select id="findUserIdsByGroupId" resultType="java.lang.Integer">
+		SELECT User_ID FROM
+		user_group_map WHERE Group_ID=#{groupId}
+	</select>
+
+	<select id="searchUserIdsByGroupId" resultType="java.lang.Integer">
+		SELECT DISTINCT M.User_ID FROM user_group_map M WHERE
+		<if test="groupId!=null">
+			M.Group_ID = #{groupId}
+		</if>
+		AND M.User_ID IN (
+		SELECT U.ID FROM user U WHERE
+		<![CDATA[U.Status<>0]]>
+		AND U.ID=M.User_ID
+		<if test="qs!=null">
+			AND (U.Name like "%"#{qs}"%" Or U.Real_Name like
+			"%"#{qs}"%" )
+		</if>
+		)
+		limit #{first},#{size}
+	</select>
+
+	<select id="findUserIdsNotInGroupId" resultType="java.lang.Integer">
+		SELECT DISTINCT U.ID FROM user U WHERE
+		<![CDATA[U.Status<>0]]>
+		<if test="qs!=null">
+			AND (U.Name like "%"#{qs}"%" Or U.Real_Name like
+			"%"#{qs}"%" )
+		</if>
+		AND U.ID NOT IN (SELECT M.User_ID FROM user_group_map M WHERE
+		M.User_ID=U.ID AND M.Group_ID=#{groupId})
+		limit #{first},#{size}
+	</select>
+
+	<select id="countNotInGroupIdUser" resultType="int">
+		SELECT count(*) FROM user U WHERE
+		<![CDATA[U.Status<>0]]>
+		<if test="qs!=null">
+			AND (U.Name like "%"#{qs}"%" Or U.Real_Name like
+			"%"#{qs}"%" )
+		</if>
+		AND U.ID NOT IN (SELECT M.User_ID FROM user_group_map M WHERE
+		M.User_ID=U.ID AND M.Group_ID=#{groupId})
+	</select>
+
+	<select id="countUsers" resultType="int">
+		SELECT count(*) FROM user_group_map M WHERE
+		<if test="groupId!=null">
+			M.Group_ID = #{groupId}
+		</if>
+		AND M.User_ID IN (
+		SELECT U.ID FROM user U WHERE
+		<![CDATA[U.Status<>0]]>
+		AND U.ID=M.User_ID
+		<if test="qs!=null">
+			AND (U.Name like "%"#{qs}"%" Or U.Real_Name like
+			"%"#{qs}"%" )
+		</if>
+		)
+	</select>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO user_group_map
+		(Group_ID,User_ID)
+		VALUES
+		<foreach collection="list" item="userGroupMapList" index="index"
+			separator=",">
+			(#{userGroupMapList.groupID},#{userGroupMapList.userID})
+		</foreach>
+	</insert>
+
+	<delete id="deleteByUserId">
+		DELETE FROM user_group_map WHERE User_ID=#{userId}
+	</delete>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.view.dao.ViewModelCategoryMapper">
+	<resultMap id="resultMap" type="cn.com.cms.view.model.ViewModelCategory">
+		<result property="id" column="ID" />
+		<result property="parentID" column="Parent_ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="orderId" column="Order_ID" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO view_model_category(Parent_ID,Name,Code,Order_ID)
+		VALUES(#{parentID},#{name},#{code},#{orderId})
+	</insert>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM view_model_category
+		WHERE ID=#{id}
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM view_model_category
+	</select>
+
+	<select id="findByParentId" resultMap="resultMap">
+		SELECT * FROM view_model_category WHERE Parent_ID=#{parentId}
+	</select>
+
+	<update id="update">
+		UPDATE view_model_category SET
+		Parent_ID =#{parentID},
+		Name = #{name},
+		Code = #{code},
+		Order_ID = #{orderId}
+		WHERE ID=#{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM view_model_category WHERE ID=#{id}
+	</delete>
+</mapper>

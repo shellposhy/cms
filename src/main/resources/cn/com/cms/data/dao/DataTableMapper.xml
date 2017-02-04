@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.data.dao.DataTableMapper">
+	<resultMap id="resultMap" type="cn.com.cms.data.model.DataTable">
+		<result property="id" column="ID" />
+		<result property="baseId" column="Base_ID" />
+		<result property="name" column="Name" />
+		<result property="rowCount" column="Row_Count" />
+	</resultMap>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM data_table
+	</select>
+
+	<select id="findByBaseId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT * FROM data_table WHERE Base_ID = #{dbId}]]>
+	</select>
+	
+	<select id="findTables" resultMap="resultMap" parameterType="int">
+		<![CDATA[ SELECT t.* FROM data_table t, data_base db WHERE t.Base_ID = db.ID AND db.Node_Type = 0 AND db.Type = #{type}]]>
+	</select>
+	
+	<select id="findRowCountByName" resultType="Integer" parameterType="String">
+		<![CDATA[ SELECT Row_Count FROM data_table WHERE Name = #{tableName} ]]>
+	</select>
+	
+	<select id="findByName" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM data_table WHERE Name = #{tableName} ]]>
+	</select>
+	
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM data_table WHERE ID=#{id}
+	</select>
+	
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		data_table(Base_ID,Name,Row_Count)
+		VALUES
+		(#{baseId},#{name},#{rowCount})
+	</insert>
+
+	<update id="update">
+		UPDATE data_table SET
+		Base_ID = #{baseId},
+		Name =  #{name},
+		Row_Count = #{rowCount},
+		WHERE ID=#{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM data_table WHERE ID=#{id}
+	</delete>
+	
+	<update id="increaseRowCount">
+		UPDATE data_table SET
+		Row_Count = Row_Count + #{num}
+		WHERE ID=#{id}
+	</update>
+	
+	<update id="decreaseRowCount">
+		UPDATE data_table SET
+		Row_Count = Row_Count - #{num}
+		WHERE ID=#{id}
+	</update>
+	
+</mapper>

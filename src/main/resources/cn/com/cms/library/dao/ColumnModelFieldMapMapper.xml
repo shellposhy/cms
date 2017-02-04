@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.library.dao.ColumnModelFieldMapMapper">
+	<resultMap id="resultMap" type="cn.com.cms.library.model.ColumnModelFieldMap">
+		<result property="id" column="ID" />
+		<result property="columnModelId" column="Column_Model_ID" />
+		<result property="fieldId" column="Field_ID" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO column_model_field_map
+		(
+		Column_Model_ID,Field_ID)
+		VALUES(
+		#{columnModelId},#{fieldId})
+	</insert>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO column_model_field_map
+		(
+		Column_Model_ID,Field_ID)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.columnModelId},#{item.fieldId})
+		</foreach>
+
+	</insert>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM column_model_field_map
+		WHERE
+		ID=#{id}
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM
+		column_model_field_map
+	</select>
+
+	<select id="findByColumnModelId" resultMap="resultMap">
+		SELECT * FROM
+		column_model_field_map WHERE Column_Model_ID=#{columnModelId}
+	</select>
+
+
+	<update id="update">
+		UPDATE column_model_field_map SET
+		Column_Model_ID =
+		#{columnModelId},
+		Field_ID = #{fieldId}
+		WHERE ID=#{id}
+	</update>
+
+	<delete id="delete" parameterType="java.util.List">
+		DELETE FROM
+		column_model_field_map WHERE
+		ID
+		= #{id}
+	</delete>
+
+	<delete id="deleteByColumnModelId">
+		DELETE FROM column_model_field_map WHERE
+		Column_Model_ID=#{id}
+	</delete>
+
+	<delete id="batchDelete" parameterType="java.util.List">
+		DELETE FROM column_model_field_map WHERE ID IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+</mapper>

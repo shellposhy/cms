@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.view.dao.ViewModelMapper">
+	<resultMap id="resultMap" type="cn.com.cms.view.model.ViewModel">
+		<result property="id" column="ID" />
+		<result property="categoryId" column="Category_ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="modelType" column="Model_Type" />
+		<result property="fileName" column="File_Name" />
+		<result property="content" column="Content" typeHandler="cn.com.cms.framework.view.BlobTypeHandler" />
+		<result property="orderId" column="Order_ID" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO view_model(Category_ID,Name,Code,Model_Type,File_Name,Content,Order_ID)
+		VALUES(#{categoryId},#{name},#{code},#{modelType},#{fileName},#{content},#{orderId})
+	</insert>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM view_model
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM view_model
+	</select>
+	
+	<select id="findByType" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM view_model where Model_Type = #{modelType}
+	</select>
+	
+	<select id="findByPage" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM view_model limit #{firstResult},#{maxResult}
+	</select>
+
+	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_model WHERE ID=#{id}
+	</select>
+
+	<select id="findByCategoryId" resultMap="resultMap">
+		SELECT * FROM view_model WHERE Category_ID=#{categoryId}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM view_model WHERE ID=#{id}
+	</delete>
+
+	<update id="update">
+		UPDATE view_model SET
+		Name = #{name},
+		Category_ID=#{categoryId},
+		Code = #{code},
+		Model_Type = #{modelType},
+		File_Name = #{fileName},
+		Content = #{content},
+		Order_ID = #{orderId}
+		WHERE ID=#{id}
+	</update>
+
+</mapper>

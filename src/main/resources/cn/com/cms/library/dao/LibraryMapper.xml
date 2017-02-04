@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.library.dao.LibraryMapper">
+	<resultMap type="cn.com.cms.library.model.BaseLibrary" id="baseLibrary">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="pathCode" column="Path_Code" />
+		<result property="type" column="Type" />
+		<result property="nodeType" column="Node_Type" />
+		<result property="parentID" column="Parent_ID" />
+		<result property="modelId" column="Model_ID" />
+		<result property="tables" column="Tables" />
+		<result property="status" column="Status" />
+		<result property="orderId" column="Order_ID" />
+		<result property="taskId" column="Task_ID" />
+		<result property="dataUpdateTime" column="Data_Update_Time" />
+		<result property="createTime" column="Create_Time" />
+		<result property="creatorId" column="Creator_ID" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="updaterId" column="Updater_ID" />
+		<discriminator javaType="int" column="Type">
+			<case value="0" resultMap="database" />
+			<case value="1" resultMap="database" />
+		</discriminator>
+	</resultMap>
+
+	<resultMap id="database" type="cn.com.cms.library.model.DataBase" extends="baseLibrary">
+	</resultMap>
+
+	<select id="find" resultMap="baseLibrary" parameterType="java.lang.Integer">
+		SELECT * FROM data_base WHERE ID=#{id}
+	</select>
+
+	<select id="findByPathCode" resultMap="baseLibrary" parameterType="java.lang.String">
+		SELECT * FROM data_base WHERE Path_Code = #{pathCode}
+	</select>
+
+	<select id="findByTableId" resultMap="baseLibrary" parameterType="java.lang.Integer">
+		SELECT db.* FROM data_base db, data_table tb
+		WHERE db.ID = tb.Base_ID AND tb.ID = #{tableId}
+	</select>
+
+	<select id="findLikePathCode" resultMap="baseLibrary" parameterType="java.lang.String">
+		SELECT * FROM data_base WHERE Path_Code LIKE "%"#{pathCode}"%"
+	</select>
+
+	<select id="findByNodeTypeAndLikePathCode" resultMap="baseLibrary" parameterType="java.lang.String">
+		SELECT * FROM data_base WHERE Path_Code LIKE "%"#{pathCode}"%" AND Node_Type = #{nodeType}
+	</select>
+
+	<select id="findByCode" resultMap="baseLibrary" parameterType="java.lang.String">
+		SELECT * FROM data_base WHERE Code = #{code} limit 1
+	</select>
+
+	<select id="findByNameOrCode" parameterType="java.lang.String"
+		resultMap="baseLibrary">
+		SELECT * FROM data_base WHERE Name like "%"#{word}"%" OR Code like "%"#{word}"%"
+	</select>
+
+	<select id="findByStatus" resultMap="baseLibrary">
+		SELECT * FROM data_base WHERE Status = #{status} ORDER BY Parent_ID, ID
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO data_base(
+		Name,Code,Path_Code,Type,Node_Type,Parent_ID,Model_ID,Tables,Status,Order_ID,Task_ID,Data_Update_Time,Create_Time,Creator_ID,Update_Time,Updater_ID
+		)
+		VALUES(
+		#{name},#{code},#{pathCode},#{type},#{nodeType},#{parentID},#{modelId},#{tables},#{status},#{orderId},#{taskId},#{dataUpdateTime},#{createTime},#{creatorId},#{updateTime},#{updaterId}
+		)
+	</insert>
+
+	<update id="update">
+		UPDATE data_base SET
+		Name = #{name},
+		Code = #{code},
+		Path_Code =#{pathCode},
+		Type = #{type},
+		Node_Type = #{nodeType},
+		Parent_ID =#{parentID},
+		Model_ID = #{modelId},
+		Tables = #{tables},
+		Status = #{status},
+		Order_ID = #{orderId},
+		Task_ID = #{taskId},
+		Data_Update_Time =#{dataUpdateTime},
+		Create_Time = #{createTime},
+		Creator_ID = #{creatorId},
+		Update_Time =#{updateTime},
+		Updater_ID = #{updaterId}
+		WHERE ID=#{id}
+	</update>
+
+	<update id="updateStatus">
+		UPDATE data_base SET
+		Status = #{status}
+		WHERE ID=#{id}
+	</update>
+
+	<update id="updateTask">
+		UPDATE data_base SET
+		Task_ID = #{taskId}
+		WHERE ID=#{id}
+	</update>
+
+
+	<update id="updateDataUpdateTime">
+		UPDATE data_base SET Data_Update_Time = NOW()
+		WHERE ID=#{id}
+	</update>
+
+	<select id="findLastDataUpdateTime" parameterType="int" resultType="java.util.Date">
+		SELECT Data_Update_Time FROM data_base WHERE Type=#{type}
+		AND Node_Type=0 ORDER BY Data_Update_Time DESC limit 0,1
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM data_base WHERE ID= #{id}
+	</delete>
+
+	<select id="count" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM data_base WHERE Type=#{type} AND Node_Type=#{nodeType}
+	</select>
+
+	<select id="findAll" parameterType="java.util.Map" resultMap="baseLibrary">
+		SELECT * FROM data_base
+		<where>
+			<if test="type!=null">
+				AND Type=#{type}
+			</if>
+			<if test="nodeType!=null">
+				AND Node_Type=#{nodeType}
+			</if>
+		</where>
+		ORDER BY Parent_ID, ID
+	</select>
+
+	<select id="findByParentId" parameterType="java.util.Map" resultMap="baseLibrary">
+		SELECT * FROM data_base
+		<where>
+			Parent_ID = #{id}
+			<if test="nodeType!=null">
+				AND Node_Type=#{nodeType}
+			</if>
+		</where>
+	</select>
+
+	<select id="findByParent" parameterType="java.util.Map" resultMap="baseLibrary">
+		SELECT * FROM data_base
+		<where>
+			Parent_ID = #{id}
+		</where>
+	</select>
+
+	<select id="findByParentAndType" parameterType="java.util.Map" resultMap="baseLibrary">
+		SELECT * FROM data_base
+		<where>
+			Parent_ID = #{id}
+		</where>
+		<if test="type!=null">
+			AND Type=#{type}
+		</if>
+	</select>
+
+	<select id="findEmptyDirectory" parameterType="Boolean" resultMap="baseLibrary">
+		SELECT * FROM data_base
+		<where>
+			<if test="type!=null">
+				AND Type=#{type}
+			</if>
+			AND Node_Type=1
+			AND ID NOT IN (SELECT DISTINCT Parent_ID FROM
+			data_base WHERE Node_Type=0 )
+		</where>
+	</select>
+
+	<select id="findLikeName" parameterType="java.util.Map" resultMap="baseLibrary">
+		SELECT * FROM data_base
+		<where>
+			Name like "%"#{name}"%"
+			<if test="type!=null">
+				AND Type=#{type}
+			</if>
+			<if test="nodeType!=null">
+				AND Node_Type=#{nodeType}
+			</if>
+		</where>
+	</select>
+	
+	<update id="addDataTables">
+		UPDATE data_base SET
+		Tables = Tables + 1,
+		Update_Time = NOW()
+		WHERE ID=#{id}
+	</update>
+	
+	<select id="findModelIDAndType" parameterType="java.util.Map" resultMap="baseLibrary">
+		SELECT * FROM data_base WHERE Model_ID=#{modelId} AND Node_Type=#{type}
+	</select>
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.library.dao.DataSortMapper">
+	<resultMap id="resultMap" type="cn.com.cms.library.model.DataSort">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="pathCode" column="Path_Code" />
+		<result property="baseId" column="Base_ID" />
+		<result property="parentID" column="Parent_ID" />
+		<result property="orderId" column="Order_ID" />
+		<result property="status" column="Status" />
+		<result property="forSys" column="For_Sys" />
+		<result property="type" column="Type" />
+		<result property="createTime" column="Create_Time" />
+		<result property="creatorId" column="Creator_ID" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="updaterId" column="Updater_ID" />
+	</resultMap>
+
+	<select id="findByCodeAndDB" resultMap="resultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID
+		= #{dbId} limit 1
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM data_sort ORDER BY
+		Order_ID
+	</select>
+
+	<select id="findByName" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM data_sort WHERE Name like "%"#{name}"%" ORDER BY Order_ID ]]>
+	</select>
+
+	<select id="findByPathCode" resultMap="resultMap" parameterType="java.lang.String">
+		SELECT * FROM data_sort WHERE Path_Code like #{pathCode}
+	</select>
+
+	<select id="findByCode" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID = #{dbId}
+		limit 1
+	</select>
+
+	<select id="findByDbAndCode" resultMap="resultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID
+		= #{dbId} limit 1
+	</select>
+
+	<select id="findByNameAndParentId" resultMap="resultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM data_sort
+		<where>
+			Name=#{name}
+			<if test="parentId!=null">
+				AND Parent_ID=#{parentId}
+			</if>
+		</where>
+		ORDER BY Parent_ID, ID
+	</select>
+
+	<select id="findByDBId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT * FROM data_sort WHERE Base_ID = #{dbId}  ORDER BY Order_ID]]>
+	</select>
+
+	<select id="findRootByDBId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT * FROM data_sort WHERE Base_ID = #{dbId} AND Parent_ID = 0 ORDER BY Order_ID]]>
+	</select>
+
+	<select id="findByDbIdAndType" resultMap="resultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM data_sort
+		<where>
+			Base_ID=#{dbId}
+			<if test="type!=null">
+				AND type=#{type}
+			</if>
+		</where>
+		ORDER BY Order_ID
+	</select>
+
+	<select id="findNoCommonSort" resultMap="resultMap"
+		parameterType="Integer">
+		<![CDATA[ SELECT * FROM data_sort WHERE Base_ID <> 0  ORDER BY Order_ID]]>
+	</select>
+
+	<select id="findByParentId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT * FROM data_sort WHERE Parent_ID = #{parentId}  ORDER BY Order_ID]]>
+	</select>
+
+	<select id="findByNameAndDBId" resultMap="resultMap"
+		parameterType="String">
+		<![CDATA[ SELECT * FROM data_sort WHERE Name like "%"#{name}"%" AND Base_ID = #{dbId} ORDER BY Order_ID ]]>
+	</select>
+
+	<select id="findByNameDbIdAndType" resultMap="resultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM data_sort
+		<where>
+			Name like "%"#{name}"%" AND Base_ID=#{dbId}
+			<if test="type!=null">
+				and type=#{type}
+			</if>
+		</where>
+		ORDER BY Order_ID
+	</select>
+
+	<select id="findByLibType" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT ds.* FROM data_sort ds, Data_Base db
+		<where>
+			ds.Base_ID = db.ID
+			<if test="type!=null">
+				AND db.type=#{type}
+			</if>
+		</where>
+		ORDER BY Parent_ID, ID,Order_ID
+	</select>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM data_sort WHERE
+		ID=#{id}
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		data_sort(Name,Code,Path_Code,Base_ID,Parent_ID,Order_ID,Status,For_Sys,type,Create_Time,Creator_ID,Update_Time,Updater_ID)
+		VALUES
+		(#{name},#{code},#{pathCode},#{baseId},#{parentID},#{orderId},#{status},#{forSys},#{type},#{createTime},#{creatorId},#{updateTime},#{updaterId})
+	</insert>
+
+	<update id="update">
+		UPDATE data_sort SET
+		Name = #{name},
+		Code = #{code},
+		Path_Code = #{pathCode},
+		Base_ID = #{baseId},
+		Parent_ID = #{parentID},
+		Order_ID = #{orderId},
+		Status = #{status},
+		For_Sys = #{forSys},
+		Create_Time = #{createTime},
+		Creator_ID = #{creatorId},
+		Update_Time =
+		#{updateTime},
+		Updater_ID = #{updaterId}
+		WHERE ID=#{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM data_sort WHERE ID=#{id}
+	</delete>
+
+</mapper>

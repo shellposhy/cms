@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.user.dao.UserMapper">
+	<!-- MyBatis Cache Switch-->
+	<!--<cache type="org.mybatis.caches.ignite.IgniteCacheAdapter" />-->
+	<resultMap id="resultMap" type="cn.com.cms.user.model.User">
+		<result property="id" column="ID" />
+		<result property="userType" column="User_Type" />
+		<result property="name" column="Name" />
+		<result property="realName" column="Real_Name" />
+		<result property="dieName" column="Die_Name" />
+		<result property="password" column="Password" />
+		<result property="orgID" column="Org_ID" />
+		<result property="sex" column="Sex" />
+		<result property="orderId" column="Order_ID" />
+		<result property="ipAddress" column="IP_Address" />
+		<result property="startIp" column="Start_IP" />
+		<result property="endIp" column="End_IP" />
+		<result property="idCardNumber" column="ID_Card_Number" />
+		<result property="phoneNumber" column="Phone_Number" />
+		<result property="email" column="Email" />
+		<result property="position" column="Position" />
+		<result property="pic" column="Pic" />
+		<result property="status" column="Status" />
+		<result property="forSys" column="For_Sys" />
+		<result property="createTime" column="Create_Time" />
+		<result property="creatorId" column="Creator_ID" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="updaterId" column="Updater_ID" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		user(User_Type,Name,Real_Name,Password,Sex,Order_ID,Org_ID,IP_Address,Pic,Status,For_Sys,ID_Card_Number,Position,Phone_Number,Email,Create_Time,Creator_ID,Update_Time,Updater_ID)
+		VALUES
+		(#{userType},#{name},#{realName},#{password},#{sex},#{orderId},#{orgID},#{ipAddress},#{pic},#{status},#{forSys},#{idCardNumber},#{position},#{phoneNumber},#{email},#{createTime},#{creatorId},#{updateTime},#{updaterId})
+	</insert>
+
+	<select id="findByName" resultMap="resultMap" parameterType="String">
+		SELECT * FROM user WHERE Name = #{name}
+		AND <![CDATA[Status<>0]]>
+	</select>
+
+	<select id="findByPhone" resultMap="resultMap" parameterType="String">
+		SELECT * FROM user WHERE Phone_Number = #{phoneNumber} AND User_Type=3
+		AND <![CDATA[Status<>0]]>
+	</select>
+
+
+	<select id="findByRealName" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM user WHERE Real_Name = #{realName} AND Status<>0]]>
+	</select>
+
+	<select id="findByOrgId" resultMap="resultMap">
+	    <![CDATA[ SELECT * FROM user WHERE Org_ID = #{orgID} AND Status<>0]]>
+	</select>
+
+	<select id="countByOrgAndUserName" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*) FROM user WHERE <![CDATA[Status<>0]]>
+		<if test="orgID!=null">
+			AND Org_ID = #{orgID}
+		</if>
+		<if test="name!=null">
+			AND (Name like "%"#{name}"%" Or Real_Name like
+			"%"#{name}"%" )
+		</if>
+	</select>
+
+	<select id="findByOrgAndUserName" parameterType="java.util.Map"
+		resultMap="resultMap">
+		SELECT * FROM user WHERE <![CDATA[Status<>0]]>
+		<if test="orgID!=null">
+			AND Org_ID = #{orgID}
+		</if>
+		<if test="name!=null">
+			AND (Name like "%"#{name}"%" Or Real_Name like
+			"%"#{name}"%" )
+		</if>
+		limit #{firstResult}, #{maxResult}
+	</select>
+
+	<select id="searchUsers" parameterType="java.util.Map"
+		resultMap="resultMap">
+		SELECT * FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%" )
+			</if>
+			AND <![CDATA[ Status<>0]]>
+		</where>
+		limit #{first},#{size}
+
+	</select>
+
+	<select id="countUsers" resultType="int">
+		SELECT COUNT(*) FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%" )
+			</if>
+			AND <![CDATA[Status<>0]]>
+		</where>
+	</select>
+
+	<select id="searchIpUsers" parameterType="java.util.Map"
+		resultMap="resultMap">
+		SELECT * FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%")
+			</if>
+			AND User_Type=1 AND <![CDATA[ Status<>0]]>
+		</where>
+		limit #{first},#{size}
+	</select>
+
+	<select id="searchAllIpPwdUsers" resultMap="resultMap">
+		SELECT * FROM user WHERE User_Type=2 AND <![CDATA[status<>0]]>
+	</select>
+
+	<!-- 查询密码用户 -->
+	<select id="searchPwUsers" parameterType="java.util.Map"
+		resultMap="resultMap">
+		SELECT * FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%")
+			</if>
+			AND User_Type=0 AND <![CDATA[Status<>0]]>
+		</where>
+		limit #{first},#{size}
+	</select>
+
+	<select id="countIpUsers" resultType="int">
+		SELECT COUNT(*) FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%")
+			</if>
+			AND User_Type=1 AND <![CDATA[Status<>0]]>
+		</where>
+	</select>
+
+	<select id="countPwUsers" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*) FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%")
+			</if>
+			And User_Type=0 AND <![CDATA[Status<>0]]>
+		</where>
+	</select>
+
+	<select id="countIPAndPwUsers" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*) FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%")
+			</if>
+			And User_Type=2 AND <![CDATA[Status<>0]]>
+		</where>
+	</select>
+
+	<select id="countByToday" resultType="int">
+		SELECT COUNT(*) FROM user
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" Or Real_Name like "%"#{qs}"%")
+			</if>
+			And DATEDIFF(Create_Time,SYSDATE()) =0 AND <![CDATA[Status<>0]]>
+		</where>
+	</select>
+
+	<update id="update">
+		UPDATE user SET
+		Name = #{name},
+		Real_Name =#{realName},
+		<if test="password!=null and password!=''">
+			Password = #{password},
+		</if>
+		User_Type = #{userType},
+		Sex =#{sex},
+		Order_ID = #{orderId},
+		Org_ID=#{orgID},
+		IP_Address=#{ipAddress},
+		Pic = #{pic},
+		Status =#{status},
+		For_Sys =#{forSys},
+		ID_Card_Number=#{idCardNumber},
+		Position=#{position},
+		Phone_Number=#{phoneNumber},
+		Email=#{email},
+		Update_Time =#{updateTime},
+		Updater_ID =#{updaterId}
+		WHERE ID=#{id}
+	</update>
+	
+	<update id="batchPetrify" parameterType="java.util.List">
+		UPDATE user
+		<trim prefix="set" suffixOverrides=",">
+			<trim prefix="Status=case" suffix="end,">
+				<foreach collection="list" item="user" index="index">
+					when
+					ID=#{user.id} then 0
+				</foreach>
+			</trim>
+			<trim prefix="Name=case" suffix="end,">
+				<foreach collection="list" item="user" index="index">
+					<if test="user.name!=null">
+						when ID=#{user.id} then #{user.name}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="Die_Name=case" suffix="end,">
+				<foreach collection="list" item="user" index="index">
+					<if test="user.dieName!=null">
+						when ID=#{user.id} then #{user.dieName}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		where
+		<foreach collection="list" separator="or" item="user" index="index">
+			ID=#{user.id}
+		</foreach>
+	</update>
+
+	<update id="petrify">
+		UPDATE user SET
+		Status=0,Name=#{user.name},Die_Name=#{user.dieName} WHERE
+		ID=#{user.id}
+	</update>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM user WHERE ID=#{id}
+	</select>
+
+	<select id="findAlive" resultMap="resultMap" parameterType="String">
+		SELECT * FROM user
+		<where>
+			<if test="qs!=null">
+				(Name = #{qs} OR Name like "%"#{qs}"%" OR Real_Name =
+				#{qs} OR Real_Name like "%"#{qs}"%")
+			</if>
+			AND <![CDATA[ Status<>0]]>
+		</where>
+		ORDER BY Name ,Real_Name
+	</select>
+
+	<select id="findByNamePwd" resultMap="resultMap">
+		SELECT * FROM user WHERE
+		Name = #{name} AND Password = #{pwd}
+	</select>
+
+</mapper>

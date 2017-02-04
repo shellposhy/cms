@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.system.dao.SysParameterMapper">
+	<resultMap id="resultMap" type="cn.com.cms.system.model.SysParameter">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="value" column="Value" />
+		<result property="paramType" column="Param_Type" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO sys_parameter(Name,Code,Value,Param_Type)
+		VALUES(#{name},#{code},#{value},#{paramType})
+	</insert>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM sys_parameter WHERE ID=#{id}
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM sys_parameter
+	</select>
+
+	<select id="findByParamType" resultMap="resultMap">
+		SELECT * FROM sys_parameter WHERE Param_Type=#{paramType}
+	</select>
+	
+	<select id="findByWord" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM sys_parameter
+		<if test="word!=null">
+			WHERE Name like "%"#{word}"%"
+		</if>
+		ORDER BY ID DESC limit #{first},#{size}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM sys_parameter 
+		<if test="word!=null">
+			WHERE Name like "%"#{word}"%"
+		</if>
+	</select>
+
+	<update id="update">
+		UPDATE sys_parameter SET
+		value = #{value}
+		WHERE ID=#{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM sys_parameter WHERE ID=#{id}
+	</delete>
+</mapper>

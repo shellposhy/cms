@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.user.dao.UserActionMapMapper">
+	<resultMap id="resultMap" type="cn.com.cms.user.model.UserActionMap">
+		<result property="id" column="ID" />
+		<result property="groupID" column="Group_ID" />
+		<result property="actionID" column="Action_ID" />
+		<result property="type" column="type" />
+	</resultMap>
+
+	<select id="findActionIdsByGroupId" resultType="java.lang.Integer">
+		SELECT Action_ID FROM user_action_map WHERE Group_ID=#{groupId}
+	</select>
+
+	<select id="findAdminActionIdsByGroupId" resultType="java.lang.Integer">
+		SELECT Action_ID FROM user_action_map WHERE Group_ID=#{groupId} And type = 0;
+	</select>
+
+
+	<select id="findFrontActionIdsByGroupId" resultType="java.lang.Integer">
+		SELECT Action_ID FROM user_action_map WHERE Group_ID=#{groupId} And type = 1;
+	</select>
+
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO user_action_map
+		(Group_ID,Action_ID,type)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.groupID},#{item.actionID},#{item.type})
+		</foreach>
+
+	</insert>
+
+	<delete id="deleteByGroupId">
+		DELETE FROM user_action_map WHERE Group_ID=#{groupId}
+	</delete>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM user_action_map
+	</select>
+
+</mapper>

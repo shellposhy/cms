@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.system.dao.TaskErrorMapper">
+	<resultMap id="resultMap" type="cn.com.cms.system.model.TaskError">
+		<result property="id" column="ID" />
+		<result property="taskId" column="Task_ID" />
+		<result property="content" column="Content" />
+		<result property="errTime" column="Err_Time" />
+	</resultMap>
+
+	<select id="findByTaskId" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM task_error WHERE Task_ID = #{taskId} ]]>
+	</select>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM task_error WHERE ID=#{id}
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		task_error(Task_ID,Content,Err_Time)
+		VALUES
+		(#{taskId},#{content},#{errTime})
+	</insert>
+
+	<update id="update">
+		UPDATE task_error SET
+		Content = #{content},
+		Err_Time = #{errTime}
+		WHERE ID=#{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM task_error WHERE ID=#{id}
+	</delete>
+
+	<delete id="batchDelete">
+		DELETE FROM task_error WHERE Task_ID=#{taskId}
+	</delete>
+
+</mapper>

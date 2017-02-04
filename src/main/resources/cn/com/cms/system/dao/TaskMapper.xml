@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.system.dao.TaskMapper">
+	<resultMap id="resultMap" type="cn.com.cms.system.model.Task">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="taskType" column="Task_Type" />
+		<result property="ownerId" column="Owner_ID" />
+		<result property="aim" column="Aim" />
+		<result property="progress" column="Progress" />
+		<result property="subId" column="Sub_ID" />
+		<result property="subName" column="Sub_Name" />
+		<result property="subProgress" column="Sub_Progress" />
+		<result property="context" column="Context" />
+		<result property="taskStatus" column="Task_Status" />
+		<result property="modelId" column="Model_ID" />
+		<result property="baseId" column="Base_ID" />
+		<result property="tableId" column="Table_ID" />
+		<result property="dataId" column="Data_ID" />
+		<result property="createTime" column="Create_Time" />
+		<result property="updateTime" column="Update_Time" />
+	</resultMap>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM task ORDER BY Update_Time DESC
+	</select>
+
+	<select id="findByName" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM task WHERE Name like "%"#{name}"%" ORDER BY Update_Time DESC ]]>
+	</select>
+
+	<select id="findByCode" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM task WHERE Code like "%"#{code}"%"  ORDER BY Update_Time DESC]]>
+	</select>
+
+	<select id="findByAimAndBeforeStatus" resultMap="resultMap"
+		parameterType="String">
+		<![CDATA[ SELECT * FROM task WHERE Aim = #{aim} AND Task_Status < #{status}  ORDER BY Update_Time DESC]]>
+	</select>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM task WHERE ID=#{id}
+	</select>
+	
+	<select id="findByTypeAndNotStatus" resultMap="resultMap" parameterType="java.util.Map">
+		<![CDATA[ SELECT * FROM task WHERE Task_Type = #{type} AND Task_Status <> #{status}  ORDER BY Update_Time DESC]]>
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		task(Name,Code,Task_Type,Owner_ID,Aim,Progress,Sub_ID,Sub_Name,Sub_Progress,Context,Task_Status,Model_ID,Base_ID,Table_ID,Data_ID,Create_Time,Update_Time)
+		VALUES
+		(#{name},#{code},#{taskType},#{ownerId},#{aim},#{progress},#{subId},#{subName},#{subProgress},#{context},#{taskStatus},#{modelId},#{baseId},#{tableId},#{dataId},#{createTime},#{updateTime})
+	</insert>
+
+	<update id="update">
+		UPDATE task SET
+		Name = #{name},
+		Code = #{code},
+		Task_Type = #{taskType},
+		Owner_ID = #{ownerId},
+		Aim = #{aim},
+		Progress =#{progress},
+		Sub_ID=#{subId},
+		Sub_Name = #{subName},
+		Sub_Progress = #{subProgress},
+		Context = #{context},
+		Task_Status = #{taskStatus},
+		Model_ID=#{modelId},
+		Base_ID=#{baseId},
+		Table_ID=#{tableId},
+		Data_ID=#{dataId},
+		Create_Time =#{createTime},
+		Update_Time = #{updateTime}
+		WHERE ID=#{id}
+	</update>
+
+	<update id="updateStatus">
+		UPDATE task SET Task_Status = #{taskStatus} WHERE ID= #{id}
+	</update>
+
+	<update id="updateSubProgress">
+		UPDATE task SET Sub_Name = #{subName}, Sub_Progress =#{subProgress} WHERE ID = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM task WHERE ID=#{id}
+	</delete>
+	
+	<select id="search" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM task 
+		<if test="name!=null">
+			WHERE Name like "%"#{name}"%" OR Context like "%"#{name}"%"
+		</if>
+		ORDER BY Update_Time DESC limit #{first},#{size}
+	</select>
+	
+	<select id="count" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM task 
+		<if test="name!=null">
+			WHERE Name like "%"#{name}"%" OR Context like "%"#{name}"%"
+		</if>
+	</select>
+</mapper>

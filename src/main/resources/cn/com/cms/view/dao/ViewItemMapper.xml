@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.view.dao.ViewItemMapper">
+	<resultMap id="resultMap" type="cn.com.cms.view.model.ViewItem">
+		<result property="id" column="ID" />
+		<result property="modelId" column="Model_ID" />
+		<result property="code" column="Code" />
+		<result property="itemType" column="Item_Type" />
+		<result property="contentTypes" column="Content_Types" />
+		<result property="content" column="Content" />
+		<result property="contentHtml" column="Content_Html" />
+		<result property="maxRows" column="Max_Rows" />
+		<result property="maxWords" column="Max_Words" />
+	</resultMap>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO view_item(Model_ID,Code,Item_Type,Content_Types,Content,Content_Html,Max_Rows,Max_Words)
+		VALUES
+		(#{modelId},#{code},#{itemType},#{contentTypes},#{content},#{contentHtml},#{maxRows},#{maxWords})
+	</insert>
+
+	<update id="update">
+		UPDATE view_item SET
+		Model_ID=#{modelId},
+		Code=#{code},
+		Item_Type=#{itemType},
+		Content_Types=#{contentTypes},
+		Content=#{content},
+		Content_Html=#{contentHtml},
+		Max_Rows=#{maxRows},
+		Max_Words=#{maxWords}
+		WHERE ID=#{id}
+	</update>
+
+	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_item WHERE ID=#{id}
+	</select>
+
+	<select id="findByModelId" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_item WHERE Model_ID=#{modelId}
+	</select>
+
+	<select id="findByModelIdAndCode" resultMap="resultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM view_item WHERE Model_ID=#{modelId} And Code = #{code} limit 1
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM view_item
+	</select>
+
+	<select id="findByPage" resultMap="resultMap">
+		SELECT * FROM view_item limit #{firstResult},#{maxResult}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM view_item WHERE ID=#{id}
+	</delete>
+
+	<delete id="deleteByModelId" parameterType="java.lang.Integer">
+		DELETE FROM view_item WHERE Model_ID=#{modelId}
+	</delete>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO view_item(Model_ID,Code,Item_Type,Content_Types,Content,Content_Html,Max_Rows,Max_Words)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.modelId},#{item.code},#{item.itemType},#{item.contentTypes},#{item.content},#{item.contentHtml},#{item.maxRows},#{item.maxWords})
+		</foreach>
+	</insert>
+</mapper>

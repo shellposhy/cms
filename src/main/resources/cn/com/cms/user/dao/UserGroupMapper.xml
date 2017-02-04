@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.user.dao.UserGroupMapper">
+	<resultMap id="resultMap" type="cn.com.cms.user.model.UserGroup">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="allDataAuthority" column="All_Data_Authority" />
+		<result property="allAdminAuthority" column="All_Admin_Authority" />
+		<result property="allFrontAuthority" column="All_Front_Authority" />
+		<result property="defaultPageType" column="Default_Page_Type"/>
+		<result property="defaultPageUrl" column="Default_Page_Url" />
+		<result property="defaultPageID" column="Default_Page_ID" />
+		<result property="secretLevel" column="Secret_Level" />
+		<result property="memo" column="Memo" />
+		<result property="createTime" column="Create_Time" />
+		<result property="creatorId" column="Creator_ID" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="updaterId" column="Updater_ID" />
+	</resultMap>
+
+	<select id="search" parameterType="int" resultMap="resultMap">
+		SELECT * FROM
+		user_group limit #{first},#{size}
+	</select>
+
+	<select id="searchByQs" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT * FROM user_group WHERE Name like "%"#{qs}"%" limit
+		#{first},#{size}
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM user_group
+	</select>
+
+	<select id="countByQs" parameterType="String" resultType="int">
+		SELECT
+		COUNT(*) FROM user_group WHERE Name like "%"#{qs}"%"
+	</select>
+
+	<select id="countByToday" resultType="int">
+		SELECT COUNT(*) FROM
+		user_group
+		WHERE DATEDIFF(Create_Time,SYSDATE()) =0
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		user_group(Name,CODE,All_Data_Authority,All_Admin_Authority,All_Front_Authority,Default_Page_ID,Secret_Level,Memo,Create_Time,Creator_ID,Update_Time,Updater_ID,Default_Page_Type,Default_Page_Url)
+		VALUES
+		(#{name},#{code},#{allDataAuthority},#{allAdminAuthority},#{allFrontAuthority},#{defaultPageID},#{secretLevel},#{memo},#{createTime},#{creatorId},#{updateTime},#{updaterId},#{defaultPageType},#{defaultPageUrl})
+	</insert>
+
+	<delete id="batchDelete" parameterType="java.util.List">
+		DELETE FROM user_group WHERE ID IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM user_group WHERE ID=#{id}
+	</delete>
+
+	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT *
+		FROM user_group WHERE ID=#{id}
+	</select>
+	<select id="findByName" resultMap="resultMap" parameterType="java.lang.String">
+		SELECT * FROM user_group WHERE Name=#{name}
+	</select>
+
+	<update id="update">
+		UPDATE user_group SET
+		Name=#{name},
+		CODE=#{code},
+		All_Data_Authority=#{allDataAuthority},
+		All_Admin_Authority=#{allAdminAuthority},
+		All_Front_Authority=#{allFrontAuthority},
+		Default_Page_ID=#{defaultPageID},
+		Secret_Level=#{secretLevel},
+		Memo=#{memo},Update_Time=#{updateTime},
+		Updater_ID=#{updaterId},
+		Default_Page_Type=#{defaultPageType},
+		Default_Page_Url=#{defaultPageUrl}
+		WHERE
+		ID=#{id}
+
+	</update>
+	<select id="findByUserId" resultMap="resultMap">
+		SELECT G.* FROM
+		user_group_map M,user_group G WHERE M.User_ID=#{userId} And
+		M.Group_ID=G.ID
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM user_group
+	</select>
+
+	<select id="findHasUser" resultMap="resultMap">
+		SELECT DISTINCT G.* FROM
+		user_group_map M RIGHT JOIN user_group G on M.Group_ID=G.ID
+		WHERE User_ID IS NOT NULL
+	</select>
+
+	<select id="findByCode" resultMap="resultMap">
+		SELECT * FROM user_group WHERE Code=#{code}
+	</select>
+
+	<select id="countActionForGroup" resultType="Integer">
+		SELECT COUNT(*) FROM
+		user_group g, user_action_map m, user_action a
+		WHERE g.ID =
+		m.Group_ID AND a.ID = m.Action_ID
+		AND a.`Code` = #{actionCode} AND g.ID
+		= #{groupId}
+	</select>
+
+	<select id="findDefaultPageIdByUserId" resultType="Integer">
+		SELECT
+		g.Default_Page_ID
+		FROM view_page p, user_group g, user u,
+		user_group_map m
+		WHERE m.User_ID = u.ID
+		AND m.Group_ID = g.ID
+		AND
+		g.Default_Page_ID IS NOT NULL
+		AND u.ID = #{userId}
+		LIMIT 1
+	</select>
+
+</mapper>

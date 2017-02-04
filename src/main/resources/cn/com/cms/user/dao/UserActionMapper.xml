@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.user.dao.UserActionMapper">
+	<resultMap id="resultMap" type="cn.com.cms.user.model.UserAction">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="type" column="Type" />
+		<result property="parentID" column="Parent_ID" />
+		<result property="uri" column="Uri" />
+		<result property="iconSkin" column="Icon_Skin" />
+		<result property="orderID" column="Order_ID" />
+	</resultMap>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM user_action ORDER BY Order_ID
+	</select>
+	
+	<select id="findByCode" resultMap="resultMap">
+	    SELECT * FROM user_action WHERE Code = #{code} ORDER BY Order_ID
+	</select>
+	
+	<select id="findAdmin" resultMap="resultMap">
+	    SELECT * FROM user_action WHERE   Type = 0    ORDER BY Order_ID
+	</select>
+	
+</mapper>

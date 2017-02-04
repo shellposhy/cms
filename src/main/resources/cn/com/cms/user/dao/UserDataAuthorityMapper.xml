@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.user.dao.UserDataAuthorityMapper">
+	<resultMap id="resultMap" type="cn.com.cms.user.model.UserDataAuthority">
+		<result property="id" column="ID" />
+		<result property="groupId" column="Group_ID" />
+		<result property="objType" column="Obj_Type" />
+		<result property="objId" column="Obj_ID" />
+		<result property="allDataTime" column="All_Data_Time" />
+		<result property="allowActionType" column="Allow_Action_Type" />
+		<result property="startDataTime" column="Start_Data_Time" />
+		<result property="endDateTime" column="End_Data_Time" />
+		<result property="createTime" column="Create_Time" />
+		<result property="creatorId" column="Creator_ID" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="updaterId" column="Updater_ID" />
+	</resultMap>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM user_data_authority
+		ORDER BY Group_ID
+	</select>
+
+	<delete id="deleteByGroupID">
+		DELETE FROM user_data_authority WHERE
+		Group_ID=#{groupId}
+	</delete>
+
+	<select id="findByGroupId" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM user_data_authority
+		<where>
+			Group_ID=#{groupId}
+			<if test="type!=null">
+				AND Obj_Type=#{type}
+			</if>
+		</where>
+	</select>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO
+		user_data_authority(Group_ID,Obj_Type,Obj_ID,All_Data_Time,Allow_Action_Type,Start_Data_Time,End_Data_Time,Create_Time,Creator_ID,Update_Time,Updater_ID)
+		VALUES
+		<foreach collection="list" item="UserDataAuthorityList" index="index"
+			separator=",">
+			(#{UserDataAuthorityList.groupId},#{UserDataAuthorityList.objType},#{UserDataAuthorityList.objId},#{UserDataAuthorityList.allDataTime},#{UserDataAuthorityList.allowActionType},#{UserDataAuthorityList.startDataTime},#{UserDataAuthorityList.endDateTime},#{UserDataAuthorityList.createTime},#{UserDataAuthorityList.creatorId},#{UserDataAuthorityList.updateTime},#{UserDataAuthorityList.updaterId})
+		</foreach>
+	</insert>
+
+</mapper>

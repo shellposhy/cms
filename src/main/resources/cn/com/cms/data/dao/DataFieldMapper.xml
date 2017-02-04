@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.data.dao.DataFieldMapper">
+	<resultMap id="resultMap" type="cn.com.cms.data.model.DataField">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="code" column="Code" />
+		<result property="codeName" column="Code_Name" />
+		<result property="dataType" column="Data_Type" />
+		<result property="nosg" column="Nosg" />
+		<result property="leng" column="Leng" />
+		<result property="prec" column="Prec" />
+		<result property="mand" column="Mand" />
+		<result property="uniq" column="Uniq" />
+		<result property="multiValue" column="Multi_Value" />
+		<result property="useEnum" column="Use_Enum" />
+		<result property="indexType" column="Index_Type" />
+		<result property="indexStore" column="Index_Store" />
+		<result property="required" column="Required" />
+		<result property="type" column="Type" />
+		<result property="forDisplay" column="For_Display" />
+		<result property="componentID" column="Component_ID" />
+		<result property="forOrder" column="For_Order" />
+		<result property="orderId" column="Order_ID" />
+		<result property="accessType" column="Access_Type" />
+		<result property="memo" column="Memo" />
+		<result property="createTime" column="Create_Time" />
+		<result property="creatorId" column="Creator_ID" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="updaterId" column="Updater_ID" />
+	</resultMap>
+	
+	<select id="findByName" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM data_field WHERE Name = #{name} ORDER BY Order_ID ]]>
+	</select>
+
+	<select id="findByCode" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM data_field WHERE Code = #{code}  ORDER BY Order_ID]]>
+	</select>
+	
+	<select id="findFieldsByDBId" resultMap="resultMap"
+		parameterType="Integer">
+		<![CDATA[ SELECT f.* FROM data_field f, data_base d, data_base_field_map m WHERE m.Base_ID =d.ID AND m.Field_ID = f.ID AND d.ID = #{dbId} ]]>
+	</select>
+	
+	<select id="findByRequired" resultMap="resultMap" parameterType="boolean">
+		SELECT * FROM data_field WHERE Required = #{required} ORDER BY
+		Order_ID
+	</select>
+	
+	<select id="findFieldsInEveryBase" resultMap="resultMap" parameterType="java.util.List">
+		SELECT DISTINCT f.* FROM data_field f WHERE f.ID IN 
+		(SELECT m.Field_ID FROM data_base d, data_base_field_map m
+		WHERE m.Base_ID = d.ID AND f.For_Order = #{forOrder} AND d.ID in
+		<foreach item="item" index="index" collection="baseIds" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		GROUP BY m.Field_ID HAVING COUNT(m.Field_ID ) > #{size})
+	</select>
+	
+	<select id="findFieldsInBase" resultMap="resultMap" parameterType="Integer">
+		SELECT DISTINCT f.* FROM data_field f
+		WHERE f.ID IN (SELECT m.Field_ID FROM data_base d, data_base_field_map m
+		WHERE m.Base_ID = d.ID AND f.For_Order = #{forOrder} AND d.ID = #{baseId})
+	</select>
+	
+	<select id="findFieldsInBasesByAccess" resultMap="resultMap" parameterType="java.util.List">
+		SELECT DISTINCT f.* FROM data_field f
+		WHERE f.ID IN (SELECT m.Field_ID FROM data_base d, data_base_field_map m
+		WHERE m.Base_ID = d.ID AND f.Access_Type = #{accessType} AND d.ID in
+		<foreach item="item" index="index" collection="baseIds" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		GROUP BY m.Field_ID HAVING COUNT(m.Field_ID ) > #{size})
+	</select>
+	
+	<select id="findFieldsInBaseByAccess" resultMap="resultMap" parameterType="Integer">
+		SELECT DISTINCT f.* FROM data_field f
+		WHERE f.ID IN (SELECT m.Field_ID FROM data_base d, data_base_field_map m
+		WHERE m.Base_ID = d.ID AND f.Access_Type = #{accessType} AND d.ID = #{baseId})
+	</select>
+	
+	<select id="findFieldsInBasesByAccesses" resultMap="resultMap" parameterType="java.util.List">
+		SELECT DISTINCT f.* FROM data_field f WHERE f.ID IN (
+		SELECT m.Field_ID FROM data_base d, data_base_field_map m
+		WHERE m.Base_ID = d.ID AND f.Access_Type = #{accessType} AND d.ID in
+		<foreach item="item" index="index" collection="baseIds" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		GROUP BY m.Field_ID
+		)
+	</select>
+	
+	<select id="findByIsDisplayAndRequire" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM data_field 
+		<where>
+			For_Display=#{forDisplay} AND Required=#{required}
+		</where>
+	</select>
+	
+	<select id="findByType" resultMap="resultMap">
+	    SELECT * FROM data_field WHERE Type=#{type}
+	</select>
+	
+	<select id="findByTypeAndForDisplay" resultMap="resultMap" parameterType="java.util.Map">
+	    SELECT * FROM data_field WHERE Type=#{type} AND For_Display=#{forDisplay}
+	</select>
+	
+	<select id="getByCode" resultMap="resultMap" parameterType="String">
+		<![CDATA[ SELECT * FROM data_field WHERE Code = #{code}]]>
+	</select>
+	
+	<select id="findFieldsByDBIds" resultMap="resultMap" parameterType="java.util.List">
+		SELECT DISTINCT f.* FROM data_field f, data_base d,data_base_field_map m
+		WHERE m.Base_ID =d.ID AND m.Field_ID = f.ID AND d.ID in
+		<foreach item="item" index="index" collection="baseIds" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="findDisplayFieldsByDBId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT f.* FROM data_field f, data_base_field_map m WHERE m.Field_ID = f.ID AND m.Base_ID = #{baseId} AND m.Is_Display <> 0 ]]>
+	</select>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM data_field WHERE ID=#{id}
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM data_field ORDER BY Order_ID
+	</select>
+	
+	<select id="findFieldsByModelId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT f.* FROM data_field f, column_model c, column_model_field_map m WHERE	m.Column_Model_ID =c.ID AND m.Field_ID = f.ID AND c.ID = #{modelId} ORDER BY Order_ID]]>
+	</select>
+	
+	<select id="findDisplayFieldsByModelId" resultMap="resultMap" parameterType="Integer">
+		<![CDATA[ SELECT DISTINCT f.* FROM data_field f LEFT JOIN  column_model_field_map m ON m.Field_ID = f.ID LEFT JOIN column_model c on m.Column_Model_ID =c.ID WHERE f.For_Display = 1 AND (f.type = 0 OR c.ID = #{modelId} ) ORDER BY Order_ID]]>
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO data_field
+		(Name,Code,Code_Name,Data_Type,Nosg,Leng,Prec,Mand,Uniq,Multi_Value,Use_Enum,Index_Type,Index_Store,Required,Type,Order_ID,Access_Type,Component_ID,For_Finger_Print,For_Order,Memo,Create_Time,Creator_ID,Update_Time,Updater_ID)
+		VALUES(
+		#{name},#{code},#{codeName},#{dataType},#{nosg},#{leng},#{prec},#{mand},#{uniq},#{multiValue},#{useEnum},#{indexType},#{indexStore},#{required},#{type},#{orderId},#{accessType},#{forDisplay},#{componentID},#{forOrder},#{memo},#{createTime},#{creatorId},#{updateTime},#{updaterId})
+	</insert>
+
+	<update id="update">
+		UPDATE data_field SET
+		Name = #{name},
+		Code = #{code},
+		Code_Name = #{codeName},
+		Data_Type = #{dataType},
+		Nosg = #{nosg},
+		Leng = #{leng},
+		Prec = #{prec},
+		Mand = #{mand},
+		Uniq = #{uniq},
+		Multi_Value = #{multiValue},
+		Use_Enum =#{useEnum},
+		Index_Type =
+		#{indexType},
+		Index_Store = #{indexStore},
+		Required=#{required},
+		Type =#{type},
+		For_Display=#{forDisplay},
+		Component_ID = #{componentID},
+		For_Order = #{forOrder},
+		Order_ID =#{orderId},
+		Access_Type=#{accessType},
+		Memo =#{memo},
+		Create_Time =#{createTime},
+		Creator_ID =#{creatorId},
+		Update_Time =#{updateTime},
+		Updater_ID = #{updaterId}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM data_field WHERE ID=#{id}
+	</delete>
+
+	<select id="findByPage" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT * FROM data_field
+		<if test="qs!=null">
+			WHERE Name like "%"#{qs}"%" 
+		</if>
+		 limit #{first},#{size}
+	</select>
+	
+	<select id="count" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM data_field
+		<if test="qs!=null">
+			WHERE Name like "%"#{qs}"%"
+		</if>
+	</select>
+</mapper>

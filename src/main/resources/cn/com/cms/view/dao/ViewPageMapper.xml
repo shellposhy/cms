@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.view.dao.ViewPageMapper">
+	<resultMap id="resultMap" type="cn.com.cms.view.model.ViewPage">
+		<result property="id" column="ID" />
+		<result property="parentID" column="Parent_ID" />
+		<result property="modelId" column="Model_ID" />
+		<result property="code" column="Code" />
+		<result property="name" column="Name" />
+		<result property="status" column="Status" />
+		<result property="file" column="File" />
+		<result property="pageType" column="Page_Type" />
+		<result property="publishTime" column="Publish_Time" />
+		<result property="createTime" column="Create_Time" />
+		<result property="updateTime" column="Update_Time" />
+		<result property="creatorId" column="creator_ID" />
+		<result property="updaterId" column="Updater_ID" />
+	</resultMap>
+
+	<select id="search" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM view_page
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%" )
+			</if>
+		</where>
+		limit #{first},#{size}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		view_page(Model_ID,Name,Code,Status,File,Page_Type,Create_Time,Update_Time,Creator_ID,Updater_ID)
+		VALUES
+		(#{modelId},#{name},#{code},#{status},#{file},#{pageType},#{createTime},#{updateTime},#{creatorId},#{updaterId})
+	</insert>
+
+	<update id="update">
+		UPDATE view_page SET
+		Model_ID=#{modelId},
+		Name=#{name},
+		Code=#{code},
+		Status=#{status},
+		File=#{file},
+		Page_Type=#{pageType},
+		Publish_Time=#{publishTime},
+		Update_Time=#{updateTime},
+		Updater_ID=#{updaterId}
+		WHERE ID=#{id}
+	</update>
+
+	<select id="count" resultType="int" parameterType="java.util.Map">
+		SELECT COUNT(*) FROM view_page
+		<where>
+			<if test="qs!=null">
+				(Name like "%"#{qs}"%")
+			</if>
+		</where>
+	</select>
+
+	<select id="countByStatus" resultType="int">
+		SELECT COUNT(*) FROM
+		view_page
+		WHERE Status=#{status}
+	</select>
+
+	<delete id="batchDelete" parameterType="java.util.List">
+		DELETE FROM view_page WHERE ID IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM view_page WHERE ID=#{id}
+	</delete>
+
+	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT *
+		FROM view_page WHERE ID=#{id}
+	</select>
+
+	<select id="findByTypeAndStatus" resultMap="resultMap"
+		parameterType="java.util.Map">
+		SELECT * FROM view_page WHERE Page_Type = #{pageType}
+		AND Status = #{status}
+	</select>
+	
+	<select id="findByType" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_page WHERE Page_Type = #{pageType}
+	</select>
+
+	<select id="findAll" resultMap="resultMap">
+		SELECT * FROM
+		view_page
+	</select>
+
+
+</mapper>

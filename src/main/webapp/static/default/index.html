@@ -1,0 +1,562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="application-name" content="数据" />
+<meta name="description" content="拼家网" />
+<title>数据 首页</title> 
+<link href="/static/default/css/common.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/channel.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/favo_detail.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/jquery_css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/jquery_css/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/jquery_css/jquery.noty.css" rel="stylesheet" type="text/css" />
+<script src="/static/default/js/plugin/jquery-1.8.2.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.ui.datepicker.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/bootstrap.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.form.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.cookie.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.validate.min.js"></script>
+<script src="/static/default/js/plugin/jquery.metadata.js"></script>
+<script src="/static/default/js/plugin/jquery-spin.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.pagination.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.jqprint-0.3.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.noty.js" type="text/javascript"></script>
+<!-- 主js -->
+<script src="/static/default/js/common.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+    <script src="js/plugin/json2.js"></script>
+<![endif]-->
+<!-- for idnex  -->
+<script type="text/javascript" src="/static/default/js/plugin/jquery.KinSlideshow-1.2.1.min.js"></script>
+<!-- /for idnex  -->
+<!-- ie6FixPng -->
+<!--[if lt IE 7]>
+   <script src="/static/default/js/plugin/pngIE.js"></script>
+    <script type="text/javascript">
+      	EvPNG.fix('i');
+    </script>
+  <![endif]-->
+<script type="text/javascript">
+	var appPath = "/";
+</script>
+</head>
+<body>
+	<div id="container">
+		<div id="con" class="clearfix">
+			<!-- header -->
+			<div class="header_high">
+				<div class="content_warp clearfix">
+					<div class="left logo_div">
+						<a href="/" class="logo lg_norrow">数据</a> <span class="index_name_icon"></span>
+					</div>
+					<div class="right search_box">
+						<form id="page_query_top" method="get" target="_black">
+							<input id="pageType" name="pageType" type="hidden" value="0" />
+							<input id="pageId" name="pageId" type="hidden" value="0" />
+							<input id="queryStyle" name="queryStyle" type="hidden" value="ns" />
+							<div class="search_input clearfix">
+								<input id="queryStr" name="queryStr" class="search_text" type="text" />
+								<button id="pageQueryBtnTop" class="search_btn"></button>
+							</div>
+							<div class="search_range clearfix">
+								<div class="left search_set">
+									<span>检索范围：</span> <label>
+									<input type="radio" name="ty" value="1" checked />标题 </label> <label>
+									<input type="radio" name="ty" value="2" />正文 </label> <label>
+									<input type="radio" name="ty" value="3" />标题+正文 </label>
+								</div>
+								<a href="#">高级检索</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!--/ header -->
+			<div class="main_warp">
+				<!--  login bar -->
+				<div class="toolbar_login content_warp clearfix">
+					<div class="user_ctrl">
+						<span id="login_user" class="login_user_h"> <a href="#" class="br_red">用户登录</a>
+							<div id="userlogin" class="userlogin">
+								<h2>用户登录</h2>
+								<div class="userlogin_form_div">
+									<form method="post">
+										<div class="left inputs_part">
+											<div class="input_name_bg">
+												<input name="j_username" type="text" maxlength="16" placeholder="用户名/阅读卡号">
+											</div>
+											<div class="input_pw_bg">
+												<input name="j_password" type="password" maxlength="16" placeholder="您的密码">
+											</div>
+										</div>
+										<input type="submit" class="input_s" value="登录">
+									</form>
+								</div>
+							</div>
+						</span> <span id="welcome" class="br_red">欢迎您：<span id="UserName"></span>
+						</span> <a href="#" id="logout">退出</a>
+					</div>
+					<ul>
+						<li><a class="top_bar_i" href="#">搜索中心</a></li>
+						<li><a class="top_bar_i" href="#">个人中心</a></li>
+						<li><a href="#">联系我们</a></li>
+						<li><a href="/admin/login">后台管理</a></li>
+					</ul>
+				</div>
+				<!-- login bar -->
+				<div class="main content_warp clearfix">
+					<!-- 首页导航 strat -->
+					<div class="index_navs_div">
+						<ul>
+							<li style="padding-right: 22px;">
+								<a href="#" class="boldred">商城</a>
+								<a href="#">客厅主材</a>
+								<a href="#">厨具</a>
+								<a href="#">木门</a>
+								<a href="#">软装</a>
+								<a href="#">硬装</a>
+								<a href="#">儿童家具</a>
+								<a href="#">家具饰品</a>
+								<a href="#">沙发</a>
+							</li>
+							<li class="no">
+								<a href="#" class="boldred">设计师</a>
+								<a href="#">中式风格</a>
+								<a href="#">日式风格</a>
+								<a href="#">东南亚风格式</a>
+								<a href="#">地中海风格</a>
+								<a href="#">韩式风格</a>
+							</li>
+						</ul>
+						<ul>
+							<li style="padding-right: 22px;">
+								<a href="#" class="boldred">服务商</a>
+								<a href="#">监理</a>
+								<a href="#">装修公司</a>
+								<a href="#">设计公司</a>
+								<a href="#">环测公司</a>
+								<a href="#">工长</a>
+								<a href="#">保洁</a>
+							</li>
+							<li class="no">
+								<a href="#" class="boldred">评论</a>
+								<a href="#">网络评论</a>
+								<a href="#">报刊评论</a>
+								<a href="#">网友评论</a>
+								<a href="#">外媒评论</a>
+								<a href="#">拼家课堂</a>
+							</li>
+						</ul>
+						<ul>
+							<li style="padding-right: 10px;">
+								<a href="#" class="boldred">套餐</a>
+								<a href="#">699梦想王国</a>
+								<a href="#">999陶然雅居</a>
+								<a href="#">1399至尊无上</a>
+								<a href="#">999尊享自然</a>
+								<a href="#">699超值</a>
+							</li>
+							<li>
+								<a href="#" class="boldred">拼家风云</a>
+								<a href="#">争鸣</a>
+								<a href="#">前沿</a>
+								<a href="#">人物</a>
+							</li>
+							<li class="no">
+								<a href="#" class="boldred">拼家资讯</a>
+								<a href="#">装修课堂</a>
+								<a href="#">装修风水</a>
+								<a href="#">装修头条</a>
+							</li>
+						</ul>
+						<div class="index_navs_bot"></div>
+					</div>
+					<!-- 首页导航 edn -->
+					<!-- 第一部分 strat -->
+					<div class="index_con_one clearfix">
+						<div class="left left_con">
+							<div class="paper_info">
+								<span class="paper_text" id="rmrbInfoDate">2011年12月31日星期四</span>
+								<a class="paper_img" id="rmrbInfoLink" href="#"><img src="/static/default/css/images/pic/daily_pic.png" /></a> 
+								<span class="paper_text">今日<i id="rmrbInfoPageNum">24</i>版共有文章<i id="rmrbInfoCount">106</i>篇</span>
+								<div class="search_paper clearfix">
+									<form method="get" id="page_query" action="#" target="_black">
+										<div class="search_input">
+											<input id="pageType" name="pageType" type="hidden" value="0" />
+											<input id="pageId" name="pageId" type="hidden" value="0" />
+											<input id="queryStyle" name="queryStyle" type="hidden" value="ns" /> 
+											<input id="queryStr" name="queryStr" type="text" class="search_text" />
+											<button id="pageQueryBtn" class="search_btn"></button>
+										</div>
+										<div class="search_range clearfix">
+											<div class="left search_set">
+												<span class="left">检索范围：</span> <label>
+												<input type="radio" name="ty" value="1" checked />标题 </label> <label>
+												<input type="radio" name="ty" value="2" />正文 </label> <label>
+												<input type="radio" name="ty" value="3" />标题+正文 </label>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="rank">
+								<div class="tab_title clearfix">
+									<a class="current" href="#tab_con1">新闻点击</a> <a href="#tab_con2">设计师浏览</a>
+								</div>
+								<div class="tab_con_div rank_con clearfix">
+									<ul class="tab_con1">
+										<li class="red"><span>1</span><a href="#">“社会主义民主政治道路会越走越宽...</a></li>
+										<li class="red"><span>2</span><a href="#">不断扩大干部选任工作中的民主</a></li>
+										<li class="red"><span>3</span><a href="#">学习江泽民同志“七一”讲话笔谈</a> </li>
+									</ul>
+									<ul class="tab_con2 none">
+										<li class="red"><span>1</span><a href="#">[日式风格]：王美丽</a></li>
+										<li class="red"><span>2</span><a href="#">[地中海风格]：花泽香菜</a></li>
+										<li class="red"><span>3</span><a href="#">[中式风格]：张君</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="left mid_con">
+							<div class="con_focus" ecode="econtent1">
+								<div class="focus_top">
+									<h2>
+										<span>装修课堂</span><a href="/subpage/pj/pjzx/zxkt/index.html" class="more">更多&gt;&gt;</a>
+									</h2>
+								</div>
+								<ul class="focus_news">	        <li> 
+ [12-23]					<a target="_blank" href="/page/pj/pjzx/zxkt/10_4">空调”也有风水禁忌？</a>
+	        </li>
+	        <li> 
+ [12-23]					<a target="_blank" href="/page/pj/pjzx/zxkt/10_3">装修中的这些经常犯的小错误，你中了几招？</a>
+	        </li>
+	        <li> 
+ [12-23]					<a target="_blank" href="/page/pj/pjzx/zxkt/10_2">如何化解装修中10大常见“户型缺陷”?</a>
+	        </li>
+	        <li> 
+ [12-23]					<a target="_blank" href="/page/pj/pjzx/zxkt/10_1">卧室装修，需要注意的事项</a>
+	        </li>
+</ul>
+							</div>
+							<div class="con_focus" ecode="econtent2">
+								<div class="focus_top">
+									<h2>
+										<span>装修风水</span><a href="/subpage/pj/pjzx/zxfs/index.html" class="more">更多&gt;&gt;</a>
+									</h2>
+								</div>
+								<ul class="focus_news">	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxfs/11_3">客厅装修与风水之5大忌</a>
+ [12-23] 	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxfs/11_1">客厅装修风水 客厅风水布局要素</a>
+ [12-23] 	        </li>
+</ul>
+							</div>
+							<div class="con_focus" ecode="econtent3">
+								<div class="focus_top">
+									<h2>
+										<span>装修头条</span><a href="/subpage/pj/pjzx/zxtt/index.html" class="more">更多&gt;&gt;</a>
+									</h2>
+								</div>
+								<ul class="focus_news">	        <li> 
+ ●					<a target="_blank" href="/page/pj/pjzx/zxtt/12_2">5万块钱竟然能把房子装修得这么漂亮</a>
+	        </li>
+	        <li> 
+ ●					<a target="_blank" href="/page/pj/pjzx/zxtt/12_1">没有衣帽间怎么办 家居收纳大法显神威</a>
+	        </li>
+</ul>
+							</div>
+							<div class="con_focus" ecode="econtent4">
+								<div class="focus_top">
+									<h2>
+										<span>装修风格</span><a href="/subpage/pj/pjzx/zxfg/index.html" class="more">更多&gt;&gt;</a>
+									</h2>
+								</div>
+								<ul class="focus_news">	        <li> 
+ 1. 					<a target="_blank" href="/page/pj/pjzx/zxfg/13_1">简约风格</a>
+	        </li>
+</ul>
+							</div>
+						</div>
+						<div class="left right_con">
+							<!-- 焦点轮播图 start-->
+							<div class="slideshow_box">
+								<div id="KinSlideshow" style="visibility: hidden;">
+									<a href="#" target="_blank"><img src="/static/default/css/images/pic/1.jpg" alt="淮安红豆公园里D户型" width="340" height="255" /></a>
+									<a href="#" target="_blank"><img src="/static/default/css/images/pic/2.jpg" alt="凤凰汇E户型" width="340" height="255" /> </a> 
+									<a href="#" target="_blank"><img src="/static/default/css/images/pic/3.jpg" alt="华普花园A户型" width="340" height="255" /> </a> 
+								</div>
+							</div>
+							<!-- 焦点轮播图 end -->
+							<ul class="topic">
+								<h2><a href=#>拼家分支机构</a></h2>
+								<li><a href="#"><span>[北京]</span>北京东惠通科技有限公司</a> </li>
+								<li><a href="#"><span>[青岛]</span>青岛线下体验馆</a> </li>
+								<li><a href="#"><span>[北京]</span>拼家网商城</a> </li>
+								<li><a href="#"><span>[北京]</span>拼家网服务商列表</a>	</li>
+								<li><a href="#"><span>[南通]</span>南通东惠通工程公司</a> </li>
+								<li><a href="#"><span>[北京]</span>北京家装服务联盟</a> </li>
+							</ul>
+							<div class="tabs_div">
+								<div class="tab_title_div">
+									<span class="title_name">设计师</span>
+									<div class="tab_title">
+										<a class="current" href="/subpage/pj/pjzx/zxkt/index.html">装修课堂</a>
+										<a href="/subpage/pj/fws/sjs/index.html">设计师</a> 
+										<a href="/subpage/pj/fws/gz/index.html">工长</a>
+									</div>
+								</div>
+								<div class="tab_con_div clearfix">
+									<ul class="tab_con1" ecode="econtent5">	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_4">空调”也有风水禁忌？</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_3">装修中的这些经常犯的小错误，你中了几招？</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_2">如何化解装修中10大常见“户型缺陷”?</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_1">卧室装修，需要注意的事项</a>
+	        </li>
+</ul>
+									<ul class="tab_con2 none" ecode="econtent6">	        <li> 
+					<a target="_blank" href="/page/pj/fws/sjs/14_2">恒兰绘本</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/fws/sjs/14_1">隐身少女alice</a>
+	        </li>
+</ul>
+									<ul class="tab_con3 none" ecode="econtent7">	        <li> 
+					<a target="_blank" href="/page/pj/fws/gz/15_1">kianey羊</a>
+	        </li>
+</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="index_con_two clearfix">
+						<div class="left left_con clearfix">
+							<div class="today">
+								<div class="calendar">
+									<div class="div_today-ym">2013年3月</div>
+									<div class="div_today-d">
+										6<span>日</span>
+									</div>
+									<div class="div_today-w">星期三</div>
+									<div class="div_today-nl">
+										农历癸巳【蛇】年<br>正月廿五 
+									</div>
+								</div>
+							</div>
+							<div class="left todays_div">
+								<div class="info_con">
+									<div class="tab_title today_con">
+										<a class="current" href="/subpage/pj/pjsc/zc/index.html">主材</a>
+										<a href="/subpage/pj/pjsc/fc/index.html">辅材</a> <a
+											href="/subpage/pj/pjsc/gys/index.html">供应商</a>
+									</div>
+									<div class="tab_con">
+										<ul class="tab_con1" ecode="econtent8">	        <li> 
+					<a target="_blank" href="/page/pj/pjsc/zc/19_2">向日葵赞歌实木地板（白栎+桦木 平扣 375*75*1...</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjsc/zc/19_1">雪地马车实木地板（白栎+桦木 平扣 375*75*15/...</a>
+	        </li>
+</ul>
+										<ul class="tab_con2 none" ecode="econtent9">	        <li> 
+					<a target="_blank" href="/page/pj/pjsc/fc/20_1">施耐德 开关插座 面板 丰尚白色开关插座10A五...</a>
+	        </li>
+</ul>
+										<ul class="tab_con3 none" ecode="econtent10">	        <li> 
+					<a target="_blank" href="/page/pj/pjsc/gys/21_1">www</a>
+	        </li>
+</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="right right_con tabs_div">
+							<div class="tab_title_div">
+								<span class="title_name">装修套餐</span>
+								<div class="tab_title">
+									<a class="current" href="/subpage/pj/zxtc/ljjtc/index.html">699套餐</a>
+									<a href="/subpage/pj/zxtc/jjjtc/index.html">999套餐</a> <a href="/subpage/pj/zxtc/ysjjtc/index.html">1399套餐</a>
+								</div>
+							</div>
+							<div class="tab_con_div clearfix">
+								<ul class="tab_con1" ecode="econtent11">	        <li> 
+					<a target="_blank" href="/page/pj/zxtc/ljjtc/16_1">梦想王国699套餐</a>
+	        </li>
+</ul>
+								<ul class="tab_con2 none" ecode="econtent12">	        <li> 
+					<a target="_blank" href="/page/pj/zxtc/jjjtc/17_1">舒适家999套餐</a>
+	        </li>
+</ul>
+								<ul class="tab_con3 none" ecode="econtent13">	        <li> 
+					<a target="_blank" href="/page/pj/zxtc/ysjjtc/18_1">帝王尊享1399套餐</a>
+	        </li>
+</ul>
+							</div>
+						</div>
+					</div>
+					<div class="line_con_three clearfix">
+						<div class="left left_con">
+							<div class="focus_top">
+								<h2>
+									<span>案例赏析</span><a href="#" class="more">更多&gt;&gt;</a>
+								</h2>
+							</div>
+							<div class="focus_img">
+								<a href="#"><img src="/static/default/css/images/pic/case.jpg" /></a>
+							</div>
+							<h3>
+								<a href="#">翔誉天心实品屋</a>
+							</h3>
+							<p class="focus_zhaiyao">能登麻美子</p>
+							<ul class="focus_news">
+								<li><a href="#"><span>[临颍]</span>启明国际大厦</a></li>
+								<li><a href="#"><span>[李斌]</span>正泰国际公寓.</a></li>
+								<li><a href="#"><span>[李斌]</span>中关村花园201</a></li>
+								<li><a href="#"><span>[李斌]</span>日式和风特色</a></li>
+								<li><a href="#"><span>[贺林平]</span>东南亚热带风</a></li>
+								<li><a href="#"><span>[林业平]</span>泰式.旭辉别墅</a></li>
+							</ul>
+						</div>
+						<div class="left right_con">
+							<div class="left three_right_part ml8">
+								<div class="con_focus" ecode="econtent14">
+									<div class="focus_top">
+										<h2>
+											<span>装修课堂</span><a href="/subpage/pj/pjzx/zxkt/index.html" class="more">更多&gt;&gt;</a>
+										</h2>
+									</div>
+									<ul class="focus_news">	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_4">空调”也有风水禁忌？</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_3">装修中的这些经常犯的小错误，你中了几招？</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_2">如何化解装修中10大常见“户型缺陷”?</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_1">卧室装修，需要注意的事项</a>
+	        </li>
+</ul>
+								</div>
+								<div class="con_focus" ecode="econtent15">
+									<div class="focus_top">
+										<h2>
+											<span>装修头条</span><a href="/subpage/pj/pjzx/zxtt/index.html" class="more">更多&gt;&gt;</a>
+										</h2>
+									</div>
+									<ul class="focus_news">	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxtt/12_2">5万块钱竟然能把房子装修得这么漂亮</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxtt/12_1">没有衣帽间怎么办 家居收纳大法显神威</a>
+	        </li>
+</ul>
+								</div>
+							</div>
+							<div class="right three_right_part">
+								<div class="con_focus" ecode="econtent16">
+									<div class="focus_top">
+										<h2>
+											<span>装修风水</span><a href="/subpage/pj/pjzx/zxkt/index.html" class="more">更多&gt;&gt;</a>
+										</h2>
+									</div>
+									<ul class="focus_news">	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_4">空调”也有风水禁忌？</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_3">装修中的这些经常犯的小错误，你中了几招？</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_2">如何化解装修中10大常见“户型缺陷”?</a>
+	        </li>
+	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxkt/10_1">卧室装修，需要注意的事项</a>
+	        </li>
+
+									</ul>
+								</div>
+								<div class="con_focus" ecode="econtent17">
+									<div class="focus_top">
+										<h2>
+											<span>装修风格</span><a href="/subpage/pj/pjzx/zxfg/index.html" class="more">更多&gt;&gt;</a>
+										</h2>
+									</div>
+									<ul class="focus_news">	        <li> 
+					<a target="_blank" href="/page/pj/pjzx/zxfg/13_1">简约风格</a>
+	        </li>
+</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="index_footer">
+					<a href="#" class="logo">服务商</a>
+					<div class="bot">
+						<ul class="bot_ul1">
+							<li><a href="#">工长</a></li>
+							<li><a href="#">环测</a></li>
+							<li><a href="#">装修</a></li>
+							<li><a href="#">监理</a></li>
+							<li><a href="#">保洁</a></li>
+							<li class="nborder"><a href="#">案例</a></li>
+							<li><a href="#">评论</a></li>
+							<li><a href="#">资料</a></li>
+							<li class="nborder"><a href="#">资讯</a></li>
+							<li><a href="#">课堂</a></li>
+							<li><a href="#" class="nborder">商城</a></li>
+							<li class="nborder"><a href="#">m站</a></li>
+						</ul>
+					</div>
+					<div class="bot">
+						<ul class="bot_ul2">
+							<li><a href="#" target="_black">关于我们</a></li>
+							<li class="nborder"><a href="#" target="_black">联系我们</a></li>
+							<li><a href="#" target="_black">分类地图</a></li>
+							<li class="nborder"><a href="#" target="_black">客户服务</a></li>
+							<li><a href="#" target="_black">关于我们</a></li>
+							<li class="nborder"><a href="#" target="_black">联系我们</a></li>
+							<li><a href="#" target="_black">分类地图</a></li>
+							<li class="nborder"><a href="#" target="_black">客户服务</a></li>
+						</ul>
+					</div>
+					<div class="bot">
+						<div class="right search_box">
+							<form id="page_query_footer" method="get" target="_black">
+								<input id="pageType" name="pageType" type="hidden" value="0" />
+								<input id="pageId" name="pageId" type="hidden" value="0" />
+								<input id="queryStyle" name="queryStyle" type="hidden" value="ns" />
+								<div class="search_input clearfix">
+									<input id="queryStr" name="queryStr" type="text" class="search_text" />
+									<button id="pageQueryBtnFooter" class="search_btn"></button>
+								</div>
+								<div class="search_range clearfix">
+									<div class="left search_set">
+										<span>检索范围：</span> <label><input type="radio" name="ty" value="1" checked />标题 </label> <label>
+										<input type="radio" name="ty" value="2" />正文 </label> <label>
+										<input type="radio" name="ty" value="3" />标题+正文 </label>
+									</div>
+									<a href="#">高级检索</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">拼家网数据 | 联系电话：010-65368285 | 邮箱：kf@51pjia.com<br /> 拼家网
+			Copyright © 1997-2013 by www.51pjia.com  all rights reserved<br />浏览本页面，建议将电脑显示屏的分辨率调为1024*768或以上
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.system.dao.CalendarEventMapper">
+	<resultMap id="resultMap" type="cn.com.cms.system.model.CalendarEvent">
+		<result property="id" column="ID" />
+		<result property="eventName" column="Event_Name" />
+		<result property="eventTime" column="Event_Time" />
+		<result property="status" column="Status" />
+		<result property="memo" column="Memo" />
+	</resultMap>
+
+	<select id="findRecentlyEvent" resultMap="resultMap"
+		parameterType="java.util.Map">
+		<![CDATA[SELECT * FROM calendar_event where Event_Time>=#{today} order by Event_Time limit 0,1]]>
+	</select>
+</mapper>
