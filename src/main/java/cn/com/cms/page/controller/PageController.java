@@ -101,6 +101,7 @@ public class PageController extends BaseController {
 	 */
 	@RequestMapping("/list/{id}")
 	public String list(@PathVariable int id, Model model) {
+		log.debug("===page.list===");
 		BaseLibrary<?> dataBase = libraryService.find(id);
 		model.addAttribute("dataBaseId", id);
 		model.addAttribute("dataBase", dataBase);
