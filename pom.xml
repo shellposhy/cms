@@ -35,10 +35,11 @@
 	<dependencies>
 		<!-- base -->
 		<dependency>
-			<groupId>com.shishaobo</groupId>
-			<artifactId>shellpo-common</artifactId>
-			<version>1.0</version>
+		  <groupId>cn.com.zhihuigu</groupId>
+		  <artifactId>common-util</artifactId>
+		  <version>1.0</version>
 		</dependency>
+		
 		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -83,14 +84,14 @@
 			<version>3.5.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pinjia</groupId>
-			<artifactId>paoding-analyzer</artifactId>
-			<version>1.0</version>
+		  <groupId>cn.com.zhihuigu</groupId>
+		  <artifactId>paoding-analyzer</artifactId>
+		  <version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pinjia</groupId>
-			<artifactId>lucene-index</artifactId>
-			<version>3.5.0</version>
+		  <groupId>cn.com.zhihuigu</groupId>
+		  <artifactId>lucene-core</artifactId>
+		  <version>1.0</version>
 		</dependency>
 
 		<!-- aop -->
