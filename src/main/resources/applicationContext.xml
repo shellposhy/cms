@@ -105,7 +105,7 @@
 	<context:component-scan base-package="cn.com.cms">
 	</context:component-scan>
 
-	<!-- 定义上下文返回的消息的国际化。 -->
+	<!-- message-->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">

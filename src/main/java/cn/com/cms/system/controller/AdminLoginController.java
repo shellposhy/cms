@@ -10,8 +10,11 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.google.common.base.Strings;
 
 import cn.com.cms.base.BaseController;
 import cn.com.cms.framework.tree.MenuTreeNode;
@@ -59,8 +62,21 @@ public class AdminLoginController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
+	public String login(HttpServletRequest request, Model model) {
 		log.debug("=======admin.login=========");
+		if (!Strings.isNullOrEmpty(request.getParameter("from"))) {
+			model.addAttribute("from", request.getParameter("from"));
+		}
+		return "/admin/login";
+	}
+
+	/**
+	 * 退出系统
+	 */
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		log.debug("=======admin.logout=========");
+		request.getSession().setAttribute("currentUser", null);
 		return "/admin/login";
 	}
 
@@ -80,6 +96,9 @@ public class AdminLoginController extends BaseController {
 			return "/admin/login";
 		}
 		request.getSession().setAttribute("currentUser", currentUser);
+		if (!Strings.isNullOrEmpty(request.getParameter("from"))) {
+			return "redirect:" + request.getParameter("from");
+		}
 		return "redirect:/admin/index";
 	}
 

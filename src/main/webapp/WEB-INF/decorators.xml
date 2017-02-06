@@ -2,6 +2,7 @@
 <decorators defaultdir="/WEB-INF/layouts/">
 	<excludes>
 		<pattern>/admin/login</pattern>
+		<pattern>/admin/logout</pattern>
 		<pattern>/admin/security/check</pattern>
 		<pattern>/admin/view/page/config/preview/*</pattern>
 		<pattern>/admin/css/**</pattern>
