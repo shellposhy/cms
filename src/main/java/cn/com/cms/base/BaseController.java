@@ -96,13 +96,11 @@ public class BaseController {
 			operator.onFailure();
 			return operator.getFailureView();
 		}
-		// 其他异常
 		return operator.getSuccessView();
 	}
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllExceptions(Exception ex, HttpServletRequest request) {
-		log.debug("===========>handleAllExceptions");
 		ex.printStackTrace();
 		request.setAttribute("exception", ex);
 		return "/exception";

@@ -27,6 +27,7 @@
 						请输入用户名和密码 ${requestScope.errMsg} 
 					</div>
 					<form id="login_form" action="${appPath}/admin/security/check" method="post" >
+						<input type="hidden" id="from" name="from" value="${from }"/>
 						<fieldset>
 							<div class="input-prepend" title="Username" >
 								<span class="add-on floatl"><i class="icon-user"></i></span>								

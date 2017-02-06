@@ -43,14 +43,14 @@ public class UrlFilter implements Filter {
 		String uri = httpServletRequest.getRequestURI();
 		if (uri.contains("/admin/security/check") || uri.contains("/page") || uri.contains("/static")
 				|| uri.contains("/default") || "/".equals(uri) || uri.contains("/pic") || uri.contains("/tmp")
-				|| uri.contains(".html")) {
+				|| uri.contains(".html") || uri.contains("/admin/logout") || uri.contains("/admin/login")) {
 			chain.doFilter(request, response);
 		} else {
 			User user = (User) httpServletRequest.getSession().getAttribute(SystemConstant.CURRENT_USER);
 			if (null != user) {
 				chain.doFilter(request, response);
 			} else {
-				httpServletRequest.getRequestDispatcher("/admin/login").forward(request, response);
+				httpServletRequest.getRequestDispatcher("/admin/login?from=" + uri).forward(request, response);
 			}
 		}
 	}
