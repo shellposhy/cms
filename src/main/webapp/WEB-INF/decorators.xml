@@ -24,6 +24,7 @@
 		 <pattern>/admin/system/library/data/new/*</pattern>
 		 <pattern>/admin/system/library/edit/*</pattern>
 		  <pattern>/admin/system/library/data/info/*/*</pattern>
+		  <pattern>/admin/system/library/data/edit/*/*</pattern>
 		 <pattern>/admin/view/model/directory/*/edit</pattern>
 		 <pattern>/admin/view/page/config/preview/*</pattern>
 		 <pattern>/admin/data/sort/*/edit</pattern>
