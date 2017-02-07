@@ -87,7 +87,7 @@ public class AdminLoginController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/security/check", method = RequestMethod.POST)
-	public String excute(HttpServletRequest request) {
+	public String excute(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
 		log.debug("=======admin.security.check=========");
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -95,6 +95,26 @@ public class AdminLoginController extends BaseController {
 		if (null == currentUser) {
 			return "/admin/login";
 		}
+		// 加载权限树
+		MenuTreeNode menuTreeNode = userActionService.findTreeByUser(MenuTreeNode.class, currentUser,
+				new PropertySetter2<MenuTreeNode>() {
+					public void set(MenuTreeNode node, UserAction entity) {
+						if (entity != null) {
+							if ("#".equals(entity.getUri())) {
+								node.uri = entity.getUri();
+							} else {
+								node.setUri(entity.getUri());
+							}
+							node.iconSkin = entity.getIconSkin();
+							if (null == node.iconSkin) {
+								node.iconSkin = "";
+							}
+						}
+					}
+				});
+		ObjectMapper om = new ObjectMapper();
+		String jsonActionTree = om.writeValueAsString(menuTreeNode);
+		request.getSession().setAttribute("jsonActionTree", jsonActionTree);
 		request.getSession().setAttribute("currentUser", currentUser);
 		if (!Strings.isNullOrEmpty(request.getParameter("from"))) {
 			return "redirect:" + request.getParameter("from");
@@ -112,31 +132,12 @@ public class AdminLoginController extends BaseController {
 	 * @throws JsonGenerationException
 	 */
 	@RequestMapping("/index")
-	public String index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+	public String index(HttpServletRequest request) {
 		log.debug("=======admin.index=========");
 		User currentUser = (User) request.getSession().getAttribute("currentUser");
 		if (null == currentUser) {
 			return "/admin/login";
 		} else {
-			MenuTreeNode menuTreeNode = userActionService.findTreeByUser(MenuTreeNode.class, currentUser,
-					new PropertySetter2<MenuTreeNode>() {
-						public void set(MenuTreeNode node, UserAction entity) {
-							if (entity != null) {
-								if ("#".equals(entity.getUri())) {
-									node.uri = entity.getUri();
-								} else {
-									node.setUri(entity.getUri());
-								}
-								node.iconSkin = entity.getIconSkin();
-								if (null == node.iconSkin) {
-									node.iconSkin = "";
-								}
-							}
-						}
-					});
-			ObjectMapper om = new ObjectMapper();
-			String jsonActionTree = om.writeValueAsString(menuTreeNode);
-			request.getSession().setAttribute("jsonActionTree", jsonActionTree);
 			return "/admin/index";
 		}
 	}

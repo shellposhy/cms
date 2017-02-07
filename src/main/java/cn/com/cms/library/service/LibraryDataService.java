@@ -86,15 +86,10 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 			data.put(FieldCodes.UPDATER_ID, currentUser == null ? 0 : currentUser.getId());
 			DataTable dataTable = libraryService.getDataTable(library.getId());
 			data.setTableId(dataTable.getId());
-			logger.debug("====>tableId : " + dataTable.getId());
 			data.put(FieldCodes.DATA_STATUS, EDataStatus.Yes.ordinal());
-			// 入库
 			Integer dataId = dbDao.insert(dataTable.getName(), getDbData(data, dbFieldList));
-			logger.debug("====>dataId : " + dataId);
 			data.setId(dataId);
-			// 创建索引
 			saveIndex(library.getId(), data, dbFieldList);
-			// 更新表行数
 			dataTableMapper.increaseRowCount(dataTable.getId(), 1);
 			libraryMapper.updateDataUpdateTime(data.getBaseId());
 			result = dataId;
@@ -119,7 +114,6 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 			data.put(FieldCodes.UPDATE_TIME, DateTimeUtil.getCurrentDate());
 			data.put(FieldCodes.UPDATER_ID, currentUser == null ? 0 : currentUser.getId());
 			dbDao.update(dataTable.getName(), getDbData(data, updateFields));
-			// 首先删除索引再建立索引
 			deleteIndex(data.getBaseId(), (String) data.get(FieldCodes.UUID));
 			saveIndex(library.getId(), data, dbFieldList);
 			libraryMapper.updateDataUpdateTime(data.getBaseId());

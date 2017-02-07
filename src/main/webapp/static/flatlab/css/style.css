@@ -922,7 +922,9 @@ ul.about-flex-slides {
 }
 
 .breadcrumb li a{
-    color: #5e0000;
+    /*color: #5e0000;*/
+    color: #fff;
+    font-weight: bold;
 }
 
 .breadcrumb li.active {

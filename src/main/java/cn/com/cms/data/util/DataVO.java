@@ -40,6 +40,9 @@ public class DataVO {
 	private String creator = "";
 	private String updater = "";
 	private String tableId = "";
+	private String year = "";
+	private String month = "";
+	private String day = "";
 	private Map<String, String> fieldMap = new HashMap<String, String>();
 
 	public DataVO() {
@@ -217,6 +220,30 @@ public class DataVO {
 
 	public void setTableId(String tableId) {
 		this.tableId = tableId;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
 	}
 
 	public Map<String, String> getFieldMap() {

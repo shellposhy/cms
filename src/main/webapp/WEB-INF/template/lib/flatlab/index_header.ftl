@@ -7,11 +7,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="/static/flatlab/img/logo.png" height="80"></a>
+                <a class="navbar-brand" href="/index.html"><img src="/static/flatlab/img/logo.png" height="80"></a>
             </div>
             <div class="navbar-collapse collapse ">
                 <ul class="nav navbar-nav">
-                    <li class=""><a href="index.html">首页</a></li>
+                    <li class=""><a href="/index.html">首页</a></li>
                     <li class="dropdown ">
                         <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">关于国理<b class=" icon-angle-down"></b></a>
                         <ul class="dropdown-menu">

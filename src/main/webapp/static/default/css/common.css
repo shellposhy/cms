@@ -14,7 +14,7 @@ fieldset,img {
 	border: 0;
 }
 
-address,caption,cite,code,dfn,em,strong,th,var {
+address,caption,cite,code,dfn,em,th,var {
 	font-style: normal;
 	font-weight: normal;
 }
@@ -1099,6 +1099,9 @@ a.header_low_title:link,a.header_low_title:visited{
 	margin-bottom: 20px;
 }
 
+.detail_con strong{
+	font-weight: bold;
+}
 
 .detail_con img {
 	border: #dcdcdc 1px solid;

@@ -35,6 +35,7 @@ import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.service.LibraryDataService;
 import cn.com.cms.library.service.LibraryService;
+import cn.com.cms.page.util.PagingUtil;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVO;
@@ -99,13 +100,54 @@ public class PageController extends BaseController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/list/{id}")
-	public String list(@PathVariable int id, Model model) {
+	@RequestMapping("/{type}/list/{id}")
+	public String list(@PathVariable String type, @PathVariable int id, HttpServletRequest request, Model model) {
 		log.debug("===page.list===");
 		BaseLibrary<?> dataBase = libraryService.find(id);
+		Integer first = Strings.isNullOrEmpty(request.getParameter("pageNum")) ? 1
+				: Integer.valueOf(request.getParameter("pageNum"));
+		Integer start = (first - 1) * appConfig.getAdminDataTablePageMinSize();
+		MdSortField[] dsSortFieldsArray = {
+				new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+		String[] hightLightFields = { FieldCodes.TITLE };
+		String word = request.getParameter("word");
+		String queryString = Strings.isNullOrEmpty(word) ? "*:*"
+				: "Title:" + word.trim() + " OR Content:" + word.trim();
+		SearchResult searchResult = libraryDataService.searchIndex(queryString,
+				appConfig.getDefaultIndexSearchNumHits(), dsSortFieldsArray, hightLightFields, start,
+				appConfig.getAdminDataTablePageMinSize(), id);
+		List<DataVO> result = Lists.newArrayList();
+		PagingUtil paging = null;
+		if (null != searchResult && null != searchResult.documents && searchResult.documents.length > 0) {
+			for (Document document : searchResult.documents) {
+				DataVO vo = new DataVO(document);
+				// 系统默认图片
+				vo.setImg("/static/flatlab/img/default.jpg");
+				if (!Strings.isNullOrEmpty(document.get(FieldCodes.DOC_TIME))) {
+					String docTime = document.get(FieldCodes.DOC_TIME);
+					vo.setMonth(DateTimeUtil.formatDateTimeStr(docTime, "yyyyMMddHHmmss", "MM"));
+					vo.setYear(DateTimeUtil.formatDateTimeStr(docTime, "yyyyMMddHHmmss", "yyyy"));
+					vo.setDay(DateTimeUtil.formatDateTimeStr(docTime, "yyyyMMddHHmmss", "dd"));
+				}
+				if (!Strings.isNullOrEmpty(document.get(FieldCodes.TABLE_ID))
+						&& !Strings.isNullOrEmpty(document.get(FieldCodes.ID))) {
+					List<String> imgs = libraryDataService.findDataImgs(
+							Integer.valueOf(document.get(FieldCodes.TABLE_ID)),
+							Integer.valueOf(document.get(FieldCodes.ID)));
+					if (null != imgs && imgs.size() > 0) {
+						vo.setImg(imgs.get(0));
+					}
+				}
+				result.add(vo);
+			}
+			paging = new PagingUtil(appConfig.getAdminDataTablePageMinSize(), first, searchResult.totalHits);
+		}
 		model.addAttribute("dataBaseId", id);
+		model.addAttribute("dataList", result);
+		model.addAttribute("paging", paging);
 		model.addAttribute("dataBase", dataBase);
-		return "default/list";
+		model.addAttribute("type", type);
+		return type + "/channel";
 	}
 
 	/**
