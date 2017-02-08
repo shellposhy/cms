@@ -10,15 +10,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Component;
-
 import cn.com.cms.common.SystemConstant;
 import cn.com.cms.user.model.User;
+import cn.com.cms.util.MessageResources;
 
 /**
  * Servlet Filter implementation class UrlFilter
  */
-@Component
 public class UrlFilter implements Filter {
 
 	/**
@@ -39,7 +37,7 @@ public class UrlFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		httpServletRequest.setAttribute("appName", "数据信息管理系统");
+		httpServletRequest.setAttribute("appName", MessageResources.getValue("app.name"));
 		String uri = httpServletRequest.getRequestURI();
 		if (uri.contains("/admin/security/check") || uri.contains("/page") || uri.contains("/static")
 				|| uri.contains("/default") || "/".equals(uri) || uri.contains("/pic") || uri.contains("/tmp")
