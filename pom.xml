@@ -14,23 +14,6 @@
 		<jdk.version>1.7</jdk.version>
 	</properties>
 	
-	<!-- nexus -->
-	<!--
-	<repositories>
-		<repository>
-			<id>nexus</id>
-			<name>Nexus</name>
-			<url>http://101.201.196.204:8081/nexus/content/groups/public/</url>
-			<release>
-				<enabled>true</enabled>
-			</release>
-            <snapshots>
-            	<enabled>true</enabled>
-            </snapshots>
-		</repository>
-	</repositories>
-	-->
-
 	<!-- dependencies -->
 	<dependencies>
 		<!-- base -->
