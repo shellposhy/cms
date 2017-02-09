@@ -21,7 +21,7 @@ import cn.com.cms.framework.tree.MenuTreeNode;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.model.UserAction;
 import cn.com.cms.user.service.UserActionService;
-import cn.com.cms.user.service.UserActionService.PropertySetter2;
+import cn.com.cms.user.service.UserActionService.ActionPropertySetter;
 import cn.com.cms.user.service.UserService;
 import cn.com.people.data.util.StringUtil;
 
@@ -97,7 +97,7 @@ public class AdminLoginController extends BaseController {
 		}
 		// 加载权限树
 		MenuTreeNode menuTreeNode = userActionService.findTreeByUser(MenuTreeNode.class, currentUser,
-				new PropertySetter2<MenuTreeNode>() {
+				new ActionPropertySetter<MenuTreeNode>() {
 					public void set(MenuTreeNode node, UserAction entity) {
 						if (entity != null) {
 							if ("#".equals(entity.getUri())) {

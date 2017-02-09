@@ -91,7 +91,8 @@ public class UserActionService {
 	 * @param setter
 	 * @return
 	 */
-	public <T extends DefaultTreeNode> T findActionByUser(Class<T> ct, User user, final PropertySetter2<T> setter) {
+	public <T extends DefaultTreeNode> T findActionByUser(Class<T> ct, User user,
+			final ActionPropertySetter<T> setter) {
 		log.info("==========user.action.tree==========");
 		T treeNode = findTreeByUser(ct, user, setter);
 		return DefaultTreeNode.partTree(treeNode);
@@ -105,7 +106,8 @@ public class UserActionService {
 	 * @param setter
 	 * @return
 	 */
-	public <T extends DefaultTreeNode> T findTreeByUser(Class<T> ct, final User user, final PropertySetter2<T> setter) {
+	public <T extends DefaultTreeNode> T findTreeByUser(Class<T> ct, final User user,
+			final ActionPropertySetter<T> setter) {
 		List<UserAction> userActionList = null;
 		boolean allAdminAuthority = false;
 		final List<Integer> ids = new ArrayList<Integer>();
@@ -148,7 +150,7 @@ public class UserActionService {
 	/**
 	 * 属性容器
 	 */
-	public interface PropertySetter2<K extends DefaultTreeNode> {
+	public interface ActionPropertySetter<K extends DefaultTreeNode> {
 		void set(K k, UserAction entity);
 	}
 }
