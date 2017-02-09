@@ -19,9 +19,7 @@ import com.google.common.base.Strings;
 import cn.com.cms.base.BaseController;
 import cn.com.cms.framework.tree.MenuTreeNode;
 import cn.com.cms.user.model.User;
-import cn.com.cms.user.model.UserAction;
 import cn.com.cms.user.service.UserActionService;
-import cn.com.cms.user.service.UserActionService.ActionPropertySetter;
 import cn.com.cms.user.service.UserService;
 import cn.com.people.data.util.StringUtil;
 
@@ -95,23 +93,7 @@ public class AdminLoginController extends BaseController {
 		if (null == currentUser) {
 			return "/admin/login";
 		}
-		// 加载权限树
-		MenuTreeNode menuTreeNode = userActionService.findTreeByUser(MenuTreeNode.class, currentUser,
-				new ActionPropertySetter<MenuTreeNode>() {
-					public void set(MenuTreeNode node, UserAction entity) {
-						if (entity != null) {
-							if ("#".equals(entity.getUri())) {
-								node.uri = entity.getUri();
-							} else {
-								node.setUri(entity.getUri());
-							}
-							node.iconSkin = entity.getIconSkin();
-							if (null == node.iconSkin) {
-								node.iconSkin = "";
-							}
-						}
-					}
-				});
+		MenuTreeNode menuTreeNode = userActionService.getMenuTree(currentUser);
 		ObjectMapper om = new ObjectMapper();
 		String jsonActionTree = om.writeValueAsString(menuTreeNode);
 		request.getSession().setAttribute("jsonActionTree", jsonActionTree);

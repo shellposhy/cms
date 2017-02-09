@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.framework.tree.DefaultTreeNode.PropertySetter;
+import cn.com.cms.framework.tree.MenuTreeNode;
 import cn.com.cms.user.dao.UserActionMapMapper;
 import cn.com.cms.user.dao.UserActionMapper;
 import cn.com.cms.user.dao.UserGroupMapper;
@@ -96,6 +97,30 @@ public class UserActionService {
 		log.info("==========user.action.tree==========");
 		T treeNode = findTreeByUser(ct, user, setter);
 		return DefaultTreeNode.partTree(treeNode);
+	}
+
+	/**
+	 * 系统用户登录时，获得菜单树
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public MenuTreeNode getMenuTree(User user) {
+		return findTreeByUser(MenuTreeNode.class, user, new ActionPropertySetter<MenuTreeNode>() {
+			public void set(MenuTreeNode node, UserAction entity) {
+				if (entity != null) {
+					if ("#".equals(entity.getUri())) {
+						node.uri = entity.getUri();
+					} else {
+						node.setUri(entity.getUri());
+					}
+					node.iconSkin = entity.getIconSkin();
+					if (null == node.iconSkin) {
+						node.iconSkin = "";
+					}
+				}
+			}
+		});
 	}
 
 	/**
