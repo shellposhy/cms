@@ -32,7 +32,6 @@
 			separator=",">
 			(#{item.groupID},#{item.actionID},#{item.type})
 		</foreach>
-
 	</insert>
 
 	<delete id="deleteByGroupId">

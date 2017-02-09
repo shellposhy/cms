@@ -106,7 +106,7 @@ public class UserActionService {
 	 * @return
 	 */
 	public <T extends DefaultTreeNode> T findTreeByUser(Class<T> ct, final User user, final PropertySetter2<T> setter) {
-		List<UserAction> userActionList = allActionList;
+		List<UserAction> userActionList = null;
 		boolean allAdminAuthority = false;
 		final List<Integer> ids = new ArrayList<Integer>();
 		if ("sa".equals(user.getName())) {
@@ -129,6 +129,11 @@ public class UserActionService {
 			}
 		}
 		final boolean allAction = allAdminAuthority;
+		if (allAction) {
+			userActionList = allActionList;
+		} else {
+			userActionList = userActionMapper.findAdminByIds(ids);
+		}
 		T treeNode = DefaultTreeNode.parseTree(ct, userActionList, new PropertySetter<T, UserAction>() {
 			public void setProperty(T node, UserAction entity) {
 				if (allAction || (entity != null && ids.contains(entity.getId()))) {

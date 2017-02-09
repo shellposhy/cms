@@ -2,6 +2,8 @@ package cn.com.cms.user.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.com.cms.user.model.UserAction;
 
 /**
@@ -28,8 +30,16 @@ public interface UserActionMapper {
 
 	/**
 	 * 获得后台权限树
+	 * 
 	 * @return
 	 */
 	List<UserAction> findAdmin();
 
+	/**
+	 * 根据权限编号查询
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	List<UserAction> findAdminByIds(@Param("ids") List<Integer> ids);
 }

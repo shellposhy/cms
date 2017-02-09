@@ -26,4 +26,11 @@
 	    SELECT * FROM user_action WHERE   Type = 0    ORDER BY Order_ID
 	</select>
 	
+	<select id="findAdminByIds" resultMap="resultMap" parameterType="java.util.List">
+		SELECT * FROM user_action WHERE ID in 
+		<foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER BY Order_ID
+	</select>
 </mapper>
