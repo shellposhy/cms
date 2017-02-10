@@ -1,0 +1,1 @@
+Junit resource or configuration file here
