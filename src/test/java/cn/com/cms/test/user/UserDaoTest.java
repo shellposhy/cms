@@ -17,13 +17,13 @@ import cn.com.cms.user.dao.UserMapper;
  * @version 1.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath*:applicationContext.xml")
+@ContextConfiguration(locations = { "classpath*:applicationContext.xml", "classpath:applicationContext-quartz.xml",
+		"classpath:applicationContext-mybatis.xml" })
 public class UserDaoTest extends AbstractJUnit4SpringContextTests {
 	@Resource
 	private UserMapper userMapper;
 
 	@Test
 	public void selectTest() {
-		System.out.println(userMapper.findAll().size());
 	}
 }
