@@ -70,6 +70,9 @@ public class AdminLoginController extends BaseController {
 
 	/**
 	 * 退出系统
+	 * 
+	 * @param request
+	 * @return
 	 */
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request) {
@@ -109,9 +112,6 @@ public class AdminLoginController extends BaseController {
 	 * 
 	 * @param request
 	 * @return {@link String}
-	 * @throws IOException
-	 * @throws JsonMappingException
-	 * @throws JsonGenerationException
 	 */
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request) {
