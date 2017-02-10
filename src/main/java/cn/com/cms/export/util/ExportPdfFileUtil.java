@@ -2,7 +2,6 @@ package cn.com.cms.export.util;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -23,9 +22,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.krysalis.barcode4j.impl.code128.Code128Bean;
-import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
-import org.krysalis.barcode4j.tools.UnitConv;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.w3c.tidy.Configuration;
 import org.w3c.tidy.Tidy;
@@ -75,7 +71,6 @@ public class ExportPdfFileUtil {
 	private static final String UTF8 = "UTF-8"; // 编码-UTF-8
 	// 用于查找条形码的路径和文件
 	private static final String PDF_SUFFIX_NAME = "pdf"; // PDF后缀名(文件类型)
-	private static final String PIC_SUFFIX_NAME = "jpg"; // PDF后缀名(文件类型)
 	private String pdfExprotPath = MessageResources.getValue("app.path.pdf.export");// 生成PDF文件的路径
 
 	private static final Color WATERMARK_FONT_COLOR = Color.LIGHT_GRAY; // 水印字体默认颜色
@@ -91,51 +86,6 @@ public class ExportPdfFileUtil {
 	private static final int HEADER_Y = 35;
 	private static final int HEADER_LINE_Y = 40;
 	private static final int HEADER_LINE_X = 60;
-
-	/**
-	 * 生成申报书条形码.
-	 * 
-	 * @time：2012.6.13
-	 * 
-	 * @author huangt
-	 * @param code
-	 */
-	public String createBarCode(String code) throws Exception {
-
-		try {
-			// Create the barcode bean
-			Code128Bean bean = new Code128Bean();
-			final int dpi = 100;
-			// Configure the barcode generator
-			bean.setModuleWidth(UnitConv.in2mm(1.0f / dpi)); // makes the narrow
-			bean.doQuietZone(false);
-			// Open output file
-			File filePath = new File(pdfExprotPath);
-			// 判断文件夹是否存在,如果不存在则创建文件夹
-			if (!filePath.exists()) {
-				filePath.mkdirs();
-			}
-			String fileName = getTempName(pdfExprotPath, PIC_SUFFIX_NAME);
-			File outputFile = new File(fileName);
-			OutputStream out = new FileOutputStream(outputFile);
-			try {
-				// Set up the canvas provider for monochrome JPEG output
-				BitmapCanvasProvider canvas = new BitmapCanvasProvider(out, "image/jpeg", dpi,
-						BufferedImage.TYPE_BYTE_BINARY, false, 0);
-				// Generate the barcode
-				bean.generateBarcode(canvas, code);
-				// Signal end of generation
-				canvas.finish();
-			} finally {
-				out.close();
-			}
-			return fileName;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	/**
 	 * 在pdf文件中添加水印.
@@ -548,10 +498,10 @@ public class ExportPdfFileUtil {
 	}
 
 	public static void main(String[] args) {
-		ExportPdfFileUtil pdfFileUtil=new ExportPdfFileUtil();
+		ExportPdfFileUtil pdfFileUtil = new ExportPdfFileUtil();
 		pdfFileUtil.exportPdfFile("www.baidu.com", new HashMap<String, Object>());
 	}
-	
+
 	/**
 	 * 生成PDF.
 	 * 
