@@ -14,7 +14,6 @@ import cn.com.cms.library.constant.EIndexType;
  */
 public class DataField extends BaseEntity {
 	private static final long serialVersionUID = 1L;
-
 	private String name;
 	private String code;
 	private String codeName;

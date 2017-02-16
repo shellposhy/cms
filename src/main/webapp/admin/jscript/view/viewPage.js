@@ -16,6 +16,7 @@ function init_load_page_list() {
 		page_data_table();
 		publish_home_page("publish_list", "page/publish", oTableDataPage);
 		publish_list_page("subPublish_list", "page/publishSub");
+		export_project_page("swb_export");
 	}
 }
 
@@ -153,6 +154,55 @@ function publish_list_page(btnId, sUrl) {
 				});
 			});
 		return false;
+	});
+}
+
+//标书发布
+function export_project_page(btnId){
+	$("#swb_export").click(function() {
+		if ($(this).parent().nextAll(".dataTables_wrapper").find("tbody input[type='checkbox']").length > 0) {
+			var count = 0;
+			var idsVal = new Array();
+			$(this).parent().nextAll(".dataTables_wrapper").find("tbody input[type='checkbox']").each(function() {
+				if ($(this).attr("checked")&& $(this).val() != null&& $(this).val().length > 0) {
+					idsVal.push($(this).val());
+					count++;
+				}
+			});
+			if (count > 0) {
+				$('#noticeModal').modal('show');
+				$("#noticeModal").find('.btn-primary').click(function() {
+					var btnPrimary = $(this);
+					btnPrimary.attr("disabled", true).siblings(".loading").show();
+					$.ajax({
+						type : 'get',
+						contentType : "application/json",
+						url : "/admin/export/"+idsVal[0]+"/0",
+						success : function(resp) {
+							if(resp.success==true){
+								btnPrimary.attr("disabled", false).siblings(".loading").hide();
+								setTimeout("isCheckboxStyle();",300);
+								$('#noticeModal').modal('hide');
+								noty({"text" : "导出成功","layout" : "center","type" : "alert","animateOpen" : {"opacity" : "show"}});
+								setTimeout(function () {
+									document.location.href="/admin/download/"+idsVal[0]+"/"+idsVal[0];
+								},1000);
+							}else{
+								btnPrimary.attr("disabled", false).siblings(".loading").hide();
+								noty({"text" : "操作失败，请重试","layout" : "center","type" : "error"});
+							}
+						},
+						error : function(data) {
+							btnPrimary.attr("disabled", false).siblings(".loading").hide();
+							noty({"text" : "操作失败，请重试","layout" : "center","type" : "error"});
+						}
+					});
+				});
+			} else {
+				noty({"text" : "请选择要导出标书的项目","layout" : "center","type" : "error"});
+			}
+			return false;
+		}
 	});
 }
 

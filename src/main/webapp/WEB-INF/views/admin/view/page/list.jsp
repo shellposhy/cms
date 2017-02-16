@@ -14,6 +14,7 @@
 			<a class="btn delete_list" href="#"><i class="icon-trash"></i> 删除</a>
 			<a class="btn" href="#" id="publish_list"><i class="icon-share"></i> 首页发布</a>
 			<!-- <a class="btn" href="#" id="subPublish_list"><i class="icon-share"></i> 二级页面发布</a> -->
+			<a class="btn" href="#" id="swb_export"><i class="icon-share"></i> 商务标发布</a>
 		</div>
 		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered bootstrap-datatable trHoverEdit trHoverModi" id="view_page_list">
 			<thead>

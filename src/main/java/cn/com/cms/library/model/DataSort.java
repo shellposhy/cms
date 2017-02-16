@@ -24,6 +24,7 @@ public class DataSort extends TreeNodeEntity<DataSort> {
 	private Integer creatorId;
 	private Date updateTime;
 	private Integer updaterId;
+	private boolean forDataNode;
 
 	public String getCode() {
 		return code;
@@ -111,6 +112,14 @@ public class DataSort extends TreeNodeEntity<DataSort> {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public boolean isForDataNode() {
+		return forDataNode;
+	}
+
+	public void setForDataNode(boolean forDataNode) {
+		this.forDataNode = forDataNode;
 	}
 
 }
