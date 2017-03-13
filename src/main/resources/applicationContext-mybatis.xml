@@ -23,7 +23,6 @@
 		<property name="basePackage" value="cn.com.cms.**.dao" />
 	</bean>
 	
-	<!-- menu -->
 	<!-- flyway used manage the database schema,  init-method first use,the value is init, and then migrate -->
 	<bean id="flyway" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
 		<property name="dataSource" ref="dataSource"/>
