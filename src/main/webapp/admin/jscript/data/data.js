@@ -8,32 +8,10 @@ $(document).ready(function() {
 	load_library_data();
 	show_form_field();
 	init_sort_tree();
-	init_project_list();
 	if ($("#contentArea").length > 0) {
 		UE.getEditor('contentArea');
 	}
 });
-
-// 加载特殊情况下项目列表
-function init_project_list() {
-	if ($("#Project_ID").length > 0) {
-		$.ajax({
-			type : "POST",
-			url : "/admin/view/page/project/list",
-			dataType : 'json',
-			contentType : 'application/json',
-			success : function(data) {
-				if (data != null && data.length > 0) {
-					var content = "";
-					for (var i = 0; i < data.length; i++) {
-						content += '<option value="' + data[i].id + '">'+ data[i].name + '</option>';
-					}
-					$("#Project_ID").html(content);
-				}
-			}
-		});
-	}
-}
 
 // 定义通用公共参数
 var thisPath = appPath + "/admin/system/library/";

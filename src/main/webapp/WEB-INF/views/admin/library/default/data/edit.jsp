@@ -27,13 +27,6 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="Project_ID">项目名称</label>
-							<div class="controls ">
-								<form:select path="fieldMap[Project_ID]"  id="Project_ID" >
-								</form:select>
-							</div>
-						</div>
-						<div class="control-group">
 							<label class="control-label" for="editor1">正文</label>
 							<div class="controls pr">
 								<form:textarea path="fieldMap[Content]" class="areaEditor" id="contentArea" />
