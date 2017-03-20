@@ -1,11 +1,9 @@
 
 /* Import fonts */
-@import url(http://fonts.useso.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-@import url(http://fonts.useso.com/css?family=Fjalla+One);
-
 body {
     color: #797979;
-    font-family: 'Open Sans', sans-serif;
+    /**font-family: 'Open Sans', sans-serif;*/
+    font-family: "Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu; 
     padding: 0px !important;
     margin: 0px !important;
     font-size:13px;
