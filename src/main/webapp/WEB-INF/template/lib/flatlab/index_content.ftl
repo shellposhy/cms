@@ -8,15 +8,6 @@
 				<#list data.list as item>
 					 <li data-transition="fade" data-slotamount="8" data-masterspeed="700" data-delay="9400" data-thumb="">
 					 	<img src="${item.img}">
-	                     <div class="caption lfr slide_title" data-x="670" data-y="120" data-speed="400" data-start="1000" data-easing="easeOutExpo">
-	                         ${substrbyte(item.title, 长度, '...')}
-	                     </div>
-	                     <div class="caption lfr slide_desc" data-x="670" data-y="200" data-speed="400" data-start="2500" data-easing="easeOutExpo">
-	                         ${substrbyte(item.summary, 摘要长度, '...')}
-	                     </div>
-	                     <a class="caption lfr btn yellow slide_btn" href="${item.href}" target="_blank" data-x="670" data-y="250" data-speed="400" data-start="3500" data-easing="easeOutExpo">
-	                         查看
-	                     </a>
                  	</li>
 				</#list>
 			</ul>
