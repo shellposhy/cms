@@ -1444,12 +1444,12 @@ a.header_low_title:link,a.header_low_title:visited{
 .index_footer img{float:left;margin-right:6px}
 .index_footer .bot{float:left;margin-top:12px;padding:0 8px;border-left:1px dotted #ccc}
 .index_footer .bot .search_box {margin-left:10px;}
-.index_footer .bot ul{width:257px;height:60px;}
+.index_footer .bot ul{width:460px;height:60px;}
 .index_footer .bot li{float:left;width:42px;margin:8px 0 6px;text-align:center;border-right:1px solid #999}
 .index_footer .bot li.nborder{border-right:none}
 .index_footer .bot_ul1 li a{color:#cc0000;}
 .index_footer .bot_ul1 li a:hover{color:#900;}
-.index_footer .bot .bot_ul2{width:243px}
+.index_footer .bot .bot_ul2{width:400px}
 .index_footer .bot_ul2 li{width:60px}
 
 /* index con */
@@ -1471,7 +1471,7 @@ a.header_low_title:link,a.header_low_title:visited{
 	text-align: center;
 	background: url("images/bg_big.png") no-repeat 0 0;
 	width: 246px;
-	height: 410px;
+	height: 335px;
 }
 
 .paper_text {
