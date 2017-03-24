@@ -137,7 +137,7 @@
 	</select>
 	
 	<select id="findDisplayFieldsByModelId" resultMap="resultMap" parameterType="Integer">
-		<![CDATA[ SELECT DISTINCT f.* FROM data_field f LEFT JOIN  column_model_field_map m ON m.Field_ID = f.ID LEFT JOIN column_model c on m.Column_Model_ID =c.ID WHERE f.For_Display = 1 AND (f.type = 0 OR c.ID = #{modelId} ) ORDER BY Order_ID]]>
+		<![CDATA[ SELECT DISTINCT f.* FROM data_field f LEFT JOIN  column_model_field_map m ON m.Field_ID = f.ID LEFT JOIN column_model c on m.Column_Model_ID =c.ID WHERE f.For_Display = 1 AND c.ID = #{modelId}  ORDER BY Order_ID]]>
 	</select>
 
 	<insert id="insert">

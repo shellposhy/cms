@@ -520,6 +520,7 @@ function init_display_fields() {
 					}
 				}
 				$('#columnModelFileds').html("");
+				temCheckCon+='<label><div class="checker" id="uniform-undefined"><span class="checked"><input type="checkbox" onclick="changeChkVal()" rel="Reason" name="chk" value="16" style="opacity: 0;"></span></div>文档时间</label>';
 				$('#columnModelFileds').append(temCheckCon);
 				var fieldIds = "";
 				var checkVals = $('#columnModelFileds :checkbox:checked');
