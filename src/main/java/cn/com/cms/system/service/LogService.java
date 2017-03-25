@@ -16,9 +16,10 @@ import org.apache.log4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-import cn.com.cms.system.model.DefaultLog;
-import cn.com.cms.system.model.DefaultLog.ELogAction;
-import cn.com.cms.system.model.DefaultLog.ELogTargetType;
+import cn.com.cms.framework.base.BaseLog;
+import cn.com.cms.system.contant.ELogAction;
+import cn.com.cms.system.contant.ELogTargetType;
+import cn.com.cms.system.model.RecordVisit;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.model.UserGroup;
 import cn.com.cms.user.service.UserGroupService;
@@ -43,9 +44,17 @@ public class LogService implements MessageListener {
 	private UserService userService;
 	@Resource
 	private UserGroupService userGroupService;
+	@Resource
+	private RecordVisitService recordVisitService;
 	private Queue queue;
 
-	public void logAdmin(final DefaultLog log) {
+	/**
+	 * 后台日志
+	 * 
+	 * @param log
+	 * @return
+	 */
+	public void logAdmin(final BaseLog log) {
 		JmsTemplate.send(queue, new MessageCreator() {
 			public Message createMessage(Session session) throws JMSException {
 				ObjectMessage message = session.createObjectMessage(log);
@@ -55,7 +64,13 @@ public class LogService implements MessageListener {
 		});
 	}
 
-	public void logUser(final DefaultLog log) {
+	/**
+	 * 前台日志
+	 * 
+	 * @param log
+	 * @return
+	 */
+	public void logUser(final BaseLog log) {
 		JmsTemplate.send(queue, new MessageCreator() {
 			public Message createMessage(Session session) throws JMSException {
 				ObjectMessage message = session.createObjectMessage(log);
@@ -65,9 +80,15 @@ public class LogService implements MessageListener {
 		});
 	}
 
+	/**
+	 * Jms 消息处理类
+	 * 
+	 * @param message
+	 * @return
+	 */
 	public void onMessage(Message message) {
 		ObjectMessage om = null;
-		DefaultLog log = null;
+		BaseLog log = null;
 		Logger logger = null;
 		try {
 			byte msgType = message.getByteProperty(MESSAGE_TYPE);
@@ -75,7 +96,7 @@ public class LogService implements MessageListener {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(new Date());
 				om = (ObjectMessage) message;
-				log = (DefaultLog) om.getObject();
+				log = (BaseLog) om.getObject();
 				log.setLogAction(getAccessType(log.getUri(), log.getMethod(), log.getId()));
 				log.setLogTargetType(getTargetType(log.getUri(), log.getUrl()));
 				if ((log.getLogTargetType().equals(ELogTargetType.DataBase))) {
@@ -130,6 +151,8 @@ public class LogService implements MessageListener {
 				default:
 					logger = adminLogger;
 				}
+				// 写入访问记录
+				writeRecordVisit(log);
 				try {
 					logger.info(log.toString());
 				} catch (Exception e) {
@@ -146,10 +169,35 @@ public class LogService implements MessageListener {
 	}
 
 	/**
+	 * 写入访问日志
+	 * 
+	 * @param log
+	 * @return
+	 */
+	public void writeRecordVisit(BaseLog log) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		RecordVisit record = new RecordVisit();
+		record.setUserId(log.getUserId());
+		record.setAction(log.getLogAction());
+		record.setTarget(log.getLogTargetType());
+		record.setVisitTime(new Date());
+		record.setYear(cal.get(Calendar.YEAR));
+		record.setMonth(cal.get(Calendar.MONTH) + 1);
+		record.setDay(cal.get(Calendar.DATE));
+		record.setHour(cal.get(Calendar.HOUR_OF_DAY));
+		recordVisitService.insert(record);
+	}
+
+	/**
 	 * 通过uri判断用户操作目标类型
+	 * 
+	 * @param uri
+	 * @param url
+	 * @return
 	 */
 	private ELogTargetType getTargetType(String uri, String url) {
-		if (uri.contains("/log/") || uri.contains("/statistical")) {
+		if (uri.contains("/log/") || uri.contains("/report")) {
 			return ELogTargetType.Log;
 		}
 		if (uri.contains("/user/") || uri.endsWith("/user")) {
@@ -169,6 +217,11 @@ public class LogService implements MessageListener {
 
 	/**
 	 * 通过uri判断用户行为类型
+	 * 
+	 * @param uri
+	 * @param method
+	 * @param id
+	 * @return
 	 */
 	private ELogAction getAccessType(String uri, String method, Integer id) {
 		if (uri.endsWith("/s") || uri.endsWith("/qs") || uri.endsWith("/queryStr")) {
@@ -192,8 +245,7 @@ public class LogService implements MessageListener {
 		if (uri.endsWith("/print")) {
 			return ELogAction.Print;
 		}
-		if (uri.endsWith("/list") || uri.contains("/statistical") || uri.endsWith("/webquery")
-				|| uri.endsWith("/tree")) {
+		if (uri.endsWith("/list") || uri.endsWith("/tree")) {
 			return ELogAction.Search;
 		}
 		if (method.equals("POST")) {

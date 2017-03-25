@@ -32,6 +32,7 @@
 <script type="text/javascript" src="${appPath}/admin/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="${appPath}/admin/js/javascript/cmstree.js"></script>
 <script type="text/javascript" src="${appPath}/admin/js/javascript/commen.js"></script>
+<script type="text/javascript" src="${appPath}/admin/js/javascript/chart.js"></script>
 <script type="text/javascript">
 	var appPath = "${appPath}"
 </script>

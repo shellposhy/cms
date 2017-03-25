@@ -34,6 +34,10 @@
 		SELECT * FROM data_table WHERE ID=#{id}
 	</select>
 	
+	<select id="findTablesByGroupByBaseId" resultMap="resultMap">
+		SELECT * FROM data_table group by Base_ID
+	</select>
+	
 	<insert id="insert">
 		<selectKey resultType="java.lang.Integer" order="AFTER"
 			keyProperty="id">

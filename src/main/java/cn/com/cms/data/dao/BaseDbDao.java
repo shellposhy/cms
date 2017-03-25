@@ -25,6 +25,8 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.google.common.collect.Maps;
+
 import cn.com.cms.common.DbData;
 import cn.com.cms.common.DbTable;
 import cn.com.cms.common.FieldCodes;
@@ -35,6 +37,7 @@ import cn.com.cms.data.model.DataTable;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;
+import cn.com.cms.user.model.User;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.StringUtil;
 
@@ -491,6 +494,39 @@ public class BaseDbDao {
 		StringBuilder sb = new StringBuilder("SELECT COUNT(*) FROM ").append(tableName)
 				.append("  WHERE DATEDIFF(Create_Time,SYSDATE())=0 ").append(" AND Creator_ID=").append(userId);
 		result = jdbcTemplate.queryForInt(sb.toString());
+		return result;
+	}
+
+	/**
+	 * 根据用户编号统计数据
+	 * 
+	 * @param tableName
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public int count(String tableName, Integer userId) {
+		int result = 0;
+		StringBuilder sb = new StringBuilder("SELECT COUNT(*) FROM ").append(tableName).append("  WHERE Creator_ID=")
+				.append(userId);
+		result = jdbcTemplate.queryForInt(sb.toString());
+		return result;
+	}
+
+	/**
+	 * 根据用户编号组统计数据
+	 * 
+	 * @param tableName
+	 * @param userId
+	 * @return
+	 */
+	public Map<Integer, Integer> count(String tableName, List<User> users) {
+		Map<Integer, Integer> result = Maps.newHashMap();
+		if (null != users && users.size() > 0) {
+			for (User user : users) {
+				result.put(user.getId(), count(tableName, user.getId()));
+			}
+		}
 		return result;
 	}
 

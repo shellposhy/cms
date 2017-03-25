@@ -35,9 +35,11 @@ import cn.com.cms.library.dao.LibraryMapper;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.model.DataBaseFieldMap;
 import cn.com.cms.user.model.User;
+import cn.com.cms.user.service.UserService;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.PkUtil;
 
+import com.google.common.collect.Maps;
 import com.microduo.index.IndexException;
 import com.microduo.index.lucene3.SearchResult;
 
@@ -59,6 +61,26 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 	private DataBaseFieldMapMapper dataBaseFieldMapMapper;
 	@Resource
 	private UserSecurityService userSecurityService;
+	@Resource
+	private UserService userService;
+
+	/**
+	 * 根据用户编号组统计数据
+	 * 
+	 * @param tableName
+	 * @param userId
+	 * @return
+	 */
+	public Map<String, Integer> count(String tableName, List<User> users) {
+		Map<Integer, Integer> map = dbDao.count(tableName, users);
+		Map<String, Integer> result = Maps.newHashMap();
+		if (null != map && map.size() > 0) {
+			for (Integer key : map.keySet()) {
+				result.put(userService.find(key).getName(), map.get(key));
+			}
+		}
+		return result;
+	}
 
 	/**
 	 * 保存数据

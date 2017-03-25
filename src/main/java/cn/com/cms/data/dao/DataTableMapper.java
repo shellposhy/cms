@@ -48,6 +48,12 @@ public interface DataTableMapper extends BaseDao<DataTable> {
 	DataTable findByName(String name);
 
 	/**
+	 * 根据数据库编号分组查询
+	 * @return
+	 */
+	List<DataTable> findTablesByGroupByBaseId();
+
+	/**
 	 * 增加行数
 	 * 
 	 * @param id

@@ -437,3 +437,36 @@ CREATE TABLE `data_sort` (
   PRIMARY KEY (`id`)
 );
 ALTER TABLE `data_sort` COMMENT '数据分类';
+
+/*Table structure for table `record_doc` */
+DROP TABLE IF EXISTS `record_doc`;
+CREATE TABLE `record_doc` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `User_ID` INT(10) UNSIGNED NOT NULL COMMENT '用户ID',
+  `UUID` VARCHAR(32) NOT NULL COMMENT 'UUID',
+  `Table_ID` INT(10) UNSIGNED NOT NULL COMMENT '表ID',
+  `Data_ID` INT(10) UNSIGNED NOT NULL COMMENT '文档ID',
+  `Visit_Time` DATETIME NOT NULL COMMENT '访问时间',
+  `Year` MEDIUMINT(8) UNSIGNED NOT NULL COMMENT '年',
+  `Month` TINYINT(3) UNSIGNED NOT NULL COMMENT '月',
+  `Day` TINYINT(3) UNSIGNED NOT NULL COMMENT '日',
+  `Hour` TINYINT(3) UNSIGNED NOT NULL COMMENT '时',
+  PRIMARY KEY (`id`)
+);
+ALTER TABLE `record_doc` COMMENT '文档记录';
+
+/*Table structure for table `record_visit` */
+DROP TABLE IF EXISTS `record_visit`;
+CREATE TABLE `record_visit` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `User_ID` int(10) unsigned NOT NULL COMMENT '用户ID',
+  `Action` tinyint(3) unsigned NOT NULL COMMENT '动作',
+  `Target` tinyint(4) NOT NULL COMMENT '目标',
+  `Visit_Time` datetime NOT NULL COMMENT '访问时间',
+  `Year` mediumint(8) unsigned NOT NULL COMMENT '年',
+  `Month` tinyint(3) unsigned NOT NULL COMMENT '月',
+  `Day` tinyint(3) unsigned NOT NULL COMMENT '日',
+  `Hour` tinyint(3) unsigned NOT NULL COMMENT '时',
+  PRIMARY KEY (`ID`)
+);
+ALTER TABLE `record_visit` COMMENT '系统访问表';

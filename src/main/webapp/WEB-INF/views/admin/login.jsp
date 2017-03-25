@@ -18,12 +18,12 @@
 		<div class="row-fluid">
 			<div class="row-fluid">
 				<div class="span12 center top-block login-header">
-					<h2>${appName}</h2>
+					<h2 style="color: #c00">${appName}</h2>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
-					<div class="alert alert-info ${param.error == true ? '' : ''}">
+					<div class="alert alert-success ${param.error == true ? '' : ''}">
 						请输入用户名和密码 ${requestScope.errMsg} 
 					</div>
 					<form id="login_form" action="${appPath}/admin/security/check" method="post" >
@@ -40,7 +40,7 @@
 							</div>
 							<div class="clearfix"></div>
 							<p class="center span3">
-								<button type="submit" class="btn btn-primary">登录</button>
+								<button type="submit" class="btn btn-success">登录</button>
 							</p>
 						</fieldset>
 					</form>

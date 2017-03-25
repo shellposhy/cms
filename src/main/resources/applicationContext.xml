@@ -52,8 +52,9 @@
 	<bean id="appConfig" class="cn.com.cms.base.AppConfig">
 		<property name="appName" value="数据信息管理系统" />
 		<property name="appPath" value="" />
-		<property name="appPathHome" value="D:/pdcms" />
-		<property name="templatePath" value="D:/pdcms/template" />
+		<property name="appPathHome" value="D:/cms" />
+		<property name="templatePath" value="D:/cms/template" />
+		<property name="appLogSwitch" value="1"/>
 		<property name="templateHome" value="template" />
 		<property name="adminDataTablePageSize" value="20" />
 		<property name="adminDataTablePageMinSize" value="10" />
@@ -62,6 +63,15 @@
 		<property name="defaultWebIndexSearchNumHits" value="-1" />
 		<property name="summaryLength" value="150" />
 		<property name="theCountPerTimeByRepairDataBase" value="1000" />
+		<property name="excludeUrls">
+			<list>
+				<value>/admin</value>
+				<value>/admin/login</value>
+				<value>/admin/security/check</value>
+				<value>/admin/index</value>
+				<value>/admin/logout</value>
+			</list>
+		</property>
 	</bean>
 
 	<!-- transaction manager, use JtaTransactionManager for global tx -->
@@ -76,22 +86,19 @@
 
 	<!-- enable transaction demarcation with annotations -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
 	<task:annotation-driven />
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<bean
-					class="org.springframework.http.converter.StringHttpMessageConverter">
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 					<property name="supportedMediaTypes">
 						<list>
 							<value>text/html;charset=UTF-8</value>
 						</list>
 					</property>
 				</bean>
-				<bean
-					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 					<property name="supportedMediaTypes">
 						<list>
 							<value>text/html;charset=UTF-8</value>

@@ -94,6 +94,10 @@
 	<select id="findByType" resultMap="resultMap" parameterType="java.lang.Integer">
 		SELECT * FROM view_page WHERE Page_Type = #{pageType}
 	</select>
+	
+	<select id="findByStatus" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM view_page WHERE Status = #{status}
+	</select>
 
 	<select id="findAll" resultMap="resultMap">
 		SELECT * FROM

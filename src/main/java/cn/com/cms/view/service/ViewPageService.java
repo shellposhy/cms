@@ -63,6 +63,16 @@ public class ViewPageService {
 	public List<ViewPage> findByType(EPageType pageType) {
 		return viewPageMapper.findByType(pageType.ordinal());
 	}
+	
+	/**
+	 * 根据状态查询
+	 * 
+	 * @param status
+	 * @return
+	 */
+	public List<ViewPage> findByStatus(Integer status) {
+		return viewPageMapper.findByStatus(status);
+	}
 
 	/**
 	 * 删除（支持批量删除）

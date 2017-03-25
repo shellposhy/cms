@@ -71,4 +71,12 @@ public interface ViewPageMapper extends BaseDao<ViewPage> {
 	 * @return {@link List}
 	 */
 	List<ViewPage> findByType(@Param("pageType") Integer pageType);
+	
+	/**
+	 * 根据发布状态查询
+	 * 
+	 * @param status
+	 * @return
+	 */
+	List<ViewPage> findByStatus(@Param("status") Integer status);
 }

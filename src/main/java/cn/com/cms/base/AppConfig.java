@@ -1,5 +1,7 @@
 package cn.com.cms.base;
 
+import java.util.List;
+
 /**
  * 项目初始化配置类
  * 
@@ -9,6 +11,7 @@ public class AppConfig {
 	private String appName;
 	private String appPath;
 	private String appPathHome;
+	private int appLogSwitch;
 	private String templatePath;
 	private String templateHome;
 	private int adminDataTablePageSize;
@@ -18,6 +21,7 @@ public class AppConfig {
 	private int defaultWebIndexSearchNumHits;
 	private int summaryLength;
 	private int theCountPerTimeByRepairDataBase;
+	private List<String> excludeUrls;
 
 	public String getAppName() {
 		return appName;
@@ -41,6 +45,14 @@ public class AppConfig {
 
 	public void setAppPathHome(String appPathHome) {
 		this.appPathHome = appPathHome;
+	}
+
+	public int getAppLogSwitch() {
+		return appLogSwitch;
+	}
+
+	public void setAppLogSwitch(int appLogSwitch) {
+		this.appLogSwitch = appLogSwitch;
 	}
 
 	public String getTemplatePath() {
@@ -113,6 +125,14 @@ public class AppConfig {
 
 	public void setTheCountPerTimeByRepairDataBase(int theCountPerTimeByRepairDataBase) {
 		this.theCountPerTimeByRepairDataBase = theCountPerTimeByRepairDataBase;
+	}
+
+	public List<String> getExcludeUrls() {
+		return excludeUrls;
+	}
+
+	public void setExcludeUrls(List<String> excludeUrls) {
+		this.excludeUrls = excludeUrls;
 	}
 
 }

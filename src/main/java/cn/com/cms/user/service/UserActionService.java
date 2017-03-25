@@ -2,14 +2,20 @@ package cn.com.cms.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
+
+import cn.com.cms.base.AppConfig;
+import cn.com.cms.common.SystemConstant;
 import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.framework.tree.DefaultTreeNode.PropertySetter;
 import cn.com.cms.framework.tree.MenuTreeNode;
@@ -35,6 +41,8 @@ public class UserActionService {
 	private UserGroupMapper userGroupMapper;
 	@Resource
 	private UserActionMapMapper userActionMapMapper;
+	@Resource
+	private AppConfig appConfig;
 
 	// 定义参数
 	private static List<UserAction> allActionList = null;
@@ -97,6 +105,102 @@ public class UserActionService {
 		log.info("==========user.action.tree==========");
 		T treeNode = findTreeByUser(ct, user, setter);
 		return DefaultTreeNode.partTree(treeNode);
+	}
+
+	/**
+	 * 判断当前登录用户有没有访问权限
+	 * 
+	 * @param request
+	 * @param user
+	 * @return
+	 */
+	public boolean isHaveAccessPrivilege(HttpServletRequest request, User user) {
+		log.debug("====user.action.access.privilege====");
+		boolean hasPrivilege = false;
+		String uri = request.getRequestURI();
+		if (uri.startsWith("/page")) {
+			hasPrivilege = true;
+		} else if (uri.startsWith("/admin")) {
+			List<String> excludeUrls = appConfig.getExcludeUrls();
+			if (null != excludeUrls && excludeUrls.size() > 0) {
+				for (String excludeUrl : excludeUrls) {
+					if (uri.equals(excludeUrl)) {
+						hasPrivilege = true;
+						break;
+					}
+				}
+			}
+			// 权限验证
+			if (!hasPrivilege) {
+				if (null != user) {
+					List<String> currentUserActionList = Lists.newArrayList();
+					List<UserGroup> groups = userGroupMapper.findByUserId(user.getId());
+					if (null != groups && groups.size() > 0) {
+						for (UserGroup group : groups) {
+							if (group.isAllAdminAuthority()) {
+								hasPrivilege = true;
+								break;
+							}
+						}
+						if (!hasPrivilege) {
+							for (UserGroup group : groups) {
+								List<Integer> actionIds = userActionMapMapper
+										.findAdminActionIdsByGroupId(group.getId());
+								List<UserAction> actions = null != actionIds && actionIds.size() > 0
+										? userActionMapper.findAdminByIds(actionIds) : null;
+								createUserActionList(currentUserActionList, actions);
+							}
+						}
+					}
+					// 权限匹配
+					for (String str : currentUserActionList) {
+						log.debug("===user action=>=" + str);
+						if (Pattern.matches(str, uri)) {
+							hasPrivilege = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+		return hasPrivilege;
+	}
+
+	/**
+	 * 把权限列表放入列表
+	 * 
+	 * @param result
+	 * @param list
+	 * @return
+	 */
+	public List<String> createUserActionList(List<String> result, List<UserAction> list) {
+		if (null != list && list.size() > 0) {
+			for (UserAction userAction : list) {
+				String action = userAction.getUri();
+				String[] actions = action.split(SystemConstant.COMMA_SEPARATOR);
+				if (null != actions && actions.length > 0) {
+					for (String str : actions) {
+						if (!str.equals("#")) {
+							if (!isContainElement(result, str)) {
+								result.add(str);
+							}
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 权限列表是否包含元素
+	 * 
+	 * @param list
+	 * @param element
+	 * @return
+	 */
+	public boolean isContainElement(List<String> list, String element) {
+		return list.contains(element);
 	}
 
 	/**

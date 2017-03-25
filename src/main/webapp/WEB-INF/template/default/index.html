@@ -2,9 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="application-name" content="数据" />
-<meta name="description" content="拼家网" />
-<title>数据 首页</title> <#include "/lib/default/index_content.ftl">
+<meta name="application-name" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区 ,一站式网站管理平台" />
+<meta name="description" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区,一站式网站管理平台" />
+<meta name="author" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区 ,一站式网站管理平台"/>
+<meta name="keyword" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区 ,一站式网站管理平台" />
+<title>首页 | 南山智慧谷 | 新闻数据平台 | 舆情监控平台 | 养老智慧社区 | 一站式网站管理平台</title>
+<#include "/lib/default/index_content.ftl">
+<link rel="shortcut icon" href="/static/default/images/favicon.ico">
 <link href="/static/default/css/common.css" rel="stylesheet" type="text/css" />
 <link href="/static/default/css/channel.css" rel="stylesheet" type="text/css" />
 <link href="/static/default/css/favo_detail.css" rel="stylesheet" type="text/css" />
@@ -50,41 +54,42 @@
 			<div class="header_high">
 				<div class="content_warp clearfix">
 					<div class="left logo_div">
-						<a href="/" class="logo lg_norrow">数据</a> <span class="index_name_icon"></span>
+						<a href="/" class="logo lg_norrow">南山智慧谷新闻发布平台</a>
+						<span class="index_name_icon"></span>
 					</div>
 					<div class="right search_box"></div>
 				</div>
 			</div>
 			<!--/ header -->
 			<div class="main_warp">
-				<!--  login bar -->
 				<div class="toolbar_login content_warp clearfix">
 					<div class="user_ctrl">
-						<span id="login_user" class="login_user_h"> <a href="#" class="br_red">用户登录</a>
+						<span id="login_user" class="login_user_h">
+							<a href="#" class="br_red">用户登录</a>
 							<div id="userlogin" class="userlogin">
 								<h2>用户登录</h2>
 								<div class="userlogin_form_div">
 									<form method="post">
 										<div class="left inputs_part">
 											<div class="input_name_bg">
-												<input name="j_username" type="text" maxlength="16" placeholder="用户名">
+												<input name="username" type="text" maxlength="16" placeholder="账户">
 											</div>
 											<div class="input_pw_bg">
-												<input name="j_password" type="password" maxlength="16" placeholder="您的密码">
+												<input name="password" type="password" maxlength="16" placeholder="密码">
 											</div>
 										</div>
 										<input type="submit" class="input_s" value="登录">
 									</form>
 								</div>
 							</div>
-						</span> <span id="welcome" class="br_red">欢迎您：<span id="UserName"></span>
-						</span> <a href="#" id="logout">退出</a>
+						</span>
+						<span id="welcome" class="br_red">欢迎您：<span id="UserName"></span></span>
+						<a href="#" id="logout">退出</a>
 					</div>
 					<ul>
 						<li><a class="top_bar_i" href="#">搜索中心</a></li>
 						<li><a class="top_bar_i" href="#">个人中心</a></li>
 						<li><a href="#">联系我们</a></li>
-						<li><a href="/admin/login">后台管理</a></li>
 					</ul>
 				</div>
 				<!-- login bar -->
@@ -161,23 +166,19 @@
 						<div class="left left_con">
 							<div class="paper_info">
 								<span class="paper_text" id="rmrbInfoDate">${pd_sdate_y}年${pd_sdate_m}月${pd_sdate_d}日${pd_sdate_w}</span>
-								<a class="paper_img" id="rmrbInfoLink" href="#" ecode="econtent18"><img src="/static/default/css/images/pic/daily_pic.png" /></a> 
-								<span class="paper_text">今日<i id="rmrbInfoPageNum">24</i>版共有文章<i id="rmrbInfoCount">106</i>篇</span>
+								<a class="paper_img" id="rmrbInfoLink" href="#"><img src="/static/default/css/images/pic/daily_pic.png" /></a> 
+								<span id="weatherInfo" class="paper_text"></span>
 							</div>
 							<div class="rank">
 								<div class="tab_title clearfix">
-									<a class="current" href="#tab_con1">新闻点击</a> <a href="#tab_con2">设计师浏览</a>
+									<a class="current" href="#tab_con1">${econtent20.title}</a> <a href="#tab_con2">${econtent21.title}</a>
 								</div>
 								<div class="tab_con_div rank_con clearfix">
-									<ul class="tab_con1">
-										<li class="red"><span>1</span><a href="#">“社会主义民主政治道路会越走越宽...</a></li>
-										<li class="red"><span>2</span><a href="#">不断扩大干部选任工作中的民主</a></li>
-										<li class="red"><span>3</span><a href="#">学习江泽民同志“七一”讲话笔谈</a> </li>
+									<ul class="tab_con1" ecode="econtent20">
+										<@头条列表 data=econtent20 行数=12 长度=36 />
 									</ul>
-									<ul class="tab_con2 none">
-										<li class="red"><span>1</span><a href="#">[日式风格]：王美丽</a></li>
-										<li class="red"><span>2</span><a href="#">[地中海风格]：花泽香菜</a></li>
-										<li class="red"><span>3</span><a href="#">[中式风格]：张君</a></li>
+									<ul class="tab_con2 none" ecode="econtent21">
+										<@头条列表 data=econtent21 行数=12 长度=36 />
 									</ul>
 								</div>
 							</div>
@@ -217,11 +218,9 @@
 							</div>
 						</div>
 						<div class="left right_con">
-							<!-- 焦点轮播图 start-->
 							<div class="slideshow_box" ecode="econtent18">
 								<@焦点轮播图 data=econtent18 行数=5 宽度=340 高度=255 />
 							</div>
-							<!-- 焦点轮播图 end -->
 							<div class="tabs_div">
 								<div class="tab_title_div">
 									<span class="title_name">设计师</span>
@@ -368,9 +367,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="footer">拼家网数据 | 联系电话：010-65368285 | 邮箱：kf@51pjia.com<br /> 拼家网
-			Copyright © 1997-2013 by www.51pjia.com  all rights reserved<br />浏览本页面，建议将电脑显示屏的分辨率调为1024*768或以上
-		</div>
+		<#include "/lib/default/index_footer.ftl">
 	</div>
 </body>
 </html>
