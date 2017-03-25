@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.system.dao.RecordDocMapper">
+	<resultMap id="resultMap" type="cn.com.cms.system.model.RecordDoc">
+		<result property="id" column="ID" />
+		<result property="userId" column="User_ID" />
+		<result property="uuid" column="UUID" />
+		<result property="tableId" column="Table_ID" />
+		<result property="dataId" column="Data_ID" />
+		<result property="visitTime" column="Visit_Time" />
+		<result property="year" column="Year" />
+		<result property="month" column="Month" />
+		<result property="day" column="Day" />
+		<result property="hour" column="Hour" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO record_doc(User_ID,UUID,Table_ID,Data_ID,Visit_Time,Year,Month,Day,Hour)
+		VALUES(#{userId},#{uuid},#{tableId},#{dataId},#{visitTime},#{year},#{month},#{day},#{hour})
+	</insert>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM record_doc WHERE ID=#{id}
+	</select>
+
+	<select id="rankDocInUser" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT UUID,Table_ID,Data_ID,Year,Month,Day,count(*) as visits from record_doc
+		<where>
+			<if test="userId!=null">
+				User_ID=#{userId}
+			</if>
+			<if test="startTime!=null">
+				<![CDATA[AND Visit_Time>=#{startTime}]]>
+			</if>
+			<if test="endTime!=null">
+				<![CDATA[AND Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+		group by UUID order by visits desc limit #{firstResult},#{maxResult}
+	</select>
+
+	<select id="rankDocInUserGroup" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT UUID,Table_ID,Data_ID,Year,Month,Day,count(*) as visits from record_doc RD INNER JOIN user_group_map UGM ON RD.User_ID=UGM.User_ID
+		<where>
+			<if test="groupId!=null">
+				UGM.Group_ID=#{groupId}
+			</if>
+			<if test="startTime!=null">
+				<![CDATA[AND RD.Visit_Time>=#{startTime}]]>
+			</if>
+			<if test="endTime!=null">
+				<![CDATA[AND RD.Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+		group by RD.UUID order by visits desc limit #{firstResult},#{maxResult}
+	</select>
+
+	<select id="rankDocInDb" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT Table_ID,Data_ID,Visit_Time,count(*) as visits from record_doc RD INNER JOIN data_table DT ON RD.Table_ID= DT.ID
+		<where>
+			<if test="baseId!=null">
+				DT.Base_ID=#{baseId}
+			</if>
+			<if test="startTime!=null">
+				<![CDATA[AND RD.Visit_Time>=#{startTime}]]>
+			</if>
+			<if test="endTime!=null">
+				<![CDATA[AND RD.Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+		group by RD.Table_ID,RD.Data_ID order by visits desc limit #{firstResult},#{maxResult}
+	</select>
+
+	<update id="update">
+		UPDATE record_doc SET
+			User_ID = #{userId},
+			UUID =#{uuid},
+			Table_ID = #{tableId},
+			Data_ID = #{dataId},
+			Visit_Time =#{visitTime},
+			Year = #{year},
+			Month = #{month},
+			Day = #{day},
+			Hour =#{hour}
+		WHERE ID=#{id}
+	</update>
+
+</mapper>

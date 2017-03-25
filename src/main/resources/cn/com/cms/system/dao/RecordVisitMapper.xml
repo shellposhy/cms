@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.cms.system.dao.RecordVisitMapper">
+	<resultMap id="resultMap" type="cn.com.cms.system.model.RecordVisit">
+		<result property="id" column="ID" />
+		<result property="userId" column="User_ID" />
+		<result property="action" column="Action" />
+		<result property="target" column="Target" />
+		<result property="visitTime" column="Visit_Time" />
+		<result property="year" column="Year" />
+		<result property="month" column="Month" />
+		<result property="day" column="Day" />
+		<result property="hour" column="Hour" />
+	</resultMap>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO record_visit(User_ID,Action,Target,Visit_Time,Year,Month,Day,Hour)
+		VALUES(#{userId},#{action},#{target},#{visitTime},#{year},#{month},#{day},#{hour})
+	</insert>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO record_visit(User_ID,Action,Target,Visit_Time,Year,Month,Day,Hour)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userId},#{item.action},#{item.target},#{item.visitTime},#{item.year},#{item.month},#{item.day},#{item.hour})
+		</foreach>
+	</insert>
+
+	<select id="find" resultMap="resultMap">
+		SELECT * FROM record_visit WHERE ID=#{id}
+	</select>
+
+	<select id="countByUserTime" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) from record_visit
+		<where>
+			<if test="userId!=null">
+				User_ID=#{userId}
+			</if>
+			<if test="startTime!=null">
+				<![CDATA[AND Visit_Time>=#{startTime}]]>
+			</if>
+			<if test="endTime!=null">
+				<![CDATA[AND Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="rankTimePeriodInUser" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT Year,Month,Day,Hour,Visit_Time,count(*) as visits from record_visit
+		<where>
+			<if test="userId!=null">
+				User_ID=#{userId}
+			</if>
+			<if test="startTime!=null and endTime!=null">
+				<![CDATA[AND Visit_Time>=#{startTime} AND Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+		<if test="groupByYear==true">
+			group by Year
+		</if>
+		<if test="groupByMonth==true">
+			group by Year,Month
+		</if>
+		<if test="groupByDay==true">
+			group by Year,Month,Day
+		</if>
+		<if test="groupByHour==true">
+			group by Hour
+		</if>
+		order by visits desc
+	</select>
+
+	<select id="rankTimePeriodInUserGroup" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT Year,Month,Day,Hour,Visit_Time,UGM.Group_ID as groupId,count(*) as visits from
+		record_visit RV INNER JOIN user_group_map UGM ON RV.User_ID=UGM.User_ID
+		<where>
+			<if test="groupId!=null">
+				UGM.Group_ID=#{groupId}
+			</if>
+			<if test="startTime!=null and endTime!=null">
+				<![CDATA[AND RV.Visit_Time>=#{startTime} AND RV.Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+			group by UGM.Group_ID
+			<if test="groupByYear==true">
+				,Year
+			</if>
+			<if test="groupByMonth==true">
+				,Year,Month
+			</if>
+			<if test="groupByDay==true">
+				,Year,Month,Day
+			</if>
+			<if test="groupByHour==true">
+				,Hour
+			</if>
+			order by visits desc
+	</select>
+
+	<select id="countByUserGroupTime" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) from record_visit RV,user_group_map UGM
+		<where>
+			UGM.Group_ID=#{groupId} AND RV.User_ID = UGM.User_ID
+			<if test="startTime!=null">
+				<![CDATA[AND RV.Visit_Time>=#{startTime}]]>
+			</if>
+			<if test="endTime!=null">
+				<![CDATA[AND RV.Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="rankUserVisits" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT User_ID,Visit_Time,count(*) as visits from record_visit
+		<where>
+			<if test="startTime!=null">
+				<![CDATA[AND Visit_Time>=#{startTime}]]>
+			</if>
+			<if test="endTime!=null">
+				<![CDATA[AND Visit_Time<=#{endTime}]]>
+			</if>
+		</where>
+		group by User_ID order by visits desc limit
+		#{firstResult},#{maxResult}
+	</select>
+
+	<update id="update">
+		UPDATE record_visit SET
+		User_ID = #{userId},
+		Action =#{action},
+		Target = #{target},
+		Visit_Time = #{visitTime},
+		Year = #{year},
+		Month = #{month},
+		Day = #{day},
+		Hour = #{hour}
+		WHERE ID=#{id}
+	</update>
+
+</mapper>
