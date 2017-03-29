@@ -118,7 +118,7 @@ function publish_home_page(btnId, sUrl, oTable) {
 					});
 				});
 			} else {
-				noty({"text" : "请选择要发布的页面","layout" : "top","type" : "information"});
+				noty({"text" : "请选择要发布的页面","layout" : "center","type" : "error"});
 			}
 			return false;
 		}

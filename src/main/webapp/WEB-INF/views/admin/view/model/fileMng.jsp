@@ -13,7 +13,7 @@
 		<div class="box-content">
 			<ul id="tab" class="nav nav-tabs nav_tabs_for_datatables">
 				<li class="active"><a href="#list_tab" data-toggle="tab">模板文件</a></li>
-				<li><a href="#update_tab" data-toggle="tab">更新模板</a></li>
+				<!--  <li><a href="#update_tab" data-toggle="tab">更新模板</a></li>-->
 			</ul>
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane clearfix  tree_separated fade in active" id="list_tab">
