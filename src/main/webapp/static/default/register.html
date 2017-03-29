@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="application-name" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区 ,一站式网站管理平台" />
+<meta name="description" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区,一站式网站管理平台" />
+<meta name="author" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区 ,一站式网站管理平台"/>
+<meta name="keyword" content="南山智慧谷,新闻数据平台,舆情监控平台,养老智慧社区 ,一站式网站管理平台" />
+<title>首页 | 南山智慧谷 | 新闻数据平台 | 舆情监控平台 | 养老智慧社区 | 一站式网站管理平台</title>
+<link rel="stylesheet" type="text/css" href="/static/default/css/common.css" />
+<link href="/static/default/css/jquery_css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/jquery_css/jquery.ui.datepicker.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/jquery_css/jquery.noty.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/common.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/channel.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/favo_detail.css" rel="stylesheet" type="text/css" />
+<link href="/static/default/css/register.css" rel="stylesheet" type="text/css" />
+<script src="/static/default/js/plugin/jquery-1.8.2.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.ui.datepicker.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/bootstrap.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.form.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.validate.min.js"></script>
+<script src="/static/default/js/plugin/jquery.metadata.js"></script>
+<script src="/static/default/js/plugin/jquery-spin.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/jquery.noty.js" type="text/javascript"></script>
+<script src="/static/default/js/common.js" type="text/javascript"></script>
+<script src="/static/default/js/plugin/select.js" type="text/javascript"></script>
+<script src="/static/default/js/register.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+    <script src="/static/default/js/plugin/json2.js"></script>
+<![endif]-->
+<!-- ie6FixPng -->
+<!--
+[if lt IE 7]>
+ <script src="/static/default/js/plugin/pngIE.js"></script>
+  <script type="text/javascript">
+    EvPNG.fix('i');
+  </script>
+<![endif]
+-->
+<script type="text/javascript">
+	var appPath = "/";
+</script>
+</head>
+<body>
+	<div id="container">
+		<div id="con" class="clearfix">
+			<div class="header_high">
+				<div class="content_warp clearfix">
+					<div class="left logo_div">
+						<a href="/" class="logo lg_norrow">新闻数据发布平台</a>
+						<span class="index_name_icon"></span>
+					</div>
+				</div>
+			</div>
+			<div class="">
+				<div class="main content_warp clearfix">
+					<div class="reg_box">
+						<div class="reg_box_top"></div>
+						<div class="reg_box_mid">
+							<form onsubmit="return onRegSubmit();">
+								<div class="sign_up_box">
+									<h1>账户信息</h1>
+									<div class="form_element">
+										<label><strong>单位名称：</strong><input type="text" maxlength="60" autocomplete="off" id="danwei" value="" spellcheck="false"></label>
+									</div>
+									<div class="form_element">
+										<label><strong>姓名：</strong> <input type="text" maxlength="30" autocomplete="off" id="name" value="" spellcheck="false" class="short"></label>
+									</div>
+									<div class="form_element" style="position: static;">
+										<label style="position: static;"> <strong>所属行业：</strong>
+											<div class="select_div">
+												<div class="selectitem">
+													<dl>
+														<div class="tag">
+															<dt id="indus" class="shrink">请选择</dt>
+															<div class="tags">
+																<dd>国家机关/党群组织/事业单位</dd>
+																<dd>教育/培训/科研/院校</dd>
+																<dd>媒体/出版/文化传播</dd>
+																<dd>金融业（银行/投资/基金/证券/保险）</dd>
+																<dd>企业（国有企业/外资企业/合资企业等）</dd>
+																<dd>房地产/建筑/建材/工程</dd>
+																<dd>其它</dd>
+															</div>
+														</div>
+													</dl>
+												</div>
+											</div>
+										</label>
+									</div>
+									<div class="form_element">
+										<label><strong>部门及职务：</strong> <input type="text" maxlength="30" autocomplete="off" id="bumenzhiwu" value="" spellcheck="false" class="short"></label>
+									</div>
+									<div class="form_element">
+										<label><strong>联系电话：</strong> <input type="tel" maxlength="30" autocomplete="off" id="conttel" value="" spellcheck="false" class="short"></label>
+									</div>
+									<div class="form_element">
+										<label> <strong>手机：</strong> <input type="tel" maxlength="30" autocomplete="off" id="contmob" value="" spellcheck="false" class="short"></label>
+									</div>
+									<div class="form_element">
+										<label> <strong>电子邮箱：</strong> <input type="email" name="" id="email" value="" spellcheck="false" autocomplete="off"></label>
+									</div>
+									<div class="form_element">
+										<label> <strong>单位地址：</strong> <input type="text" maxlength="30" autocomplete="off" id="address" value="" spellcheck="false"></label>
+									</div>
+									<div class="form_element">
+										<label> <strong>邮编：</strong> <input type="text" maxlength="30" autocomplete="off" id="postcode" value="" spellcheck="false" class="short"></label>
+									</div>
+									<div class="form_element">
+										<label> <strong>传真：</strong> <input type="tel" maxlength="30" autocomplete="off" id="contfox" value="" spellcheck="false" class="short"></label>
+									</div>
+								</div>
+								<div class="reg_tip">
+									<ul>
+										<li>以上信息请如实填写；</li>
+										<li>我们不会泄露您的信息并确保其安全。</li>
+									</ul>
+								</div>
+								<div class="reg_sub_div">
+									<button type="submit" class="reg_sub" border="0" title="提交"></button>
+								</div>
+							</form>
+						</div>
+						<div class="reg_box_bot"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			南山智慧谷新闻发布平台  | 联系电话：139 1073 5846 | 邮箱：shellposhy@gmail.com<br /> 
+			南山智慧谷科技 Copyright © 2016-2017 by www.nanshangu.com  all rights reserved
+		</div>
+	</div>
+</body>
+</html>
+</html>
