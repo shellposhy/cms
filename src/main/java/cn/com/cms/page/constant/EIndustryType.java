@@ -11,6 +11,10 @@ public enum EIndustryType {
 			"媒体/出版/文化传播"), Finance("金融业（银行/投资/基金/证券/保险）"), Other("其他");
 	private String value;
 
+	public static EIndustryType valuesOf(int index) {
+		return EIndustryType.values()[index];
+	}
+
 	private EIndustryType(String value) {
 		this.value = value;
 	}

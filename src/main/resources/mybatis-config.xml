@@ -26,5 +26,6 @@
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.system.contant.EInterceptStatus" />
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.system.contant.ELogAction" />
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.system.contant.ELogTargetType" />
+		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.page.constant.EIndustryType" />
 	</typeHandlers>
 </configuration>

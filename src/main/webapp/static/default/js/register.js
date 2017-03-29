@@ -70,7 +70,7 @@ function checkEmail(){
 
 //密码
 function checkPass(){
-	var pass = jQuery.trim(jQuery("#pass").text());
+	var pass = jQuery.trim(jQuery("#pass").val());
 	if(pass == ''){
 		parm.passS = false;
 		jQuery("#pass").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg' style='position:absolute; left:460px; width:80px;'>请输入密码</span>");

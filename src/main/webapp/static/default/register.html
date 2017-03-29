@@ -60,7 +60,7 @@
 					<div class="reg_box">
 						<div class="reg_box_top"></div>
 						<div class="reg_box_mid">
-							<form onsubmit="return onRegSubmit();">
+							<form onsubmit="return onRegSubmit();" action="/page/user/register" method="post">
 								<div class="sign_up_box">
 									<h1>账户信息</h1>
 									<div class="form_element">
@@ -72,7 +72,7 @@
 									<div class="form_element">
 										<label>
 											<strong>密码：</strong>
-											<input type="text" maxlength="30" autocomplete="off" id="pass" name="pass" spellcheck="false">
+											<input type="password" maxlength="30" autocomplete="off" id="pass" name="pass" spellcheck="false">
 										</label>
 									</div>
 									<div class="form_element">
@@ -88,21 +88,21 @@
 										</label>
 									</div>
 									<div class="form_element" style="position: static;">
-										<input  type="hidden" name="industry" id="industry"/>
 										<label style="position: static;"> <strong>所属行业：</strong>
 											<div class="select_div">
 												<div class="selectitem">
 													<dl>
 														<div class="tag">
 															<dt id="indus" class="shrink">请选择</dt>
+															<input  type="hidden" name="industry" id="industry" class="industry"/>
 															<div class="tags">
-																<dd value="0">企业（国有企业/私营企业/外资企业/合资企业）</dd>
-																<dd value="1">房地产/建筑/建材/工程</dd>
-																<dd value="2">国家机关/党群组织/事业单位</dd>
-																<dd value="3">教育/培训/科研/院校</dd>
-																<dd value="4">媒体/出版/文化传播</dd>
-																<dd value="5">金融业（银行/投资/基金/证券/保险）</dd>
-																<dd value="6">其它</dd>
+																<dd val="0">企业（国有企业/私营企业/外资企业/合资企业）</dd>
+																<dd val="1">房地产/建筑/建材/工程</dd>
+																<dd val="2">国家机关/党群组织/事业单位</dd>
+																<dd val="3">教育/培训/科研/院校</dd>
+																<dd val="4">媒体/出版/文化传播</dd>
+																<dd val="5">金融业（银行/投资/基金/证券/保险）</dd>
+																<dd val="6">其它</dd>
 															</div>
 														</div>
 													</dl>
