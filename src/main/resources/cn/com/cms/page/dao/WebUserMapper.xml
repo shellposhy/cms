@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.com.cms.page.dao.WebUserMapper">
+	<resultMap id="resultMap" type="cn.com.cms.page.model.WebUser">
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="pass" column="Pass" />
+		<result property="realName" column="Real_Name" />
+		<result property="company" column="Company" />
+		<result property="address" column="Address" />
+		<result property="industry" column="Industry" />
+		<result property="position" column="Position" />
+		<result property="telphone" column="Telphone" />
+		<result property="mobile" column="Mobile" />
+		<result property="email" column="Email" />
+		<result property="postCode" column="Post_Code" />
+		<result property="fax" column="Fax" />
+		<result property="memo" column="Memo" />
+		<result property="createTime" column="Create_Time" />
+	</resultMap>
+	
+	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
+		SELECT * FROM web_user WHERE ID=#{id}
+	</select>
+	
+	<select id="findByNameAndPass" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM web_user WHERE Name=#{name} AND Pass=#{pass}
+	</select>
+	
+	<select id="findAll" resultMap="resultMap" >
+		SELECT * FROM web_user
+	</select>
+
+	<insert id="insert">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		web_user(Name,Pass,Real_Name,Company,Address,Industry,Position,Telphone,Mobile,Email,Post_Code,Fax,Memo,Create_Time)
+		VALUES
+		(#{name},#{pass},#{realName},#{company},#{address},#{industry},#{position},#{telphone},#{mobile},#{email},#{postCode},#{fax},#{memo},#{createTime})
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM web_user WHERE ID=#{id}
+	</delete>
+
+	<update id="update">
+		UPDATE web_user SET
+		Name = #{name},
+		Real_Name =#{realName},
+		<if test="pass!=null and pass!=''">
+			Pass = #{pass},
+		</if>
+		Company = #{company},
+		Address =#{address},
+		Industry = #{industry},
+		Position=#{position},
+		Telphone=#{telphone},
+		Mobile = #{mobile},
+		Email =#{email},
+		Post_Code =#{postCode},
+		Fax=#{fax},
+		Memo=#{memo},
+		Create_Time=#{createTime}
+		WHERE ID=#{id}
+	</update>
+	
+</mapper>

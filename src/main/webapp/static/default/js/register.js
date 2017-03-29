@@ -8,6 +8,7 @@ var parm = {
 	emailS : false,
 	addressS : false,
 	nameS : false,
+	passS : false,
 	conttelS : false,
 	contmobS : false,
 	indusS : false,
@@ -34,7 +35,7 @@ function checkZhiwu(){
 	var zhiwu = jQuery.trim(jQuery("#bumenzhiwu").val());
 	if(zhiwu == ''){
 		parm.bumenzhiwuS = false;
-		jQuery("#bumenzhiwu").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请填写您的部门和职务</span>");
+		jQuery("#bumenzhiwu").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请填写您职务</span>");
 		return false;
 	}
 	parm.bumenzhiwuS = true;
@@ -67,17 +68,15 @@ function checkEmail(){
 	parm.emailS = true;
 };
 
-
-//地址
-function checkAddress(){
-	var address = jQuery.trim(jQuery("#address").val());
-	if(address == ''){
-		parm.addressS = false;
-		jQuery("#address").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请填写单位地址</span>");
+//密码
+function checkPass(){
+	var pass = jQuery.trim(jQuery("#pass").text());
+	if(pass == ''){
+		parm.passS = false;
+		jQuery("#pass").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg' style='position:absolute; left:460px; width:80px;'>请输入密码</span>");
 		return false;
 	}
-	parm.addressS = true;
-	return true;
+	parm.passS = true;
 };
 
 //姓名
@@ -85,17 +84,18 @@ function checkName(){
 	var name = jQuery.trim(jQuery("#name").val());
 	if(name == ''){
 		parm.nameS = false;
-		jQuery("#name").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请填写您的姓名</span>");
+		jQuery("#name").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请填写您的账户</span>");
 		return false;
 	}
 	if(!/^[\u4E00-\u9FA5A-Za-z0-9_]+$/.test(name)){
-		jQuery("#name").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请正确填写您的姓名</span>");
+		jQuery("#name").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请填写您的账户</span>");
 		parm.nameS = false;
 		return false;
 	}
 	parm.nameS = true;
 	return true;
 };
+
 //联系电话
 function checkConttel(){
 	var conttel = jQuery.trim(jQuery("#conttel").val());
@@ -105,7 +105,7 @@ function checkConttel(){
 		return false;
 	}
 	if(!/^(1[3,5,8,7]{1}[\d]{9})|(((400)-(\d{3})-(\d{4}))|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{3,7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(conttel)){
-		jQuery("#conttel").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请正确填写联系电话</span>");
+		jQuery("#conttel").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>联系电话格式有误</span>");
 		parm.conttelS = false;
 		return false;
 	}
@@ -121,61 +121,23 @@ function checkContmob(){
 		return false;
 	}
 	if(!/^[0-9]{11}$/.test(contmob)){
-		jQuery("#contmob").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请正确填写手机号码</span>");
+		jQuery("#contmob").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>手机号码格式有误</span>");
 		parm.contmobS = false;
 		return false;
 	}
 	parm.contmobS = true;
 	return true;
 };
-//邮编
-function checkPostcode(){
-	var postcode = jQuery.trim(jQuery("#postcode").val());
-	if(postcode == ''){
-		parm.postcodeS = false;
-		jQuery("#postcode").parent().append("");
-		return false;
-	}
-	if(!/^[1-9][0-9]{5}$/.test(postcode)){
-		jQuery("#postcode").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请正确填写邮编</span>");
-		parm.postcodeS = false;
-		return false;
-	}
-	parm.contmobS = true;
-	return true;
-};
-//传真
-function checkContfox(){
-	var contfox = jQuery.trim(jQuery("#contfox").val());
-	if(contfox == ''){
-		parm.contfoxS = false;
-		jQuery("#contfox").parent().append("");
-		return;
-	}
-	if(!/^[+]{0,1}(\d){1,3}[ ]?([-]?(\d){1,12})+$/.test(contfox)){
-		jQuery("#contfox").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请正确填写传真号码</span>");
-		parm.contfoxS = false;
-		return;
-	}
-};
-function checkCode(){
-	var captcha = jQuery.trim(jQuery("#captcha2").val());
-	if(captcha.length != 4){
-		parm.captchaS = false;
-		jQuery("#captcha2").removeClass("input_focus").addClass('form-error').parent().append("<span class='errormsg'>请正确填写注册码</span>");
-		return false;
-	}
-	parm.captchaS = true;
-	return true;
-}
-
 
 function onRegSubmit(){	
-	if(checkDanwei()==false){
-		jQuery("#danwei").focus();
-		return false;
-	}else if(checkName()==false){
+	if(checkName()==false){
 		jQuery("#name").focus();
+		return false;
+	}else if(checkPass()==false){
+		jQuery("#pass").focus();
+		return false;
+	}else if(checkDanwei()==false){
+		jQuery("#danwei").focus();
 		return false;
 	}else if(checkIndus()==false){
 		jQuery("#indus").focus();
@@ -189,37 +151,11 @@ function onRegSubmit(){
 	}else if(checkContmob()==false){
 		jQuery("#contmob").focus();
 		return false;
-	}else if(checkEmail()==false){
-		jQuery("#email").focus();
-		return false;
-	}else if(checkAddress()==false){
-		jQuery("#address").focus();
-		return false;
-	}	else if(checkCode()==false){
-		jQuery("#captcha2").focus();
-		return false;
 	}
 return true;
-
 }
-function reloadImg(id){
-	//
-	var path="/checkCode.jsp?rn="+Math.random();
-	jQuery("#captchaImg").attr("src",path);
-	jQuery("#captchaImg2").attr("src",path);
-}
-
-
-
-
-
-
-
-
-
 
 jQuery(document).ready(function(){
-	
 	jQuery("#danwei").blur(function(){
 		checkDanwei();
 	}).focus(function(){
@@ -229,16 +165,6 @@ jQuery(document).ready(function(){
 		checkZhiwu();
 	}).focus(function(){
 		jQuery("#bumenzhiwu").removeClass('form-error').addClass('input_focus').parent().find('span.errormsg').remove();    
-	});
-	jQuery("#email").blur(function(){
-		checkEmail();
-	}).focus(function(){
-		jQuery("#email").removeClass('form-error').addClass('input_focus').parent().find('span.errormsg').remove();    
-	});
-	jQuery("#address").blur(function(){
-		checkAddress();
-	}).focus(function(){
-		jQuery("#address").removeClass('form-error').addClass('input_focus').parent().find('span.errormsg').remove();    
 	});
 	jQuery("#name").blur(function(){
 		checkName();
@@ -260,39 +186,14 @@ jQuery(document).ready(function(){
 	}).mouseenter(function(){
 		jQuery("#indus").parent().parent().parent().parent().find('span.errormsg').remove();    
 	});
-	jQuery("#postcode").blur(function(){
-		checkPostcode();
-	}).focus(function(){
-		jQuery("#postcode").removeClass('form-error').addClass('input_focus').parent().find('span.errormsg').remove();    
-	});
     jQuery("#contfox").blur(function(){
 		checkContfox();
 	}).focus(function(){
 		jQuery("#contfox").removeClass('form-error').addClass('input_focus').parent().find('span.errormsg').remove();    
 	});
-
+    jQuery("#pass").blur(function(){
+		checkPass();
+	}).focus(function(){
+		jQuery("#pass").removeClass('form-error').addClass('input_focus').parent().find('span.errormsg').remove();    
+	});
 });
-
-	
-// --列头全选框被单击---
-function ChkAllClick(sonName, cbAllId){
-    var arrSon = document.getElementsByName(sonName);
- var cbAll = document.getElementById(cbAllId);
- var tempState=cbAll.checked;
- for(i=0;i<arrSon.length;i++) {
-  if(arrSon[i].checked!=tempState)
-           arrSon[i].click();
- }
-}
-// --子项复选框被单击---
-function ChkSonClick(sonName, cbAllId) {
- var arrSon = document.getElementsByName(sonName);
- var cbAll = document.getElementById(cbAllId);
- for(var i=0; i<arrSon.length; i++) {
-     if(!arrSon[i].checked) {
-     cbAll.checked = false;
-     return;
-     }
- }
- cbAll.checked = true;
-}

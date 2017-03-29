@@ -470,3 +470,25 @@ CREATE TABLE `record_visit` (
   PRIMARY KEY (`ID`)
 );
 ALTER TABLE `record_visit` COMMENT '系统访问表';
+
+/*Table structure for table `web_user` */
+DROP TABLE IF EXISTS `web_user`;
+CREATE TABLE `web_user` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `Name` varchar(50) NOT NULL COMMENT '账户',
+  `Pass` varchar(50) NOT NULL COMMENT '密码',
+  `Real_Name` varchar(50) DEFAULT NULL COMMENT '姓名',
+  `Company` varchar(100) DEFAULT NULL COMMENT '单位',
+  `Address` varchar(200) DEFAULT NULL COMMENT '地址',
+  `Industry` tinyint(3) DEFAULT NULL COMMENT '行业',
+  `Position` varchar(50) DEFAULT NULL COMMENT '职务',
+  `Telphone` varchar(50) DEFAULT NULL COMMENT '电话',
+  `Mobile` varchar(20) NOT NULL COMMENT '手机',
+  `Email` varchar(50) NOT NULL COMMENT '邮箱',
+  `Post_Code` varchar(10) DEFAULT NULL COMMENT '邮编',
+  `Fax` varchar(20) DEFAULT NULL COMMENT '传真',
+  `Memo` varchar(200) DEFAULT NULL COMMENT '备注',
+  `Create_Time` datetime DEFAULT NULL COMMENT '创建',
+  PRIMARY KEY (`ID`)
+);
+ALTER TABLE `web_user` COMMENT '系统访问表';
