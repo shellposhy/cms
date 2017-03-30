@@ -46,7 +46,7 @@
 	<#if data?exists && (data.list?size gt 0)>
 		<#list data.list as item>
 	        <li class="red"> 
-				<span><#nested item, item_index+1></span>
+				<span>${item_index+1}</span>
 				<a target="_blank" href="${item.href}">${substrbyte(item.title, 长度, '...')}</a>
 	        </li>
 		</#list>
