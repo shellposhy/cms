@@ -31,18 +31,18 @@
 <!-- 主js -->
 <script src="/static/default/js/common.js" type="text/javascript"></script>
 <!--[if lt IE 9]>
-    <script src="js/plugin/json2.js"></script>
+<script src="js/plugin/json2.js"></script>
 <![endif]-->
 <!-- for idnex  -->
 <script type="text/javascript" src="/static/default/js/plugin/jquery.KinSlideshow-1.2.1.min.js"></script>
 <!-- /for idnex  -->
 <!-- ie6FixPng -->
 <!--[if lt IE 7]>
-   <script src="/static/default/js/plugin/pngIE.js"></script>
-    <script type="text/javascript">
-      	EvPNG.fix('i');
-    </script>
-  <![endif]-->
+ <script src="/static/default/js/plugin/pngIE.js"></script>
+  <script type="text/javascript">
+    	EvPNG.fix('i');
+  </script>
+<![endif]-->
 <script type="text/javascript">
 	var appPath = "/";
 </script>
@@ -87,77 +87,15 @@
 						<a href="#" id="logout">退出</a>
 					</div>
 					<ul>
+						<li><a class="top_bar_i" href="/static/default/register.html">客户注册</a></li>
 						<li><a class="top_bar_i" href="#">搜索中心</a></li>
-						<li><a class="top_bar_i" href="#">个人中心</a></li>
 						<li><a href="#">联系我们</a></li>
 					</ul>
 				</div>
 				<!-- login bar -->
 				<div class="main content_warp clearfix">
 					<!-- 首页导航 strat -->
-					<div class="index_navs_div">
-						<ul>
-							<li style="padding-right: 22px;">
-								<a href="#" class="boldred">热点资讯</a>
-								<a href="#">热点新闻</a>
-								<a href="#">国际动态</a>
-								<a href="#">热点事件</a>
-								<a href="#">精彩话题</a>
-								<a href="#">财经风云</a>
-							</li>
-							<li class="no">
-								<a href="#" class="boldred">体育赛事</a>
-								<a href="#">英超</a>
-                              	<a href="#">欧冠</a>
-								<a href="#">西甲</a>
-								<a href="#">意甲</a>
-								<a href="#">中超</a>
-								<a href="#">德甲</a>
-                                <a href="#">法甲</a>
-                                <a href="#">亚冠</a>
-							</li>
-						</ul>
-						<ul>
-							<li style="padding-right: 22px;">
-								<a href="#" class="boldred">生活健康</a>
-								<a href="#">农业舆情</a>
-								<a href="#">食品安全</a>
-								<a href="#">有机农业</a>
-								<a href="#">政策文件</a>
-								<a href="#">大健康</a>
-							</li>
-							<li class="no">
-								<a href="#" class="boldred">科技发展</a>
-								<a href="#">大数据</a>
-								<a href="#">行业资讯</a>
-								<a href="#">人工智能</a>
-								<a href="#">VR/AR</a>
-								<a href="#">科技展</a>
-							</li>
-						</ul>
-						<ul>
-							<li style="padding-right: 10px;">
-								<a href="#" class="boldred">游戏风云</a>
-								<a href="#">游戏速递</a>
-								<a href="#">大型网游</a>
-								<a href="#">移动热点</a>
-								<a href="#">国际赛事</a>
-								<a href="#">ACG</a>
-							</li>
-							<li>
-								<a href="#" class="boldred">军情动态</a>
-								<a href="#">历史风云</a>
-								<a href="#">当前热点</a>
-							</li>
-							<li class="no">
-								<a href="#" class="boldred">大众娱乐</a>
-								<a href="#">最新电影</a>
-								<a href="#">热播剧集</a>
-								<a href="#">时尚</a>
-							</li>
-						</ul>
-						<div class="index_navs_bot"></div>
-					</div>
+					<#include "/lib/default/index_navigate.ftl">
 					<!-- 首页导航 edn -->
 					<!-- 第一部分 strat -->
 					<div class="index_con_one clearfix">
@@ -328,39 +266,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="index_footer">
-					<a href="#" class="logo">导航</a>
-					<div class="bot">
-						<ul class="bot_ul1">
-							<li><a href="#">热点</a></li>
-							<li><a href="#">视频</a></li>
-							<li><a href="#">图片</a></li>
-							<li><a href="#">娱乐</a></li>
-							<li><a href="#">社会</a></li>
-							<li><a href="#">科技</a></li>
-							<li><a href="#">体育</a></li>
-							<li class="nborder"><a href="#">汽车</a></li>
-							<li><a href="#">财经</a></li>
-							<li><a href="#">军事</a></li>
-							<li class="nborder"><a href="#">育儿</a></li>
-							<li><a href="#">教育</a></li>
-							<li><a href="#">养老</a></li>
-							<li class="nborder"><a href="#">旅游</a></li>
-                                                        <li><a href="#">历史</a></li>
-						</ul>
-					</div>
-					<div class="bot">
-						<ul class="bot_ul2">
-							<li><a href="#" target="_black">关于我们</a></li>
-							<li class="nborder"><a href="#" target="_black">联系我们</a></li>
-							<li><a href="#" target="_black">分类地图</a></li>
-							<li class="nborder"><a href="#" target="_black">客户服务</a></li>
-						</ul>
-					</div>
-				</div>
+				<#include "/lib/default/footer/navigation.ftl">
 			</div>
 		</div>
-		<#include "/lib/default/index_footer.ftl">
+		<#include "/lib/default/footer/footer.ftl">
 	</div>
 </body>
 </html>
