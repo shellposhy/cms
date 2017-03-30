@@ -44,13 +44,13 @@
 			<#list data.list as item>
 				<li>
 	                <div class="element item view view-tenth" data-zlname="reverse-effect">
-	                    <img src="${item.img}">
+	                    <img src="${item.img}" height="${高度}" width="#{宽度}">
 	                    <div class="mask">
 	                        <a data-zl-popup="link" href="${item.href}">
-	                            <i class="icon-link"></i>
+	                            <i class="fa fa-link" aria-hidden="true"></i>
 	                        </a>
 	                        <a data-zl-popup="link2" class="fancybox" rel="group" href="${item.img}">
-	                            <i class="icon-search"></i>
+	                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
 	                        </a>
 	                    </div>
 	                </div>

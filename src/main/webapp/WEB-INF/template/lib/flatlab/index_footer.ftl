@@ -4,10 +4,11 @@
         	<div class="col-lg-3 col-sm-3">
                 <h1>道源咨询</h1>
                 <ul class="social-link-footer list-unstyled">
-                    <li><a href="#"><i class="icon-comments"></i></a></li>
-                    <li><a href="#"><i class="icon-google-plus"></i></a></li>
-                    <li><a href="#"><i class="icon-dribbble"></i></a></li>
-                    <li><a href="#"><i class="icon-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-qq" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-weixin" aria-hidden="true"></i></a></li>
+                    <li><a href="#"><i class="fa fa-weibo" aria-hidden="true"></i></a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-sm-3">

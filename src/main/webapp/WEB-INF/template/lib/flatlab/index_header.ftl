@@ -16,7 +16,7 @@
                 <ul class="nav navbar-nav">
                     <li class=""><a href="/index.html">首页</a></li>
                     <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">关于道源<b class=" icon-angle-down"></b></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">关于道源<b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">公司简介</a></li>
                             <li><a href="#">智库团队</a></li>
@@ -24,7 +24,7 @@
                         </ul>
                     </li>
                     <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">服务范围 <b class=" icon-angle-down"></b></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">服务范围 <b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">规划设计</a></li>
                             <li><a href="#">景区提升</a></li>
@@ -37,7 +37,7 @@
                         </ul>
                     </li>
                     <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">案例成果<b class=" icon-angle-down"></b></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">案例成果<b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">投资规划</a></li>
                             <li><a href="#">规划设计</a></li>
@@ -45,7 +45,7 @@
                         </ul>
                     </li>
                     <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">道源智库<b class=" icon-angle-down"></b></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">道源智库<b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">专题研究</a></li>
                             <li><a href="#">行业观察</a></li>
@@ -53,14 +53,14 @@
                         </ul>
                     </li>
                    <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">新闻中心<b class=" icon-angle-down"></b></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">新闻中心<b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">道源动态</a></li>
                             <li><a href="#">行业资讯</a></li>
                         </ul>
                     </li>
                     <li class="dropdown ">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">联系我们<b class=" icon-angle-down"></b></a>
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">联系我们<b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">联系方式</a></li>
                             <li><a href="#">加入道源</a></li>
