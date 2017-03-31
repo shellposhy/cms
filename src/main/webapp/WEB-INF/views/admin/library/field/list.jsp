@@ -15,7 +15,7 @@
 		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered bootstrap-datatable trHoverEdit" id="dataField">
 			<thead>
 				<tr>
-					<th><label class="checkbox inline"><input type="checkbox" class="selAll" />名称</label></th>
+					<th><label class="checkbox inline">名称</label></th>
 					<th>编码</th>
 					<th>数据类型</th>
 					<th>是否无符号</th>

@@ -16,8 +16,7 @@ function load_field_data() {
 	var objTitle = [ {
 		"mData" : "id",
 		'fnRender': function(obj){
-			return '<label class="checkbox inline"><input type="checkbox" id="inlineCheckbox'
-			+ obj.aData.id+ '" name="idStr'+ obj.aData.id+ '" value="'+ obj.aData.id+ '" style="opacity: 0;" >'+ obj.aData.name+ '</label>'
+			return '<label class="checkbox inline">'+ obj.aData.name+ '</label>'
 			+ '<button title="点击进行配置" data-rel="tooltip" class="btn btn-mini padmbt floatr editbtn none"><i class="icon-edit"></i></button>';
 		}
 	},  {"mData" : "code"}, {"mData" : "dataType"}, {"mData" : "nosg"}, {"mData" : "leng"}, {"mData" : "prec"}, {"mData" : "mand"}, {"mData" : "uniq"
@@ -28,7 +27,4 @@ function load_field_data() {
 // 回调函数
 function callback_data(oTableDataDb) {
 	docReady();
-	//trHoverEdit();
-	listDelete(thisPath + "field/delete", oTableDataDb);
-	editPopWithDT(oTableDataDb);
 };

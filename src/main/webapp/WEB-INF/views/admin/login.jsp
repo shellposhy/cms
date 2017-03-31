@@ -17,14 +17,14 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="row-fluid">
-				<div class="span12 center top-block login-header">
-					<h2 style="color: #c00">${appName}</h2>
+				<div class="span12 center top-block login-header" style="background: #fff">
+					<h1 style="color: #c00" class="mt30">${appName}</h1>
 				</div>
 			</div>
 			<div class="row-fluid">
-				<div class="well span5 center login-box">
-					<div class="alert alert-success ${param.error == true ? '' : ''}">
-						请输入用户名和密码 ${requestScope.errMsg} 
+				<div class="well span5 center login-box mt60">
+					<div class="alert alert-success">
+						请输入用户名和密码
 					</div>
 					<form id="login_form" action="${appPath}/admin/security/check" method="post" >
 						<input type="hidden" id="from" name="from" value="${from }"/>
@@ -45,6 +45,11 @@
 						</fieldset>
 					</form>
 				</div>
+				<div class="row-fluid" style="position: fixed;bottom: 0px;">
+				<div class="span12 center">
+					<p>Copyright © 2017, 南山智慧谷, All Rights Reserved </p>
+				</div>
+			</div>
 			</div>
 		</div>
 	</div>

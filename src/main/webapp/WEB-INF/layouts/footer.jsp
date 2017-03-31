@@ -35,7 +35,7 @@
 		&copy; <a href="${appPath}/index.html" target="_blank">${appName }</a> 2017
 	</p>
 	<p class="pull-right">
-		技术支持: <a href="#">北京东惠通科技有限公司</a>
+		技术支持: <a href="#">南山智慧谷</a>
 	</p>
 	<a id="back-to-top" href="#"></a>
 </div>
