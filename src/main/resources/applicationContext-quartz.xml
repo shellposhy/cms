@@ -23,6 +23,13 @@
 		<property name="targetMethod" value="modelTask" />
 		<property name="concurrent" value="false" />
 	</bean>
+	
+	<!-- definition index page auto publish job -->
+	<bean id="publishJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="viewPublishService"></property>
+		<property name="targetMethod" value="autoPublish"></property>
+		<property name="concurrent" value="false" />
+	</bean>
 
 	<!-- database model edit job every one  hour -->
 	<bean id="modelTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
@@ -31,12 +38,21 @@
 			<value>0 0 */1 * * ?</value>
 		</property>
 	</bean>
+	
+	<!-- index page auto publish at one clock every day -->
+	<bean id="publishTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="publishJob"></property>
+		<property name="cronExpression">
+			<value>0 30 1 * * ?</value>
+		</property>
+	</bean>
 
 	<!--  scheduler configuration-->
 	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref local="modelTrigger" />
+				<ref local="publishTrigger"/>
 			</list>
 		</property>
 		<property name="quartzProperties">

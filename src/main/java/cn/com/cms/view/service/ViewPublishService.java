@@ -72,11 +72,11 @@ public class ViewPublishService {
 	private LibraryDataService libraryDataService;
 
 	/**
-	 * 发布所有首页
+	 * 基于时钟轮询的自动页面发布
 	 * 
 	 * @return
 	 */
-	public void publishAllIndexPage() {
+	public void autoPublish() {
 		List<ViewPage> pageList = viewPageMapper.findByTypeAndStatus(EPageType.SysPage, EDataStatus.Yes);
 		if (null != pageList) {
 			for (ViewPage viewPage : pageList) {
