@@ -31,19 +31,19 @@
 		<property name="concurrent" value="false" />
 	</bean>
 
-	<!-- database model edit job every one  hour -->
+	<!-- database model edit job at 3 clock every day -->
 	<bean id="modelTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="modelJob" />
 		<property name="cronExpression">
-			<value>0 0 */1 * * ?</value>
+			<value>0 0 3 * * ?</value>
 		</property>
 	</bean>
 	
-	<!-- index page auto publish at one clock every day -->
+	<!-- index page auto publish at 1 clock every day -->
 	<bean id="publishTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="publishJob"></property>
 		<property name="cronExpression">
-			<value>0 30 1 * * ?</value>
+			<value>0 0 1 * * ?</value>
 		</property>
 	</bean>
 
