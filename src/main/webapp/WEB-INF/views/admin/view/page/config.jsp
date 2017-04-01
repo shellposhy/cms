@@ -72,9 +72,9 @@
 								<td>
 									<div class="relative_tree_box">
 										<form:hidden path="nameLinkType" id="nameLinkType" name="nameLinkType" value="NormalListLink" />
-										<label><input id='nameLinkType_opt_2' name='nameLinkType_opt' class='nameLinkType_opt' type='radio' onChange="linkTypeChange()" value='ColumnLink' checked>通用二级页&nbsp;&nbsp;</label>
+										<!-- <label><input id='nameLinkType_opt_2' name='nameLinkType_opt' class='nameLinkType_opt' type='radio' onChange="linkTypeChange()" value='ColumnLink' checked>通用二级页&nbsp;&nbsp;</label>-->
 										<label><input id='nameLinkType_opt_1' name='nameLinkType_opt' class='nameLinkType_opt' type='radio' onChange="linkTypeChange()" value='NormalListLink' checked>通用列表页&nbsp;&nbsp;</label>
-										<label><input id='nameLinkType_opt_0' name='nameLinkType_opt' class='nameLinkType_opt' type='radio' onChange="linkTypeChange()" value='UserLink'>自定义</label>
+										<!-- <label><input id='nameLinkType_opt_0' name='nameLinkType_opt' class='nameLinkType_opt' type='radio' onChange="linkTypeChange()" value='UserLink'>自定义</label>-->
 									</div>
 								</td>
 							</tr>

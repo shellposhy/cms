@@ -33,6 +33,7 @@ import cn.com.cms.library.service.LibraryDataService;
 import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.view.model.ViewContent;
 import cn.com.cms.view.model.ViewItem;
+import cn.com.cms.view.model.ViewPage;
 import cn.com.cms.view.vo.ViewPreviewVo;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.framework.base.Result;;
@@ -65,7 +66,8 @@ public class ViewPreviewService {
 	 * @param appPath
 	 * @return
 	 */
-	public ViewPreviewVo preview(ViewItem viewItem, Map<Integer, ViewContent> contentMap, String appPath) {
+	public ViewPreviewVo preview(ViewItem viewItem, Map<Integer, ViewContent> contentMap, String appPath,
+			ViewPage page) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		ViewContent viewContent = contentMap.get(viewItem.getId());
 		if (null == viewContent) {
@@ -74,10 +76,10 @@ public class ViewPreviewService {
 			switch (viewItem.getItemType()) {
 			case Default:
 			case Headline:
-				result = dbContentHandle(viewItem, viewContent, appPath);
+				result = dbContentHandle(viewItem, viewContent, appPath, page);
 				break;
 			case Sort:
-				result = sortContentHandle(viewItem, viewContent, appPath);
+				result = sortContentHandle(viewItem, viewContent, appPath, page);
 				break;
 			case OneImgList:
 				result = firstImgDataHandler(viewItem, viewContent, appPath);
@@ -98,7 +100,7 @@ public class ViewPreviewService {
 	 * @param appPath
 	 * @return
 	 */
-	private ViewPreviewVo sortContentHandle(ViewItem viewItem, ViewContent content, String appPath) {
+	private ViewPreviewVo sortContentHandle(ViewItem viewItem, ViewContent content, String appPath, ViewPage page) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		result.setTitle(null == content.getName() ? "" : content.getName());
 		if (null != content.getNameLink()) {
@@ -140,7 +142,7 @@ public class ViewPreviewService {
 					switch (viewItem.getItemType()) {
 					default:
 						result.initList(content, CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(),
-								dataField);
+								dataField, page);
 						break;
 					}
 				}
@@ -159,7 +161,7 @@ public class ViewPreviewService {
 	 * @param appPath
 	 * @return
 	 */
-	private ViewPreviewVo dbContentHandle(ViewItem viewItem, ViewContent content, String appPath) {
+	private ViewPreviewVo dbContentHandle(ViewItem viewItem, ViewContent content, String appPath, ViewPage page) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		result.setTitle(null == content.getName() ? "" : content.getName());
 		if (null != content.getNameLink()) {
@@ -190,7 +192,7 @@ public class ViewPreviewService {
 					switch (viewItem.getItemType()) {
 					default:
 						result.initList(content, CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(),
-								dataField);
+								dataField, page);
 						break;
 					}
 				}

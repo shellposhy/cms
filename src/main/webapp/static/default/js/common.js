@@ -21,25 +21,27 @@ $(document).ready(function(){
 
 //获得城市天气
 function findCityWeather(){
-	 var cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js';
-     $.getScript(cityUrl, function (script, textStatus, jqXHR) {
-       var citytq = remote_ip_info.city;
-       var url = "http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&city=" + citytq + "&day=0&dfc=3";
-       $.ajax({
-         url: url,
-         dataType: "script",
-         scriptCharset: "gbk",
-         success: function (data) {
-           var _w = window.SWther.w[citytq][0];
-           var _f = _w.f1 + "_0.png";
-           if (new Date().getHours() > 17) {
-             _f = _w.f2 + "_1.png";
-           }
-           var tq = citytq +_w.s1+ _w.t1 + "℃～" + _w.t2 + "℃ " + _w.d1 + _w.p1 + "级";
-           $("#weatherInfo").html(tq);
-         }
-       });
-     });
+	if($("#weatherInfo").length>0){
+		 var cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js';
+	     $.getScript(cityUrl, function (script, textStatus, jqXHR) {
+	       var citytq = remote_ip_info.city;
+	       var url = "http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&city=" + citytq + "&day=0&dfc=3";
+	       $.ajax({
+	         url: url,
+	         dataType: "script",
+	         scriptCharset: "gbk",
+	         success: function (data) {
+	           var _w = window.SWther.w[citytq][0];
+	           var _f = _w.f1 + "_0.png";
+	           if (new Date().getHours() > 17) {
+	             _f = _w.f2 + "_1.png";
+	           }
+	           var tq = citytq +_w.s1+ _w.t1 + "℃～" + _w.t2 + "℃ " + _w.d1 + _w.p1 + "级";
+	           $("#weatherInfo").html(tq);
+	         }
+	       });
+	     });
+     }
 }
 
 

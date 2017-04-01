@@ -9,11 +9,10 @@ import cn.com.cms.common.FieldCodes;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVO;
-import cn.com.cms.library.constant.EDataNavigateType;
 import cn.com.cms.library.constant.EDataType;
-import cn.com.cms.view.constant.EContentType;
 import cn.com.cms.view.constant.EModelType;
 import cn.com.cms.view.model.ViewContent;
+import cn.com.cms.view.model.ViewPage;
 import cn.com.people.data.util.DateTimeUtil;
 
 /**
@@ -50,7 +49,7 @@ public class ViewPreviewVo {
 	 * @return
 	 */
 	public void initList(ViewContent content, List<CmsData> dataList, String appPath, String pathCode, Integer tableId,
-			DataField dataField, EModelType type) {
+			DataField dataField, EModelType type, ViewPage page) {
 		this.title = content.getName();
 		if (null != content.getNameLink() && !content.getNameLink().isEmpty()) {
 			this.href = content.getNameLink();
@@ -78,23 +77,13 @@ public class ViewPreviewVo {
 	 * @return
 	 */
 	public void initList(ViewContent content, List<CmsData> dataList, String appPath, String pathCode, Integer tableId,
-			DataField dataField) {
+			DataField dataField, ViewPage page) {
 		this.title = (null == content.getName()) ? "" : content.getName();
 		switch (content.getNameLinkType()) {
 		case ColumnLink:
-			if (EContentType.DbDataListContent == content.getContentType()) {
-				this.href = appPath + "/page/list/" + EDataNavigateType.DATA_BASE.ordinal() + "/"
-						+ content.getContent();
-			} else {
-				this.href = appPath + "/page/list/" + EDataNavigateType.DATA_SORT.ordinal() + "/"
-						+ content.getContent();
-			}
-			break;
 		case UserLink:
-			this.href = content.getNameLink();
-			break;
 		default:
-			this.href = appPath + "/subpage" + pathCode + DB_FILE_NAME;
+			this.href = appPath + "/static/" + page.getCode() + "/list" + pathCode + DB_FILE_NAME;
 			break;
 		}
 		for (CmsData data : dataList) {

@@ -106,7 +106,7 @@ public class ViewPageConfigController extends BaseController {
 			request.setAttribute(key, calendarEvent.get(key));
 		}
 		for (ViewItem viewItem : itemList) {
-			ViewPreviewVo vo = viewPreviewService.preview(viewItem, contentMap, appPath);
+			ViewPreviewVo vo = viewPreviewService.preview(viewItem, contentMap, appPath, page);
 			request.setAttribute(viewItem.getCode(), null == vo ? new ViewPreviewVo() : vo);
 		}
 		switch (viewModel.getModelType()) {

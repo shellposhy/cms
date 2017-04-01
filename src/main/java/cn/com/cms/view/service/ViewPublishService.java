@@ -102,7 +102,7 @@ public class ViewPublishService {
 		Map<Integer, ViewContent> contentMap = findViewContentMapByPageId(pageId);
 		Map<String, Object> calendarData = calendarEventService.calendarEventData();
 		for (ViewItem viewItem : itemList) {
-			ViewPreviewVo vo = viewPreviewService.preview(viewItem, contentMap, appPath);
+			ViewPreviewVo vo = viewPreviewService.preview(viewItem, contentMap, appPath,page);
 			data.put(viewItem.getCode(), null == vo ? new ViewPreviewVo() : vo);
 		}
 		data.putAll(calendarData);
