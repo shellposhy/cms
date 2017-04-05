@@ -63,9 +63,7 @@
 	</select>
 
 	<select id="countByStatus" resultType="int">
-		SELECT COUNT(*) FROM
-		view_page
-		WHERE Status=#{status}
+		SELECT COUNT(*) FROM view_page WHERE Status=#{status}
 	</select>
 
 	<delete id="batchDelete" parameterType="java.util.List">
