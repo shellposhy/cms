@@ -8,7 +8,7 @@ import cn.com.cms.user.model.UserGroup;
  * @author shishb
  * @version 1.0
  */
-public class UserGroupVO {
+public class UserGroupVo {
 	private Integer id;
 	private String name;
 	private String memo;
@@ -51,8 +51,8 @@ public class UserGroupVO {
 	 * @param userGroup
 	 * @return
 	 */
-	public static UserGroupVO convertUserGroup(UserGroup userGroup) {
-		UserGroupVO userGroupVo = new UserGroupVO();
+	public static UserGroupVo convertUserGroup(UserGroup userGroup) {
+		UserGroupVo userGroupVo = new UserGroupVo();
 		userGroupVo.setId(userGroup.getId());
 		userGroupVo.setMemo(userGroup.getMemo());
 		userGroupVo.setName(userGroup.getName());

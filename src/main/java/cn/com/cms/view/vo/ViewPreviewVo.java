@@ -8,7 +8,7 @@ import cn.com.cms.common.CmsData;
 import cn.com.cms.common.FieldCodes;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.util.DataUtil;
-import cn.com.cms.data.util.DataVO;
+import cn.com.cms.data.util.DataVo;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.view.constant.EModelType;
 import cn.com.cms.view.model.ViewContent;
@@ -181,7 +181,7 @@ public class ViewPreviewVo {
 		this.list.add(new Item(title, img, href));
 	}
 
-	public void addListItem(DataVO dataVO, String pathCode) {
+	public void addListItem(DataVo dataVO, String pathCode) {
 		this.list.add(new Item(dataVO, pathCode));
 	}
 
@@ -271,7 +271,7 @@ public class ViewPreviewVo {
 			this.href = pathCode + "_" + data.getId();
 		}
 
-		public Item(DataVO dataVO, String pathCode) {
+		public Item(DataVo dataVO, String pathCode) {
 			this.title = dataVO.getTitle();
 			this.href = pathCode + DATA_PATH + "/" + dataVO.getTableId() + "_" + dataVO.getId();
 			if (null != dataVO.getImg()) {

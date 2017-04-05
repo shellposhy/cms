@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import cn.com.cms.common.JsonPara;
 import cn.com.cms.data.model.DataField;
-import cn.com.cms.data.util.DataVO;
+import cn.com.cms.data.util.DataVo;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.controller.base.BaseDataController;
 import cn.com.cms.library.model.DataBase;
@@ -59,7 +59,7 @@ public class SystemDataController extends BaseDataController<DataBase> {
 
 	@RequestMapping(value = "/save/{libraryId}", method = RequestMethod.POST)
 	@ResponseBody
-	public String save(HttpServletRequest request, @PathVariable("libraryId") int baseId, @Valid DataVO data,
+	public String save(HttpServletRequest request, @PathVariable("libraryId") int baseId, @Valid DataVo data,
 			BindingResult result, Model model) {
 		return super.save(request, baseId, data, result, model);
 	}

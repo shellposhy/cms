@@ -8,7 +8,7 @@ import cn.com.cms.data.model.DataField;
  * @author shishb
  * @version 1.0
  */
-public class DataFieldVO {
+public class DataFieldVo {
 	private Integer id;
 	private String name;
 	private String code;
@@ -33,7 +33,7 @@ public class DataFieldVO {
 	private String accessType;
 	private String memo;// 备注
 
-	public DataFieldVO(DataField dataField) {
+	public DataFieldVo(DataField dataField) {
 		this.id = dataField.getId();
 		this.name = dataField.getName();
 		this.code = dataField.getCode();

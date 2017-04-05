@@ -38,7 +38,7 @@ import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.page.util.PagingUtil;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.cms.data.util.DataUtil;
-import cn.com.cms.data.util.DataVO;
+import cn.com.cms.data.util.DataVo;
 
 /**
  * 前端页面控制类
@@ -116,11 +116,11 @@ public class PageController extends BaseController {
 		SearchResult searchResult = libraryDataService.searchIndex(queryString,
 				appConfig.getDefaultIndexSearchNumHits(), dsSortFieldsArray, hightLightFields, start,
 				appConfig.getAdminDataTablePageMinSize(), id);
-		List<DataVO> result = Lists.newArrayList();
+		List<DataVo> result = Lists.newArrayList();
 		PagingUtil paging = null;
 		if (null != searchResult && null != searchResult.documents && searchResult.documents.length > 0) {
 			for (Document document : searchResult.documents) {
-				DataVO vo = new DataVO(document);
+				DataVo vo = new DataVo(document);
 				// 系统默认图片
 				vo.setImg("/static/flatlab/img/default.jpg");
 				if (!Strings.isNullOrEmpty(document.get(FieldCodes.DOC_TIME))) {
@@ -181,17 +181,17 @@ public class PageController extends BaseController {
 		SearchResult searchResult = libraryDataService.searchIndex(queryString,
 				appConfig.getDefaultIndexSearchNumHits(), dsSortFieldsArray, hightLightFields, pageStart,
 				appConfig.getAdminDataTablePageSize(), (Integer[]) dbIds.toArray(new Integer[dbIds.size()]));
-		List<DataVO> result = Lists.newArrayList();
+		List<DataVo> result = Lists.newArrayList();
 		if (null != searchResult && null != searchResult.documents && searchResult.documents.length > 0) {
 			for (Document document : searchResult.documents) {
-				result.add(new DataVO(document));
+				result.add(new DataVo(document));
 			}
 		}
-		DataTablesVo<DataVO> dataTablesVo = null;
+		DataTablesVo<DataVo> dataTablesVo = null;
 		if (null == result) {
-			dataTablesVo = new DataTablesVo<DataVO>(sEcho, 0, 0, result);
+			dataTablesVo = new DataTablesVo<DataVo>(sEcho, 0, 0, result);
 		} else {
-			dataTablesVo = new DataTablesVo<DataVO>(sEcho, searchResult.totalHits, searchResult.totalHits, result);
+			dataTablesVo = new DataTablesVo<DataVo>(sEcho, searchResult.totalHits, searchResult.totalHits, result);
 		}
 		mv.addStaticAttribute("dataTablesVo", dataTablesVo);
 		return mv;

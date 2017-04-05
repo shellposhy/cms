@@ -7,17 +7,17 @@ package cn.com.cms.data.util;
  * @version 1.0
  * 
  */
-public class DataFieldVO {
+public class DataFieldVo {
 	private Integer id;
 	private String name;
 	private String code;
 	private Integer dataType;
 
-	public DataFieldVO() {
+	public DataFieldVo() {
 		super();
 	}
 
-	public DataFieldVO(Integer id, String name, String code, Integer dataType) {
+	public DataFieldVo(Integer id, String name, String code, Integer dataType) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -1,7 +1,3 @@
-/*
- * 版权所有 ( c ) 人民网股份有限公司 
- * 项目名称：人民数据管理系统（镜像版）
- */
 package cn.com.cms.data.util;
 
 import java.util.Date;
@@ -22,7 +18,7 @@ import cn.com.people.data.util.DateTimeUtil;
  * @author shishb
  * @version 1.0
  */
-public class DataVO {
+public class DataVo {
 	private Integer id;
 	private String title = "";
 	private String authors = "";
@@ -45,7 +41,7 @@ public class DataVO {
 	private String day = "";
 	private Map<String, String> fieldMap = new HashMap<String, String>();
 
-	public DataVO() {
+	public DataVo() {
 	}
 
 	/**
@@ -54,7 +50,7 @@ public class DataVO {
 	 * @param data
 	 * @return
 	 */
-	public DataVO(CmsData data) {
+	public DataVo(CmsData data) {
 		this.setId(data.getId());
 		this.setTitle((String) data.get(FieldCodes.TITLE));
 		this.setAuthors((String) data.get(FieldCodes.AUTHORS));
@@ -71,7 +67,7 @@ public class DataVO {
 	 * @param data
 	 * @return
 	 */
-	public DataVO(Document data) {
+	public DataVo(Document data) {
 		this.setId(Integer.parseInt(data.get(FieldCodes.ID)));
 		this.setTitle((String) data.get(FieldCodes.TITLE));
 		this.setAuthors((String) data.get(FieldCodes.AUTHORS));

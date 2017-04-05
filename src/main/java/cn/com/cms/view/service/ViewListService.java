@@ -16,7 +16,7 @@ import com.microduo.index.lucene3.SearchResult;
 import cn.com.cms.base.AppConfig;
 import cn.com.cms.common.FieldCodes;
 import cn.com.cms.data.util.DataUtil;
-import cn.com.cms.data.util.DataVO;
+import cn.com.cms.data.util.DataVo;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.constant.ELibraryNodeType;
@@ -141,7 +141,7 @@ public class ViewListService {
 		ViewPreviewVo view = new ViewPreviewVo();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {
-				DataVO dataVO = new DataVO();
+				DataVo dataVO = new DataVo();
 				dataVO.setId(Integer.parseInt(document.get(FieldCodes.ID)));
 				if (null != document.get(FieldCodes.TITLE)) {
 					dataVO.setTitle(document.get(FieldCodes.TITLE));

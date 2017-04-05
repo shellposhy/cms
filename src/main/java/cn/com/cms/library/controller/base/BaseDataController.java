@@ -49,7 +49,7 @@ import cn.com.cms.util.FileUtil;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.PkUtil;
 import cn.com.cms.data.util.DataUtil;
-import cn.com.cms.data.util.DataVO;
+import cn.com.cms.data.util.DataVo;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -187,18 +187,18 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 			result.totalHits = 0;
 			result.documents = null;
 		}
-		List<DataVO> dataVoList = Lists.newArrayList();
+		List<DataVo> dataVoList = Lists.newArrayList();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {
-				DataVO dataVO = new DataVO(document);
+				DataVo dataVO = new DataVo(document);
 				dataVoList.add(dataVO);
 			}
 		}
-		DataTablesVo<DataVO> dataTablesVo = null;
+		DataTablesVo<DataVo> dataTablesVo = null;
 		if (null == result) {
-			dataTablesVo = new DataTablesVo<DataVO>(sEcho, 0, 0, dataVoList);
+			dataTablesVo = new DataTablesVo<DataVo>(sEcho, 0, 0, dataVoList);
 		} else {
-			dataTablesVo = new DataTablesVo<DataVO>(sEcho, result.totalHits, result.totalHits, dataVoList);
+			dataTablesVo = new DataTablesVo<DataVo>(sEcho, result.totalHits, result.totalHits, dataVoList);
 		}
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		mv.addStaticAttribute("dataTablesVo", dataTablesVo);
@@ -215,7 +215,7 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 	public String preNew(Integer libraryId, Model model) {
 		List<DataField> fieldList = dataFieldService.findFieldsByDBId(libraryId);
 		T library = libraryService.find(libraryId);
-		DataVO dataVo = new DataVO();
+		DataVo dataVo = new DataVo();
 		StringBuilder strBuilder = new StringBuilder();
 		for (DataField field : fieldList) {
 			if (field.getAccessType() != EAccessType.Sys) {
@@ -247,7 +247,7 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 	public String edit(int tableId, int dataId, HttpServletRequest request, Model model) {
 		Integer baseId = libraryTableService.find(tableId).getBaseId();
 		CmsData peopleData = libraryDataService.find(tableId, dataId);
-		DataVO dataVo = new DataVO();
+		DataVo dataVo = new DataVo();
 		dataVo.setId(peopleData.getId());
 		List<DataField> fieldList = dataFieldService.findFieldsByDBId(baseId);
 		T library = libraryService.find(baseId);
@@ -289,7 +289,7 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 	 */
 	public String info(int tableId, int dataId, HttpServletRequest request, Model model) {
 		CmsData data = libraryDataService.find(tableId, dataId);
-		DataVO vo = new DataVO(data);
+		DataVo vo = new DataVo(data);
 		model.addAttribute("data", vo);
 		return URL_PREFIX + getLibType().getCode() + "/data/info";
 	}
@@ -304,7 +304,7 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 	 * @param model
 	 * @return
 	 */
-	public String save(final HttpServletRequest request, final int baseId, final DataVO data, BindingResult result,
+	public String save(final HttpServletRequest request, final int baseId, final DataVo data, BindingResult result,
 			final Model model) {
 		final DataTable dataTable = libraryService.getDataTable(baseId);
 		final LinkedHashMap<String, DataField> dataFieldMap = dataFieldService.findAllDataFieldIndexCode();

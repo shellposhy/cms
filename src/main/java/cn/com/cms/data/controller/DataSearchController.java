@@ -42,9 +42,9 @@ import cn.com.cms.framework.security.UserSecurityService;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.model.BaseLibrary;
-import cn.com.cms.data.util.DataFieldVO;
+import cn.com.cms.data.util.DataFieldVo;
 import cn.com.cms.data.util.DataUtil;
-import cn.com.cms.data.util.DataVO;
+import cn.com.cms.data.util.DataVo;
 import cn.com.cms.library.service.LibraryDataService;
 import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.library.service.LibraryTableService;
@@ -258,15 +258,15 @@ public class DataSearchController extends BaseController {
 	 */
 	@RequestMapping(value = "/field", method = RequestMethod.POST)
 	@ResponseBody
-	public List<DataFieldVO> searchSelField(@RequestBody JsonPara jsonPara) {
+	public List<DataFieldVo> searchSelField(@RequestBody JsonPara jsonPara) {
 		log.debug("=====data.search.field======");
 		String dbIdStr = jsonPara.value;
 		List<DataField> dataFields = dataFieldService.findFieldsInBasesByAccess(dbIdStr);
-		List<DataFieldVO> dataFieldQueryVos = new ArrayList<DataFieldVO>();
+		List<DataFieldVo> dataFieldQueryVos = new ArrayList<DataFieldVo>();
 		if (null != dataFields && dataFields.size() != 0) {
 			for (DataField dataField : dataFields) {
 				if (!dataField.getCode().equals("Sort_Ids")) {
-					DataFieldVO dataFieldVO = new DataFieldVO(dataField.getId(), dataField.getName(),
+					DataFieldVo dataFieldVO = new DataFieldVo(dataField.getId(), dataField.getName(),
 							dataField.getCode(), dataField.getDataType().ordinal());
 					dataFieldQueryVos.add(dataFieldVO);
 				}
@@ -415,13 +415,13 @@ public class DataSearchController extends BaseController {
 			}
 		}
 		// 组织文章
-		List<DataVO> dataVoList = new ArrayList<DataVO>();
+		List<DataVo> dataVoList = new ArrayList<DataVo>();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {
-				dataVoList.add(new DataVO(document));
+				dataVoList.add(new DataVo(document));
 			}
 		}
-		DataTablesVo<DataVO> dataTablesVo = new DataTablesVo<DataVO>(sEcho,
+		DataTablesVo<DataVo> dataTablesVo = new DataTablesVo<DataVo>(sEcho,
 				null != result && result.totalHits > 0 ? result.totalHits : 0,
 				null != result && result.totalHits > 0 ? result.totalHits : 0, dataVoList);
 		mv.addStaticAttribute("dataTablesVo", dataTablesVo);

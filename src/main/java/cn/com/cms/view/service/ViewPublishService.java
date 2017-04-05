@@ -37,7 +37,7 @@ import cn.com.cms.view.vo.ViewPreviewVo;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.FileUtil;
 import cn.com.cms.data.util.DataUtil;
-import cn.com.cms.data.util.DataVO;
+import cn.com.cms.data.util.DataVo;
 import cn.com.people.data.util.FreeMarkerUtil;
 
 /**
@@ -205,7 +205,7 @@ public class ViewPublishService {
 		ViewPreviewVo view = new ViewPreviewVo();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {
-				DataVO dataVO = new DataVO();
+				DataVo dataVO = new DataVo();
 				dataVO.setId(Integer.parseInt(document.get(FieldCodes.ID)));
 				dataVO.setTitle(null != document.get(FieldCodes.TITLE) ? document.get(FieldCodes.TITLE) : "");
 				dataVO.setAuthors(null != document.get(FieldCodes.AUTHORS) ? document.get(FieldCodes.AUTHORS) : "");

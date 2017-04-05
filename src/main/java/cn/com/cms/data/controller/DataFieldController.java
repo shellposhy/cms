@@ -21,7 +21,7 @@ import cn.com.cms.common.JsonPara;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.framework.base.Result;
-import cn.com.cms.library.vo.DataFieldVO;
+import cn.com.cms.library.vo.DataFieldVo;
 
 /**
  * 数据库字段管理控制类
@@ -57,14 +57,14 @@ public class DataFieldController extends BaseController {
 		int pageSize = appConfig.getAdminDataTablePageSize();
 		Result<DataField> result = dataFieldService.findByPage(word, firstResult, pageSize);
 		// 组织数据对象
-		List<DataFieldVO> dataFieldList = new ArrayList<DataFieldVO>();
+		List<DataFieldVo> dataFieldList = new ArrayList<DataFieldVo>();
 		if (null != result && null != result.getList() && result.getList().size() > 0) {
 			for (DataField dataField : result.getList()) {
-				DataFieldVO vo = new DataFieldVO(dataField);
+				DataFieldVo vo = new DataFieldVo(dataField);
 				dataFieldList.add(vo);
 			}
 		}
-		DataTablesVo<DataFieldVO> dataTablesVo = new DataTablesVo<DataFieldVO>(sEcho, result.getTotalCount(),
+		DataTablesVo<DataFieldVo> dataTablesVo = new DataTablesVo<DataFieldVo>(sEcho, result.getTotalCount(),
 				result.getTotalCount(), dataFieldList);
 		mv.addStaticAttribute("dataTablesVo", dataTablesVo);
 		return mv;

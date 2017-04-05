@@ -36,7 +36,7 @@ import cn.com.cms.user.model.UserGroup;
 import cn.com.cms.user.service.UserActionService;
 import cn.com.cms.user.service.UserGroupService;
 import cn.com.cms.user.service.UserService;
-import cn.com.cms.user.vo.UserGroupVO;
+import cn.com.cms.user.vo.UserGroupVo;
 import cn.com.people.data.util.JsonUtil;
 
 /**
@@ -104,10 +104,10 @@ public class UserGroupController extends BaseController {
 		}
 		Result<UserGroup> result = userGroupService.search(queryStr, firstResult, pageSize);
 		List<UserGroup> userGroupList = result.getList();
-		List<UserGroupVO> userGroupVoList = new ArrayList<UserGroupVO>();
+		List<UserGroupVo> userGroupVoList = new ArrayList<UserGroupVo>();
 		// 拼装页面展示的用户组列表
 		for (UserGroup userGroup : userGroupList) {
-			UserGroupVO userGroupVo = UserGroupVO.convertUserGroup(userGroup);
+			UserGroupVo userGroupVo = UserGroupVo.convertUserGroup(userGroup);
 			List<Integer> userIdList = userGroupMapMapper.searchUserIdsByGroupId(userGroup.getId(), null, 0, 10);
 			if (userIdList != null && userIdList.size() > 0) {
 				StringBuilder sb = new StringBuilder();
@@ -128,7 +128,7 @@ public class UserGroupController extends BaseController {
 			}
 			userGroupVoList.add(userGroupVo);
 		}
-		DataTablesVo<UserGroupVO> dataTablesVo = new DataTablesVo<UserGroupVO>(sEcho, result.getTotalCount(),
+		DataTablesVo<UserGroupVo> dataTablesVo = new DataTablesVo<UserGroupVo>(sEcho, result.getTotalCount(),
 				result.getTotalCount(), userGroupVoList);
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		mv.addStaticAttribute("dataTablesVo", dataTablesVo);
