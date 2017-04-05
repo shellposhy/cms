@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import cn.com.cms.common.SystemConstant;
-import cn.com.cms.user.model.User;
 import cn.com.cms.util.MessageResources;
 
 /**
@@ -21,27 +20,27 @@ import cn.com.cms.util.MessageResources;
  * @version 1.0
  */
 public class UrlFilter implements Filter {
+	
+	//属性
+	FilterConfig filterConfig;
 
 	// 静态资源
-	private static final String[] staticResourceType = { ".css", ".js", ".ico", ".jpg", ".jpeg", ".gif", ".html",
-			".png", ".doc", ".pdf", ".docx", ".ppt", ".pptx", ".xls", ".xlsx" };
+	private static final String[] staticResourceType = { ".css", ".js", ".ico", ".jpg", ".jpeg", ".gif", ".html",".png", ".doc", ".pdf", ".docx", ".ppt", ".pptx", ".xls", ".xlsx" };
 	private static final String[] staticResourcePath = { "/page", "/static", "/default", "/pic", "/tmp", "/doc" };
 	private static final String[] excludePath = { "/admin/security/check", "/admin/logout", "/admin/login" };
 
 	// 过滤器
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletRequest hRequest = (HttpServletRequest) request;
-		hRequest.setAttribute("appName", MessageResources.getValue("app.name"));
-		String uri = hRequest.getRequestURI();
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)throws IOException, ServletException {
+		HttpServletRequest servletRequest = (HttpServletRequest) request;
+		servletRequest.setAttribute("appName", MessageResources.getValue("app.name"));
+		String uri = servletRequest.getRequestURI();
 		if ("/".equals(uri) || matchExcludePath(uri) || matchStaticPath(uri) || matchStaticResource(uri)) {
 			chain.doFilter(request, response);
 		} else {
-			User user = (User) hRequest.getSession().getAttribute(SystemConstant.CURRENT_USER);
-			if (null != user) {
+			if (null != servletRequest.getSession().getAttribute(SystemConstant.CURRENT_USER)) {
 				chain.doFilter(request, response);
 			} else {
-				hRequest.getRequestDispatcher("/admin/login?from=" + uri).forward(request, response);
+				servletRequest.getRequestDispatcher("/admin/login?from=" + uri).forward(request, response);
 			}
 		}
 	}
@@ -82,10 +81,14 @@ public class UrlFilter implements Filter {
 		return result;
 	}
 
+	//初始化
 	public void init(FilterConfig config) throws ServletException {
+		filterConfig=config;
 	}
 
+	//销毁
 	public void destroy() {
+		filterConfig=null;
 	}
 
 }
