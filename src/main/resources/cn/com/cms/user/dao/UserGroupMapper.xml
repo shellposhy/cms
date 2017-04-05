@@ -22,13 +22,11 @@
 	</resultMap>
 
 	<select id="search" parameterType="int" resultMap="resultMap">
-		SELECT * FROM
-		user_group limit #{first},#{size}
+		SELECT * FROM user_group limit #{first},#{size}
 	</select>
 
 	<select id="searchByQs" parameterType="java.util.Map" resultMap="resultMap">
-		SELECT * FROM user_group WHERE Name like "%"#{qs}"%" limit
-		#{first},#{size}
+		SELECT * FROM user_group WHERE Name like "%"#{qs}"%" limit #{first},#{size}
 	</select>
 
 	<select id="count" resultType="int">
@@ -36,19 +34,15 @@
 	</select>
 
 	<select id="countByQs" parameterType="String" resultType="int">
-		SELECT
-		COUNT(*) FROM user_group WHERE Name like "%"#{qs}"%"
+		SELECT COUNT(*) FROM user_group WHERE Name like "%"#{qs}"%"
 	</select>
 
 	<select id="countByToday" resultType="int">
-		SELECT COUNT(*) FROM
-		user_group
-		WHERE DATEDIFF(Create_Time,SYSDATE()) =0
+		SELECT COUNT(*) FROM user_group WHERE DATEDIFF(Create_Time,SYSDATE()) =0
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO
@@ -70,9 +64,9 @@
 	</delete>
 
 	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
-		SELECT *
-		FROM user_group WHERE ID=#{id}
+		SELECT * FROM user_group WHERE ID=#{id}
 	</select>
+	
 	<select id="findByName" resultMap="resultMap" parameterType="java.lang.String">
 		SELECT * FROM user_group WHERE Name=#{name}
 	</select>
@@ -86,18 +80,16 @@
 		All_Front_Authority=#{allFrontAuthority},
 		Default_Page_ID=#{defaultPageID},
 		Secret_Level=#{secretLevel},
-		Memo=#{memo},Update_Time=#{updateTime},
+		Memo=#{memo},
+		Update_Time=#{updateTime},
 		Updater_ID=#{updaterId},
 		Default_Page_Type=#{defaultPageType},
 		Default_Page_Url=#{defaultPageUrl}
-		WHERE
-		ID=#{id}
-
+		WHERE ID=#{id}
 	</update>
+	
 	<select id="findByUserId" resultMap="resultMap">
-		SELECT G.* FROM
-		user_group_map M,user_group G WHERE M.User_ID=#{userId} And
-		M.Group_ID=G.ID
+		SELECT G.* FROM user_group_map M,user_group G WHERE M.User_ID=#{userId} And M.Group_ID=G.ID
 	</select>
 
 	<select id="findAll" resultMap="resultMap">
@@ -105,9 +97,7 @@
 	</select>
 
 	<select id="findHasUser" resultMap="resultMap">
-		SELECT DISTINCT G.* FROM
-		user_group_map M RIGHT JOIN user_group G on M.Group_ID=G.ID
-		WHERE User_ID IS NOT NULL
+		SELECT DISTINCT G.* FROM user_group_map M RIGHT JOIN user_group G on M.Group_ID=G.ID WHERE User_ID IS NOT NULL
 	</select>
 
 	<select id="findByCode" resultMap="resultMap">
@@ -115,25 +105,12 @@
 	</select>
 
 	<select id="countActionForGroup" resultType="Integer">
-		SELECT COUNT(*) FROM
-		user_group g, user_action_map m, user_action a
-		WHERE g.ID =
-		m.Group_ID AND a.ID = m.Action_ID
-		AND a.`Code` = #{actionCode} AND g.ID
-		= #{groupId}
+		SELECT COUNT(*) FROM user_group g, user_action_map m, user_action a
+		WHERE g.ID =m.Group_ID AND a.ID = m.Action_ID AND a.Code = #{actionCode} AND g.ID= #{groupId}
 	</select>
 
 	<select id="findDefaultPageIdByUserId" resultType="Integer">
-		SELECT
-		g.Default_Page_ID
-		FROM view_page p, user_group g, user u,
-		user_group_map m
-		WHERE m.User_ID = u.ID
-		AND m.Group_ID = g.ID
-		AND
-		g.Default_Page_ID IS NOT NULL
-		AND u.ID = #{userId}
-		LIMIT 1
+		SELECT g.Default_Page_ID FROM view_page p, user_group g, user u,user_group_map m
+		WHERE m.User_ID = u.ID AND m.Group_ID = g.ID AND g.Default_Page_ID IS NOT NULL AND u.ID = #{userId} LIMIT 1
 	</select>
-
 </mapper>

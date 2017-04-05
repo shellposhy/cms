@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="cn.com.cms.system.dao.TaskMapper">
 	<resultMap id="resultMap" type="cn.com.cms.system.model.Task">
 		<result property="id" column="ID" />
@@ -35,8 +36,7 @@
 		<![CDATA[ SELECT * FROM task WHERE Code like "%"#{code}"%"  ORDER BY Update_Time DESC]]>
 	</select>
 
-	<select id="findByAimAndBeforeStatus" resultMap="resultMap"
-		parameterType="String">
+	<select id="findByAimAndBeforeStatus" resultMap="resultMap" parameterType="String">
 		<![CDATA[ SELECT * FROM task WHERE Aim = #{aim} AND Task_Status < #{status}  ORDER BY Update_Time DESC]]>
 	</select>
 

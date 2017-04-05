@@ -41,5 +41,4 @@
 	<select id="findAll" resultMap="resultMap">
 		SELECT * FROM user_action_map
 	</select>
-
 </mapper>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="cn.com.cms.view.dao.ViewModelMapper">
 	<resultMap id="resultMap" type="cn.com.cms.view.model.ViewModel">
 		<result property="id" column="ID" />
@@ -14,8 +15,7 @@
 	</resultMap>
 
 	<insert id="insert">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO view_model(Category_ID,Name,Code,Model_Type,File_Name,Content,Order_ID)
@@ -61,5 +61,4 @@
 		Order_ID = #{orderId}
 		WHERE ID=#{id}
 	</update>
-
 </mapper>

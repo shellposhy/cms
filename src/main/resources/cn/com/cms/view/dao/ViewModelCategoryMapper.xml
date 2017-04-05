@@ -10,8 +10,7 @@
 	</resultMap>
 
 	<insert id="insert">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO view_model_category(Parent_ID,Name,Code,Order_ID)
@@ -19,8 +18,7 @@
 	</insert>
 
 	<select id="find" resultMap="resultMap">
-		SELECT * FROM view_model_category
-		WHERE ID=#{id}
+		SELECT * FROM view_model_category WHERE ID=#{id}
 	</select>
 
 	<select id="findAll" resultMap="resultMap">

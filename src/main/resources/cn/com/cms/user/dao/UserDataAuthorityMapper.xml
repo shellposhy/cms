@@ -47,5 +47,4 @@
 			(#{UserDataAuthorityList.groupId},#{UserDataAuthorityList.objType},#{UserDataAuthorityList.objId},#{UserDataAuthorityList.allDataTime},#{UserDataAuthorityList.allowActionType},#{UserDataAuthorityList.startDataTime},#{UserDataAuthorityList.endDateTime},#{UserDataAuthorityList.createTime},#{UserDataAuthorityList.creatorId},#{UserDataAuthorityList.updateTime},#{UserDataAuthorityList.updaterId})
 		</foreach>
 	</insert>
-
 </mapper>

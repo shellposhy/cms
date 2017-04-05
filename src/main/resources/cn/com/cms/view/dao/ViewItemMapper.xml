@@ -16,8 +16,7 @@
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO view_item(Model_ID,Code,Item_Type,Content_Types,Content,Content_Html,Max_Rows,Max_Words)
-		VALUES
-		(#{modelId},#{code},#{itemType},#{contentTypes},#{content},#{contentHtml},#{maxRows},#{maxWords})
+		VALUES (#{modelId},#{code},#{itemType},#{contentTypes},#{content},#{contentHtml},#{maxRows},#{maxWords})
 	</insert>
 
 	<update id="update">

@@ -19,15 +19,12 @@
 		<result property="updaterId" column="Updater_ID" />
 	</resultMap>
 
-	<select id="findByCodeAndDB" resultMap="resultMap"
-		parameterType="java.util.Map">
-		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID
-		= #{dbId} limit 1
+	<select id="findByCodeAndDB" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID= #{dbId} limit 1
 	</select>
 
 	<select id="findAll" resultMap="resultMap">
-		SELECT * FROM data_sort ORDER BY
-		Order_ID
+		SELECT * FROM data_sort ORDER BY Order_ID
 	</select>
 
 	<select id="findByName" resultMap="resultMap" parameterType="String">
@@ -39,18 +36,14 @@
 	</select>
 
 	<select id="findByCode" resultMap="resultMap" parameterType="java.util.Map">
-		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID = #{dbId}
-		limit 1
+		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID = #{dbId} limit 1
 	</select>
 
-	<select id="findByDbAndCode" resultMap="resultMap"
-		parameterType="java.util.Map">
-		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID
-		= #{dbId} limit 1
+	<select id="findByDbAndCode" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM data_sort WHERE Code = #{code} AND Base_ID= #{dbId} limit 1
 	</select>
 
-	<select id="findByNameAndParentId" resultMap="resultMap"
-		parameterType="java.util.Map">
+	<select id="findByNameAndParentId" resultMap="resultMap" parameterType="java.util.Map">
 		SELECT * FROM data_sort
 		<where>
 			Name=#{name}
@@ -69,8 +62,7 @@
 		<![CDATA[ SELECT * FROM data_sort WHERE Base_ID = #{dbId} AND Parent_ID = 0 ORDER BY Order_ID]]>
 	</select>
 
-	<select id="findByDbIdAndType" resultMap="resultMap"
-		parameterType="java.util.Map">
+	<select id="findByDbIdAndType" resultMap="resultMap" parameterType="java.util.Map">
 		SELECT * FROM data_sort
 		<where>
 			Base_ID=#{dbId}
@@ -81,8 +73,7 @@
 		ORDER BY Order_ID
 	</select>
 
-	<select id="findNoCommonSort" resultMap="resultMap"
-		parameterType="Integer">
+	<select id="findNoCommonSort" resultMap="resultMap" parameterType="Integer">
 		<![CDATA[ SELECT * FROM data_sort WHERE Base_ID <> 0  ORDER BY Order_ID]]>
 	</select>
 
@@ -90,13 +81,11 @@
 		<![CDATA[ SELECT * FROM data_sort WHERE Parent_ID = #{parentId}  ORDER BY Order_ID]]>
 	</select>
 
-	<select id="findByNameAndDBId" resultMap="resultMap"
-		parameterType="String">
+	<select id="findByNameAndDBId" resultMap="resultMap" parameterType="String">
 		<![CDATA[ SELECT * FROM data_sort WHERE Name like "%"#{name}"%" AND Base_ID = #{dbId} ORDER BY Order_ID ]]>
 	</select>
 
-	<select id="findByNameDbIdAndType" resultMap="resultMap"
-		parameterType="java.util.Map">
+	<select id="findByNameDbIdAndType" resultMap="resultMap" parameterType="java.util.Map">
 		SELECT * FROM data_sort
 		<where>
 			Name like "%"#{name}"%" AND Base_ID=#{dbId}
@@ -146,8 +135,7 @@
 		For_Sys = #{forSys},
 		Create_Time = #{createTime},
 		Creator_ID = #{creatorId},
-		Update_Time =
-		#{updateTime},
+		Update_Time =#{updateTime},
 		Updater_ID = #{updaterId}
 		WHERE ID=#{id}
 	</update>
@@ -155,5 +143,4 @@
 	<delete id="delete">
 		DELETE FROM data_sort WHERE ID=#{id}
 	</delete>
-
 </mapper>

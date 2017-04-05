@@ -17,17 +17,13 @@
 			keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		<![CDATA[INSERT INTO column_model
-		(
-		Name,Code,Type,Fields_Describe,Memo,For_Sys)
-		VALUES(
-		#{name},#{code},#{type},#{describe},#{memo},#{forSys})
+		<![CDATA[INSERT INTO column_model(Name,Code,Type,Fields_Describe,Memo,For_Sys)
+		VALUES(#{name},#{code},#{type},#{describe},#{memo},#{forSys})
 		]]>
 	</insert>
 
 	<select id="find" resultMap="resultMap">
-		SELECT * FROM column_model WHERE
-		ID=#{id}
+		SELECT * FROM column_model WHERE ID=#{id}
 	</select>
 
 	<select id="findAll" resultMap="resultMap">
@@ -72,14 +68,11 @@
 		Type = #{type},
 		Fields_Describe = #{describe},
 		Memo = #{memo}
-		WHERE
-		ID=#{id}
+		WHERE ID=#{id}
 	</update>
 
 	<delete id="delete" parameterType="java.util.List">
-		DELETE FROM column_model WHERE
-		ID
-		= #{id}
+		DELETE FROM column_model WHERE ID= #{id}
 	</delete>
 
 	<delete id="batchDelete" parameterType="java.util.List">

@@ -32,8 +32,7 @@
 	</resultMap>
 
 	<insert id="insert">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO
@@ -43,15 +42,12 @@
 	</insert>
 
 	<select id="findByName" resultMap="resultMap" parameterType="String">
-		SELECT * FROM user WHERE Name = #{name}
-		AND <![CDATA[Status<>0]]>
+		SELECT * FROM user WHERE Name = #{name} AND <![CDATA[Status<>0]]>
 	</select>
 
 	<select id="findByPhone" resultMap="resultMap" parameterType="String">
-		SELECT * FROM user WHERE Phone_Number = #{phoneNumber} AND User_Type=3
-		AND <![CDATA[Status<>0]]>
+		SELECT * FROM user WHERE Phone_Number = #{phoneNumber} AND User_Type=3 AND <![CDATA[Status<>0]]>
 	</select>
-
 
 	<select id="findByRealName" resultMap="resultMap" parameterType="String">
 		<![CDATA[ SELECT * FROM user WHERE Real_Name = #{realName} AND Status<>0]]>
@@ -125,7 +121,6 @@
 		SELECT * FROM user WHERE User_Type=2 AND <![CDATA[status<>0]]>
 	</select>
 
-	<!-- 查询密码用户 -->
 	<select id="searchPwUsers" parameterType="java.util.Map"
 		resultMap="resultMap">
 		SELECT * FROM user
@@ -235,9 +230,7 @@
 	</update>
 
 	<update id="petrify">
-		UPDATE user SET
-		Status=0,Name=#{user.name},Die_Name=#{user.dieName} WHERE
-		ID=#{user.id}
+		UPDATE user SET Status=0,Name=#{user.name},Die_Name=#{user.dieName} WHERE ID=#{user.id}
 	</update>
 
 	<select id="find" resultMap="resultMap">

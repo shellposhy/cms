@@ -10,8 +10,7 @@
 		<result property="memo" column="Memo" />
 	</resultMap>
 
-	<select id="findRecentlyEvent" resultMap="resultMap"
-		parameterType="java.util.Map">
+	<select id="findRecentlyEvent" resultMap="resultMap" parameterType="java.util.Map">
 		<![CDATA[SELECT * FROM calendar_event where Event_Time>=#{today} order by Event_Time limit 0,1]]>
 	</select>
 </mapper>

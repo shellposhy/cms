@@ -46,8 +46,7 @@
 	</select>
 	
 	<select id="findByRequired" resultMap="resultMap" parameterType="boolean">
-		SELECT * FROM data_field WHERE Required = #{required} ORDER BY
-		Order_ID
+		SELECT * FROM data_field WHERE Required = #{required} ORDER BY Order_ID
 	</select>
 	
 	<select id="findFieldsInEveryBase" resultMap="resultMap" parameterType="java.util.List">
@@ -164,8 +163,7 @@
 		Uniq = #{uniq},
 		Multi_Value = #{multiValue},
 		Use_Enum =#{useEnum},
-		Index_Type =
-		#{indexType},
+		Index_Type = #{indexType},
 		Index_Store = #{indexStore},
 		Required=#{required},
 		Type =#{type},

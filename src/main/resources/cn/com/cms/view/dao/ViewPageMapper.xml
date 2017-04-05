@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="cn.com.cms.view.dao.ViewPageMapper">
 	<resultMap id="resultMap" type="cn.com.cms.view.model.ViewPage">
 		<result property="id" column="ID" />
@@ -29,8 +30,7 @@
 	</select>
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO
@@ -70,8 +70,7 @@
 
 	<delete id="batchDelete" parameterType="java.util.List">
 		DELETE FROM view_page WHERE ID IN
-		<foreach item="item" index="index" collection="array" open="("
-			separator="," close=")">
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
 			#{item}
 		</foreach>
 	</delete>
@@ -81,14 +80,11 @@
 	</delete>
 
 	<select id="find" resultMap="resultMap" parameterType="java.lang.Integer">
-		SELECT *
-		FROM view_page WHERE ID=#{id}
+		SELECT * FROM view_page WHERE ID=#{id}
 	</select>
 
-	<select id="findByTypeAndStatus" resultMap="resultMap"
-		parameterType="java.util.Map">
-		SELECT * FROM view_page WHERE Page_Type = #{pageType}
-		AND Status = #{status}
+	<select id="findByTypeAndStatus" resultMap="resultMap" parameterType="java.util.Map">
+		SELECT * FROM view_page WHERE Page_Type = #{pageType} AND Status = #{status}
 	</select>
 	
 	<select id="findByType" resultMap="resultMap" parameterType="java.lang.Integer">
@@ -100,9 +96,6 @@
 	</select>
 
 	<select id="findAll" resultMap="resultMap">
-		SELECT * FROM
-		view_page
+		SELECT * FROM view_page
 	</select>
-
-
 </mapper>

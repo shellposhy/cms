@@ -9,43 +9,33 @@
 	</resultMap>
 
 	<insert id="insert">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		INSERT INTO column_model_field_map
-		(
-		Column_Model_ID,Field_ID)
-		VALUES(
-		#{columnModelId},#{fieldId})
+		INSERT INTO column_model_field_map(Column_Model_ID,Field_ID)
+		VALUES(#{columnModelId},#{fieldId})
 	</insert>
 
 	<insert id="batchInsert" parameterType="java.util.List">
-		INSERT INTO column_model_field_map
-		(
-		Column_Model_ID,Field_ID)
+		INSERT INTO column_model_field_map(Column_Model_ID,Field_ID)
 		VALUES
 		<foreach collection="list" item="item" index="index"
 			separator=",">
 			(#{item.columnModelId},#{item.fieldId})
 		</foreach>
-
 	</insert>
 
 	<select id="find" resultMap="resultMap">
 		SELECT * FROM column_model_field_map
-		WHERE
-		ID=#{id}
+		WHERE ID=#{id}
 	</select>
 
 	<select id="findAll" resultMap="resultMap">
-		SELECT * FROM
-		column_model_field_map
+		SELECT * FROM column_model_field_map
 	</select>
 
 	<select id="findByColumnModelId" resultMap="resultMap">
-		SELECT * FROM
-		column_model_field_map WHERE Column_Model_ID=#{columnModelId}
+		SELECT * FROM column_model_field_map WHERE Column_Model_ID=#{columnModelId}
 	</select>
 
 
@@ -58,15 +48,11 @@
 	</update>
 
 	<delete id="delete" parameterType="java.util.List">
-		DELETE FROM
-		column_model_field_map WHERE
-		ID
-		= #{id}
+		DELETE FROM column_model_field_map WHERE ID= #{id}
 	</delete>
 
 	<delete id="deleteByColumnModelId">
-		DELETE FROM column_model_field_map WHERE
-		Column_Model_ID=#{id}
+		DELETE FROM column_model_field_map WHERE Column_Model_ID=#{id}
 	</delete>
 
 	<delete id="batchDelete" parameterType="java.util.List">
@@ -76,5 +62,4 @@
 			#{item}
 		</foreach>
 	</delete>
-
 </mapper>
