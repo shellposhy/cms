@@ -89,18 +89,14 @@
 	<script src='${appPath}/admin/js/fullcalendar.min.js'></script>
 	<!-- data table plugin -->
 	<script src='${appPath}/admin/js/jquery.dataTables.js'></script>
-
 	<!-- chart libraries start -->
 	<script src="${appPath}/admin/js/excanvas.js"></script>
 	<script src="${appPath}/admin/js/jquery.flot.min.js"></script>
 	<script src="${appPath}/admin/js/jquery.flot.pie.min.js"></script>
 	<script src="${appPath}/admin/js/jquery.flot.stack.js"></script>
 	<script src="${appPath}/admin/js/jquery.flot.resize.min.js"></script>
-	<!-- chart libraries end -->
-
 	<!-- select or dropdown enhancer -->
 	<script src="${appPath}/admin/js/jquery.chosen.min.js"></script>
-
 	<!-- checkbox, radio, and file input styler -->
 	<script src="${appPath}/admin/js/jquery.uniform.min.js"></script>
 	<!-- plugin for gallery image view -->
@@ -119,43 +115,27 @@
 	<script src="${appPath}/admin/js/jquery.autogrow-textarea.js"></script>
 	<!-- multiple file upload plugin -->
 	<script src="${appPath}/admin/js/jquery.uploadify-3.1.min.js"></script>
-	<!-- history.js for cross-browser state change on ajax -->
-	<%-- <script src="${appPath}/admin/js/jquery.history.js"></script> --%>
 	<!-- validate on submit js -->
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery.metadata.js"></script>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery.validate.min.js"></script>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery-ui-timepicker-addon.js"></script>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery-ui-timepicker-zh-CN.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/jquery.metadata.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/jquery-ui-timepicker-addon.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/jquery-ui-timepicker-zh-CN.js"></script>
 	<script type="text/javascript" src="${appPath}/admin/js/jquery.form.js"></script>
 	<script type="text/javascript" src="${appPath}/admin/js/json2.js"></script>
 	<!-- application script for Charisma -->
 	<script src="${appPath}/admin/js/charisma.js"></script>
-	<!-- 左侧树菜单插件 -->
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery.ztree.core-3.4.js"></script>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery.ztree.excheck-3.4.js"></script>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery.ztree.exedit-3.4.js"></script>
-	<%-- <script type="text/javascript"
-	src="${appPath}/admin/js/editor/ckeditor.js"></script> --%>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/ueditor/ueditor.all.min.js"></script>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/ueditor/ueditor.config.js"></script>
-	<script type="text/javascript" charset="utf-8"
-		src="${appPath}/admin/js/ueditor/lang/zh-cn/zh-cn.js"></script>
-	<!-- dropdown enhancer -->
+	<script type="text/javascript" src="${appPath}/admin/js/jquery.ztree.core-3.4.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/jquery.ztree.excheck-3.4.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/jquery.ztree.exedit-3.4.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="${appPath}/admin/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<!-- dropdown -->
 	<script src="${appPath}/admin/js/jquery.multiselect.js"></script>
 	<!-- rotate.js -->
 	<script src="${appPath}/admin/js/jquery.rotate.js"></script>
 	<!-- rotate.js -->
 	<script src="${appPath}/admin/js/jquery.contextmenu.r2.packed.js"></script>
-	<script type="text/javascript"
-		src="${appPath}/admin/js/jquery.treetable.js"></script>
+	<script type="text/javascript" src="${appPath}/admin/js/jquery.treetable.js"></script>
 </body>
 </html>
