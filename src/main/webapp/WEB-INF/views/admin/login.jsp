@@ -39,7 +39,7 @@
 								</div>
 								<div class="clearfix"></div>
 								<p class="center span3">
-									<button type="submit" class="btn btn-success">登录</button>
+									<button type="submit" class="btn btn-success" style="margin-top: 0px">登录</button>
 								</p>
 							</fieldset>
 						</form>
