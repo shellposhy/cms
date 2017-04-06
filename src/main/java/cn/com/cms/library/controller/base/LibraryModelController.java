@@ -88,7 +88,7 @@ public class LibraryModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView search(@RequestBody JsonPara[] jsonParas, HttpServletRequest request) {
-		log.info("===library.model.search====");
+		log.debug("===library.model.search====");
 		Map<String, String> paraMap = JsonPara.getParaMap(jsonParas);
 		int sEcho = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.sEcho));
 		Integer iDisplayStart = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.iDisplayStart));
@@ -127,7 +127,7 @@ public class LibraryModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String preNew(Model model) {
-		log.info("===library.model.preNew=====");
+		log.debug("===library.model.preNew=====");
 		List<DataField> allFieldMapList = dataFieldService.findByType(EDataFieldType.Normal);
 		model.addAttribute("columnModel", new ColumnModel());
 		model.addAttribute("allFields", allFieldMapList);
@@ -143,7 +143,7 @@ public class LibraryModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public String edit(@PathVariable("id") Integer id, Model model) {
-		log.info("=====library.model.edit====");
+		log.debug("=====library.model.edit====");
 		ColumnModel columnModel = columnModelService.find(id);
 		List<ColumnModelFieldMap> modelFieldMaps = columnModelFieldMapService.findByColumnModelId(id);
 		List<DataField> modelFields = new ArrayList<DataField>();
@@ -174,7 +174,7 @@ public class LibraryModelController extends BaseController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@Validated final ColumnModel columnModel, BindingResult result, final Model model,
 			final HttpServletRequest request) {
-		log.info("=====library.model.save========");
+		log.debug("=====library.model.save========");
 		User currentUser = userSecurityService.currentUser(request);
 		final Integer currentId = currentUser.getId();
 		return super.save(columnModel, result, model, new ControllerOperator() {
@@ -265,7 +265,7 @@ public class LibraryModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(@RequestBody JsonPara jsonPara) {
-		log.info("===library.model.delete=====");
+		log.debug("===library.model.delete=====");
 		String[] idStr = jsonPara.value.split(SystemConstant.COMMA_SEPARATOR);
 		int len = idStr.length;
 		if (len >= 1) {

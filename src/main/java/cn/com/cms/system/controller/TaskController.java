@@ -48,7 +48,7 @@ public class TaskController extends BaseController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String list() {
-		log.info("====task.list==");
+		log.debug("====task.list==");
 		return "/admin/task/list";
 	}
 

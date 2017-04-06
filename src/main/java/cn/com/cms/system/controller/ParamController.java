@@ -53,7 +53,7 @@ public class ParamController extends BaseController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		log.info("======system.parameter.list======");
+		log.debug("======system.parameter.list======");
 		return "/admin/param/list";
 	}
 
@@ -65,7 +65,7 @@ public class ParamController extends BaseController {
 	 */
 	@RequestMapping("/new")
 	public String preNew(Model model) {
-		log.info("======system.parameter.new======");
+		log.debug("======system.parameter.new======");
 		model.addAttribute("param", new SysParameter());
 		return "/admin/param/edit";
 	}
@@ -75,7 +75,7 @@ public class ParamController extends BaseController {
 	 */
 	@RequestMapping("/{id}/edit")
 	public String edit(@PathVariable Integer id, Model model) {
-		log.info("======system.parameter.edit======");
+		log.debug("======system.parameter.edit======");
 		model.addAttribute("param", sysParameterService.find(id));
 		return "/admin/param/edit";
 	}
@@ -122,7 +122,7 @@ public class ParamController extends BaseController {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView search(@RequestBody JsonPara[] jsonParas) {
-		log.info("======system.parameter.search======");
+		log.debug("======system.parameter.search======");
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		Map<String, String> paraMap = JsonPara.getParaMap(jsonParas);
 		int sEcho = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.sEcho));

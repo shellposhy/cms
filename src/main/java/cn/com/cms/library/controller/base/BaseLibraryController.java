@@ -132,7 +132,7 @@ public class BaseLibraryController<T extends BaseLibrary<T>> extends BaseControl
 	 * @return
 	 */
 	public String preNew(Integer directoryId, Model model, Class<T> clazz) {
-		LOG.info("===database.new==");
+		LOG.debug("===database.new==");
 		try {
 			T library = clazz.newInstance();
 			library.setParentID(directoryId);
