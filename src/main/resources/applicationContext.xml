@@ -110,8 +110,7 @@
 	</bean>
 
 	<!-- Activates scanning of @Service -->
-	<context:component-scan base-package="cn.com.cms">
-	</context:component-scan>
+	<context:component-scan base-package="cn.com.cms"/>
 
 	<!-- message-->
 	<bean id="messageSource"

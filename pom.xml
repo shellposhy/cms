@@ -112,6 +112,7 @@
 		</dependency>
 
 		<!-- mybatis cache -->
+		<!--
 		<dependency>
 			<groupId>org.mybatis.caches</groupId>
 			<artifactId>mybatis-ignite</artifactId>
@@ -128,6 +129,7 @@
 			<version>1.2.17</version>
 			<scope>provided</scope>
 		</dependency>
+		-->
 
 		<!-- mysql and pool -->
 		<dependency>
@@ -367,23 +369,6 @@
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
 			<version>1.9.0</version>
-		</dependency>
-		
-		<!-- web spider -->
-		<dependency>
-		    <groupId>com.geccocrawler</groupId>
-		    <artifactId>gecco</artifactId>
-		    <version>1.1.0</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.geccocrawler</groupId>
-		    <artifactId>gecco-spring</artifactId>
-		    <version>1.1.0</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.geccocrawler</groupId>
-		    <artifactId>gecco-htmlunit</artifactId>
-		    <version>1.0.9</version>
 		</dependency>
 
 		<!-- junit -->
