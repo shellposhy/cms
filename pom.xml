@@ -230,6 +230,7 @@
 		</dependency>
 
 		<!-- POI -->
+		<!--
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -240,6 +241,7 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>3.9</version>
 		</dependency>
+		-->
 
 		<!-- commons -->
 		<dependency>
@@ -308,6 +310,7 @@
 		</dependency>
 		
 		<!-- pdf -->
+		<!--
 		<dependency>  
 		    <groupId>com.lowagie</groupId>  
 		    <artifactId>itext</artifactId>  
@@ -335,6 +338,7 @@
 		    <artifactId>avalon-framework-impl</artifactId>  
 		    <version>4.2.0</version>  
 		</dependency>  
+		-->
 		
 		<!-- barcode -->
 		<dependency>
@@ -364,6 +368,23 @@
 			<artifactId>ant</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		
+		<!-- web spider -->
+		<dependency>
+		    <groupId>com.geccocrawler</groupId>
+		    <artifactId>gecco</artifactId>
+		    <version>1.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.geccocrawler</groupId>
+		    <artifactId>gecco-spring</artifactId>
+		    <version>1.1.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.geccocrawler</groupId>
+		    <artifactId>gecco-htmlunit</artifactId>
+		    <version>1.0.9</version>
+		</dependency>
 
 		<!-- junit -->
 		<dependency>
@@ -372,6 +393,7 @@
 		    <version>4.10</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<finalName>cms</finalName>
 	</build>
