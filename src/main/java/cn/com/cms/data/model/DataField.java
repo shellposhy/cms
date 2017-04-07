@@ -55,7 +55,6 @@ public class DataField extends BaseEntity {
 	public String getFullName() {
 		StringBuilder fullName = new StringBuilder();
 		fullName.append(name).append(" | ").append(dataType.mysqlDataType);
-
 		switch (this.dataType) {
 		case Date:
 		case Time:
