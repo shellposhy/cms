@@ -1,7 +1,3 @@
-/*
- * 版权所有 ( c ) 人民网股份有限公司 
- * 项目名称：人民数据管理系统（镜像版）
- */
 package cn.com.cms.library.dao;
 
 import java.util.List;

@@ -23,6 +23,11 @@ public class CalendarEventService {
 	@Resource
 	private AppConfig appConfig;
 
+	/**
+	 * 日期事件获取
+	 * 
+	 * @return
+	 */
 	public Map<String, Object> calendarEventData() {
 		Map<String, Object> calendarData = new HashMap<String, Object>();
 		Date today = new Date();
