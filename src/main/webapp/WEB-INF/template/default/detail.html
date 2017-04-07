@@ -46,32 +46,32 @@
                 <span class="header_low_title">${base.name}</span>
             </div>
         </div>   
-        <div class="main_warp">
-        <ul class="detail_toolbar warp980 clearfix">
-        	<li><a href="javascript:history.go(-1)"><i class="icon_back"></i>返回 </a></li>            
-        	<!--
-            <li><a href="#"><i class="icon_pre"></i>上一篇 </a></li>
-             <li><a href="#"><i class="icon_next"></i>下一篇 </a></li>
-            <li><a href="#"  target="_blank"><i class="icon_print"  ></i>打印预览</a></li>
-            <li><a href="#"><i class="icon_down"></i>下 载</a></li>
-            -->
-        </ul>
-         <div class="div_detail warp950">
-                <div class="title">${title!""}</div>
-                <div class="author">【作者：${authors!""}】</div>
-                <div class="info clearfix">
-                    <div class="sha_left">
-                        【<span>${doc_time!""}</span>】
-                    </div>
-                    <div class="right" >
-                        【字号：<a href="#" id="size_add" >加大</a>&nbsp;<a href="#" id="size_reset">还原</a>&nbsp;<a href="#" id="size_reduce">减小</a>】
-                    </div>
-                </div>
-                <div id="FontZoom" class="detail_con">
-                    ${content!""}
-                </div>
-            </div>
-         </div>
+        <div>
+	        <ul class="detail_toolbar warp980 clearfix">
+	        	<li><a href="javascript:history.go(-1)"><i class="icon_back"></i>返回 </a></li>            
+	        	<!--
+	            <li><a href="#"><i class="icon_pre"></i>上一篇 </a></li>
+	             <li><a href="#"><i class="icon_next"></i>下一篇 </a></li>
+	            <li><a href="#"  target="_blank"><i class="icon_print"  ></i>打印预览</a></li>
+	            <li><a href="#"><i class="icon_down"></i>下 载</a></li>
+	            -->
+	        </ul>
+	         <div class="div_detail warp950">
+	                <div class="title">${title!""}</div>
+	                <div class="author">【作者：${authors!""}】</div>
+	                <div class="info clearfix">
+	                    <div class="sha_left">
+	                        【<span>${doc_time!""}</span>】
+	                    </div>
+	                    <div class="right" >
+	                        【字号：<a href="#" id="size_add" >加大</a>&nbsp;<a href="#" id="size_reset">还原</a>&nbsp;<a href="#" id="size_reduce">减小</a>】
+	                    </div>
+	                </div>
+	                <div id="FontZoom" class="detail_con">
+	                    ${content!""}
+	                </div>
+	            </div>
+         	</div>
         </div> 
      	<#include "/lib/default/footer/footer.ftl">
     </div>

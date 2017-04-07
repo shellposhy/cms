@@ -66,6 +66,19 @@ p {
 	color: #f25f5b;
 }
 
+.navbar-language {
+	color: #bcc0cd;
+	font-size: 30px;
+	font-weight: 100;
+	line-height: 30px;
+	margin-top: 10px;
+	padding: 0 0 0 15px;
+}
+
+.navbar-language span {
+	color: #f25f5b;
+}
+
 .header-frontend .navbar-collapse  ul.navbar-nav {
 	float: right;
 	margin-right: 0;
