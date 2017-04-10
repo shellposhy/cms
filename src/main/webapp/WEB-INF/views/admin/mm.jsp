@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ page import="cn.com.people.data.pds.user.model.User" %>
+<%@ page import="cn.com.cms.user.model.User" %>
 <div id="mmjsonActionTree" class="none"><%=request.getSession().getAttribute("jsonActionTree")%></div>
 <div class="cmsTreeBackground">
 	<%
