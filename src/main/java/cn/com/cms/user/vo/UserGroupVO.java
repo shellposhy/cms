@@ -48,8 +48,9 @@ public class UserGroupVo {
 
 	/**
 	 * 静态调用方法生成
+	 * 
 	 * @param userGroup
-	 * @return
+	 * @return {@link UserGroup}
 	 */
 	public static UserGroupVo convertUserGroup(UserGroup userGroup) {
 		UserGroupVo userGroupVo = new UserGroupVo();
