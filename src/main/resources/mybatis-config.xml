@@ -6,6 +6,7 @@
 	<typeHandlers>
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.user.constant.ELoginPageType" />
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.user.constant.EGender" />
+		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.user.constant.EActionUserType" />
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.library.constant.EStatus" />
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.library.constant.ELibraryType" />
 		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="cn.com.cms.library.constant.ELibraryNodeType" />

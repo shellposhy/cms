@@ -19,6 +19,7 @@ import cn.com.cms.common.SystemConstant;
 import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.framework.tree.DefaultTreeNode.PropertySetter;
 import cn.com.cms.framework.tree.MenuTreeNode;
+import cn.com.cms.user.constant.EActionUserType;
 import cn.com.cms.user.dao.UserActionMapMapper;
 import cn.com.cms.user.dao.UserActionMapper;
 import cn.com.cms.user.dao.UserGroupMapper;
@@ -50,7 +51,7 @@ public class UserActionService {
 	@PostConstruct
 	private void init() {
 		try {
-			allActionList = userActionMapper.findAll();
+			allActionList = userActionMapper.findByType(EActionUserType.Admin.ordinal());
 		} catch (BadSqlGrammarException e) {
 			return;
 		}
@@ -74,7 +75,7 @@ public class UserActionService {
 	 */
 	public DefaultTreeNode findAdminTreeByGroup(Integer groupId) {
 		DefaultTreeNode treeNode = null;
-		List<UserAction> userActionList = userActionMapper.findAdmin();
+		List<UserAction> userActionList = userActionMapper.findByType(EActionUserType.Admin.ordinal());
 		if (groupId == null) {
 			treeNode = DefaultTreeNode.parseTree(userActionList);
 		} else {

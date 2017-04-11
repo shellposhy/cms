@@ -18,6 +18,10 @@
 		SELECT * FROM user_action ORDER BY Order_ID
 	</select>
 	
+	<select id="findByType" resultMap="resultMap" parameterType="java.lang.Integer">
+		  SELECT * FROM user_action WHERE   Type=#{type}    ORDER BY Order_ID
+	</select>
+	
 	<select id="findByCode" resultMap="resultMap">
 	    SELECT * FROM user_action WHERE Code = #{code} ORDER BY Order_ID
 	</select>

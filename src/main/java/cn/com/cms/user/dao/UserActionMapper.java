@@ -13,6 +13,15 @@ import cn.com.cms.user.model.UserAction;
  * @version 1.0
  */
 public interface UserActionMapper {
+
+	/**
+	 * 根据类型查询
+	 * 
+	 * @param type
+	 * @return
+	 */
+	List<UserAction> findByType(@Param("type") Integer type);
+
 	/**
 	 * 获取全部权限
 	 * 

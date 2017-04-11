@@ -1,6 +1,7 @@
 package cn.com.cms.user.model;
 
 import cn.com.cms.framework.base.TreeNodeEntity;
+import cn.com.cms.user.constant.EActionUserType;
 
 /**
  * 系统权限对象
@@ -13,7 +14,7 @@ public class UserAction extends TreeNodeEntity<UserAction> {
 	private String code;
 	private String uri;
 	private String iconSkin;
-	private Integer type;
+	private EActionUserType type;
 	private Integer orderID;
 
 	public String getCode() {
@@ -40,11 +41,11 @@ public class UserAction extends TreeNodeEntity<UserAction> {
 		this.iconSkin = iconSkin;
 	}
 
-	public Integer getType() {
+	public EActionUserType getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(EActionUserType type) {
 		this.type = type;
 	}
 
