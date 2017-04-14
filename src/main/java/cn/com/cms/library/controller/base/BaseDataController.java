@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -43,6 +44,7 @@ import cn.com.cms.library.service.LibraryDataService;
 import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.library.service.LibraryTableService;
 import cn.com.cms.library.service.PictureService;
+import cn.com.cms.library.vo.AttachVo;
 import cn.com.cms.system.service.ImagePathService;
 import cn.com.cms.user.service.UserService;
 import cn.com.cms.util.FileUtil;
@@ -269,6 +271,17 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 		if (null != peopleData.get(FieldCodes.CREATE_TIME)) {
 			dataVo.setCreateTime(DateTimeUtil.format((Date) peopleData.get(FieldCodes.CREATE_TIME), "yyyyMMdd"));
 		}
+		// 附件处理
+		String docFileStr = (String) peopleData.get(FieldCodes.ATTACH);
+		if (!Strings.isNullOrEmpty(docFileStr)) {
+			String[] docFileNames = docFileStr.split(SystemConstant.SEPARATOR);
+			List<AttachVo> attachList = Lists.newArrayList();
+			for (String fileName : docFileNames) {
+				AttachVo vo = new AttachVo(dataId, tableId, (String) peopleData.get(FieldCodes.UUID), fileName);
+				attachList.add(vo);
+			}
+			model.addAttribute("attachList", attachList);
+		}
 		model.addAttribute("dataVo", dataVo);
 		model.addAttribute("dataBase", library);
 		model.addAttribute("dataId", dataId);
@@ -290,8 +303,39 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 	public String info(int tableId, int dataId, HttpServletRequest request, Model model) {
 		CmsData data = libraryDataService.find(tableId, dataId);
 		DataVo vo = new DataVo(data);
+		// 附件处理
+		String docFileStr = (String) data.get(FieldCodes.ATTACH);
+		if (!Strings.isNullOrEmpty(docFileStr)) {
+			String[] docFileNames = docFileStr.split(SystemConstant.SEPARATOR);
+			List<AttachVo> attachList = Lists.newArrayList();
+			for (String fileName : docFileNames) {
+				AttachVo attach = new AttachVo(dataId, tableId, (String) data.get(FieldCodes.UUID), fileName);
+				attachList.add(attach);
+			}
+			model.addAttribute("attachList", attachList);
+		}
 		model.addAttribute("data", vo);
 		return URL_PREFIX + getLibType().getCode() + "/data/info";
+	}
+
+	/**
+	 * 下载附件
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public String download(HttpServletRequest request, HttpServletResponse response) {
+		CmsData data = libraryDataService.find(Integer.valueOf(request.getParameter("tableId")),
+				Integer.valueOf(request.getParameter("id")));
+		Date createTime = (Date) data.get(FieldCodes.CREATE_TIME);
+		String createDate = DateTimeUtil.format(createTime, "yyyyMMdd");
+		Integer baseId = libraryTableService.find(Integer.parseInt(request.getParameter("tableId"))).getBaseId();
+		String filePath = FileUtil.getDocFilePath(appConfig.getAppPathHome(), baseId, createDate,
+				request.getParameter("uuid"));
+		request.setAttribute("filePath", filePath + request.getParameter("fileName"));
+		request.setAttribute("fileName", request.getParameter("fileName"));
+		return URL_PREFIX + getLibType().getCode() + "/data/download";
 	}
 
 	/**

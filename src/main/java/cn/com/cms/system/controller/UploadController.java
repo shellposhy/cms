@@ -2,6 +2,7 @@ package cn.com.cms.system.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import cn.com.cms.base.AppConfig;
 import cn.com.cms.base.BaseController;
+import cn.com.cms.common.BaseMappingJsonView;
+import cn.com.cms.util.FileUtil;
 import cn.com.people.data.util.DateTimeUtil;
 
 /**
@@ -29,6 +33,17 @@ import cn.com.people.data.util.DateTimeUtil;
 public class UploadController extends BaseController {
 	@Resource
 	private AppConfig appConfig;
+
+	@RequestMapping(value = "/delete", method = RequestMethod.PUT)
+	public MappingJacksonJsonView deleteFile(HttpServletRequest request, @RequestParam("baseId") Integer baseId,
+			@RequestParam("uuid") String uuid, @RequestParam("dateTime") String dateTime,
+			@RequestParam("fileName") String fileName) throws UnsupportedEncodingException {
+		MappingJacksonJsonView mv = new BaseMappingJsonView();
+		String filePath = FileUtil.getDocFilePath(appConfig.getAppPathHome(), baseId, dateTime, uuid);
+		FileUtil.deleteFile(filePath + fileName);
+		mv.addStaticAttribute("success", "success");
+		return mv;
+	}
 
 	@RequestMapping(value = "/file", method = RequestMethod.POST)
 	@ResponseBody

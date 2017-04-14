@@ -1,6 +1,8 @@
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <body>
 <div id="content" class="span12">
@@ -290,7 +292,13 @@
 							<div class="controls ">
 								<form:input path="fieldMap[Attach]" name="Attach" id="Attach" />
 								<p><button type="button" class="btn" onclick="javascript:$('#Attach').uploadify('upload','*')">上传</button></p>
-								<p><span>文件名</span><a href="#">下载</a><a href="#">删除</a></p>
+								<c:if test="${!empty attachList}">
+									<c:if test="${fn:length(attachList) > 0 }">
+										<c:forEach var="fl" items="${attachList }">
+											<p><span>${fl.fileName }</span>&nbsp;<a href="javascript:deleteFile('${fl.fileName}')">删除</a></p>
+										</c:forEach>
+									</c:if>
+								</c:if>
 							</div>
 						</div>
 				</div>	
@@ -309,6 +317,8 @@
 		$('#Attach').uploadify({
 			'height' : 20,
 			'width' : 80,
+			'fileTypeDesc':'Doc Files',
+	        'fileTypeExts': '*.pdf;*.ppt;*.pptx;*.pptx;*.doc;*.docx;*.xlsx;*.xls;*.rar;*.rvt;*.dwg;*.rfa;*.nwd',
 			'removeCompleted' : false,
 			'auto' : false,
 			'buttonText' : '选择文件...',
@@ -317,6 +327,20 @@
 			'cancelImg' : '${appPath}/admin/img/uploadify-cancel.png',
 		});
 	});
+	
+	//delete file
+		function deleteFile(fileName) {
+			var url = appPath + "/admin/upload/delete?baseId=" + $("#baseId").val()+ "&uuid=" + $("#uuid").val() + "&dateTime="+ $("#createTime").val() + "&fileName="+fileName;
+			$.ajax({
+				type : "PUT",
+				url : url,
+				dataType : 'json',
+				contentType : 'application/json',
+				success : function() {
+					$('p:contains(' + fileName + ')').remove();
+				}
+			});
+		}
 </script>
 <script type="text/javascript" 	src="${appPath}/admin/jscript/data/data.js"></script>
 </body>

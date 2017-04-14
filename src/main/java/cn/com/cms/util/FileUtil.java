@@ -26,14 +26,12 @@ public class FileUtil extends FileUtils {
 	 * @return
 	 */
 	public static String getDocFilePath(String rootPath, int baseId, String createTime, String uuid) {
-		System.out.println("createTime="+createTime);
 		StringBuilder dirPath = new StringBuilder();
 		String year = createTime.substring(0, 4);
 		String month = createTime.substring(4, 6);
 		dirPath.append(rootPath).append("/doc/").append(baseId).append("/");
 		dirPath.append(year).append("/").append(Integer.valueOf(month)).append("/");
 		dirPath.append(uuid).append("/");
-		System.out.println( dirPath.toString()+"=====");
 		return dirPath.toString();
 	}
 

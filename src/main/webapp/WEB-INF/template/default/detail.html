@@ -70,6 +70,14 @@
 	                <div id="FontZoom" class="detail_con">
 	                    ${content!""}
 	                </div>
+	                <#if attachList?exists>
+                    	<div class='attach_div'>
+	                        <h3><span class='icon icon-red icon-attachment'></span><strong>附件</strong></h3>
+                        	<#list attachList as file>
+		                        <p><span>${file.fileName}<a href="${appPath}/page/download?uuid=${file.uuid}&id=${file.id}&tableId=${file.tableId}&fileName=${file.fileName}">&nbsp;下载</a></span></p>
+                        	</#list>
+                   	 	</div>
+                    </#if>
 	            </div>
          	</div>
         </div> 

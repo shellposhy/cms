@@ -3,6 +3,7 @@ package cn.com.cms.library.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -78,5 +79,10 @@ public class SystemDataController extends BaseDataController<DataBase> {
 	@RequestMapping("/info/{tableId}/{dataId}")
 	public String info(@PathVariable int tableId, @PathVariable int dataId, HttpServletRequest request, Model model) {
 		return super.info(tableId, dataId, request, model);
+	}
+
+	@RequestMapping("/download")
+	public String download(HttpServletRequest request, HttpServletResponse response) {
+		return super.download(request, response);
 	}
 }

@@ -31,11 +31,14 @@ import cn.com.cms.common.CmsData;
 import cn.com.cms.common.DataTablesVo;
 import cn.com.cms.common.FieldCodes;
 import cn.com.cms.common.JsonPara;
+import cn.com.cms.common.SystemConstant;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.service.LibraryDataService;
 import cn.com.cms.library.service.LibraryService;
+import cn.com.cms.library.vo.AttachVo;
 import cn.com.cms.page.util.PagingUtil;
+import cn.com.cms.util.FileUtil;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
@@ -85,6 +88,17 @@ public class PageController extends BaseController {
 				} else {
 					request.setAttribute(key, data.get(key));
 				}
+			}
+			// 附件处理
+			String docFileStr = (String) data.get(FieldCodes.ATTACH);
+			if (!Strings.isNullOrEmpty(docFileStr)) {
+				String[] docFileNames = docFileStr.split(SystemConstant.SEPARATOR);
+				List<AttachVo> attachList = Lists.newArrayList();
+				for (String fileName : docFileNames) {
+					AttachVo attach = new AttachVo(dataId, tableId, (String) data.get(FieldCodes.UUID), fileName);
+					attachList.add(attach);
+				}
+				request.setAttribute("attachList", attachList);
 			}
 			request.setAttribute("base", dataBase);
 			request.setAttribute("appPath",
@@ -148,6 +162,27 @@ public class PageController extends BaseController {
 		model.addAttribute("dataBase", dataBase);
 		model.addAttribute("type", type);
 		return type + "/channel";
+	}
+
+	/**
+	 * 下载附件
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/download")
+	public String download(HttpServletRequest request, HttpServletResponse response) {
+		CmsData data = libraryDataService.find(Integer.valueOf(request.getParameter("tableId")),
+				Integer.valueOf(request.getParameter("id")));
+		Date createTime = (Date) data.get(FieldCodes.CREATE_TIME);
+		String createDate = DateTimeUtil.format(createTime, "yyyyMMdd");
+		Integer baseId = libraryService.findByTableId(Integer.parseInt(request.getParameter("tableId"))).getId();
+		String filePath = FileUtil.getDocFilePath(appConfig.getAppPathHome(), baseId, createDate,
+				request.getParameter("uuid"));
+		request.setAttribute("filePath", filePath + request.getParameter("fileName"));
+		request.setAttribute("fileName", request.getParameter("fileName"));
+		return "/admin/library/default/data/download";
 	}
 
 	/**
