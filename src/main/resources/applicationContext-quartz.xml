@@ -42,7 +42,7 @@
 	<bean id="modelTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="modelJob" />
 		<property name="cronExpression">
-			<value>0 0 3 * * ?</value>
+			<value>0 0 1 * * ?</value>
 		</property>
 	</bean>
 	
@@ -50,7 +50,7 @@
 	<bean id="publishTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="publishJob"></property>
 		<property name="cronExpression">
-			<value>0 0 1 * * ?</value>
+			<value>0 0 2 * * ?</value>
 		</property>
 	</bean>
 	

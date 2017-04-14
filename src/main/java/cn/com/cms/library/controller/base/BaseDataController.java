@@ -335,6 +335,8 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 			}
 		}
 		final String finalContent = changeContent;
+		final String finalCreateTime = Strings.isNullOrEmpty(createTime)
+				? DateTimeUtil.getCurrentDateTimeString("yyyyMMdd") : createTime;
 		return super.save(data, result, model, new ControllerOperator() {
 			public void operate() {
 				CmsData peopleData = new CmsData();
@@ -345,6 +347,7 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 				peopleData.setTableId(dataTable.getId());
 				peopleData.put(FieldCodes.UUID, data.getUuid());
 				peopleData.put(FieldCodes.FINGER_PRINT, data.getUuid());
+				// 内容处理
 				for (String field : data.getFieldMap().keySet()) {
 					peopleData.put(field, DataUtil.getDataTypeObject(data.getFieldMap().get(field),
 							dataFieldMap.get(field).getDataType()));
@@ -364,6 +367,24 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 				if (!Strings.isNullOrEmpty(finalContent)) {
 					peopleData.put(FieldCodes.CONTENT, finalContent);
 				}
+				// 上传附件处理
+				File docFiles = new File(
+						FileUtil.getDocFilePath(appConfig.getAppPathHome(), baseId, finalCreateTime, data.getUuid()));
+				if (docFiles.exists()) {
+					String[] files = docFiles.list();
+					if (null != files && files.length > 0) {
+						StringBuilder attach = new StringBuilder();
+						for (String string : files) {
+							attach.append(string);
+							attach.append(SystemConstant.SEPARATOR);
+						}
+						if (attach.length() > 0) {
+							attach.deleteCharAt(attach.length() - 1);
+							peopleData.put(FieldCodes.ATTACH, attach.toString());
+						}
+					}
+				}
+				// 文档时间处理
 				if (null == peopleData.get(FieldCodes.DOC_TIME)) {
 					peopleData.put(FieldCodes.DOC_TIME,
 							DataUtil.getDataTypeObject(DateTimeUtil.getCurrentDateTimeString(), EDataType.DateTime));

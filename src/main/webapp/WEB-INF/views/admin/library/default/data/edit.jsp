@@ -285,6 +285,14 @@
 								</form:select>
 							</div>
 						</div>
+						<div class="control-group">
+							<label class="control-label" for="Attach">附件</label>
+							<div class="controls ">
+								<form:input path="fieldMap[Attach]" name="Attach" id="Attach" />
+								<p><button type="button" class="btn" onclick="javascript:$('#Attach').uploadify('upload','*')">上传</button></p>
+								<p><span>文件名</span><a href="#">下载</a><a href="#">删除</a></p>
+							</div>
+						</div>
 				</div>	
 				<div class="form-actions">
 					<button type="submit" id="Article_sub" class="btn btn-primary">保存</button>
