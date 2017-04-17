@@ -21,24 +21,9 @@ function mmTreeShow() {
 		curDemo : null,
 		_init : function() {
 			var a = {
-				view : {
-					showIcon : !0,
-					showLine : !1,
-					selectedMulti : !1,
-					dblClickExpand : !1,
-					addDiyDom : this.addDiyDom
-				},
-				data : {
-					simpleData : {
-						enable : !0,
-						rootPId : ""
-					}
-				},
-				callback : {
-					beforeClick : this.beforeClick,
-					beforeExpand : this.beforeExpand,
-					onExpand : this.onExpand
-				}
+				view : {showIcon : !0,showLine : !1,selectedMulti : !1,dblClickExpand : !1,addDiyDom : this.addDiyDom},
+				data : {simpleData : {enable : !0,rootPId : ""}},
+				callback : {beforeClick : this.beforeClick,beforeExpand : this.beforeExpand,onExpand : this.onExpand}
 			};
 			demoContent.zTree_Menu = $.fn.zTree.init($("#cmstree"),$.fn.zTree._z.tools.clone(a), mmzNodesa);
 			demoContent.intSelect()
@@ -147,7 +132,7 @@ function mmTreeShow() {
 }
 
 /*
- * 从json结构转换成tree node节点数据 for 主菜单
+ * 从json结构转换成tree node节点数据
  * 
  */
 function jsonToNodesMm(data, nodes) {
@@ -155,14 +140,7 @@ function jsonToNodesMm(data, nodes) {
 		var categories = data.children;
 		if (categories != null) {
 			for (var i = 0; i < categories.length; i++) {
-				nodes.push({
-					id : categories[i].id,
-					pId : data.id,
-					name : categories[i].name,
-					iconSkin : categories[i].iconSkin,
-					url : (categories[i].uri != null ? categories[i].uri : "#").split(",")[0],
-					target : '_self'
-				});
+				nodes.push({id : categories[i].id,pId : data.id,name : categories[i].name,iconSkin : categories[i].iconSkin,url : (categories[i].uri != null ? categories[i].uri : "#").split(",")[0],target : '_self'});
 				if (categories[i].children != null&& categories[i].children.length > 0) {
 					jsonToNodesMm(categories[i], nodes);
 				}
@@ -175,16 +153,26 @@ function jsonToNodesMm(data, nodes) {
 /*
  * 通用树状菜单 带编辑、删除按钮
  * 
- * 页面结构举例: <div class="span3"> <ul id="categoryTree" class="ztree green_tree"></ul>
- * </div> <div class="span9"> <ul id="dbs" class="show_sel_itme clearfix">
- * <h3 class='alert alert-info' >请选择左侧分类以查看数据库</h3> </ul> </div>
+ * 页面结构举例: 
+ * <div class="span3">
+ * 	<ul id="categoryTree" class="ztree green_tree"></ul>
+ * </div>
+ * <div class="span9">
+ * 	<ul id="dbs" class="show_sel_itme clearfix">
+ * 		<h3 class='alert alert-info' >请选择左侧分类以查看数据库</h3>
+ * 	</ul>
+ * </div>
  * 
- * 其中:ztree和green_tree为树状菜单的呈现位置的样式,show_sel_itme为要呈现的树状菜单每个节点下数据出现的目标区域.
+ * 其中:
+ * ztree和green_tree为树状菜单的呈现位置的样式;
+ * show_sel_itme为要呈现的树状菜单每个节点下数据出现的目标区域.
  * id依据自己需要命名.
  * 
- * 参数说明: objTreeId：树状列表要显示的位置的元素对象,必填. objzNodes:树状列表的加载json数据对象,必填.
- * iSCanSelParent: 是否可选中父节点，true则是可选中，false则不可以，选填。
- * fnOnClick：列表的每个节点点击时的回调函数，选填。空则填null
+ * 参数说明: 
+ * objTreeId：树状列表要显示的位置的元素对象,必填;
+ * objzNodes:树状列表的加载json数据对象,必填;
+ * iSCanSelParent: 是否可选中父节点，true则是可选中，false则不可以，选填;
+ * fnOnClick：列表的每个节点点击时的回调函数，选填。空则填null;
  * strUrl：节点上的编辑和删除按钮的url的前部分，选填，空则填写""，删除和修改按钮则不出现。
  * addTreeBtn：添加树节点的按钮的元素对象,如$("#add_btn"),选填，空则填写null
  * fnAddTreeBtn:添加树节点的处理函数，可以传递按钮的href属性值、所选节点的id以及是否为父节点,选填，空则填写null
@@ -310,13 +298,11 @@ function menuTreeCom(objTreeId, objzNodes, iSCanSelParent, fnOnClick, strUrl,add
 		}
 	}
 
-	/* 初始化数据库分类树 */
+	// 初始化数据库分类树
 	function initCategoryTree(objzNodes) {
 		$.fn.zTree.init(objTreeId, dbSetting, objzNodes.children);
-		// 传选择的默置选择分类到编辑页
 		var zTreeIdStr = objTreeId.attr("id");
 		var db_zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
-		// 添加树状菜单项
 		if ((addTreeBtn != "") && (fnAddTreeBtn != null)) {
 			addTreeBtn.click(function() {
 				var thishref = $(this).attr("href");
@@ -347,7 +333,7 @@ function menuTreeCom(objTreeId, objzNodes, iSCanSelParent, fnOnClick, strUrl,add
 			})
 		}
 	}
-	initCategoryTree(objzNodes);// 执行初始化
+	initCategoryTree(objzNodes);
 }
 
 /*
@@ -387,141 +373,30 @@ function isArray(obj) {
 	return (typeof obj == 'object') && obj.constructor == Array;
 }
 
-// 声明菜单初始化变量
-var zNodesTreeNew = [ {
-	id : 1,
-	pId : 0,
-	name : '首页',
-	iconSkin : "menu_home"
-}, {
-	id : 2,
-	pId : 0,
-	name : 'CMS',
-	iconSkin : "menu_cms"
-}, {
-	id : 21,
-	pId : 2,
-	name : '内容管理'
-}, {
-	id : 22,
-	pId : 2,
-	name : '专题管理'
-}, {
-	id : 23,
-	pId : 2,
-	name : '页面管理'
-}, {
-	id : 24,
-	pId : 2,
-	name : '模板管理'
-}, {
-	id : 25,
-	pId : 2,
-	name : '查询'
-}, {
-	id : 3,
-	pId : 0,
-	name : '数据库',
-	iconSkin : "menu_db"
-}, {
-	id : 31,
-	pId : 3,
-	name : '人民数据库'
-}, {
-	id : 32,
-	pId : 3,
-	name : '用户数据库'
-}, {
-	id : 33,
-	pId : 2,
-	name : '数据分类'
-}, {
-	id : 34,
-	pId : 3,
-	name : '查询'
-}, {
-	id : 4,
-	pId : 0,
-	name : '媒体库',
-	iconSkin : "menu_media"
-}, {
-	id : 41,
-	pId : 4,
-	name : '图片库'
-}, {
-	id : 42,
-	pId : 4,
-	name : '视频库'
-}, {
-	id : 43,
-	pId : 4,
-	name : '查询'
-}, {
-	id : 5,
-	pId : 0,
-	name : '系统',
-	iconSkin : "menu_sys"
-}, {
-	id : 51,
-	pId : 5,
-	name : '系统设置'
-}, {
-	id : 52,
-	pId : 5,
-	name : '用户管理'
-}, {
-	id : 53,
-	pId : 5,
-	name : '用户组管理'
-}, {
-	id : 54,
-	pId : 5,
-	name : '数据模型'
-}, {
-	id : 55,
-	pId : 5,
-	name : '日志管理'
-}, {
-	id : 56,
-	pId : 5,
-	name : '浏览分析报告'
-}, {
-	id : 57,
-	pId : 5,
-	name : '工作量统计'
-}];
+// 样本数据
+var zNodesTreeNew = [ {id : 1,pId : 0,name : '首页',iconSkin : "menu_home"}, {id : 2,pId : 0,name : 'CMS',iconSkin : "menu_cms"}, {id : 21,pId : 2,name : '内容管理'}, {id : 22,pId : 2,name : '专题管理'}, {id : 23,pId : 2,name : '页面管理'}, {id : 24,pId : 2,name : '模板管理'}, {id : 25,pId : 2,name : '查询'}, {id : 3,pId : 0,name : '数据库',iconSkin : "menu_db"}, {id : 31,pId : 3,name : '系统数据库'}, {id : 32,pId : 3,name : '用户数据库'}, {id : 33,pId : 2,name : '数据分类'}, {id : 34,pId : 3,name : '查询'}, {id : 4,pId : 0,name : '媒体库',iconSkin : "menu_media"}, {id : 41,pId : 4,name : '图片库'}, {id : 42,pId : 4,name : '视频库'}, {id : 43,pId : 4,name : '查询'}, {id : 5,pId : 0,name : '系统',iconSkin : "menu_sys"}, {id : 51,pId : 5,name : '系统设置'}, {id : 52,pId : 5,name : '用户管理'}, {id : 53,pId : 5,name : '用户组管理'}, {id : 54,pId : 5,name : '数据模型'}, {id : 55,pId : 5,name : '日志管理'}, {id : 56,pId : 5,name : '浏览分析报告'}, {id : 57,pId : 5,name : '工作量统计'}];
+
 /*
  * 通用下拉选择列表-多选
  * 
- * 例子: <div class="controls"> <span class="btn ml10 allAuthor disabled">完全权限</span>
- * <span class="btn ml10 notAllAuthor ">详细定制</span> <input class="treeSel "
- * type="text" readonly value="" /> <form:hidden path="treeSelId"
- * class="treeSelId" name="treeSelId" value="" /> <a class="menuBtn btn"
- * href="#">选择</a> </div>
- * 
+ * 例子:
+ *  <div class="controls">
+ *  	<span class="btn ml10 allAuthor disabled">完全权限</span>
+ * 	<span class="btn ml10 notAllAuthor ">详细定制</span>
+ * 	<input class="treeSel "  type="text" readonly value="" />
+ * 	<form:hidden path="treeSelId" class="treeSelId" name="treeSelId" value="" /> 
+ * 	<a class="menuBtn btn"  href="#">选择</a>
+ * </div>
  */
 function treeSleCom(objTreeId, objzNodes, fnHide) {
-	// 设置新菜单列表
 	var settingTreeNew = {
 		check : {
 			enable : true,
-			chkboxType : {
-				"Y" : "ps",
-				"N" : "ps"
-			}
+			chkboxType : {"Y" : "ps","N" : "ps"}
 		},
-		view : {
-			dblClickExpand : false
-		},
-		data : {
-			simpleData : {
-				enable : true
-			}
-		},
-		callback : {
-			beforeClick : beforeClickTreeNew,
-			onCheck : onCheckTreeNew
-		}
+		view : {dblClickExpand : false},
+		data : {simpleData : {enable : true}},
+		callback : {beforeClick : beforeClickTreeNew,onCheck : onCheckTreeNew}
 	};
 
 	function beforeClickTreeNew(treeId, treeNode) {
@@ -577,14 +452,13 @@ function treeSleCom(objTreeId, objzNodes, fnHide) {
 		showMenuGroupNew(objTreeId.parent().parent().find("input.treeSel"));
 	});
 
-	// 全选 /全不选
+	// 全选或全不选
 	objTreeId.parent().find(".sel_all").click(function() {
 		var zTreeIdStr = objTreeId.attr("id");
 		var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
 		zTree.checkAllNodes(true);
 		onCheckTreeNew();
 		return false;
-
 	});
 	objTreeId.parent().find(".sel_none").click(function() {
 		var zTreeIdStr = objTreeId.attr("id");
@@ -594,60 +468,59 @@ function treeSleCom(objTreeId, objzNodes, fnHide) {
 		return false;
 	});
 
-	// 依据value加载已经选的后台功能树
+	//加载已经选的后台功能树
 	var treeSelIds = objTreeId.parent().siblings().find(".treeSelId").val();
 	if (treeSelIds != "") {
-		objTreeId.parent().parent().find(".treeSelId").click(
-				function() {
-					var zTreeIdStr = objTreeId.attr("id");
-					var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
-					var treeSelIdsArry = treeSelIds.split(",");
-					for (var i = 0, l = treeSelIdsArry.length; i < l; i++) {
-						var oldnodes = zTree.getNodesByParam("id",
-								treeSelIdsArry[i], null);
-						zTree.checkNode(oldnodes[0], true, false, true);
-					}
-				});
+		objTreeId.parent().parent().find(".treeSelId").click(function() {
+				var zTreeIdStr = objTreeId.attr("id");
+				var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
+				var treeSelIdsArry = treeSelIds.split(",");
+				for (var i = 0, l = treeSelIdsArry.length; i < l; i++) {
+					var oldnodes = zTree.getNodesByParam("id",treeSelIdsArry[i], null);
+					zTree.checkNode(oldnodes[0], true, false, true);
+				}
+			});
 	}
 }
 
-/* 下拉菜单选择显示控制 */
+/*
+ * 显示下拉菜单 
+ */
 function showMenuGroupNew(treeSel) {
 	var newTreeObj = treeSel;
 	var newTreeOffset = treeSel.offset();
 	var menuContent = treeSel.parent().parent().find(".menuContent");
 	if (treeSel.parent().parent().css("position") == "relative") {
-		menuContent.css(
-				{
-					left : newTreeObj.css("left"),
-					top : parseInt(newTreeObj.css("top"))
-							+ newTreeObj.outerHeight() + "px"
-				}).slideDown("fast");
+		menuContent.css({
+			left : newTreeObj.css("left"),
+			top : parseInt(newTreeObj.css("top"))+ newTreeObj.outerHeight() + "px"
+		}).slideDown("fast");
 	} else {
 		menuContent.css({
 			left : newTreeOffset.left + "px",
 			top : newTreeOffset.top + newTreeObj.outerHeight() + "px"
 		}).slideDown("fast");
 	}
-
 	menuContent.find(".selOk").click(function() {
 		hideMenuGroupNew();
 		return false;
 	});
 	$("body").bind("mousedown", onBodyDownGroupNew);
 }
+
+/*
+ * 隐藏下拉菜单
+ */
 function hideMenuGroupNew() {
 	$(".menuContent").fadeOut("fast");
 	$("body").unbind("mousedown", onBodyDownGroupNew);
 }
+
+/*
+ *绑定事件 
+ */
 function onBodyDownGroupNew(event) {
-	if (!($(event.target).hasClass("menuBtn")
-			|| $(event.target).hasClass("treeSel")
-			|| $(event.target).hasClass("treeRadio")
-			|| $(event.target).hasClass("menuContent")
-			|| $(event.target).hasClass("sel_all")
-			|| $(event.target).hasClass("sel_none") || $(event.target).parents(
-			".menuContent").length > 0)) {
+	if (!($(event.target).hasClass("menuBtn")|| $(event.target).hasClass("treeSel")|| $(event.target).hasClass("treeRadio")|| $(event.target).hasClass("menuContent")|| $(event.target).hasClass("sel_all")|| $(event.target).hasClass("sel_none") || $(event.target).parents(".menuContent").length > 0)) {
 		hideMenuGroupNew();
 	}
 }
@@ -655,31 +528,22 @@ function onBodyDownGroupNew(event) {
 /*
  * 通用下拉选择列表 单选
  * 
- * 例子: <div class="controls"> <input class="treeRadio" type="text" readonly
- * value="" /> <form:hidden path="parentID" class="treeSelId" name="treeSelId"
- * value="" /> </div>
- * 
+ * 例子:
+ *<div class="controls">
+ *		<input class="treeRadio" type="text" readonly  value="" />
+ *		<form:hidden path="parentID" class="treeSelId" name="treeSelId" value="" />
+ *</div>
  */
 function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
-	// 设置新菜单列表
 	var dbSettingTreeNew = {
-		check : {
-		},
-		view : {
-			dblClickExpand : false,
-			selectedMulti : false
-		},
-		data : {
-			simpleData : {
-				enable : true
-			}
-		},
+		check : {},
+		view : {dblClickExpand : false,selectedMulti : false},
+		data : {simpleData : {enable : true}},
 		callback : {
 			beforeClick : beforeClickTreeNew,
 			onClick : onClick
 		}
 	};
-
 	function beforeClickTreeNew(treeId, treeNode) {
 		var zTreeIdStr = objTreeId.attr("id");
 		var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
@@ -707,7 +571,6 @@ function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
 		newTreeObjHid.attr("value", w);
 		newTreeObjHid.change();
 	}
-
 	function onNodeCreated(e, treeId, treeNode) {
 		var zTreeIdStr = objTreeId.attr("id");
 		var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
@@ -723,17 +586,14 @@ function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
 		newTreeObj.attr("value", v);
 		newTreeObjHid.attr("value", w);
 	}
-
 	// 下拉选择列表初始化
 	$.fn.zTree.init(objTreeId, dbSettingTreeNew, objzNodes);
-
 	objTreeId.parent().parent().find("input.treeRadio").click(function() {
 		showMenuGroupNew($(this));
 	});
 	objTreeId.parent().parent().find("a.menuBtn").click(function() {
 		showMenuGroupNew(objTreeId.parent().parent().find("input.tr+eeRadio"));
 	});
-
 	// 依据value加载已经选的后台功能树
 	var treeSelIds = objTreeId.parent().siblings().find(".treeSelId").val();
 	if (treeSelIds && treeSelIds != "") {
@@ -750,7 +610,8 @@ function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
 }
 
 /*
- * 分级平铺模式展示 通用 objTileId 为树状平铺列表目标对象ul data为json数据
+ * 分级平铺模式展示 
+ * objTileId 为树状平铺列表目标对象ul data为json数据
  */
 function comTileList(objTileId, data) {
 	var leveMulti = 0;
@@ -780,26 +641,20 @@ function comTileListT(Obj, lm) {
 			var objToDomTmp = "";
 			if (data[i].children != null && data[i].children.length > 0) {
 				var theClass = "";
-				if (((dataLen <= 6) && (leveMultiTmp > 0))
-						|| ((dataLen <= 6) && (leveMultiTmpMin < 1))) {
+				if (((dataLen <= 6) && (leveMultiTmp > 0))|| ((dataLen <= 6) && (leveMultiTmpMin < 1))) {
 					theClass = 'class="def_show"';
 				} else {
 					theClass = 'class="def_hide"';
 				}
-				objToDomTmp = '<ul ' + theClass + '>'
-						+ comTileListT(data[i], leveMultiTmp) + '</ul>'
+				objToDomTmp = '<ul ' + theClass + '>'+ comTileListT(data[i], leveMultiTmp) + '</ul>'
 			}
-			if (((dataLen <= 6) && (leveMultiTmp > 0))
-					|| ((dataLen <= 6) && (leveMultiTmpMin < 1))) {
-				tmp += '<li class="wide"><label class="clearfix"><a href="#">'
-						+ name + '</a></label>' + objToDomTmp + '</li>'
+			if (((dataLen <= 6) && (leveMultiTmp > 0))|| ((dataLen <= 6) && (leveMultiTmpMin < 1))) {
+				tmp += '<li class="wide"><label class="clearfix"><a href="#">'+ name + '</a></label>' + objToDomTmp + '</li>'
 			} else {
 				if (objToDomTmp == "") {
 					tmp += '<li class="mini"><a href="#">' + name + '</a></li>'
 				} else {
-					tmp += '<li class="mini"><a href="#">' + name
-							+ '<i class="hideIcon"></i></a>' + objToDomTmp
-							+ '</li>'
+					tmp += '<li class="mini"><a href="#">' + name+ '<i class="hideIcon"></i></a>' + objToDomTmp+ '</li>'
 				}
 			}
 		}
@@ -809,42 +664,21 @@ function comTileListT(Obj, lm) {
 
 // 样式变化以hover导航菜单
 function comTileListHover(objTileId) {
-	objTileId.find("li")
-			.live(
-					"mouseenter",
-					function() {
-						var isChildHide = $(this).children(".def_hide").length;
-						var isParentShow = $(this).parent()
-								.hasClass("def_show");
-						var hCha = $(this).offset().top
-								- $(this).parent().offset().top;
-						var width = $(this).width() - 2;
-						var leftCha = $(this).offset().left
-								- $(this).parent().offset().left;
-						if (isParentShow) {
-						}
-
-						if (isChildHide > 0) {
-							$(this).siblings().removeClass("active");
-							$(this).addClass("active").children().addClass(
-									"curt").children(".hideIcon").addClass(
-									"icurt");
-							$(this).children(".def_hide").show().css("top",
-									28 + hCha + "px")
-									.append(
-											'<i class="mark" style="width:'
-													+ width + 'px;left:'
-													+ leftCha + 'px"></i>');
-						}
-					});
-	objTileId.find("li")
-			.live(
-					"mouseleave",
-					function() {
-						$(this).removeClass("active").children().removeClass(
-								"curt").children(".hideIcon").removeClass(
-								"icurt");
-						$(this).children(".def_hide").hide().children(".mark")
-								.remove();
-					});
+	objTileId.find("li").live("mouseenter",function() {
+		var isChildHide = $(this).children(".def_hide").length;
+		var isParentShow = $(this).parent().hasClass("def_show");
+		var hCha = $(this).offset().top- $(this).parent().offset().top;
+		var width = $(this).width() - 2;
+		var leftCha = $(this).offset().left- $(this).parent().offset().left;
+		if (isParentShow) {}
+			if (isChildHide > 0) {
+				$(this).siblings().removeClass("active");
+				$(this).addClass("active").children().addClass("curt").children(".hideIcon").addClass("icurt");
+				$(this).children(".def_hide").show().css("top",28 + hCha + "px").append('<i class="mark" style="width:'+ width + 'px;left:'+ leftCha + 'px"></i>');
+			}
+	});
+	objTileId.find("li").live("mouseleave",function() {
+		$(this).removeClass("active").children().removeClass("curt").children(".hideIcon").removeClass("icurt");
+		$(this).children(".def_hide").hide().children(".mark").remove();
+	});
 }
