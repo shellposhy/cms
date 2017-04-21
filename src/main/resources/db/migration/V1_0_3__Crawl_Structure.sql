@@ -19,6 +19,7 @@ CREATE TABLE `crawl_unit` (
   `Charset` VARCHAR(20) DEFAULT NULL COMMENT '编码',
   `Status` TINYINT(3) UNSIGNED NOT NULL COMMENT '抓取状态',
   `Times` INT(10) NOT NULL DEFAULT '0' COMMENT '抓取次数',
+  `Start_Url` VARCHAR(100) NOT NULL COMMENT '起始页',
   `Sub_Url` VARCHAR(500) NOT NULL COMMENT '子链接表达式',
   `Interval_Time` INT(10) UNSIGNED NOT NULL COMMENT '时间间隔',
   `Update_Time` DATETIME NOT NULL COMMENT '更新时间',
