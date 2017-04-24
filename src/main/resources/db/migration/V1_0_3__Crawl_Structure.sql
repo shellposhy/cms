@@ -4,6 +4,7 @@ CREATE TABLE `crawl_content` (
   `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增编号',
   `Unit_ID` INT(10) NOT NULL COMMENT '站点编号',
   `Type` INT(3) NOT NULL COMMENT '类型',
+  `Formula_Type` INT(3) NOT NULL COMMENT '表达式类型',
   `Formula` VARCHAR(200) NOT NULL COMMENT '表达式',
   `Memo` VARCHAR(200) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`ID`)
