@@ -1289,11 +1289,11 @@ ul.about-flex-slides {
 	text-align: center;
 }
 
-.date-wrap .page-title{
+.date-wrap .page-title {
 	font-size: 30px;
 	font-weight: 300;
 	color: #999;
-	border-bottom:1px solid #999;
+	border-bottom: 1px solid #999;
 	border-radius: 4px 4px 0 0;
 	-webkit-border-radius: 4px 4px 0 0;
 }
@@ -1303,11 +1303,12 @@ ul.about-flex-slides {
 	font-weight: 300;
 	color: #999;
 	border-radius: 0 0 4px 4px;
-	margin:10px;
+	margin: 10px;
 	-webkit-border-radius: 0 0 4px 4px;
+	cursor: pointer;
 }
 
-.date-wrap .active{
+.date-wrap .active {
 	background: #2578be;
 	color: #fff;
 }
@@ -1866,4 +1867,12 @@ ul#filters>li>a:hover, ul#filters>li>a:focus, ul#filters>.active>a, ul#filters>.
 /*----*/
 .mbot50 {
 	margin-bottom: 50px;
+}
+
+.article {
+	
+}
+
+.article img {
+	text-align: center;
 }
