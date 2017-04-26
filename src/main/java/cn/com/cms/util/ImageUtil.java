@@ -34,7 +34,6 @@ import sun.misc.BASE64Encoder;
  * @author shishb
  * @version 1.0
  */
-@SuppressWarnings("restriction")
 public class ImageUtil {
 	private static Logger log = Logger.getLogger(ImageUtil.class.getName());
 

@@ -30,7 +30,6 @@ import sun.misc.BASE64Decoder;
  * UEditor文件上传辅助类
  * 
  */
-@SuppressWarnings("restriction")
 public class Uploader {
 	private Logger log = Logger.getLogger(Uploader.class.getName());
 	// 输出文件地址
