@@ -29,7 +29,6 @@ import cn.com.people.data.util.SystemUtil;
 @Component
 public class AccessPrivilegeInterceptor implements HandlerInterceptor {
 	private static Logger log = Logger.getLogger(AccessPrivilegeInterceptor.class.getName());
-
 	@Resource
 	private UserActionService actionService;
 	@Resource

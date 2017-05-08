@@ -56,11 +56,9 @@ public class ImageUtil {
 			try {
 				MatrixToImageWriter.writeToPath(matrix, "png", path);
 			} catch (IOException e) {
-				log.info("===write qr code file error===");
 				e.printStackTrace();
 			}
 		} catch (WriterException e) {
-			log.info("===create qr code error===");
 			e.printStackTrace();
 		}
 	}

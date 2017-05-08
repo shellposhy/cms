@@ -29,43 +29,31 @@ import sun.misc.BASE64Decoder;
 /**
  * UEditor文件上传辅助类
  * 
+ * @author shishb
+ * @version 1.0
  */
 public class Uploader {
 	private Logger log = Logger.getLogger(Uploader.class.getName());
-	// 输出文件地址
 	private String url = "";
-	// 上传文件名
 	private String fileName = "";
-	// 状态
 	private String state = "";
-	// 文件类型
 	private String type = "";
-	// 原始文件名
 	private String originalName = "";
-	// 保存缩略图路径
 	private String saveThumbPath = "";
-	// 文章uuid
 	private String uuid = "";
-	// 文件大小
 	private String size = "";
-
 	private HttpServletRequest request = null;
 	private String title = "";
-
-	// 保存路径
 	private String savePath = "upload";
-	// 文件允许格式
 	private String[] allowFiles = { ".rar", ".doc", ".docx", ".zip", ".pdf", ".txt", ".swf", ".wmv", ".gif", ".png",
-			".jpg", ".jpeg", ".bmp" };
-	// 文件大小限制，单位KB
+			".jpg", ".jpeg", ".bmp", ".xls", ".xlsx" };
 	private int maxSize = 10000;
-
 	private HashMap<String, String> errorInfo = new HashMap<String, String>();
 
 	public Uploader(HttpServletRequest request) {
 		this.request = request;
 		HashMap<String, String> tmp = this.errorInfo;
-		tmp.put("SUCCESS", "SUCCESS"); // 默认成功
+		tmp.put("SUCCESS", "SUCCESS");
 		tmp.put("NOFILE", "未包含文件上传域");
 		tmp.put("TYPE", "不允许的文件格式");
 		tmp.put("SIZE", "文件大小超出限制");
@@ -74,7 +62,6 @@ public class Uploader {
 		tmp.put("IO", "IO异常");
 		tmp.put("DIR", "目录创建失败");
 		tmp.put("UNKNOWN", "未知错误");
-
 	}
 
 	public void upload() throws Exception {
@@ -91,10 +78,8 @@ public class Uploader {
 			sfu.setSizeMax(this.maxSize * 1024);
 			sfu.setHeaderEncoding("utf-8");
 			FileItemIterator fii = sfu.getItemIterator(this.request);
-			// 多图片上传处理开始
 			while (fii.hasNext()) {
 				FileItemStream fis = fii.next();
-				// 判断是否是普通表单类型，否则是file类型的
 				if (!fis.isFormField()) {
 					this.originalName = fis.getName()
 							.substring(fis.getName().lastIndexOf(System.getProperty("file.separator")) + 1);
@@ -110,11 +95,9 @@ public class Uploader {
 					BufferedOutputStream output = new BufferedOutputStream(out);
 					Streams.copy(in, output, true);
 					this.state = this.errorInfo.get("SUCCESS");
-					// UE中只会处理单张上传，完成后即退出
 					break;
 				} else {
 					String fname = fis.getFieldName();
-					// 只处理title，其余表单请自行处理
 					if (!fname.equals("pictitle")) {
 						continue;
 					}
@@ -126,10 +109,8 @@ public class Uploader {
 					}
 					this.title = new String(result.toString().getBytes(), "utf-8");
 					reader.close();
-
 				}
 			}
-			// 多图片上传处理结束
 		} catch (SizeLimitExceededException e) {
 			this.state = this.errorInfo.get("SIZE");
 		} catch (InvalidContentTypeException e) {
