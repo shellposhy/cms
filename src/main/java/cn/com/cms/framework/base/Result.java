@@ -11,13 +11,11 @@ import java.util.List;
  * @version 1.0
  */
 public class Result<T> implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	private List<T> list = null;
 	private int totalCount = 0;
 
 	public Result() {
-
 	}
 
 	public Result(List<T> list, int totalCount) {

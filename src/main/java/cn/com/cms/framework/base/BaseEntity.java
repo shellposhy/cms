@@ -10,7 +10,6 @@ import java.util.Date;
  */
 public abstract class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 3988400631289702405L;
-
 	protected Integer id;
 	protected Integer creatorId;
 	protected Date createTime;

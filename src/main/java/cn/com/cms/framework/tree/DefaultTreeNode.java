@@ -13,7 +13,6 @@ import cn.com.cms.framework.base.TreeNodeEntity;
  * @version 1.0
  */
 public class DefaultTreeNode extends Node<Integer, String> {
-
 	protected Integer parentId;
 	protected DefaultTreeNode parent;
 	protected List<DefaultTreeNode> children;

@@ -5,12 +5,23 @@ import java.util.Date;
 import java.util.List;
 
 import cn.com.cms.data.model.DataField;
+import cn.com.cms.framework.base.BaseEntity;
 import cn.com.cms.framework.base.TreeNodeEntity;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.constant.EStatus;
 import cn.com.people.data.util.DateTimeUtil;
 
+/**
+ * 数据库基础类
+ * <p>
+ * 其他数据库如(图片库、媒体库、新闻库等)可以继承此基础类
+ * 
+ * @author shishb
+ * @version 1.0
+ * @see TreeNodeEntity
+ * @see BaseEntity
+ */
 public class BaseLibrary<T extends BaseLibrary<T>> extends TreeNodeEntity<T> {
 	private static final long serialVersionUID = 1L;
 	protected String code;
@@ -22,13 +33,7 @@ public class BaseLibrary<T extends BaseLibrary<T>> extends TreeNodeEntity<T> {
 	protected int orderId;
 	protected Integer taskId;
 	protected Date dataUpdateTime;
-	// 扩展属性
 	protected List<DataField> dataFields;
-
-	public List<DataField> getDataFields() {
-		return dataFields;
-	}
-
 	protected int tables;
 	protected String dataFieldsStr;
 
@@ -122,6 +127,10 @@ public class BaseLibrary<T extends BaseLibrary<T>> extends TreeNodeEntity<T> {
 
 	public void setStatus(EStatus status) {
 		this.status = status;
+	}
+
+	public List<DataField> getDataFields() {
+		return dataFields;
 	}
 
 	public void setDataFields(List<DataField> dataFields) {

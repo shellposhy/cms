@@ -28,15 +28,11 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 	public static final int ROOT_LEVEL = 0;
 	private List<TreeNodeEntity<T>> rootList = Lists.newLinkedList();
 	private Map<Integer, T> idNodeMap = Maps.newLinkedHashMap();
+	private List<T> preOrderList;
 
 	public T get(Integer id) {
 		return idNodeMap.get(id);
 	}
-
-	/**
-	 * 先序遍历列表
-	 */
-	private List<T> preOrderList;
 
 	@SuppressWarnings("unchecked")
 	public List<T> getRootNodes() {
@@ -74,12 +70,6 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 		}
 	}
 
-	/**
-	 * 获取以某个节点下的所有孩子节点
-	 * 
-	 * @param id
-	 * @return
-	 */
 	public Set<Integer> getSubTreeNodes(Integer id) {
 		Set<Integer> result = new HashSet<Integer>();
 		if (MapUtils.isEmpty(idNodeMap)) {
@@ -87,7 +77,7 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 		}
 		Queue<Integer> queue = new LinkedList<Integer>();
 		queue.add(id);
-		while (!queue.isEmpty()) {// 获取目标组的下一层直接孩子节点的集合
+		while (!queue.isEmpty()) {
 			id = queue.remove();
 			T node = idNodeMap.get(id);
 			if (null == node)
@@ -95,29 +85,24 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 			result.add(id);
 			List<TreeNodeEntity<T>> children = node.getChildren();
 			if (children.size() > 0)
-				// 将队首的所有孩子节点入队
 				for (TreeNodeEntity<T> child : children)
-				queue.add(child.getId());
+					queue.add(child.getId());
 		}
 		return result;
 	}
 
 	public Set<Integer> getSubTreeLeafNodes(Integer id) {
-		// 实现按层次遍历以orgid为根的子树
 		Set<Integer> leafs = new HashSet<Integer>();
 		Queue<Integer> queue = new LinkedList<Integer>();
 		queue.add(id);
 		while (!queue.isEmpty()) {
-			// 获取目标组的下一层直接孩子节点的集合
 			id = queue.remove();
 			T node = idNodeMap.get(id);
 			List<TreeNodeEntity<T>> children = node.getChildren();
 			if (children.size() > 0)
-				// 将队首的所有孩子节点入队
 				for (TreeNodeEntity<T> child : children)
-				queue.add(child.getId());
+					queue.add(child.getId());
 			else
-				// 此节点为叶子节点
 				leafs.add(id);
 		}
 		return leafs;
@@ -135,10 +120,6 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 		this.idNodeMap = idNodeMap;
 	}
 
-	/**
-	 * 添加根节点
-	 * 
-	 */
 	public void addRoot(TreeNodeEntity<T> rootNode) {
 		rootList.add(rootNode);
 		preOrderList = null;
@@ -151,9 +132,6 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 		return preOrderList;
 	}
 
-	/**
-	 * 先序遍历
-	 */
 	public List<T> doPreOrderTraversal() {
 		if (rootList == null) {
 			return null;
@@ -179,13 +157,6 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 		this.preOrderList = preOrderList;
 	}
 
-	/**
-	 * 遍历搜索节点
-	 * 
-	 * @param nodeList
-	 * @param t
-	 * @return
-	 */
 	@SuppressWarnings("unused")
 	private TreeNodeEntity<T> seekNode(List<TreeNodeEntity<T>> nodeList, T t) {
 		TreeNodeEntity<T> retNode = null;
@@ -201,5 +172,4 @@ public class Tree<T extends TreeNodeEntity<T>> implements Serializable {
 		}
 		return retNode;
 	}
-
 }

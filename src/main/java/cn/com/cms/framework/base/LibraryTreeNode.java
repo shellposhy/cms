@@ -11,7 +11,6 @@ import cn.com.cms.framework.tree.DefaultTreeNode;
  * @version 1.0
  */
 public class LibraryTreeNode extends DefaultTreeNode {
-
 	public int realId;
 	public boolean isDir;
 	public String uri;

@@ -6,10 +6,17 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
+/**
+ * 树形节点基础类
+ * 
+ * @author shishb
+ * @version 1.0
+ * @see BaseEntity
+ * @see Serializable
+ * @see Cloneable
+ */
 public abstract class TreeNodeEntity<K> extends BaseEntity implements Serializable, Cloneable {
-
 	private static final long serialVersionUID = 239098856690572691L;
-
 	protected String name;
 	protected Integer parentID;
 	private String path;
@@ -26,11 +33,6 @@ public abstract class TreeNodeEntity<K> extends BaseEntity implements Serializab
 		this.parent = parent;
 	}
 
-	/**
-	 * 递归所有子节点
-	 * 
-	 * @return {@link ArrayList}
-	 */
 	public List<K> getAllChildrenList() {
 		List<K> allChildren = new ArrayList<K>();
 		seekAllChildrenList(allChildren, children);
