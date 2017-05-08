@@ -52,7 +52,7 @@ import cn.com.cms.data.util.DataVo;
 @Controller
 @RequestMapping("/page")
 public class PageController extends BaseController {
-	private static Logger log = Logger.getLogger(PageController.class);
+	private static Logger log = Logger.getLogger(PageController.class.getName());
 	@Resource
 	private AppConfig appConfig;
 	@Resource
