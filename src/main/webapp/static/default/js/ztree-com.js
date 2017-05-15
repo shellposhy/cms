@@ -1,9 +1,10 @@
-/*
- * 通用下拉选择列表-多选
+/**
+ * 通用下拉选择列表
+ * 
+ * @author shishb
+ * @version 1.0
  */
 function treeSleCom(objTreeId, objzNodes, fnHide) {
-	
-	// 设置新菜单列表
 	var settingTreeNew = {
 		check : {
 			enable : true,
@@ -26,6 +27,12 @@ function treeSleCom(objTreeId, objzNodes, fnHide) {
 		}
 	};
 
+	/**
+	 * 绑定事件
+	 * 
+	 * @param treeId 
+	 * @param treeNode
+	 * */
 	function beforeClickTreeNew(treeId, treeNode) {
 		var zTreeIdStr = objTreeId.attr("id");
 		var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
@@ -33,18 +40,26 @@ function treeSleCom(objTreeId, objzNodes, fnHide) {
 		return false;
 	}
 
+	/**
+	 * 绑定事件
+	 * 
+	 * @param e
+	 * @param treeId 
+	 * @param treeNode
+	 * */
 	function onCheckTreeNew(e, treeId, treeNode) {
 		var zTreeIdStr = objTreeId.attr("id");
 		var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
 		var nodes = zTree.getCheckedNodes(true);
 		v = "";
 		w = "";
-		for ( var i = 0, l = nodes.length; i < l; i++) {
+		for (var i = 0, l = nodes.length; i < l; i++) {
 			var halfCheck = nodes[i].getCheckStatus().half;
 			if (halfCheck == false) {
 				v += nodes[i].name + ",";
 			}
-			if (nodes[i].id != "-1" && nodes[i].id != "-2" && !nodes[i].isParent) {
+			if (nodes[i].id != "-1" && nodes[i].id != "-2"
+					&& !nodes[i].isParent) {
 				if (i == (nodes.length - 1)) {
 					w += nodes[i].id;
 				} else {
@@ -73,7 +88,6 @@ function treeSleCom(objTreeId, objzNodes, fnHide) {
 	objTreeId.parent().parent().find("a.menuBtn").click(function() {
 		showMenuGroupNew(objTreeId.parent().parent().find("input.treeSel"));
 	});
-
 	// 全选 /全不选
 	objTreeId.parent().find(".sel_all").click(function() {
 		var zTreeIdStr = objTreeId.attr("id");
@@ -99,7 +113,7 @@ function treeSleCom(objTreeId, objzNodes, fnHide) {
 					var zTreeIdStr = objTreeId.attr("id");
 					var zTree = $.fn.zTree.getZTreeObj(zTreeIdStr);
 					var treeSelIdsArry = treeSelIds.split(",");
-					for ( var i = 0, l = treeSelIdsArry.length; i < l; i++) {
+					for (var i = 0, l = treeSelIdsArry.length; i < l; i++) {
 						var oldnodes = zTree.getNodesByParam("id",
 								treeSelIdsArry[i], null);
 						zTree.checkNode(oldnodes[0], true, false, true);
@@ -108,25 +122,27 @@ function treeSleCom(objTreeId, objzNodes, fnHide) {
 	}
 }
 
-/*
+/**
  * 通用下拉选择列表 单选
  * 
- * 例子: <div class="control-group backhide" class="tree_sel_box" id="type_tree">
- * <label class="control-label" for="u_group_memo">分类</label> <div
- * class="controls"> <input class="treeRadio" type="text" readonly value="" />
- * <label class="error"><form:errors path="parentID" cssClass="error" />
- * </label> <form:hidden path="parentID" class="treeSelId" name="parentID"
- * value="" /> </div> <div class="menuContent">
- * <ul id="treeSel_1" class="ztree treeNew"></ul> <a class="selOk btn
- * btn-small" href="#"><i class="icon-ok"></i> 确定</a> </div> </div>
- * 
- * js: treeRadioCom($("#type_tree .treeNew"),data,true); 说明：
- * objTreeId：$("#type_tree .treeNew") objzNodes:data //节点数据
- * isOnlyChild:true/false 用于选择是否只能 选择子节点
- * 
- * （1）hidden input中的value用于回显既选项，如果希望显示既选项，则赋值其节点id，逗号分隔。
- * （2）如果页面有多个选择控件，id="treeSel_1",id="treeSel_2"...
- * 
+ * @param objTreeId:$("#type_tree .treeNew") 
+ * @param objzNodes:data //节点数据
+ * @param isOnlyChild:true/false 用于选择是否只能 选择子节点
+ *例子:
+ * <div class="control-group backhide" class="tree_sel_box" id="type_tree">
+ * 	<label class="control-label" for="u_group_memo">分类</label>
+ * 	<div class="controls">
+ * 		<input class="treeRadio" type="text" readonly value="" />
+ * 		<label class="error"><form:errors path="parentID" cssClass="error" /></label>
+ * 		<form:hidden path="parentID" class="treeSelId" name="parentID" value="" />
+ *		</div>
+ *		<div class="menuContent">
+ *			 <ul id="treeSel_1" class="ztree treeNew"></ul>
+ * 		<a class="selOk btn btn-small" href="#"><i class="icon-ok"></i> 确定</a>
+ * 	</div>
+ * </div>
+ * (1)：hidden input中的value用于回显既选项，如果希望显示既选项，则赋值其节点id，逗号分隔。
+ * (2)：如果页面有多个选择控件，id="treeSel_1",id="treeSel_2"
  */
 function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
 	// 设置新菜单列表
@@ -168,7 +184,7 @@ function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
 		var nodes = zTree.getSelectedNodes();
 		v = "";
 		w = "";
-		for ( var i = 0, l = nodes.length; i < l; i++) {
+		for (var i = 0, l = nodes.length; i < l; i++) {
 			v = nodes[i].name;
 			w = nodes[i].id;
 		}
@@ -184,7 +200,7 @@ function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
 		var nodes = zTree.getSelectedNodes();
 		v = "";
 		w = "";
-		for ( var i = 0, l = nodes.length; i < l; i++) {
+		for (var i = 0, l = nodes.length; i < l; i++) {
 			v = nodes[i].name;
 			w = nodes[i].id;
 		}
@@ -260,26 +276,26 @@ function jsonToNodes(data, nodes) {
 	if (data != null && data != 0) {
 		var categories = data.children;
 		if (categories != null) {
-			for ( var i = 0; i < categories.length; i++) {
-//				if (data.id == 0) {
-//					var isOpen = true;
-//				} else {
-//					var isOpen = false;
-//				}
+			for (var i = 0; i < categories.length; i++) {
+				// if (data.id == 0) {
+				// var isOpen = true;
+				// } else {
+				// var isOpen = false;
+				// }
 				if (categories[i].nocheck) {
 					nodes.push({
 						id : categories[i].id,
 						pId : data.id,
 						name : categories[i].name,
 						nocheck : categories[i].nocheck
-//						open : isOpen
+					// open : isOpen
 					});
 				} else {
 					nodes.push({
 						id : categories[i].id,
 						pId : data.id,
 						name : categories[i].name
-//						open : isOpen
+					// open : isOpen
 					});
 				}
 				if (categories[i].children != null
