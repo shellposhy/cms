@@ -41,6 +41,20 @@
 	</#if>
 </#macro>
 
+<#--图片新闻列表-->
+<#macro 图片新闻列表 data 行数=5 长度=36  charset="utf-8" lang="zh-CN"> 
+	<#if data?exists && (data.list?size gt 0)>
+		<#list data.list as item>
+	        <li> 
+	        	<img src="${item.img}" style="height:30px">
+				<a target="_blank" href="${item.href}">${substrbyte(item.title, 长度, '...')}</a>
+	        </li>
+		</#list>
+	<#else>
+		<br>未配置
+	</#if>
+</#macro>
+
 <#--头条列表-->
 <#macro 头条列表 data 行数=5 长度=36 charset="utf-8" lang="zh-CN"> 
 	<#if data?exists && (data.list?size gt 0)>
