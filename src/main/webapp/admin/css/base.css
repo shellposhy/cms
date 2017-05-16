@@ -1227,8 +1227,8 @@ input.spinner.ui-spinner-input {
 
 .list_sum_img {
 	border: 1px solid #ccc;
-	/*	padding: 2px;*/
-	width: 120px;
+	padding: 2px;
+	width: 50px;
 	vertical-align: top;
 	float: left;
 	margin-right: 5px;

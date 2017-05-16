@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.framework.security.UserSecurityService;
 import cn.com.cms.framework.tree.DefaultTreeNode;
+import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.service.LibraryService;
@@ -30,6 +32,7 @@ import cn.com.cms.user.model.User;
 @Controller
 @RequestMapping("/admin/library")
 public class LibraryController extends BaseController {
+	private static Logger log = Logger.getLogger(LibraryController.class.getName());
 
 	@Resource
 	private LibraryService<?> libraryService;
@@ -42,6 +45,28 @@ public class LibraryController extends BaseController {
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		mv.addStaticAttribute("dataBase", library);
 		return mv;
+	}
+
+	@RequestMapping("/{id}/edit")
+	public String edit(@PathVariable Integer id) {
+		log.debug("====library or directory edit===");
+		BaseLibrary<?> library = libraryService.find(id);
+		if (library.getNodeType() == ELibraryNodeType.Directory) {
+			return "redirect:/admin/system/library/directory/" + id + "/edit";
+		} else {
+			return "redirect:/admin/system/library/edit/" + id;
+		}
+	}
+
+	@RequestMapping("/{id}/delete")
+	public String delete(@PathVariable Integer id, HttpServletResponse response) {
+		log.debug("====library or directory delete===");
+		BaseLibrary<?> library = libraryService.find(id);
+		if (library.getNodeType() == ELibraryNodeType.Directory) {
+			return "redirect:/admin/system/library/directory/" + id + "/delete";
+		} else {
+			return "redirect:/admin/system/library/delete/" + id;
+		}
 	}
 
 	/**

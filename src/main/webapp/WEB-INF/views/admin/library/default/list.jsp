@@ -22,7 +22,7 @@
 						<ul id=directoryTree class="ztree green_tree_line"></ul>
 					</div>
 					<div class="right_con">
-						<ul id="libraries" class="show_sel_itme clearfix">
+						<ul id="libraries" class="show_sel_itme mt10 clearfix">
 							<h3 class='alert alert-info'>请选择左侧目录以查看数据库</h3>
 						</ul>
 						<div id="data_content" hidden="hidden">

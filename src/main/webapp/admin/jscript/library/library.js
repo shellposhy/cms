@@ -28,7 +28,7 @@ function init_directory_tree() {
 			contentType : 'application/json',
 			success : function(data) {
 				if (data != null) {
-					menuTreeCom($("#directoryTree"), data, true,node_click,"/admin/system/library/");
+					menuTreeCom($("#directoryTree"), data, true,node_click,"/admin/library/");
 				}
 			}
 		});
@@ -149,6 +149,8 @@ function find_by_parentId(parentId) {
 						$("#libraries").append(editLink);
 					}
 				}
+				$('#search_u_db').show();
+				$('#search_u_db_btn').show();
 			}
 		}
 	});
@@ -196,18 +198,18 @@ function find_data_by_libId(libId) {
 	dataTablesCom($('#colDatas'), "/admin/system/library/data/search/" + libId,headTitle, null, callback_library_data, true);
 }
 
-
+//datatable callback function
 function callback_library_data(otd) {
 	docReady();
 	trHoverEdit();
 	$(".action_buttons").show();
-	listDelete(thisPath + "/data/delete", otd);// 删除稿件
-	listDelete(thisPath + "data/delete", otd);// 删除数据路径
-	editPopWithDT(otd);// //设置新增-修改文章弹出层
+	listDelete(thisPath + "/data/delete", otd);
+	listDelete(thisPath + "data/delete", otd);
+	editPopWithDT(otd);
 
 }
 
-//树形节点级联绑定
+//bind database node
 function init_library(parentId, isDir) {
 	var treeObj = $.fn.zTree.getZTreeObj("directoryTree");
 	var treenode = treeObj.getNodeByParam("id", parentId, null);
@@ -231,7 +233,7 @@ function init_library(parentId, isDir) {
 	}
 }
 
-// 删除目录
+//delete library
 function delete_library(id) {
 	if (confirm("确定删除?")) {
 		$.ajax({
@@ -246,7 +248,7 @@ function delete_library(id) {
 }
 
 
-//关键词查询
+//database node search
 function bind_search() {
 	$("#search_u_db_btn").click(function() {
 		if ($("#search_u_db").val()){
