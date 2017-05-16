@@ -27,10 +27,10 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.google.common.collect.Maps;
 
-import cn.com.cms.common.DbData;
-import cn.com.cms.common.DbTable;
-import cn.com.cms.common.FieldCodes;
-import cn.com.cms.common.CmsData;
+import cn.com.cms.base.data.CmsData;
+import cn.com.cms.base.data.DbData;
+import cn.com.cms.base.data.DbTable;
+import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.constant.EDataTransErrPolicy;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;

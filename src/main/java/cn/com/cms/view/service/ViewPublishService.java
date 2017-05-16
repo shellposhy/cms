@@ -14,8 +14,8 @@ import com.google.common.collect.Maps;
 import com.microduo.index.lucene3.MdSortField;
 import com.microduo.index.lucene3.SearchResult;
 
-import cn.com.cms.base.AppConfig;
-import cn.com.cms.common.FieldCodes;
+import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;

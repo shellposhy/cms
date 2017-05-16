@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.common.JsonPara;
+import cn.com.cms.base.data.JsonPara;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.util.DataVo;
 import cn.com.cms.library.constant.ELibraryType;

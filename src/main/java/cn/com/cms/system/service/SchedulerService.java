@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.base.AppConfig;
-import cn.com.cms.common.DbTable;
+import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.base.data.DbTable;
 import cn.com.cms.data.dao.DataFieldMapper;
 import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.model.DataField;

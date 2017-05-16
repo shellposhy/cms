@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.base.AppConfig;
-import cn.com.cms.base.BaseController;
-import cn.com.cms.common.BaseMappingJsonView;
-import cn.com.cms.common.DataTablesVo;
-import cn.com.cms.common.JsonPara;
+import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.base.config.BaseController;
+import cn.com.cms.base.data.DataTablesVo;
+import cn.com.cms.base.data.JsonPara;
+import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.base.BaseLog;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.system.service.LogFileService;

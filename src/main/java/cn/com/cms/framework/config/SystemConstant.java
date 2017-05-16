@@ -1,4 +1,4 @@
-package cn.com.cms.common;
+package cn.com.cms.framework.config;
 
 /**
  * 系统静态常量类

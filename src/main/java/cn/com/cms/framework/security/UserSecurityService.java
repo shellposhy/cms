@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.common.SystemConstant;
+import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.user.model.User;
 
 @Service

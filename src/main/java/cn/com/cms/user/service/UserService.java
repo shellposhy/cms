@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.common.SystemConstant;
 import cn.com.cms.framework.base.Result;
+import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.user.constant.ELoginType;
 import cn.com.cms.user.dao.UserActionMapMapper;
 import cn.com.cms.user.dao.UserGroupMapMapper;

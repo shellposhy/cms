@@ -16,8 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.com.cms.base.AppConfig;
-import cn.com.cms.base.BaseController;
+import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.base.config.BaseController;
 import cn.com.cms.system.service.PathService;
 import cn.com.cms.view.service.ViewPageService;
 

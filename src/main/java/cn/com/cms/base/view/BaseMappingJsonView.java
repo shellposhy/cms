@@ -1,4 +1,4 @@
-package cn.com.cms.common;
+package cn.com.cms.base.view;
 
 import java.util.Map;
 

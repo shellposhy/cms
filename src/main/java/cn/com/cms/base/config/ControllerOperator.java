@@ -1,4 +1,4 @@
-package cn.com.cms.base;
+package cn.com.cms.base.config;
 
 /**
  * 基础业务操作

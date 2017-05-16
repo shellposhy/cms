@@ -1,4 +1,4 @@
-package cn.com.cms.common;
+package cn.com.cms.base.data;
 
 import java.util.HashMap;
 import java.util.Map;

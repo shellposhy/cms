@@ -20,9 +20,9 @@ import com.google.common.collect.Lists;
 import com.microduo.index.lucene3.MdSortField;
 import com.microduo.index.lucene3.SearchResult;
 
-import cn.com.cms.base.AppConfig;
-import cn.com.cms.common.CmsData;
-import cn.com.cms.common.FieldCodes;
+import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.base.data.CmsData;
+import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.data.service.DataFieldService;

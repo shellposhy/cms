@@ -14,10 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.base.BaseController;
-import cn.com.cms.base.ControllerOperator;
-import cn.com.cms.common.BaseMappingJsonView;
-import cn.com.cms.common.JsonPara;
+import cn.com.cms.base.config.BaseController;
+import cn.com.cms.base.config.ControllerOperator;
+import cn.com.cms.base.data.JsonPara;
+import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.framework.base.LibraryTreeNode;

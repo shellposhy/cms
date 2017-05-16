@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 
-import cn.com.cms.base.AppConfig;
-import cn.com.cms.common.SystemConstant;
+import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.framework.tree.DefaultTreeNode.PropertySetter;
 import cn.com.cms.framework.tree.MenuTreeNode;

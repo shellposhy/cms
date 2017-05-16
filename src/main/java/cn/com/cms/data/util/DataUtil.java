@@ -25,10 +25,10 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.NumericField;
 
-import cn.com.cms.common.FieldCodes;
-import cn.com.cms.common.CmsData;
-import cn.com.cms.common.SystemConstant;
+import cn.com.cms.base.data.CmsData;
+import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.model.DataField;
+import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.HtmlUtil;

@@ -10,7 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import cn.com.cms.common.SystemConstant;
+import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.util.MessageResources;
 
 /**

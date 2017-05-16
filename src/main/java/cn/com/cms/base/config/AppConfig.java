@@ -1,4 +1,4 @@
-package cn.com.cms.base;
+package cn.com.cms.base.config;
 
 import java.util.List;
 

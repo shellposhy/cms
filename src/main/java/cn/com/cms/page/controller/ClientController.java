@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.common.base.Strings;
 
-import cn.com.cms.base.BaseController;
+import cn.com.cms.base.config.BaseController;
 import cn.com.cms.page.constant.EIndustryType;
 import cn.com.cms.page.model.WebUser;
 import cn.com.cms.page.service.WebUserService;

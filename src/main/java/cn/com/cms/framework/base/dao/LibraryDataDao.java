@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.microduo.index.lucene3.MdSortField;
 import com.microduo.index.lucene3.SearchResult;
 
-import cn.com.cms.common.CmsData;
+import cn.com.cms.base.data.CmsData;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.framework.base.Result;

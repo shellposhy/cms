@@ -10,7 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.com.cms.base.AppConfig;
+import cn.com.cms.base.config.AppConfig;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.template.TemplateComposer;
 import cn.com.cms.view.constant.EModelType;

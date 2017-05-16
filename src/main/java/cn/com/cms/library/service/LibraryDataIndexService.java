@@ -12,10 +12,9 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.base.AppConfig;
-import cn.com.cms.common.FieldCodes;
-import cn.com.cms.common.CmsData;
-import cn.com.cms.common.SystemConstant;
+import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.base.data.CmsData;
+import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.dao.DataTableMapper;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
@@ -23,6 +22,7 @@ import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.constant.EIndexType;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.cms.data.util.DataUtil;
+import cn.com.cms.framework.config.SystemConstant;
 
 import com.microduo.index.IndexConfig;
 import com.microduo.index.IndexException;

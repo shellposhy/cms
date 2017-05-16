@@ -15,11 +15,11 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.common.DbData;
-import cn.com.cms.common.FieldCodes;
-import cn.com.cms.common.CmsData;
 import cn.com.cms.data.dao.DataFieldMapper;
 import cn.com.cms.data.dao.DataTableMapper;
+import cn.com.cms.base.data.CmsData;
+import cn.com.cms.base.data.DbData;
+import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;

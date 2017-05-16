@@ -22,7 +22,7 @@ import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
 
-import cn.com.cms.common.SystemConstant;
+import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.view.constant.EItemType;
 import cn.com.cms.view.model.ViewItem;
 import cn.com.cms.view.model.ViewModel;

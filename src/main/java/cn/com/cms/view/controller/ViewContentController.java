@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.base.BaseController;
-import cn.com.cms.common.BaseMappingJsonView;
+import cn.com.cms.base.config.BaseController;
+import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.service.LibraryService;

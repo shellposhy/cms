@@ -15,9 +15,9 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import com.google.common.collect.Lists;
 
-import cn.com.cms.base.BaseController;
-import cn.com.cms.common.BaseMappingJsonView;
-import cn.com.cms.common.JsonPara;
+import cn.com.cms.base.config.BaseController;
+import cn.com.cms.base.data.JsonPara;
+import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.system.model.RecordVisit;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.com.cms.base.AppConfig;
+import cn.com.cms.base.config.AppConfig;
 import cn.com.cms.framework.base.BaseLog;
 import cn.com.cms.framework.security.UserSecurityService;
 import cn.com.cms.system.contant.EInterceptStatus;

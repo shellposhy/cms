@@ -12,7 +12,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import cn.com.cms.base.AppConfig;
+import cn.com.cms.base.config.AppConfig;
 import cn.com.cms.data.service.DataSortService;
 import cn.com.cms.framework.base.LibraryTreeNode;
 import cn.com.cms.framework.tree.DefaultTreeNode.PropertySetter;

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.google.common.base.Strings;
-import cn.com.cms.common.CmsData;
-import cn.com.cms.common.FieldCodes;
+
+import cn.com.cms.base.data.CmsData;
+import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;

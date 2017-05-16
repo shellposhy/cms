@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.base.AppConfig;
+import cn.com.cms.base.config.AppConfig;
 
 /**
  * 页面发布路径服务类
