@@ -1,4 +1,4 @@
-package cn.com.cms.analyze.model;
+package cn.com.cms.analyze.wrap;
 
 /**
  * 安全执行包装类

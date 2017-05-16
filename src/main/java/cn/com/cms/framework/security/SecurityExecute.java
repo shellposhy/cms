@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 
 import cn.com.cms.analyze.model.Analyze;
-import cn.com.cms.analyze.model.Wrapper;
+import cn.com.cms.analyze.wrap.Wrapper;
 
 /**
  * 双检查锁机制安全执行服务类
