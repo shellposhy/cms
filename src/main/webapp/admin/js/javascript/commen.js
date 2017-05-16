@@ -142,15 +142,12 @@ function listSend(sUrl, oTable) {
 				if (dt.find("table input[type='checkbox']").length > 0) {
 					var count = 0;
 					var idsVal = new Array();
-					dt.find("table tbody input[type='checkbox']").each(
-							function() {
-								if ($(this).attr("checked")
-										&& $(this).val() != null
-										&& $(this).val().length > 0) {
-									idsVal.push($(this).val());
-									count++;
-								}
-							});
+					dt.find("table tbody input[type='checkbox']").each(function() {
+						if ($(this).attr("checked")&& $(this).val() != null&& $(this).val().length > 0) {
+							idsVal.push($(this).val());
+							count++;
+						}
+					});
 					var sData = idsVal.join(",");
 					var spData = {
 						name : "ids",
@@ -167,8 +164,7 @@ function listSend(sUrl, oTable) {
 										data : JSON.stringify(spData),
 										success : function(resp) {
 											oTable.fnDraw();
-											var delayRd = setTimeout(
-													"isCheckboxStyle();", 300);
+											var delayRd = setTimeout("isCheckboxStyle();", 300);
 											$('#sendModal').modal('hide');
 										},
 										error : function(data) {
@@ -311,20 +307,19 @@ function addValiMethod() {
 
 }
 
-/*
+/**
  * datatables表格的抽象方法
- * tbId 要呈现表格的目标元素的id,字符串【必填】
- * url 除根域名以外的路径：/admin/... 【必填】
- * headTitle 设置表格标题字段 数组 【必填】
- * var headTitle =[ { "mData" : "title" }, { "mData" : "name" } ]
- * otherField：添加其他字段 【无则填null】 var otherField =[{ "name" : "iType", "value" :
- * iType }, { "name" : "searchIdStr", "value" : baseId }]
- * callback 回调函数 表格渲染完成的回调函数，oTableDataCom可以传递表格对象作为参数 【无则填null】 function
- * datatalbesReadyData(oTableDataCom) { docReady(); listDelete(appPath +
- * "/admin/data/delete", oTableDataCom);// 删除数据路径 }; isMutiTime
- * 是否支持同页面多次刷新加载，即在每次刷新载入数据前，销毁一次表格，再重建。是的话填true，留空或false则不支持重建。
- * noSearch ： 是否隐藏搜索条 true为隐藏
- * isDisAutoWidth： 是否禁用自动调整表格宽度， true为禁用，false/省缺为不禁
+ * @param tbId 要呈现表格的目标元素的id,字符串【必填】
+ * @param url 除根域名以外的路径：/admin/... 【必填】
+ * @param headTitle 设置表格标题字段 数组 【必填】
+ * 		var headTitle =[ { "mData" : "title" }, { "mData" : "name" } ]
+ * @param otherField：添加其他字段 【无则填null】 var otherField =[{ "name" : "iType", "value" :iType }, { "name" : "searchIdStr", "value" : baseId }]
+ *@param callback 回调函数 表格渲染完成的回调函数
+ *			oTableDataCom可以传递表格对象作为参数 【无则填null】
+ *			function datatalbesReadyData(oTableDataCom) { docReady(); listDelete(appPath+"/admin/data/delete", oTableDataCom);// 删除数据路径 }; 
+ * @param isMutiTime 是否支持同页面多次刷新加载，即在每次刷新载入数据前，销毁一次表格，再重建。是的话填true，留空或false则不支持重建。
+ * @param noSearch ： 是否隐藏搜索条 true为隐藏
+ * @param isDisAutoWidth： 是否禁用自动调整表格宽度， true为禁用，false/省缺为不禁
  */
 function dataTablesCom(tbId, url, headTitle, otherField, callback, isMutiTime,noSearch, isDisAutoWidth) {
 	var sDomStr = "";
@@ -351,12 +346,9 @@ function dataTablesCom(tbId, url, headTitle, otherField, callback, isMutiTime,no
 			}
 		},
 		"iDisplayLength" : 20,
-		"oLanguage" : {
-			"sUrl" : appPath + "/admin/js/javascript/de_CN.js"
-		},
+		"oLanguage" : {"sUrl" : appPath + "/admin/js/javascript/de_CN.js"},
 		"aoColumns" : headTitle,
-		"aoColumnDefs" : [ {
-			// "sWidth":"560px",
+		"aoColumnDefs" : [{
 			"sWidth" : "400px",
 			"aTargets" : [ 0 ]
 		} ],

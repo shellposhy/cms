@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<!-- 主菜单 -->
 <div id="mmjsonActionTree" class="none"><%=request.getSession().getAttribute("jsonActionTree")%></div>
 <div class="cmsTreeBackground">
 	<div class="my_account">

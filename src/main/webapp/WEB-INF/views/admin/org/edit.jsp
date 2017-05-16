@@ -67,6 +67,6 @@
 		</fieldset>
 	</form:form>
 </div>
-<script src="${appPath}/admin/jscript/org.js"></script>
+<script src="${appPath}/admin/jscript/user/org.js"></script>
 </body>
 </html>

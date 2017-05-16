@@ -71,6 +71,5 @@ _If you use f4Player and want to be in the list, mention me with **#f4Player** [
 [6]: http://skyturk360.com/canli.asp
 [7]: http://gradiska.tv/index.php?page=video&page2=1&video=2012-12-27_10-38_paketicicenatarzasocrad&cat=Novosti
 [8]: http://mirtom.pl/
-[9]: https://twitter.com/gokercebeci
 
 

@@ -66,6 +66,6 @@
 				</div>
 			</div>
 		</div>
-	    <script src="${appPath}/admin/jscript/user.js"></script>
+	    <script src="${appPath}/admin/jscript/user/user.js"></script>
 	</body>
 </html>

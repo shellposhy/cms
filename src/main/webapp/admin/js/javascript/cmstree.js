@@ -39,7 +39,6 @@ function mmTreeShow() {
 					demoContent.curExpandNode = a.getParentNode();
 				}
 			}
-			// 左侧菜单样式
 			$("#cmstree").hover(function() {
 				if (!$("#cmstree").hasClass("showIcon")) {
 					$("#cmstree").addClass("showIcon");
@@ -47,7 +46,6 @@ function mmTreeShow() {
 			}, function() {
 				$("#cmstree").removeClass("showIcon");
 			});
-			// 左侧菜单隐藏
 			$("#hideMenuTree").click(function() {
 				$(".cmsTreeBackground, .content_main").toggleClass("menuHide");
 			});
@@ -609,16 +607,16 @@ function treeRadioCom(objTreeId, objzNodes, isOnlyChild) {
 	}
 }
 
-/*
+/**
  * 分级平铺模式展示 
- * objTileId 为树状平铺列表目标对象ul data为json数据
+ * @param objTileId 为树状平铺列表目标对象ul 
+ * @param data为json数据
  */
 function comTileList(objTileId, data) {
 	var leveMulti = 0;
 	objTileId.html(comTileListT(data), leveMulti)
 	comTileListHover(objTileId);
 }
-
 function comTileListT(Obj, lm) {
 	var data = Obj.children;
 	var rootName = Obj.name;
@@ -626,7 +624,7 @@ function comTileListT(Obj, lm) {
 	if (data != null) {
 		var leveMultiTmp = 0;
 		var leveMultiTmpMin = 0;
-		for (var i = 0; i < dataLen; i++) { // 检查子节点是否有一组超过5
+		for (var i = 0; i < dataLen; i++) {
 			if (data[i].children != null && data[i].children.length > 12) {
 				leveMultiTmp++;
 			}

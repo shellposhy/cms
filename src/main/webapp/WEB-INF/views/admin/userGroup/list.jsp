@@ -34,6 +34,6 @@
 			</tfoot>
 		</table>
 	</div>
-	<script src="${appPath}/admin/jscript/userGroup.js"></script>
+	<script src="${appPath}/admin/jscript/user/userGroup.js"></script>
 	</body>
 </html>
