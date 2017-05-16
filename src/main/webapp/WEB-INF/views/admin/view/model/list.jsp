@@ -2,7 +2,7 @@
 <html>
 	<body>
 		<div id="content" class='span12 tree_separated' >
-			<div class="mt10">
+			<div class="breadcrumb_warp">
 				<ul class="breadcrumb ind_f_tree" value="22">
 					<li><a href="${appPath }/admin" target="_self">${appName}</a> <span class="divider">/</span></li>
 					<li><a href="#">模板管理</a></li>

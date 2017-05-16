@@ -8,7 +8,11 @@ package cn.com.cms.analyze.model;
  */
 public class Analyze {
 
-	// 执行方法
+	/**
+	 * 执行方法
+	 * 
+	 * @return
+	 */
 	public void execute() {
 	}
 }

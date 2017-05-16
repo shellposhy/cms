@@ -7,6 +7,8 @@ package cn.com.cms.analyze.wrap;
  * @version 1.0
  */
 public class Wrapper<T> {
+
+	// 对象
 	public final T object;
 
 	public Wrapper(T object) {

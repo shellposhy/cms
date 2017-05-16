@@ -1,4 +1,4 @@
-package cn.com.cms.library.controller.base;
+package cn.com.cms.library.controller.model;
 
 import java.util.ArrayList;
 import java.util.Date;

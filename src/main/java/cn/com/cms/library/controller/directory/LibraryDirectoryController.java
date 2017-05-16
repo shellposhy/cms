@@ -1,4 +1,4 @@
-package cn.com.cms.library.controller;
+package cn.com.cms.library.controller.directory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,7 +23,7 @@ import cn.com.cms.library.model.DataBase;
  */
 @Controller
 @RequestMapping("/admin/system/library/directory")
-public class SystemDirectoryController extends BaseDirectoryController<DataBase> {
+public class LibraryDirectoryController extends BaseDirectoryController<DataBase> {
 	protected ELibraryType getLibType() {
 		return ELibraryType.SYSTEM_DATA_BASE;
 	}

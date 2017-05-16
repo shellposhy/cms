@@ -39,6 +39,7 @@ public class DataVo {
 	private String year = "";
 	private String month = "";
 	private String day = "";
+	private String attach = "";
 	private Map<String, String> fieldMap = new HashMap<String, String>();
 
 	public DataVo() {
@@ -252,5 +253,13 @@ public class DataVo {
 
 	public void putFieldMap(String key, String value) {
 		this.fieldMap.put(key, value);
+	}
+
+	public String getAttach() {
+		return attach;
+	}
+
+	public void setAttach(String attach) {
+		this.attach = attach;
 	}
 }

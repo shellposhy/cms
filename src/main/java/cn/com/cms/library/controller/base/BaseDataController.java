@@ -193,6 +193,14 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {
 				DataVo dataVO = new DataVo(document);
+				Integer dataId = Integer.parseInt(document.get(FieldCodes.ID));
+				Integer tableId = Integer.valueOf(document.get(FieldCodes.TABLE_ID));
+				List<String> imageList = libraryDataService.findDataImgs(tableId, dataId);
+				if (null != imageList && imageList.size() > 0)
+					dataVO.setImg(imageList.get(0));
+				String attach = document.get(FieldCodes.ATTACH);
+				if (!Strings.isNullOrEmpty(attach))
+					dataVO.setAttach(attach);
 				dataVoList.add(dataVO);
 			}
 		}

@@ -1,22 +1,22 @@
 /**
- * 页面初始化
- */
+ * database general JavaScript
+ * @author shishb
+ * @see javascript
+ * @version 1.0
+ * */
 $(document).ready(function() {
 	// list
 	init_directory_tree();
 	bind_search();
-
 	// edit
 	init_lib_edit();
 	bind_validate();
 	inin_check_data_option(); 
 	init_display_fields(); 
 });
-
-//定义公共参数
 var thisPath = appPath + "/admin/system/library/";
 
-// 初始化目录树
+//init database tree 
 function init_directory_tree() {
 	if ($("#directoryTree").length > 0) {
 		var url = thisPath + "tree";
@@ -28,14 +28,14 @@ function init_directory_tree() {
 			contentType : 'application/json',
 			success : function(data) {
 				if (data != null) {
-					menuTreeCom($("#directoryTree"), data, true,node_click);
+					menuTreeCom($("#directoryTree"), data, true,node_click,"/admin/system/library/");
 				}
 			}
 		});
 	}
 }
 
-//节点被点击事件
+//bind the database tree click event
 function node_click(nodeId, nodeType, isDir) {
 	$("#libId").val(nodeId);
 	var treeObj = $.fn.zTree.getZTreeObj("directoryTree");
@@ -46,17 +46,12 @@ function node_click(nodeId, nodeType, isDir) {
 		$('#search_u_db_btn').hide();
 		$('#libraries').show();
 		$('#data_content').hide();
-		//目录
-		if (nodeType) {
+		if (nodeType) {//directory
 			find_by_parentId(nodeId);
-		} 
-		//库
-		else {
+		}else {//library
 			find_by_parentId_init(nodeId);
 		}
-	} 
-	//非目录节点
-	else {
+	}else {//not catalog
 		$('#search_u_db').hide();
 		$('#search_u_db_btn').hide();
 		$('#libraries').hide();
@@ -66,7 +61,7 @@ function node_click(nodeId, nodeType, isDir) {
 
 }
 
-// 添加目录
+//add database directory
 function add_directory(selid) {
 	var url = appPath + "/admin/system/library/directory/new/";
 	if (selid > 0) {
@@ -79,7 +74,7 @@ function add_directory(selid) {
 
 
 
-//调用当选中节点为目录节点且不为父节点，初始化右侧为2个添加按钮图标
+//when the current database node has not database library,add two buttons
 function find_by_parentId_init(parentId) {
 	var libMenu="";
 	libMenu+='<li id="add_library">';
@@ -93,7 +88,7 @@ function find_by_parentId_init(parentId) {
 	$("#libraries").html(libMenu);
 }
 
-//调用当选中节点为目录节点且为父节点，按照父节点查询初始化右侧子节点内容
+//when the current database node is the parent node,loading the database node what the parent node is the current database node
 function find_by_parentId(parentId) {
 	$("#libId").val(parentId);
 	var treeObj = $.fn.zTree.getZTreeObj("directoryTree");
@@ -106,9 +101,9 @@ function find_by_parentId(parentId) {
 		success : function(data) {
 			$("#libraries").html("");
 			if (data != null) {
-				var testData = data[0];
-				var testDataType = testData.nodeType;
-				if (testDataType == "Lib") {
+				var data_node = data[0];
+				var node_type = data_node.nodeType;
+				if (node_type == "Lib") {
 					var libMenu="";
 					libMenu+='<li id="add_lib">';
 					libMenu+=' <a href="'+ thisPath+ "new/"+ $("#libId").val()+ '"><div class="addimg_db"></div></a>';
@@ -117,18 +112,23 @@ function find_by_parentId(parentId) {
 					$("#libraries").html(libMenu);
 					for (var i = 0; i < data.length; i++) {
 						var editLink = "";
-						editLink += "<li id='dbv_"+ data[i].id+ "'><a class='' target='_blank' href='javascript:init_library("+ data[i].id+ ",false)' target='_self' ><div class='dbimg'></div></a>";
-						editLink += "<span class='dbname'><i class='dbname'>"+ data[i].name+ "</i></span> <span class='dbtime'>更新时间：<br />"+ data[i].dataUpdateTimeStr + "</span>";
-						editLink += "<div class='actions' ><a title='修改数据库' class='btn btn-small db_edit pop_link cboxElement' href='"+ thisPath+ "edit/"+ data[i].id+ "' target='_self'><i class='icon-pencil'></i></a>";
-						editLink += "<a title='删除数据库' class='btn btn-small ml3 db_del' href='#' onclick='delete_lib("+ data[i].id+ ")' target='_self'><i class='icon-trash'></i></a>";
-						editLink += "<a class='lh30 block db_repair mt10' href='#' onclick='repair_lib("+ data[i].id+ ")' target='_self'>修复数据库</a>";
-						editLink += "</div><div class='progress progress-striped progress-success active none'><div class='bar'></div></div> </li>";
+						editLink += "<li id='dbv_"+ data[i].id+ "'>";
+						editLink +=	"	<a class='' target='_blank' href='javascript:init_library("+ data[i].id+ ",false)' target='_self' ><div class='dbimg'></div></a>";
+						editLink += "	<span class='dbname'><i class='dbname'>"+ data[i].name+ "</i></span>";
+						editLink += "	<span class='dbtime'>更新时间：<br />"+ data[i].dataUpdateTimeStr + "</span>";
+						editLink += "	<div class='actions' >";
+						editLink +="		<a title='修改数据库' class='btn btn-small db_edit pop_link cboxElement' href='"+ thisPath+ "edit/"+ data[i].id+ "' target='_self'><i class='icon-pencil'></i></a>";
+						editLink += "		<a title='删除数据库' class='btn btn-small ml3 db_del' href='#' onclick='delete_lib("+ data[i].id+ ")' target='_self'><i class='icon-trash'></i></a>";
+						editLink += "		<a class='lh30 block db_repair mt10' href='#' onclick='repair_lib("+ data[i].id+ ")' target='_self'>修复数据库</a>";
+						editLink += "	</div>";
+						editLink += "	<div class='progress progress-striped progress-success active none'><div class='bar'></div></div>";
+						editLink += "</li>";
 						$("#libraries").append(editLink);
 						if (data[i].status == "Repairing") {
 							repair_pregress(data[i].id, data[i].taskId);
 						}
 					}
-				} else if (testDataType == "Directory") {
+				} else if (node_type == "Directory") {
 					var libMenu="";
 					libMenu+='<li id="add_library">';
 					libMenu+='		<a href="'+ thisPath+ "directory/new/"+ $("#libId").val()+ '"><div class="addimg_db"></div></a>';
@@ -137,11 +137,15 @@ function find_by_parentId(parentId) {
 					$("#libraries").html(libMenu);
 					for (var i = 0; i < data.length; i++) {
 						var editLink = "";
-						editLink += "<li id='dbv_"+ data[i].id+ "'> <a class='' target='_blank' href='"+ "javascript:init_library("+ data[i].id+ ",true"+ ")"+ "' target='_self' ><div class='dbimg'></div></a>";
-						editLink += "<span class='dbname'><i class='dbname'>"+ data[i].name + "</i></span>";
-						editLink += "<div class='actions' ><a title='修改目录' class='btn btn-small db_edit pop_link cboxElement' href='"+ thisPath+ "directory/"+ data[i].id+ "/edit"+ "' target='_self'><i class='icon-pencil'></i></a>";
-						editLink += "<a title='删除目录' class='btn btn-small ml3 db_del' href='#' onclick='delete_library("+ data[i].id+ ")' target='_self'><i class='icon-trash'></i></a>";
-						editLink += "</div><div class='progress progress-striped progress-success active none'><div class='bar'></div></div> </li>";
+						editLink += "<li id='dbv_"+ data[i].id+ "'>";
+						editLink += "	<a class='' target='_blank' href='"+ "javascript:init_library("+ data[i].id+ ",true"+ ")"+ "' target='_self' ><div class='dbimg'></div></a>";
+						editLink += "	<span class='dbname'><i class='dbname'>"+ data[i].name + "</i></span>";
+						editLink += "	<div class='actions' >";
+						editLink += "		<a title='修改目录' class='btn btn-small db_edit pop_link cboxElement' href='"+ thisPath+ "directory/"+ data[i].id+ "/edit"+ "' target='_self'><i class='icon-pencil'></i></a>";
+						editLink += "		<a title='删除目录' class='btn btn-small ml3 db_del' href='#' onclick='delete_library("+ data[i].id+ ")' target='_self'><i class='icon-trash'></i></a>";
+						editLink += "	</div>";
+						editLink += "	<div class='progress progress-striped progress-success active none'><div class='bar'></div></div>";
+						editLink += "</li>";
 						$("#libraries").append(editLink);
 					}
 				}
@@ -150,30 +154,25 @@ function find_by_parentId(parentId) {
 	});
 }
 
-//调用当选中节点为数据库节点的时候，右侧为数据列表的内容
-function find_data_by_libId(parentId) {
-	$("#libId").val(parentId);
+//when the current database node is the library,loading the data
+function find_data_by_libId(libId) {
+	$("#libId").val(libId);
 	var treeObj = $.fn.zTree.getZTreeObj("directoryTree");
-	var treenode = treeObj.getNodeByParam("id", parentId, null);
+	var treenode = treeObj.getNodeByParam("id", libId, null);
 	$("#colname").html(treenode.name);
 	$('#into_as_search').attr("href",appPath + '/admin/data/as');
 	$('#colDatas thead tr th, #colDatas tfoot tr th').remove();
 	$('#colDatas thead tr').append('<th><label class="checkbox inline"><input type="checkbox" class="selAll" />标题</label></th>');
 	$('#colDatas tfoot tr').append('<th>标题</th>');
-	var headTitle = [ {
+	var headTitle = [{
 		"mData" : "title",
 		"fnRender" : function(obj) {
-			var sumImg = "";
-			var attach = "";
-			if (obj.aData.img) {
-				sumImg = '<div class="sum_img_div"><img class="list_sum_img" src="'+ obj.aData.img + '"/></div>';
-			}
-			if (obj.aData.attach) {
-				attach = " <span class='icon icon-blue icon-attachment'></span>";
-			}
+			var sumImg ='',attach ='';
+			if (obj.aData.img) sumImg = '<div class="sum_img_div"><img class="list_sum_img" src="'+ obj.aData.img + '"/></div>';
+			if (obj.aData.attach) attach = '<span class="icon icon-blue icon-attachment"></span>';
 			return '<h3>'
 						+'	<label class="checkbox inline mt0">'
-						+'		<input type="checkbox" id="inlineCheckbox'+ obj.aData.id+ '" name="idStr'+ obj.aData.id+ '" value="'+ obj.aData.id+ '_'+ obj.aData.tableId+ '" style="opacity: 0;" >'
+						+'		<input type="checkbox" id="inlineCheckbox'+ obj.aData.id+ '" name="idStr'+ obj.aData.id+ '" value="'+ obj.aData.id+ '_'+ obj.aData.tableId+ '" style="opacity: 0;">'
 						+ '	</label>'
 						+'	<a class="data_title edit_pop_link" href="'+ thisPath+ 'data/edit/'+ obj.aData.tableId+ '/'+ obj.aData.id+ '" target="_blank">'+ obj.aData.title+ '</a>'
 						+ '	<a class="padmbt btn floatr none edit_pop_link" href = "'+ thisPath+ 'data/info/'+ obj.aData.tableId+ '/'+ obj.aData.id+ '" target="_blank"><i class="icon-eye-open" title="稿件预览"></i></a>'
@@ -181,22 +180,20 @@ function find_data_by_libId(parentId) {
 					+'<p class="summary clearfix" >'+ sumImg+ obj.aData.summary + attach + '</p>';
 		}
 	} ];
-	var add_data_url = appPath + "/admin/system/library/data/new/" + parentId;
+	var add_data_url = appPath + "/admin/system/library/data/new/" + libId;
 	$('#add_to_dsu').attr('href', add_data_url);
 	$.ajax({
-		url : appPath + "/admin/system/library/data/tablehead/" + parentId,
+		url : appPath + "/admin/system/library/data/tablehead/" + libId,
 		async : false,
 		success : function(data) {
 			for (var i = 0; i < data.length; i++) {
-				var mData = {
-					"mData" : data[i].codeName
-				};
+				var mData = {"mData" : data[i].codeName};
 				headTitle.push(mData);
 				$('#colDatas thead tr,#colDatas tfoot tr').append("<th>" + data[i].name + "</th>");
 			}
 		}
 	});
-	dataTablesCom($('#colDatas'), "/admin/system/library/data/search/" + parentId,headTitle, null, callback_library_data, true);
+	dataTablesCom($('#colDatas'), "/admin/system/library/data/search/" + libId,headTitle, null, callback_library_data, true);
 }
 
 

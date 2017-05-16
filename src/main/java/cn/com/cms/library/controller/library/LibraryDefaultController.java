@@ -1,4 +1,4 @@
-package cn.com.cms.library.controller;
+package cn.com.cms.library.controller.library;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -25,7 +25,7 @@ import cn.com.cms.library.model.DataBase;
  */
 @Controller
 @RequestMapping("/admin/system/library")
-public class SystemLibraryController extends BaseLibraryController<DataBase> {
+public class LibraryDefaultController extends BaseLibraryController<DataBase> {
 
 	protected ELibraryType getLibType() {
 		return ELibraryType.SYSTEM_DATA_BASE;
@@ -61,14 +61,14 @@ public class SystemLibraryController extends BaseLibraryController<DataBase> {
 		return super.edit(id, model);
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(@Valid final DataBase library, BindingResult result, Model model, HttpServletRequest request) {
-		return super.save(library, result, model, request);
-	}
-
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	public String delete(@PathVariable("id") Integer id) {
 		return super.delete(id);
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(@Valid final DataBase library, BindingResult result, Model model, HttpServletRequest request) {
+		return super.save(library, result, model, request);
 	}
 
 	@RequestMapping(value = "/displayFields/{modelId}")

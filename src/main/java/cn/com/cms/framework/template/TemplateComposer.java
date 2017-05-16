@@ -197,8 +197,6 @@ public class TemplateComposer {
 				if (null != tag.getAttribute("href")) {
 					String str = tag.getAttribute("href");
 					if (null != str && !str.contains("http")) {
-						// result = result.replace(str, path + "/" + str);
-						// 注意路径问题
 						result = result.replace(str, str);
 					}
 				}
@@ -206,8 +204,6 @@ public class TemplateComposer {
 					String str = tag.getAttribute("src");
 					if (null != str && !str.contains("http")) {
 						if (!str.contains("$")) {
-							// result = result.replace("src=\"" + str, "src=\""
-							// + path + "/" + str);
 							result = result.replace("src=\"" + str, "src=\"" + str);
 						}
 					}

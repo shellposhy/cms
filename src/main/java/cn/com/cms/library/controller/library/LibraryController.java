@@ -1,4 +1,4 @@
-package cn.com.cms.library.controller.base;
+package cn.com.cms.library.controller.library;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

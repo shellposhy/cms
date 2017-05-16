@@ -1,4 +1,4 @@
-package cn.com.cms.library.controller;
+package cn.com.cms.library.controller.data;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ import cn.com.cms.library.model.DataBase;
  */
 @Controller
 @RequestMapping("/admin/system/library/data")
-public class SystemDataController extends BaseDataController<DataBase> {
+public class LibraryDataController extends BaseDataController<DataBase> {
 
 	protected ELibraryType getLibType() {
 		return ELibraryType.SYSTEM_DATA_BASE;
