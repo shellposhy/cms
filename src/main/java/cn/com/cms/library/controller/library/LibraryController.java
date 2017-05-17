@@ -20,6 +20,7 @@ import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.model.BaseLibrary;
+import cn.com.cms.library.service.LibraryDirectoryService;
 import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.user.model.User;
 
@@ -33,7 +34,8 @@ import cn.com.cms.user.model.User;
 @RequestMapping("/admin/library")
 public class LibraryController extends BaseController {
 	private static Logger log = Logger.getLogger(LibraryController.class.getName());
-
+	@Resource
+	private LibraryDirectoryService<?> libraryDirectoryService;
 	@Resource
 	private LibraryService<?> libraryService;
 	@Resource
@@ -59,14 +61,23 @@ public class LibraryController extends BaseController {
 	}
 
 	@RequestMapping("/{id}/delete")
-	public String delete(@PathVariable Integer id, HttpServletResponse response) {
+	public MappingJacksonJsonView delete(@PathVariable Integer id, HttpServletResponse response) {
 		log.debug("====library or directory delete===");
+		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		BaseLibrary<?> library = libraryService.find(id);
 		if (library.getNodeType() == ELibraryNodeType.Directory) {
-			return "redirect:/admin/system/library/directory/" + id + "/delete";
+			if (libraryDirectoryService.hasChildren(id)) {
+				mv.addStaticAttribute("error", true);
+				mv.addStaticAttribute("msg", "该分类下有子分类或者数据库，无法删除！");
+			} else {
+				libraryDirectoryService.delete(id);
+				mv.addStaticAttribute("error", false);
+			}
 		} else {
-			return "redirect:/admin/system/library/delete/" + id;
+			libraryService.deleteDatabase(id);
+			mv.addStaticAttribute("error", false);
 		}
+		return mv;
 	}
 
 	/**

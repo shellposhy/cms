@@ -129,10 +129,7 @@ function mmTreeShow() {
 	demoContent._init();
 }
 
-/*
- * 从json结构转换成tree node节点数据
- * 
- */
+//from the json data value to tree node data
 function jsonToNodesMm(data, nodes) {
 	if (data != null) {
 		var categories = data.children;
@@ -233,7 +230,7 @@ function menuTreeCom(objTreeId, objzNodes, iSCanSelParent, fnOnClick, strUrl,add
 			}
 		};
 
-		// 编辑分类按钮设置
+		//callback edit function
 		function addHoverDom(treeId, treeNode) {
 			var sObj = $("#" + treeNode.tId + "_span");
 			if (treeNode.editNameFlag|| $("#reModBtn_" + treeNode.id).length > 0)
@@ -246,7 +243,7 @@ function menuTreeCom(objTreeId, objzNodes, iSCanSelParent, fnOnClick, strUrl,add
 			$("#reModBtn_" + treeNode.id).unbind().remove();
 		};
 
-		// 删除分类回调函数
+		//callback delete function
 		function zTreeBeforeRemove(treeId, treeNode) {
 			$(".noty_bar").hide().click();
 			if (confirm("确定删除?")) {
@@ -258,13 +255,7 @@ function menuTreeCom(objTreeId, objzNodes, iSCanSelParent, fnOnClick, strUrl,add
 					async : false,
 					success : function(data) {
 						if (data.error) {
-							noty({
-								"text" : data.msg,
-								"layout" : "top",
-								"type" : "information",
-								"closeWith" : [ 'click' ],
-								"animateOpen" : {"opacity" : "show"}
-							});
+							noty({"text" : data.msg,"layout" : "center","type" : "error","closeWith" : [ 'click' ],"animateOpen" : {"opacity" : "show"}});
 							return false;
 						} else {
 							result = true;
@@ -370,9 +361,6 @@ function jsonToNodes(data, nodes) {
 function isArray(obj) {
 	return (typeof obj == 'object') && obj.constructor == Array;
 }
-
-// 样本数据
-var zNodesTreeNew = [ {id : 1,pId : 0,name : '首页',iconSkin : "menu_home"}, {id : 2,pId : 0,name : 'CMS',iconSkin : "menu_cms"}, {id : 21,pId : 2,name : '内容管理'}, {id : 22,pId : 2,name : '专题管理'}, {id : 23,pId : 2,name : '页面管理'}, {id : 24,pId : 2,name : '模板管理'}, {id : 25,pId : 2,name : '查询'}, {id : 3,pId : 0,name : '数据库',iconSkin : "menu_db"}, {id : 31,pId : 3,name : '系统数据库'}, {id : 32,pId : 3,name : '用户数据库'}, {id : 33,pId : 2,name : '数据分类'}, {id : 34,pId : 3,name : '查询'}, {id : 4,pId : 0,name : '媒体库',iconSkin : "menu_media"}, {id : 41,pId : 4,name : '图片库'}, {id : 42,pId : 4,name : '视频库'}, {id : 43,pId : 4,name : '查询'}, {id : 5,pId : 0,name : '系统',iconSkin : "menu_sys"}, {id : 51,pId : 5,name : '系统设置'}, {id : 52,pId : 5,name : '用户管理'}, {id : 53,pId : 5,name : '用户组管理'}, {id : 54,pId : 5,name : '数据模型'}, {id : 55,pId : 5,name : '日志管理'}, {id : 56,pId : 5,name : '浏览分析报告'}, {id : 57,pId : 5,name : '工作量统计'}];
 
 /*
  * 通用下拉选择列表-多选

@@ -174,6 +174,8 @@ function find_by_parentId(parentId) {
 //when the current database node is the library,loading the data
 function find_data_by_libId(libId) {
 	$("#libId").val(libId);
+	$('#search_u_db').hide();
+	$('#search_u_db_btn').hide();
 	var treeObj = $.fn.zTree.getZTreeObj("directoryTree");
 	var treenode = treeObj.getNodeByParam("id", libId, null);
 	$("#colname").html(treenode.name);

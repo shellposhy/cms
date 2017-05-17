@@ -7,40 +7,40 @@ package cn.com.cms.framework.base;
  * @version 1.0
  */
 public class Return<T> {
-	private boolean success;
-	private String code;
-	private String message;
-	private T model;
+	private boolean error;
+	private String errorCode;
+	private String errorMessage;
+	private T result;
 
-	public boolean isSuccess() {
-		return success;
+	public boolean isError() {
+		return error;
 	}
 
-	public void setSuccess(boolean success) {
-		this.success = success;
+	public void setError(boolean error) {
+		this.error = error;
 	}
 
-	public String getCode() {
-		return code;
+	public String getErrorCode() {
+		return errorCode;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
-	public T getModel() {
-		return model;
+	public T getResult() {
+		return result;
 	}
 
-	public void setModel(T model) {
-		this.model = model;
+	public void setResult(T result) {
+		this.result = result;
 	}
 }
