@@ -64,7 +64,7 @@
 			<div class="fontlt">查看组</div> 
 			<span class="notification yellow">查看</span>
 		</a>
-		<a data-rel="tooltip" class="well span4 top-block padtb20" href="${appPath}/admin/log/statistical" target="_self" data-original-title="数据统计服务">
+		<a data-rel="tooltip" class="well span4 top-block padtb20" href="${appPath}/admin/report" target="_self" data-original-title="数据统计服务">
 			<span class="icon32 icon-color icon-star-on"></span>
 			<div>日志报告</div>
 			<div class="fontlt">查看</div>
