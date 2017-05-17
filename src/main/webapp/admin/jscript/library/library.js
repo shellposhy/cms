@@ -374,7 +374,7 @@ function repair_lib(id) {
 						}
 					});
 				};
-				setInterval(oShowProgress, 5000);
+				var intInterval=setInterval(oShowProgress, 5000);
 			}
 		});
 	}
@@ -409,7 +409,7 @@ function repair_pregress(id, data) {
 			}
 		});
 	};
-	setInterval(oShowProgress, 5000);
+	var intIntervalPre=setInterval(oShowProgress, 5000);
 }
 
 //validate the form
