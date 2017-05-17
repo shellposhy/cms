@@ -39,8 +39,8 @@ import cn.com.cms.library.service.LibraryModelService;
 import cn.com.cms.library.vo.ColumnModelVo;
 import cn.com.cms.system.contant.ETaskStatus;
 import cn.com.cms.system.contant.ETaskType;
+import cn.com.cms.system.dao.TaskMapper;
 import cn.com.cms.system.model.Task;
-import cn.com.cms.system.service.TaskService;
 import cn.com.cms.user.model.User;
 
 /**
@@ -65,7 +65,7 @@ public class LibraryModelController extends BaseController {
 	@Resource
 	private UserSecurityService userSecurityService;
 	@Resource
-	private TaskService taskService;
+	private TaskMapper taskMapper;
 
 	/**
 	 * 进入模板列表页
@@ -207,7 +207,7 @@ public class LibraryModelController extends BaseController {
 					columnModelService.update(columnModel);
 					// 更新数据库模板时，写入任务调度，负责维护数据库字段和数据
 					Task task = new Task();
-					task.setName(columnModel.getName() + ":模板编辑");
+					task.setName("Library_Model_Edit_" + columnModelId);
 					task.setCode(CharacterPinyinUtil.converterToFirstSpell(columnModel.getName()));
 					task.setTaskType(ETaskType.MODEL_EDIT);
 					task.setOwnerId(currentId);
@@ -216,7 +216,7 @@ public class LibraryModelController extends BaseController {
 					task.setModelId(columnModel.getId());
 					task.setCreateTime(new Date());
 					task.setUpdateTime(new Date());
-					taskService.save(task);
+					taskMapper.insert(task);
 				} else {
 					columnModel.setCreatorId(currentId);
 					columnModel.setCreateTime(new Date());

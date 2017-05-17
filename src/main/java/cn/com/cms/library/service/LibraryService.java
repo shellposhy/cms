@@ -676,8 +676,8 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 		}
 		TaskMessage taskMessage = new TaskMessage();
 		Task task = new Task();
-		task.setName("Repair Library_" + baseId);
-		task.setCode("Repair Library_" + baseId);
+		task.setName("Repair_Library_" + baseId);
+		task.setCode("Repair_Library_" + baseId);
 		task.setTaskType(ETaskType.DB_REPAIR);
 		task.setTaskStatus(ETaskStatus.Preparing);
 		task.setProgress(0);
