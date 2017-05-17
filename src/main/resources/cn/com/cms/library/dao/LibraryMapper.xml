@@ -99,7 +99,6 @@
 		UPDATE data_base SET Task_ID = #{taskId} WHERE ID=#{id}
 	</update>
 
-
 	<update id="updateDataUpdateTime">
 		UPDATE data_base SET Data_Update_Time = NOW() WHERE ID=#{id}
 	</update>

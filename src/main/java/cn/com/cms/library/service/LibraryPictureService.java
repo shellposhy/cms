@@ -18,7 +18,7 @@ import cn.com.cms.data.util.DataUtil;
  * @version 1.0
  */
 @Service
-public class PictureService {
+public class LibraryPictureService {
 	@Resource
 	private ImagePathService imagePathService;
 

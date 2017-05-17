@@ -11,10 +11,25 @@ $(document).ready(function() {
 	// edit
 	init_lib_edit();
 	bind_validate();
-	inin_check_data_option(); 
 	init_display_fields(); 
 });
 var thisPath = appPath + "/admin/system/library/";
+
+//the edit database tree list
+function init_lib_edit() {
+	if ($("#categories_tree_radio").length > 0) {
+		var url = thisPath + "/directory/tree";
+		if ($("#categories_tree_radio")[0]) {
+			$.ajax({
+				url : url,
+				success : function(data) {
+					treeRadioCom($("#categories_tree_radio .treeNew"),data.children, true);
+					setTimeout("$('.treeSelId').click()", 800);
+				}
+			});
+		}
+	}
+}
 
 //init database tree 
 function init_directory_tree() {
@@ -233,11 +248,25 @@ function init_library(parentId, isDir) {
 	}
 }
 
-//delete library
+//delete directory
 function delete_library(id) {
 	if (confirm("确定删除?")) {
 		$.ajax({
 			url : thisPath + "directory/" + id + "/delete",
+			type : 'POST',
+			success : function(response) {
+				$('#dbv_' + id).remove();
+			}
+		});
+	} else
+		return false;
+}
+
+//delete library
+function delete_lib(id) {
+	if (confirm("确定删除?")) {
+		$.ajax({
+			url : thisPath + "delete/" + id,
 			type : 'POST',
 			success : function(response) {
 				$('#dbv_' + id).remove();
@@ -270,12 +299,17 @@ function bind_search() {
 						$("#libraries").html(libMenu);
 						for (var i = 0; i < data.length; i++) {
 							var editLink = "";
-							editLink += "<li id='dbv_"+ data[i].id+ "'> <a class='' target='_blank' href='"+ thisPath+ 'data/'+ data[i].id+ "' target='_self' ><div class='dbimg'></div></a>";
-							editLink += "<span class='dbname'><i class='dbname'>"+ data[i].name+ "</i></span> <span class='dbtime'>更新时间：<br />"+ data[i].dataUpdateTimeStr+ "</span>";
-							editLink += "<div class='actions' ><a class='btn btn-small db_edit' href='"+ thisPath+ "edit/"+ data[i].id+ "' target='_self'><i class='icon-pencil'></i>修改</a>";
-							editLink += "<a class='btn btn-small ml5 db_del' href='#' onclick='delete_lib("+ data[i].id+ ")' target='_self'><i class='icon-trash'></i>删除</a>";
-							editLink += "<a class='lh30 block db_repair mt10' href='#' onclick='repair_lib("+ data[i].id+ ")' target='_self'>修复数据库</a>";
-							editLink += "</div><div class='progress progress-striped progress-success active none'><div class='bar'></div></div> </li>";
+							editLink += "<li id='dbv_"+ data[i].id+ "'>";
+							editLink += "	<a class='' target='_blank' href='"+ thisPath+ 'data/'+ data[i].id+ "' target='_self' ><div class='dbimg'></div></a>";
+							editLink += "	<span class='dbname'><i class='dbname'>"+ data[i].name+ "</i></span>";
+							editLink += "	<span class='dbtime'>更新时间：<br />"+ data[i].dataUpdateTimeStr+ "</span>";
+							editLink += "	<div class='actions' >";
+							editLink += "		<a class='btn btn-small db_edit' href='"+ thisPath+ "edit/"+ data[i].id+ "' target='_self'><i class='icon-pencil'></i>修改</a>";
+							editLink += "		<a class='btn btn-small ml5 db_del' href='#' onclick='delete_lib("+ data[i].id+ ")' target='_self'><i class='icon-trash'></i>删除</a>";
+							editLink += "		<a class='lh30 block db_repair mt10' href='#' onclick='repair_lib("+ data[i].id+ ")' target='_self'>修复数据库</a>";
+							editLink += "	</div>";
+							editLink += "	<div class='progress progress-striped progress-success active none'><div class='bar'></div></div>";
+							editLink += "</li>";
 							$("#libraries").append(editLink);
 							if (data[i].status == "Repairing") {
 								repair_pregress(data[i].id,data[i].taskId);
@@ -305,55 +339,11 @@ function bind_search() {
 	});
 }
 
-// 初始化库的编辑页
-function init_lib_edit() {
-	if ($("#categories_tree_radio").length > 0) {
-		var url = thisPath + "/directory/tree";
-		if ($("#categories_tree_radio")[0]) {
-			$.ajax({
-				url : url,
-				success : function(data) {
-					treeRadioCom($("#categories_tree_radio .treeNew"),data.children, true);
-					setTimeout("$('.treeSelId').click()", 800);
-				}
-			});
-		}
-	}
-}
-
-// 添加数据库
-function add_lib(thishref, selid, isSel, isParent) {
-	if (isSel == true) {
-		if (isParent == false) {
-			window.location.href = thisPath + selid + "/new";
-		} else {
-			alert("请选择分类子节点以添加数据库");
-			return false;
-		}
-	} else {
-		alert("请选择分类节点以添加数据库");
-	}
-}
-
-// 删除数据库
-function delete_lib(id) {
-	if (confirm("确定删除?")) {
-		$.ajax({
-			url : thisPath + "delete/" + id,
-			type : 'POST',
-			success : function(response) {
-				$('#dbv_' + id).remove();
-			}
-		});
-	} else
-		return false;
-}
-
-// 修复数据库 重建索引
+//repair the database index
 function repair_lib(id) {
 	function repair(id) {
 		$.ajax({
-			url : thisPath + "repair/" + id,
+			url : thisPath + "data/repair/" + id,
 			type : 'POST',
 			success : function(data) {
 				var thisact = $('#dbv_' + id).find(".actions");
@@ -377,14 +367,7 @@ function repair_lib(id) {
 								thispro.hide();
 								thisact.show();
 								clearInterval(intInterval);
-								noty({
-									"text" : "修复成功！",
-									"layout" : "center",
-									"type" : "alert",
-									"animateOpen" : {
-										"opacity" : "show"
-									}
-								});
+								noty({"text" : "修复成功！","layout" : "center","type" : "success","animateOpen" : {"opacity" : "show"}});
 							}
 						}
 					});
@@ -393,11 +376,10 @@ function repair_lib(id) {
 			}
 		});
 	}
-	// 设置确认弹出框
 	comConfirmModel(repair, id, "确定修复", "修复将耗时较长，确定修复?");
 }
 
-// 获取数据库的修复进度状态
+//catch the repairing database processing
 function repair_pregress(id, data) {
 	var thisact = $('#dbv_' + id).find(".actions");
 	thisact.hide();
@@ -420,14 +402,7 @@ function repair_pregress(id, data) {
 					thispro.hide();
 					thisact.show();
 					clearInterval(intIntervalPre);
-					noty({
-						"text" : "修复成功！",
-						"layout" : "center",
-						"type" : "alert",
-						"animateOpen" : {
-							"opacity" : "show"
-						}
-					});
+					noty({"text" : "修复成功！","layout" : "center","type" : "success","animateOpen" : {"opacity" : "show"}});
 				}
 			}
 		});
@@ -435,46 +410,41 @@ function repair_pregress(id, data) {
 	setInterval(oShowProgress, 5000);
 }
 
-// 绑定验证
+//validate the form
 function bind_validate() {
-	$("#db_new_form").validate(
-			{
-				ignore : "",
-				rules : {
-					name : "required",
-					code : "required",
-					parentID : "required",
-					moreDataFieldsStr : {
-						required : function() {
-							if ($("#moreFields").parents(".feilds_form_box")
-									.hasClass("hiddened")) {
-								return false;
-							} else {
-								return true;
-							}
-						}
+	$("#db_new_form").validate({
+		ignore : "",
+		rules : {
+			name : "required",
+			code : "required",
+			parentID : "required",
+			moreDataFieldsStr : {
+				required : function() {
+					if ($("#moreFields").parents(".feilds_form_box").hasClass("hiddened")) {
+						return false;
+					} else {
+						return true;
 					}
-				},
-				messages : {
-					name : "请填写数据库名称",
-					code : "请填写数据库编号",
-					moreDataFieldsStr : "请自定义一组字段",
-					parentID : "请选择数据库所属分类"
-				},
-				errorPlacement : function(error, element) {
-					error.insertAfter(element);
-
-				},
-				submitHandler : function() {
-					form.submit();
-				},
-				onkeyup : false
-			});
+				}
+			}
+		},
+		messages : {
+			name : "请填写数据库名称",
+			code : "请填写数据库编号",
+			moreDataFieldsStr : "请自定义一组字段",
+			parentID : "请选择数据库所属分类"
+		},
+		errorPlacement : function(error, element) {
+			error.insertAfter(element);
+		},
+		submitHandler : function() {
+			form.submit();
+		},
+		onkeyup : false
+	});
 }
 
-/**
- * 初始化栏目模型，的列表字段显示区域
- */
+//The showing database fields before the database created
 function init_display_fields() {
 	var columnModelId = $("#db_columnModelId").val();
 	var dataFieldIdStr = $('#dataFieldsStr').val();
@@ -534,39 +504,7 @@ function init_display_fields() {
 	}
 }
 
-// 监听数据库模型的选择，初始化字段区域
-function listenModelId() {
-	var columnModelId = $("#db_columnModelId").val();
-	var url = thisPath + "displayFields/" + columnModelId;
-	if (null != columnModelId && "" != columnModelId) {
-		$.ajax({
-			type : "GET",
-			url : url,
-			dataType : 'json',
-			contentType : 'application/json',
-			success : function(data) {
-				var temCheckCon = "";
-				var dataResult = data;
-				var dataSize = data.length;
-				for (var i = 0; i < dataSize; i++) {
-					temCheckCon += "<input  type='checkbox' rel='Reason'      onclick='changeChkVal()'  name='chk'  value='"+ dataResult[i].id+ "' />"+ dataResult[i].name + " ";
-				}
-				$('#columnModelFileds').html("");
-				$('#columnModelFileds').append(temCheckCon);
-				var fieldIds = "";
-				var checkVals = $('#columnModelFileds :checkbox:checked');
-				for (var i = 0; i < checkVals.length; i++) {
-					fieldIds += checkVals[i].value + ",";
-				}
-				$("input:checkbox").uniform();
-				fieldIds = fieldIds.substring(0, fieldIds.length - 1);
-				$('#dataFieldsStr').val(fieldIds);
-			}
-		});
-	}
-};
-
-// 监听列表显示字段复选框勾选状态改变
+//the change database field listener
 function changeChkVal() {
 	var checkElem = document.getElementsByName("chk");
 	var temVal = "";
@@ -577,36 +515,4 @@ function changeChkVal() {
 	}
 	temVal = temVal.substring(0, temVal.length - 1);
 	$('#dataFieldsStr').val(temVal);
-}
-
-// 初始化导入数据是否需要审核Radio选区
-var isCheckImportData = $('#isCheckImportData').val();
-function inin_check_data_option() {
-	if (null != isCheckImportData) {
-		var tenFlag = "0";
-		if (isCheckImportData == "true") {
-			tenFlag = "1";
-		} else {
-			tenFlag = "0";
-		}
-		listenDataCheck(tenFlag);
-	}
-}
-
-// 监听导入数据是否需要审核radio选项变化
-function listenDataCheck(checkFlagValue) {
-	var radios = document.getElementsByName("checkImportData");
-
-	for (var i = 0; i < radios.length; i++) {
-		if (radios[i].value == checkFlagValue) {
-			radios[i].checked = true;
-			break;
-		}
-	}
-	if (checkFlagValue == "1") {
-		$('#isCheckImportData').val("true");
-	} else {
-		$('#isCheckImportData').val("false");
-	}
-
 }

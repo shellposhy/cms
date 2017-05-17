@@ -33,9 +33,17 @@
 			<value>log</value>
 		</constructor-arg>
 	</bean>
+	<bean id="taskQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg>
+            <value>task</value>
+        </constructor-arg>
+    </bean>
 
 	<bean id="logService" class="cn.com.cms.system.service.LogService">
 		<property name="queue" ref="logQueue"></property>
+	</bean>
+	<bean id="taskService" class="cn.com.cms.system.service.TaskService">
+		<property name="queue" ref="taskQueue"></property>
 	</bean>
 
 	<!-- Message Listener -->
@@ -43,6 +51,12 @@
 		<property name="connectionFactory" ref="connectionFactory"></property>
 		<property name="destination" ref="logQueue"></property>
 		<property name="messageListener" ref="logService"></property>
+		<property name="autoStartup" value="true" />
+	</bean>
+	<bean id="taskListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="destination" ref="taskQueue"></property>
+		<property name="messageListener" ref="taskService"></property>
 		<property name="autoStartup" value="true" />
 	</bean>
 </beans>

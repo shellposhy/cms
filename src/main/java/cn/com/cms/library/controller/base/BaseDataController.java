@@ -43,7 +43,7 @@ import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.service.LibraryDataService;
 import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.library.service.LibraryTableService;
-import cn.com.cms.library.service.PictureService;
+import cn.com.cms.library.service.LibraryPictureService;
 import cn.com.cms.library.vo.AttachVo;
 import cn.com.cms.system.service.ImagePathService;
 import cn.com.cms.user.service.UserService;
@@ -90,11 +90,24 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 	@Resource
 	private ImagePathService imagePathService;
 	@Resource
-	private PictureService pictureService;
+	private LibraryPictureService pictureService;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, null);
+	}
+
+	/**
+	 * 修复数据库索引
+	 * 
+	 * @param libId
+	 * @return
+	 */
+	public MappingJacksonJsonView repair(Integer libId) {
+		MappingJacksonJsonView mv = new BaseMappingJsonView();
+		Integer taskId = libraryService.repair(libId);
+		mv.addStaticAttribute("taskId", taskId);
+		return mv;
 	}
 
 	/**
@@ -113,7 +126,6 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 				break;
 			}
 		}
-		// 列表显示字段
 		model.addAttribute("fields", fields);
 		model.addAttribute("dataBase", library);
 		return URL_PREFIX + getLibType().getCode() + "/data/list";

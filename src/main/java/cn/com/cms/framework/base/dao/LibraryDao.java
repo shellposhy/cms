@@ -89,6 +89,8 @@ public interface LibraryDao<T extends BaseLibrary<T>> {
 	public DataTable getDataTable(Integer baseId);
 
 	public void updataStatus(Integer id, EStatus status);
+	
+	public void updateTask(Integer id, Integer taskId);
 
 	public Integer repair(Integer baseId);
 

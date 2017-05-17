@@ -37,6 +37,11 @@ public class LibraryDataController extends BaseDataController<DataBase> {
 		return ELibraryType.SYSTEM_DATA_BASE;
 	}
 
+	@RequestMapping(value = "/repair/{id}")
+	public MappingJacksonJsonView repair(@PathVariable("id") Integer id) {
+		return super.repair(id);
+	}
+
 	@RequestMapping("/{libraryId}")
 	public String list(@PathVariable int libraryId, Model model) {
 		return super.list(libraryId, model);

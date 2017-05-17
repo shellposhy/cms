@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +20,8 @@ import cn.com.cms.base.data.DataTablesVo;
 import cn.com.cms.base.data.JsonPara;
 import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.base.Result;
+import cn.com.cms.system.dao.TaskMapper;
 import cn.com.cms.system.model.Task;
-import cn.com.cms.system.service.TaskService;
 import cn.com.cms.system.vo.TaskVo;
 import cn.com.cms.user.service.UserService;
 
@@ -37,9 +38,18 @@ public class TaskController extends BaseController {
 	@Resource
 	private AppConfig appConfig;
 	@Resource
-	private TaskService taskService;
+	private TaskMapper taskMapper;
 	@Resource
 	private UserService userService;
+
+	@RequestMapping("/progress/{id}")
+	public MappingJacksonJsonView findProgress(@PathVariable(value = "id") Integer id) {
+		log.debug("====task.process==");
+		Task task = taskMapper.find(id);
+		MappingJacksonJsonView mv = new BaseMappingJsonView();
+		mv.addStaticAttribute("progress", task);
+		return mv;
+	}
 
 	/**
 	 * 任务列表
@@ -75,7 +85,9 @@ public class TaskController extends BaseController {
 			word = null;
 		}
 		// result
-		Result<Task> result = taskService.search(word, firstResult, pageSize);
+		Result<Task> result = new Result<Task>();
+		result.setList(taskMapper.search(word, firstResult, pageSize));
+		result.setTotalCount(taskMapper.count(word));
 		List<TaskVo> list = new ArrayList<TaskVo>();
 		if (null != result && null != result.getList() && result.getList().size() > 0) {
 			for (Task task : result.getList()) {

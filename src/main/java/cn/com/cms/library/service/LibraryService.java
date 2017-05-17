@@ -20,6 +20,7 @@ import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.framework.base.LibraryTreeNode;
+import cn.com.cms.framework.base.TaskMessage;
 import cn.com.cms.framework.base.dao.LibraryDao;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.framework.tree.DefaultTreeNode;
@@ -32,6 +33,10 @@ import cn.com.cms.library.dao.LibraryMapper;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.model.DataBaseFieldMap;
 import cn.com.cms.library.model.DataNavigate;
+import cn.com.cms.system.contant.ETaskStatus;
+import cn.com.cms.system.contant.ETaskType;
+import cn.com.cms.system.model.Task;
+import cn.com.cms.system.service.TaskService;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.service.UserDataAuthorityService;
 import cn.com.cms.user.service.UserGroupService;
@@ -60,6 +65,8 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 	private BaseDbDao dbDao;
 	@Resource
 	private AppConfig appConfig;
+	@Resource
+	private TaskService taskService;
 
 	/**
 	 * 属性设置器
@@ -646,6 +653,17 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 	}
 
 	/**
+	 * 更新数据库任务
+	 * 
+	 * @param id
+	 * @param taskId
+	 * @return
+	 */
+	public void updateTask(Integer id, Integer taskId) {
+		libraryMapper.updateTask(id, taskId);
+	}
+
+	/**
 	 * 修复数据库
 	 * 
 	 * @param baseId
@@ -656,8 +674,24 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 		if (null != library.getTaskId()) {
 			return library.getTaskId();
 		}
+		TaskMessage taskMessage = new TaskMessage();
+		Task task = new Task();
+		task.setName("Repair Library_" + baseId);
+		task.setCode("Repair Library_" + baseId);
+		task.setTaskType(ETaskType.DB_REPAIR);
+		task.setTaskStatus(ETaskStatus.Preparing);
+		task.setProgress(0);
+		task.setAim(baseId.toString());
+		task.setOwnerId(baseId);
+		task.setCreateTime(new Date());
+		task.setUpdateTime(new Date());
 		this.updataStatus(baseId, EStatus.Repairing);
-		return library.getId();
+		taskMessage.setTask(task);
+		taskMessage.setTarget("libraryRepairService");
+		taskService.addTask(taskMessage);
+		this.updateTask(baseId, task.getId());
+		this.updataStatus(baseId, EStatus.Repairing);
+		return task.getId();
 	}
 
 	/**
