@@ -29,10 +29,10 @@
 							<div class="btn-toolbar floatl" id="addbtn">
 								<div class="btn-group">
 									<a class="btn btn-small edit_pop_link" id="add_to_dsu"  href="#" target="_self"><i class="icon-plus"></i> 添加</a>
-								 	<a class="btn btn-small delete_list"  id="del_from_dsu" href="#"><i class="icon-trash"></i> 删除</a> 	
-								</div>
-								<div class="btn-group">
-									<a class="btn btn-small" id="into_as_search" href=""><i></i>进入高级查询</a>
+								 	<a class="btn btn-small delete_list"  id="del_from_dsu" href="#"><i class="icon-trash"></i> 删除</a> 
+								 	<a class="btn btn-small" id="into_as_search" href="#"><i class="icon-chevron-up"></i>高级查询</a>
+								 	<a class="btn btn-small" id="data_move" href="#"><i class="icon-move"></i>数据迁移</a>
+								 	<a class="btn btn-small" id="data_all_move" href="#"><i class="icon-retweet"></i>数据移库</a>
 								</div>
 							</div>
 							<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered bootstrap-datatable trHoverEdit " id="colDatas">
