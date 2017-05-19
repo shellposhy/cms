@@ -89,12 +89,12 @@ public interface LibraryDao<T extends BaseLibrary<T>> {
 	public DataTable getDataTable(Integer baseId);
 
 	public void updataStatus(Integer id, EStatus status);
-	
+
 	public void updateTask(Integer id, Integer taskId);
 
 	public Integer repair(Integer baseId);
 
-	public Integer copyData(int srcColumnId, int destColumnId, int userId);
+	public Integer copyData(int source, int target, String context, int type);
 
 	public boolean hasChildren(Integer id);
 

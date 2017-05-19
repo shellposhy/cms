@@ -125,6 +125,18 @@ public class ImagePathService {
 	}
 
 	/**
+	 * 获得系统文件系统手机图片真实根目录
+	 * 
+	 * @param baseId
+	 * @param createTime
+	 * @return
+	 */
+	public String getUDocRealRoot(int baseId, String createTime) {
+		return getDocRoot() + baseId + "/" + createTime.substring(0, 4) + "/"
+				+ Integer.parseInt(createTime.substring(4, 6)) + "/";
+	}
+
+	/**
 	 * 获得系统文件系统手机图片根目录
 	 * 
 	 * @return

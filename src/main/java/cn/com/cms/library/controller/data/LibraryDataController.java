@@ -37,6 +37,17 @@ public class LibraryDataController extends BaseDataController<DataBase> {
 		return ELibraryType.SYSTEM_DATA_BASE;
 	}
 
+	@RequestMapping(value = "/copy/{type}/{libraryId}", method = RequestMethod.POST)
+	public MappingJacksonJsonView copy(@PathVariable int type, @PathVariable int libraryId,
+			@RequestBody JsonPara[] jsonParas) {
+		return super.copy(libraryId,type, jsonParas);
+	}
+
+	@RequestMapping(value = "/copy/tree/{id}")
+	public MappingJacksonJsonView tree(@PathVariable Integer id) {
+		return super.tree(id);
+	}
+
 	@RequestMapping(value = "/repair/{id}")
 	public MappingJacksonJsonView repair(@PathVariable("id") Integer id) {
 		return super.repair(id);

@@ -31,33 +31,38 @@
 									<a class="btn btn-small edit_pop_link" id="add_to_dsu"  href="#" target="_self"><i class="icon-plus"></i> 添加</a>
 								 	<a class="btn btn-small delete_list"  id="del_from_dsu" href="#"><i class="icon-trash"></i> 删除</a> 
 								 	<a class="btn btn-small" id="into_as_search" href="#"><i class="icon-chevron-up"></i>高级查询</a>
-								 	<a class="btn btn-small" id="data_move" href="#"><i class="icon-move"></i>数据迁移</a>
+								 	<a class="btn btn-small" id="data_copy" href="#"><i class="icon-folder-open"></i>数据复制</a>
 								 	<a class="btn btn-small" id="data_all_move" href="#"><i class="icon-retweet"></i>数据移库</a>
 								</div>
 							</div>
 							<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered bootstrap-datatable trHoverEdit " id="colDatas">
-									<thead><tr><th>标题</th></tr></thead>
-									<tbody></tbody>
-									<tfoot><tr><th>标题</th></tr></tfoot>
+								<thead><tr><th>标题</th></tr></thead>
+								<tbody></tbody>
+								<tfoot><tr><th>标题</th></tr></tfoot>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal hide fade form-horizontal" id="batchChk">
+		<!-- model start-->
+		<div class="modal hide fade form-horizontal" id="copyDataModal">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<h3>操作确认</h3>
 			</div>
-			<div class="modal-body">
-				<p>您确定要批量审核这些数据吗？</p>
+			<div class="modal-body min200">
+				<div class="alert alert-danger" role="alert">
+			       您确定要<strong>[批量复制]</strong>这些数据吗？
+			    </div>
+				<div id="copyBaseList" class="mt20"></div>
 			</div>
 			<div class="modal-footer">
-				 <a href="#"
-					class="btn btn-primary">确定</a><a href="#" class="btn" data-dismiss="modal">取消</a>
+				 <a href="#" class="btn btn-primary">确定</a>
+				 <a href="#" class="btn" data-dismiss="modal">取消</a>
 			</div>
 		</div>
+		<!-- //model end -->
 		<script type="text/javascript" 	src="${appPath}/admin/jscript/library/library.js"></script>
 	</body>
 </html>

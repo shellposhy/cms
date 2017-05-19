@@ -83,6 +83,43 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 	}
 
 	/**
+	 * 批量保存数据
+	 * 
+	 * @param datas
+	 * @return
+	 * @throws Exception
+	 */
+	public void save(List<CmsData> datas, List<DataField> fields) throws Exception {
+		if (null != datas && datas.size() > 0) {
+			for (CmsData data : datas) {
+				// database id is not null
+				if (data.getBaseId() == null) {
+					throw new Exception("保存失败，需要提供数据库ID！");
+				}
+				// data save and create lucene index
+				if (null == data.getId()) {
+					DataTable dataTable = libraryService.getDataTable(data.getBaseId());
+					data.setTableId(dataTable.getId());
+					data.put(FieldCodes.DATA_STATUS, EDataStatus.Yes.ordinal());
+					Integer dataId = dbDao.insert(dataTable.getName(), getDbData(data, fields));
+					data.setId(dataId);
+					data.put(FieldCodes.ID, dataId);
+					saveIndex(data.getBaseId(), data, fields);
+					dataTableMapper.increaseRowCount(dataTable.getId(), 1);
+					libraryMapper.updateDataUpdateTime(data.getBaseId());
+				} else {
+					DataTable dataTable = libraryService.getDataTable(data.getBaseId());
+					data.put(FieldCodes.UPDATE_TIME, DateTimeUtil.getCurrentDate());
+					dbDao.update(dataTable.getName(), getDbData(data, fields));
+					deleteIndex(data.getBaseId(), (String) data.get(FieldCodes.UUID));
+					saveIndex(data.getBaseId(), data, fields);
+					libraryMapper.updateDataUpdateTime(data.getBaseId());
+				}
+			}
+		}
+	}
+
+	/**
 	 * 保存数据
 	 * 
 	 * @param data
@@ -142,6 +179,16 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 			result = data.getId();
 		}
 		return result;
+	}
+
+	/**
+	 * 获取数据表格
+	 * 
+	 * @param baseId
+	 * @return
+	 */
+	public DataTable getDataTable(Integer baseId) {
+		return libraryService.getDataTable(baseId);
 	}
 
 	/**

@@ -820,7 +820,6 @@ public class BaseDbDao {
 		pd.setTableId(tableId);
 		for (int i = 1; i <= md.getColumnCount(); i++) {
 			String label = md.getColumnLabel(i);
-
 			Object value = null;
 			switch (md.getColumnType(i)) {
 			case Types.INTEGER:

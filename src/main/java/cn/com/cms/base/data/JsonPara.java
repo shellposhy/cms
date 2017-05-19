@@ -10,7 +10,6 @@ import java.util.Map;
  * @version 1.0
  */
 public class JsonPara {
-
 	public static final class DataTablesParaNames {
 		public static final String sEcho = "sEcho";
 		public static final String iDisplayStart = "iDisplayStart";

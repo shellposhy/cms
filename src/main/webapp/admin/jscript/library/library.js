@@ -73,7 +73,6 @@ function node_click(nodeId, nodeType, isDir) {
 		$('#data_content').show();
 		find_data_by_libId(nodeId);
 	}
-
 }
 
 //add database directory
@@ -220,10 +219,78 @@ function callback_library_data(otd) {
 	docReady();
 	trHoverEdit();
 	$(".action_buttons").show();
-	listDelete(thisPath + "/data/delete", otd);
 	listDelete(thisPath + "data/delete", otd);
+	library_data_copy(otd);
 	editPopWithDT(otd);
+}
 
+//the current database data copy to other database
+function library_data_copy(dataTable){
+	var dataIds;
+	$("#data_copy").die().bind('click',function(){
+		var findChecks = $(this).parent().nextAll(".dataTables_wrapper");
+		if (findChecks.length < 1) {
+			findChecks = $(this).parent().parent().nextAll(".dataTables_wrapper");
+		}
+		if (findChecks.find("table input[type='checkbox']").length > 0){
+			var count = 0;
+			var idsValue = new Array();
+			findChecks.find("table tbody input[type='checkbox']").each(function() {
+				if ($(this).attr("checked")&& $(this).val() != null&& $(this).val().length > 0) {
+					idsValue.push($(this).val());
+					count++;
+				}
+			});
+			dataIds = idsValue.join(",");
+			if (count > 0){
+				$.ajax({
+					type : "POST",
+					url : thisPath+"data/copy/tree/"+$("#libId").val(),
+					dataType : 'json',
+					contentType : 'application/json',
+					success : function(data) {
+						var optionStr = "";
+						if(null!=data&&data.length>0){
+							for(var i=0;i<data.length;i++){
+								optionStr+='<input type="checkbox" name="baseIds" value="'+ data[i].id+'">'+ data[i].name+'&nbsp;';
+							}
+						}
+						$("#copyBaseList").html(optionStr);
+					}
+				});
+				$("#copyDataModal").modal('show');
+			}else{
+				noty({"text" : "数据迁移时，所选择数据不能为空","layout" : "center","type" : "error"});
+			}
+		}
+	});
+	$("#copyDataModal").find('.btn-primary').click(function(){
+		//catch the selected database id
+		var dbIds;
+		$('input:checkbox[name=baseIds]:checked').each(function(i) {
+			if (0 == i) {
+				dbIds = $(this).val();
+			} else {
+				dbIds += ("," + $(this).val());
+			}
+		});
+		if(typeof(dbIds)=="undefined" || dbIds==null || dbIds==''){
+			noty({"text" : "数据迁移时，迁到的数据库不能为空","layout" : "center","type" : "error"});
+		}else{
+			var jsonData = new Array();
+			jsonData.push({"name" : "mSearch","value" : dataIds}, {"name" : "searchIdStr","value":dbIds});
+			$.ajax({
+				type : "POST",
+				url : thisPath+"data/copy/0/"+$("#libId").val(),
+				data : JSON.stringify(jsonData),
+				dataType : 'json',
+				contentType : 'application/json',
+				success : function(data) {
+					
+				}
+			});
+		}
+	})
 }
 
 //bind database node

@@ -1984,3 +1984,19 @@ table th label {
 .wd400 {
 	width: 400px;
 }
+
+.min50{
+	min-height: 50px;
+}
+
+.min100{
+	min-height: 100px;
+}
+
+.min150{
+	min-height: 150px;
+}
+
+.min200{
+	min-height: 200px;
+}

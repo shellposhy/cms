@@ -72,13 +72,15 @@ function user_init_list(orgId) {
 					"mData" : "name",
 					"fnRender" : function(obj) {
 						if (obj.aData.name == "sa") {
-							return '<label class="checkbox inline"><input type="checkbox" id="inlineCheckbox'
-									+ obj.aData.id+ '" name="idStr' + obj.aData.id+ '" value="'+ obj.aData.id
-									+ '" style="opacity: 0;" >'+ obj.aData.name+ '</label>';
+							return '<label class="checkbox inline">'+
+												'<input type="checkbox" id="inlineCheckbox'+ obj.aData.id+ '" name="idStr' + obj.aData.id+ '" value="'+ obj.aData.id+ '" style="opacity: 0;" >'+
+												obj.aData.name+ 
+											'</label>';
 							}
-						return '<label class="checkbox inline"><input type="checkbox" id="inlineCheckbox'
-								+ obj.aData.id+ '" name="idStr'+ obj.aData.id+ '" value="'+ obj.aData.id+ '" style="opacity: 0;" >'+ obj.aData.name+ '</label>'
-								+ '<button title="点击进行配置" data-rel="tooltip" class="btn btn-mini padmbt floatr editbtn none"><i class="icon-edit"></i></button>';
+						return '<label class="checkbox inline">'+
+											'<input type="checkbox" id="inlineCheckbox'+ obj.aData.id+ '" name="idStr'+ obj.aData.id+ '" value="'+ obj.aData.id+ '" style="opacity: 0;" >'+ obj.aData.name+
+										'</label>'+
+										'<button title="点击进行配置" data-rel="tooltip" class="btn btn-mini padmbt floatr editbtn none"><i class="icon-edit"></i></button>';
 					}
 				}, {
 					"mData" : "realName"
@@ -99,7 +101,7 @@ function callback_user_list() {
 	listDelete("user/delete", oTableUserAll);
 };
 
-// 用户编辑 初始化修改页面
+//初始化修改页面
 function init_user_edit() {
 	if ($("#user_new_form #name").val()) {
 		userTypeChangeBind();
@@ -183,52 +185,35 @@ function ipsInput() {
 		$(this).parents(".ip_input_div").remove();
 		$("#ips_div .active input").change();
 	})
-	$(".to_mut_ip").live(
-			"click",
-			function() {
-				$(this).hide().siblings(".to_one_ip").show();
-				$(this).parents(".ip_input_div").find(".one_ip").hide()
-						.removeClass("active").find("input").removeClass(
-								"ipVaild");
-				$(this).parents(".ip_input_div").find(".mut_ip").show()
-						.addClass("active").find("input").addClass("ipVaild");
-				return false;
-			})
-	$(".to_one_ip").live(
-			"click",
-			function() {
-				$(this).hide().siblings(".to_mut_ip").show();
-				$(this).parents(".ip_input_div").find(".mut_ip").hide()
-						.removeClass("active").find("input").removeClass(
-								"ipVaild");
-				$(this).parents(".ip_input_div").find(".one_ip").show()
-						.addClass("active").find("input").addClass("ipVaild");
-				return false;
-			})
-
-	$("#ips_div .active input").live(
-			"change",
-			function() {
-				var count = 0;
-				var ipsVal = new Array();
-				$("#ips_div .active").each(
-						function() {
-							if ($(this).find("input").length == 1) {
-								ipsVal.push($(this).find("input").val());
-								count++;
-							} else if ($(this).find("input").length == 2) {
-								ipsVal.push($(this).find("input:first").val()
-										+ "-"
-										+ $(this).find("input:last").val());
-								count++;
-							}
-						});
-				if (count > 0) {
-					var ipsData = ipsVal.join(",");
-					$("#ips").val(ipsData)
-				}
-
-			})
+	$(".to_mut_ip").live("click",function(){
+		$(this).hide().siblings(".to_one_ip").show();
+		$(this).parents(".ip_input_div").find(".one_ip").hide().removeClass("active").find("input").removeClass("ipVaild");
+		$(this).parents(".ip_input_div").find(".mut_ip").show().addClass("active").find("input").addClass("ipVaild");
+		return false;
+	})
+	$(".to_one_ip").live("click",function() {
+		$(this).hide().siblings(".to_mut_ip").show();
+		$(this).parents(".ip_input_div").find(".mut_ip").hide().removeClass("active").find("input").removeClass("ipVaild");
+		$(this).parents(".ip_input_div").find(".one_ip").show().addClass("active").find("input").addClass("ipVaild");
+		return false;
+	})
+	$("#ips_div .active input").live("change",function() {
+		var count = 0;
+		var ipsVal = new Array();
+		$("#ips_div .active").each(function() {
+			if ($(this).find("input").length == 1) {
+				ipsVal.push($(this).find("input").val());
+				count++;
+			} else if ($(this).find("input").length == 2) {
+				ipsVal.push($(this).find("input:first").val()+ "-"+ $(this).find("input:last").val());
+				count++;
+			}
+		});
+		if (count > 0) {
+			var ipsData = ipsVal.join(",");
+			$("#ips").val(ipsData)
+		}
+	})
 }
 
 // 用户编辑 状态开关
@@ -271,21 +256,17 @@ function init_group_list() {
 					var tmpOptionsTrue = "";
 					for ( var j = 0; j < trSIdArry.length; j++) {
 						if (trSIdArry[j] == groupListJsonO[i].id) {
-							tmpOptionsTrue = "<option  selected='true' value='"
-									+ groupListJsonO[i].id + "'>"
-									+ groupListJsonO[i].name + "</option>";
+							tmpOptionsTrue = "<option  selected='true' value='"+ groupListJsonO[i].id + "'>"+ groupListJsonO[i].name + "</option>";
 							break;
 						}
 					}
 					if (tmpOptionsTrue != "") {
 						tmpOptions += tmpOptionsTrue;
 					} else {
-						tmpOptions += "<option  value='" + groupListJsonO[i].id
-								+ "'>" + groupListJsonO[i].name + "</option>";
+						tmpOptions += "<option  value='" + groupListJsonO[i].id+ "'>" + groupListJsonO[i].name + "</option>";
 					}
 				} else {
-					tmpOptions += "<option value='" + groupListJsonO[i].id
-							+ "'>" + groupListJsonO[i].name + "</option>";
+					tmpOptions += "<option value='" + groupListJsonO[i].id+ "'>" + groupListJsonO[i].name + "</option>";
 				}
 			}
 			$("#user_new_form #treeSelId_box").append(tmpOptions);
@@ -296,8 +277,7 @@ function init_group_list() {
 			var groupListJsonO = new Function("return" + groupListJson)();
 			var temOptions = "";
 			for ( var i = 0; i < groupListJsonO.length; i++) {
-				tmpOptions += "<option value='" + groupListJsonO[i].id + "'>"
-						+ groupListJsonO[i].name + "</option>";
+				tmpOptions += "<option value='" + groupListJsonO[i].id + "'>"+ groupListJsonO[i].name + "</option>";
 			}
 			$("#user_new_form #treeSelId_box").html(tmpOptions);
 		}
@@ -312,58 +292,40 @@ function init_group_list() {
 
 // 密码用户是否修改密码
 function isModifyPw() {
-	if (($("#user_new_form #name").val())
-			&& ($('input[name = "userType"]:checked').val() != 1)) {
-		$("#user_new_form input[type='password']").parent().parent(
-				".control-group").addClass("none");
-		$("#user_new_form #isModifyPw_box a").each(
-				function() {
-					if ($(this).hasClass("yes")) {
-						$(this).live(
-								"click",
-								function() {
-									$(this).hide();
-									$("#user_new_form input[type='password']")
-											.parent().parent(".control-group")
-											.removeClass("none");
-									$(".cancel").show();
-								});
-					} else {
-						$(this).live(
-								"click",
-								function() {
-									$(this).hide();
-									$("#user_new_form input[type='password']")
-											.parent().parent(".control-group")
-											.addClass("none");
-									$(".yes").show();
-								});
-					}
+	if (($("#user_new_form #name").val())&& ($('input[name = "userType"]:checked').val() != 1)) {
+		$("#user_new_form input[type='password']").parent().parent(".control-group").addClass("none");
+		$("#user_new_form #isModifyPw_box a").each(function() {
+			if ($(this).hasClass("yes")) {
+				$(this).live("click",function() {
+					$(this).hide();
+					$("#user_new_form input[type='password']").parent().parent(".control-group").removeClass("none");
+					$(".cancel").show();
 				});
+			} else {
+				$(this).live("click",function() {
+					$(this).hide();
+					$("#user_new_form input[type='password']").parent().parent(".control-group").addClass("none");
+					$(".yes").show();
+				});
+			}
+		});
 	} else {
 		$("#isModifyPw_box").remove();
 	}
 }
 
-/* 提交用户 表单验证 */
+/*表单验证 */
 function addNewUser() {
 	// IP地址验证
-	jQuery.validator
-			.addMethod(
-					"ip",
-					function(value, element) {
-						var ip = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-						return this.optional(element)
-								|| (ip.test(value) && (RegExp.$1 < 256
-										&& RegExp.$2 < 256 && RegExp.$3 < 256 && RegExp.$4 < 256));
-					}, "Ip地址格式错误");
-	$.validator
-			.addMethod("ipRequired", $.validator.methods.required, "请输入IP地址");
+	jQuery.validator.addMethod("ip",function(value, element) {
+		var ip = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+		return this.optional(element)|| (ip.test(value) && (RegExp.$1 < 256&& RegExp.$2 < 256 && RegExp.$3 < 256 && RegExp.$4 < 256));
+	}, "Ip地址格式错误");
+	$.validator.addMethod("ipRequired", $.validator.methods.required, "请输入IP地址");
 	jQuery.validator.addMethod("pwCheck", function(value, element) {
 		return this.optional(element) || /^[^\s]{6,20}$/.test(value);
 	}, "密码中不能含有特殊字符");
-	jQuery.validator.addClassRules("ipVaild", {
-		ipRequired : function() {
+	jQuery.validator.addClassRules("ipVaild", {ipRequired : function() {
 			if ($("#user_new_form #ip").hasClass("active")) {
 				return true;
 			} else {

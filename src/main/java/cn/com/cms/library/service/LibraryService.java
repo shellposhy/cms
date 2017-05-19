@@ -685,7 +685,6 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 		task.setOwnerId(baseId);
 		task.setCreateTime(new Date());
 		task.setUpdateTime(new Date());
-		this.updataStatus(baseId, EStatus.Repairing);
 		taskMessage.setTask(task);
 		taskMessage.setTarget("libraryRepairService");
 		taskService.addTask(taskMessage);
@@ -697,13 +696,35 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 	/**
 	 * 复制数据
 	 * 
-	 * @param srcColumnId
-	 * @param destColumnId
-	 * @param userId
+	 * @param source
+	 * @param target
 	 * @return
 	 */
-	public Integer copyData(int srcColumnId, int destColumnId, int userId) {
-		return null;
+	public Integer copyData(int source, int target, String context, int type) {
+		T library = this.find(source);
+		if (null != library.getTaskId()) {
+			return library.getTaskId();
+		}
+		TaskMessage taskMessage = new TaskMessage();
+		Task task = new Task();
+		task.setName("Copy_Library_" + source);
+		task.setCode("Copy_Library_" + source);
+		task.setTaskType(ETaskType.DATA_COPY);
+		task.setTaskStatus(ETaskStatus.Preparing);
+		task.setProgress(0);
+		task.setContext(context);
+		task.setAim(String.valueOf(target));
+		task.setOwnerId(source);
+		task.setBaseId(source);
+		task.setCreateTime(new Date());
+		task.setUpdateTime(new Date());
+		taskMessage.setTask(task);
+		taskMessage.setTarget("libraryCopyService");
+		taskMessage.put("type", Integer.valueOf(type));
+		taskService.addTask(taskMessage);
+		this.updateTask(source, task.getId());
+		this.updataStatus(source, EStatus.Repairing);
+		return task.getId();
 	}
 
 	/**

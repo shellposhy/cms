@@ -34,6 +34,7 @@ import cn.com.cms.data.model.DataTable;
 import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.framework.security.UserSecurityService;
+import cn.com.cms.framework.tree.Node;
 import cn.com.cms.library.constant.EAccessType;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;
@@ -95,6 +96,48 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, null);
+	}
+
+	/**
+	 * 数据库数据复制
+	 * 
+	 * @param libraryId
+	 * @param jsonParas
+	 * @return
+	 */
+	public MappingJacksonJsonView copy(int libraryId, int type, JsonPara[] jsonParas) {
+		MappingJacksonJsonView mv = new BaseMappingJsonView();
+		Map<String, String> paraMap = JsonPara.getParaMap(jsonParas);
+		String dataIdsStr = paraMap.get(JsonPara.DataTablesParaNames.mSearch);
+		String dbIdsStr = paraMap.get(JsonPara.DataTablesParaNames.searchIdStr);
+		Integer taskId = libraryService.copyData(libraryId, Integer.valueOf(dbIdsStr), dataIdsStr, type);
+		mv.addStaticAttribute("taskId", taskId);
+		return mv;
+	}
+
+	/**
+	 * 获得数据库所有节点
+	 * 
+	 * @param libId
+	 * @return
+	 */
+	public MappingJacksonJsonView tree(Integer libId) {
+		MappingJacksonJsonView mv = new BaseMappingJsonView();
+		T database = libraryService.find(libId);
+		List<Node<Integer, String>> result = Lists.newArrayList();
+		if (null != database) {
+			List<T> databases = libraryService.findAll(database.getType(), database.getNodeType());
+			if (null != databases && databases.size() > 0) {
+				for (T base : databases) {
+					Node<Integer, String> node = new Node<Integer, String>();
+					node.id = base.getId();
+					node.name = base.getName();
+					result.add(node);
+				}
+			}
+		}
+		mv.addStaticAttribute("result", result);
+		return mv;
 	}
 
 	/**

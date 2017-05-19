@@ -7,7 +7,8 @@ package cn.com.cms.library.constant;
  * @version 1.0
  */
 public enum ELibraryType {
-	SYSTEM_DATA_BASE("系统数据库", "default"), USER_DATA_BASE("用户数据库", "user");
+	SYSTEM_DATA_BASE("系统数据库", "default"), IMAGE_DATA_BASE("图片数据库", "image"), FILE_DATA_BASE("文件数据库",
+			"file"), VIDEO_DATA_BASE("视频数据库", "video");
 
 	private final String title;
 	private final String code;
