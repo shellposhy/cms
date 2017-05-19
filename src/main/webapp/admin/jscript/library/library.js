@@ -264,7 +264,7 @@ function library_data_copy(dataTable){
 			}
 		}
 	});
-	$("#copyDataModal").find('.btn-primary').click(function(){
+	$("#copyDataModal").find('.btn-primary').die().click(function(){
 		//catch the selected database id
 		var dbIds;
 		$('input:checkbox[name=baseIds]:checked').each(function(i) {
@@ -286,7 +286,21 @@ function library_data_copy(dataTable){
 				dataType : 'json',
 				contentType : 'application/json',
 				success : function(data) {
-					
+					var copyProgress = function showProgress() {
+						$.ajax({
+							type : "GET",
+							url : appPath + "/admin/task/progress/" + $("#libId").val(),
+							cache : false,
+							dataType : "json",
+							success : function(data) {
+								if(data.progress == 100){
+									clearInterval(copyInterval);
+									noty({"text" : "修复成功！","layout" : "center","type" : "success","animateOpen" : {"opacity" : "show"}});
+								}
+							}
+						});
+					};
+					var copyInterval=setInterval(copyProgress, 5000);
 				}
 			});
 		}
