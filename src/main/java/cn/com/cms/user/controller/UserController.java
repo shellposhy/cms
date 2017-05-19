@@ -97,6 +97,17 @@ public class UserController extends BaseController {
 	}
 
 	/**
+	 * multi user upload
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String upload(HttpServletRequest request) {
+		return "redirect:/admin/user";
+	}
+
+	/**
 	 * 通过机构Id查询用户列表
 	 * 
 	 * @param orgId
@@ -254,8 +265,6 @@ public class UserController extends BaseController {
 
 	/**
 	 * 删除用户
-	 * 
-	 * 支持批量删除，实现为假删除
 	 * 
 	 * @param userIdStr
 	 * @param request

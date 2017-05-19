@@ -55,9 +55,9 @@
 					</div>
 					<div class="tab-pane clearfix fade" id="inputUsers_tab">
 						<div class="pupdate_warp">
-							<form id="inputUsers_form" action="${appPath}/admin/database/1/update" method="post" enctype="multipart/form-data">
+							<form id="inputUsers_form" action="${appPath}/admin/user/upload" method="post" enctype="multipart/form-data">
 								<span class="pl20">选择文件:</span>
-								<input class="input-file uniform_on" name="file" type="file" />
+								<input class="input-file uniform_on" name="file" type="file" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
 								<input class="btn" type="submit" value="上传" />
 								<div class="error_div ml20"></div>
 							</form>
