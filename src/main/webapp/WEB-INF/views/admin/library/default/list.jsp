@@ -51,11 +51,14 @@
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<h3>操作确认</h3>
 			</div>
-			<div class="modal-body min200">
+			<div class="modal-body">
 				<div class="alert alert-danger" role="alert">
-			       您确定要<strong>[批量复制]</strong>这些数据吗？
+			       您确定要<strong>&nbsp;[批量复制]&nbsp;</strong>这些数据吗？
 			    </div>
 				<div id="copyBaseList" class="mt20"></div>
+				<div class="alert alert-success mt20">
+					<strong>说明：</strong>数据在不同数据库复制时，库与库之间类型保持一致（新闻库数据不能复制到视频库或图片库中）。
+				</div>
 			</div>
 			<div class="modal-footer">
 				 <a href="#" class="btn btn-primary">确定</a>

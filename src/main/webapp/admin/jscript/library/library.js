@@ -252,7 +252,7 @@ function library_data_copy(dataTable){
 						var optionStr = "";
 						if(null!=data&&data.length>0){
 							for(var i=0;i<data.length;i++){
-								optionStr+='<input type="checkbox" name="baseIds" value="'+ data[i].id+'">'+ data[i].name+'&nbsp;';
+								optionStr+='<input type="radio" name="baseIds" value="'+ data[i].id+'">'+ data[i].name+'&nbsp;';
 							}
 						}
 						$("#copyBaseList").html(optionStr);
@@ -268,7 +268,7 @@ function library_data_copy(dataTable){
 		$("#copyDataModal").modal('hide');
 		//catch the selected database id
 		var dbIds;
-		$('input:checkbox[name=baseIds]:checked').each(function(i) {
+		$('input:radio[name=baseIds]:checked').each(function(i) {
 			if (0 == i) {
 				dbIds = $(this).val();
 			} else {
