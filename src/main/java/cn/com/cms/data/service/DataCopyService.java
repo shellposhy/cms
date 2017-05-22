@@ -44,22 +44,22 @@ public class DataCopyService {
 	 * @param source
 	 * @param target
 	 * @param sourceList
-	 * @param sourceField
-	 * @param targetField
+	 * @param sourceFieldList
+	 * @param targetFieldList
 	 * @return
 	 */
-	public List<CmsData> wrapData(int source, int target, List<CmsData> sourceList, List<DataField> sourceField,
-			List<DataField> targetField) {
+	public List<CmsData> wrapData(int source, int target, List<CmsData> sourceList, List<DataField> sourceFieldList,
+			List<DataField> targetFieldList) {
 		List<CmsData> result = null;
 		if (null != sourceList && sourceList.size() > 0) {
 			result = Lists.newArrayList();
 			for (CmsData data : sourceList) {
 				CmsData newData = new CmsData();
-				if (null != targetField && targetField.size() > 0) {
-					for (DataField dataField : targetField) {
-						if (sourceField.contains(dataField)) {// contain field
+				if (null != targetFieldList && targetFieldList.size() > 0) {
+					for (DataField dataField : targetFieldList) {
+						if (targetFieldContainsSourceField(dataField, sourceFieldList)) {
 							if (FieldCodes.ID.equals(dataField.getCode())) {
-								newData.put(dataField.getCode(), null);
+								newData.put(dataField.getCode(), 0);
 							} else if (FieldCodes.UUID.equals(dataField.getCode())) {
 								newData.put(dataField.getCode(), PkUtil.getShortUUID());
 							} else if (FieldCodes.FINGER_PRINT.equals(dataField.getCode())) {
@@ -67,7 +67,7 @@ public class DataCopyService {
 							} else {
 								newData.put(dataField.getCode(), data.get(dataField.getCode()));
 							}
-						} else { // not contain field
+						} else {
 							newData.put(dataField.getCode(),
 									DataUtil.getDefaultValue(dataField.getDataType(), dataField.isMand()));
 						}
@@ -81,6 +81,26 @@ public class DataCopyService {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * Is the target data field in the source list
+	 * 
+	 * @param sourceList
+	 * @param target
+	 * @return
+	 */
+	public boolean targetFieldContainsSourceField(DataField target, List<DataField> sourceList) {
+		boolean tag = false;
+		if (null != sourceList && sourceList.size() > 0) {
+			for (DataField source : sourceList) {
+				if (source.getCode().equals(target.getCode())) {
+					tag = true;
+					break;
+				}
+			}
+		}
+		return tag;
 	}
 
 	/**

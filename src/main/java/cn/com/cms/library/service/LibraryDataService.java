@@ -97,7 +97,7 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 					throw new Exception("保存失败，需要提供数据库ID！");
 				}
 				// data save and create lucene index
-				if (null == data.getId()) {
+				if (null == data.getId() || data.getId() == 0) {
 					DataTable dataTable = libraryService.getDataTable(data.getBaseId());
 					data.setTableId(dataTable.getId());
 					data.put(FieldCodes.DATA_STATUS, EDataStatus.Yes.ordinal());

@@ -32,7 +32,7 @@
 								 	<a class="btn btn-small delete_list"  id="del_from_dsu" href="#"><i class="icon-trash"></i> 删除</a> 
 								 	<a class="btn btn-small" id="into_as_search" href="#"><i class="icon-chevron-up"></i>高级查询</a>
 								 	<a class="btn btn-small" id="data_copy" href="#"><i class="icon-folder-open"></i>数据复制</a>
-								 	<a class="btn btn-small" id="data_all_move" href="#"><i class="icon-retweet"></i>数据移库</a>
+								 	<!-- <a class="btn btn-small" id="data_all_move" href="#"><i class="icon-retweet"></i>数据移库</a> -->
 								</div>
 							</div>
 							<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered bootstrap-datatable trHoverEdit " id="colDatas">

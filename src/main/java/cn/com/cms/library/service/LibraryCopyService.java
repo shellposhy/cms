@@ -77,26 +77,26 @@ public class LibraryCopyService<T extends BaseLibrary<T>> extends TaskMessageLis
 		task.setTaskStatus(ETaskStatus.Executing);
 		task.setProgress(1);
 		this.updateTaskStatus(task);
-		List<DataField> fieldList = findFieldsByDBId(target);
+		List<DataField> targetFieldList = findFieldsByDBId(target);
+		List<DataField> sourceFieldList = findFieldsByDBId(source);
 		List<CmsData> sourceDatas = wrapSourceData(context);
-		List<CmsData> datas = dataCopyService.wrapData(source, target, sourceDatas, findFieldsByDBId(source),
-				findFieldsByDBId(target));
+		List<CmsData> datas = dataCopyService.wrapData(source, target, sourceDatas, sourceFieldList, targetFieldList);
 		switch (ELibraryCopyType.valueof(type)) {
 		case Copy:// copy data
-			if (!SimpleLock.lock("DataBase." + target)) {
+			if (!SimpleLock.lock("DataBase." + source)) {
 				logger.warn("数据库已经被锁定");
 			}
 			try {
-				libraryDataService.save(datas, fieldList);
+				libraryDataService.save(datas, targetFieldList);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				task.setProgress(100);
 				task.setTaskStatus(ETaskStatus.Finish);
 				this.updateTaskStatus(task);
-				libraryMapper.updateTask(target, null);
-				libraryMapper.updateStatus(target, EStatus.Normal);
-				SimpleLock.unLock("DataBase." + target);
+				libraryMapper.updateTask(source, null);
+				libraryMapper.updateStatus(source, EStatus.Normal);
+				SimpleLock.unLock("DataBase." + source);
 			}
 			break;
 		case Movie:// move data
@@ -104,7 +104,7 @@ public class LibraryCopyService<T extends BaseLibrary<T>> extends TaskMessageLis
 				logger.warn("数据库已经被锁定");
 			}
 			try {
-				libraryDataService.save(datas, fieldList);
+				libraryDataService.save(datas, targetFieldList);
 				// delete data
 				if (null != sourceDatas && sourceDatas.size() > 0) {
 					for (CmsData data : sourceDatas) {
