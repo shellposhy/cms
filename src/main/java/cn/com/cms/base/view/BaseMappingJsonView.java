@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
  * @version 1.0
  */
 public class BaseMappingJsonView extends MappingJacksonJsonView {
+
 	protected Object filterModel(Map<String, Object> model) {
 		Map<?, ?> result = (Map<?, ?>) super.filterModel(model);
 		if (result.size() == 1) {
