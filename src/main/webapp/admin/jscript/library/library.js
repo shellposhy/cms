@@ -227,7 +227,7 @@ function callback_library_data(otd) {
 //the current database data copy to other database
 function library_data_copy(dataTable){
 	var dataIds;
-	$("#data_copy").die().bind('click',function(){
+	$("#data_copy").unbind('click').bind('click',function(){
 		var findChecks = $(this).parent().nextAll(".dataTables_wrapper");
 		if (findChecks.length < 1) {
 			findChecks = $(this).parent().parent().nextAll(".dataTables_wrapper");
