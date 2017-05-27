@@ -22,7 +22,6 @@
 		<property name="locations">
 			<list>
 				<value>classpath*:database.properties</value>
-				<value>classpath*:messages_zh_CN.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -50,7 +49,7 @@
 	</bean>
 
 	<bean id="appConfig" class="cn.com.cms.base.config.AppConfig">
-		<property name="appName" value="数据信息管理系统" />
+		<property name="appName" value="新闻发布系统" />
 		<property name="appPath" value="" />
 		<property name="appPathHome" value="D:/cms" />
 		<property name="templatePath" value="D:/cms/template" />
