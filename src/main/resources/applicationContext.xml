@@ -122,8 +122,7 @@
 	</bean>
 
 	<!-- error -->
-	<bean id="exceptionResolver"
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="defaultErrorView" value="/exception" />
 		<property name="exceptionMappings">
 			<props>
