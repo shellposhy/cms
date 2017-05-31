@@ -12,6 +12,7 @@
 		<spring.version>3.2.3.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>
+		<ignite.version>1.8.0</ignite.version>
 	</properties>
 	
 	<!-- dependencies -->
@@ -118,9 +119,24 @@
 			<version>1.0.3</version>
 		</dependency>
 		<dependency>
+		    <groupId>org.apache.ignite</groupId>
+		    <artifactId>ignite-core</artifactId>
+		    <version>${ignite.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.ignite</groupId>
+		    <artifactId>ignite-spring</artifactId>
+		    <version>${ignite.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.ignite</groupId>
+		    <artifactId>ignite-indexing</artifactId>
+		    <version>${ignite.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.ignite</groupId>
 			<artifactId>ignite-log4j</artifactId>
-			<version>1.8.0</version>
+			<version>${ignite.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

@@ -42,6 +42,13 @@
 		<property name="minEvictableIdleTimeMillis" value="5000" />
 		<property name="minIdle" value="0" />
 	</bean>
+	
+	<!-- ignite -->
+	<!--
+	<bean id="igniteConfig" class="org.apache.ignite.configuration.IgniteConfiguration">
+		<property name="cacheConfiguration"></property>
+	</bean>
+	-->
 
 	<!-- jbdc base Operation -->
 	<bean id="dbDao" class="cn.com.cms.data.dao.BaseDbDao">
