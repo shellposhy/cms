@@ -1,4 +1,4 @@
-package cn.com.cms.framework.service;
+package cn.com.cms.framework.esb.jms;
 
 import javax.annotation.Resource;
 import javax.jms.MessageListener;

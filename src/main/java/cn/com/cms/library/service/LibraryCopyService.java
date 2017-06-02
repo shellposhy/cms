@@ -21,7 +21,7 @@ import cn.com.cms.data.model.DataTable;
 import cn.com.cms.data.service.DataCopyService;
 import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.framework.base.TaskMessage;
-import cn.com.cms.framework.service.TaskMessageListener;
+import cn.com.cms.framework.esb.jms.TaskMessageListener;
 import cn.com.cms.framework.tree.Node;
 import cn.com.cms.library.constant.ELibraryCopyType;
 import cn.com.cms.library.constant.EStatus;

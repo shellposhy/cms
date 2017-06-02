@@ -33,7 +33,7 @@ import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.base.TaskMessage;
 import cn.com.cms.framework.config.SystemConstant;
-import cn.com.cms.framework.service.TaskMessageListener;
+import cn.com.cms.framework.esb.jms.TaskMessageListener;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.constant.EIndexType;
 import cn.com.cms.library.constant.EStatus;
