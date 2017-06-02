@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/util                     
 		http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+	<bean id="igniteConfig" class="org.apache.ignite.configuration.IgniteConfiguration">
 		<!-- Set to true to enable distributed class loading, default is false. -->
 		<property name="peerClassLoadingEnabled" value="true" />
 		<!-- Enable only some events and leave other ones disabled -->
@@ -23,7 +23,7 @@
 		<property name="systemThreadPoolSize" value="32" />
 	</bean>
 
-	<bean id="cacheTemplate" class="org.apache.ignite.configuration.CacheConfiguration">
+	<bean id="cacheConfig" class="org.apache.ignite.configuration.CacheConfiguration">
 		<!-- Set a cache name. -->
 		<property name="name" value="cmsCache" />
 		<!-- Set cache mode to PARTITIONED by default. -->
