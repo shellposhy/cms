@@ -12,7 +12,7 @@
 
 	<!-- define the SqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis-config.xml"/>  
+		<property name="configLocation" value="classpath:config/mybatis-config.xml"/>  
 		<property name="dataSource" ref="dataSource" />
 		<property name="typeAliasesPackage" value="cn.com.cms.**.model" />
 	</bean>
