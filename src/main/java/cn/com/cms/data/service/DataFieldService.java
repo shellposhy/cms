@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import cn.com.cms.data.dao.DataFieldMapper;
@@ -85,6 +86,7 @@ public class DataFieldService {
 	 * 
 	 * @return
 	 */
+	@Cacheable(value = "allDataFields")
 	public List<DataField> findAllDataField() {
 		return dataFieldMapper.findAll();
 	}

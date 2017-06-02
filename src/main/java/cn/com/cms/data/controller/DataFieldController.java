@@ -40,7 +40,7 @@ public class DataFieldController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list() {
-		log.debug("===data.field.list===");
+		log.debug("=====data.field.list=====");
 		return "/admin/library/field/list";
 	}
 
