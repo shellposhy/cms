@@ -21,6 +21,12 @@
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
+	<!-- ignite listener -->
+	<!--
+	<listener>
+	   <listener-class>org.apache.ignite.startup.servlet.ServletContextListenerStartup</listener-class>
+	</listener>
+	-->
 	
 	<!-- jsp configuration -->
 	<jsp-config>
@@ -70,6 +76,19 @@
 		<filter-name>sitemeshFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- ignite filter -->
+	<!--
+	<filter>
+	   <filter-name>IgniteWebSessionsFilter</filter-name>
+	   <filter-class>org.apache.ignite.cache.websession.WebSessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	   <filter-name>IgniteWebSessionsFilter</filter-name>
+	   <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+	
 
 	<!-- servlet -->
 	<session-config>
@@ -154,6 +173,18 @@
 		<param-name>spring.liveBeansView.mbeanDomain</param-name>
 		<param-value>dev</param-value>
 	</context-param>
+	
+	<!-- Specify the name of Ignite cache for web sessions. -->
+	<!--
+	<context-param>
+	   <param-name>IgniteConfigurationFilePath</param-name>
+	   <param-value>classpath:config/ignite-config.xml</param-value>
+	</context-param>
+	<context-param>
+	   <param-name>IgniteWebSessionsCacheName</param-name>
+	   <param-value>partitioned</param-value>
+	</context-param>
+	-->
 
 	<!-- view -->
 	<welcome-file-list>
