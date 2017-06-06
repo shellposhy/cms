@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import cn.com.cms.framework.base.Result;
@@ -420,6 +421,7 @@ public class UserService {
 	 * @param pwd
 	 * @return
 	 */
+	@Cacheable(value = "user")
 	public User findByNamePwd(String name, String pwd) {
 		return userMapper.findByNamePwd(name, pwd);
 	}

@@ -28,6 +28,8 @@
 		<property name="name" value="cmsCache" />
 		<!-- Set cache mode to PARTITIONED by default. -->
 		<property name="cacheMode" value="PARTITIONED" />
+		<!-- Atomic write order mode. -->
+         <property name="atomicWriteOrderMode" value="PRIMARY"/>
 		<!-- Enable off-heap storage with unlimited size. -->
 		<property name="offHeapMaxMemory" value="0" />
 		<!-- Set initial cache capacity to ~ 100M -->
