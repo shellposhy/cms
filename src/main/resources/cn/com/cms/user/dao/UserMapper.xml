@@ -4,7 +4,11 @@
 
 <mapper namespace="cn.com.cms.user.dao.UserMapper">
 	<!-- MyBatis Cache Switch-->
-	<!--<cache type="org.mybatis.caches.ignite.IgniteCacheAdapter" />-->
+	<!--
+	<cache type="org.mybatis.caches.ignite.IgniteCacheAdapter">
+		<property name="CFG_PATH" value="classpath:config/ignite-config.xml"/>
+	</cache>
+	-->
 	<resultMap id="resultMap" type="cn.com.cms.user.model.User">
 		<result property="id" column="ID" />
 		<result property="userType" column="User_Type" />
@@ -249,6 +253,11 @@
 		ORDER BY Name ,Real_Name
 	</select>
 
+	<!--
+	<cache type="org.mybatis.caches.ignite.IgniteCacheAdapter">
+		<property name="CFG_PATH" value="classpath:config/ignite-config.xml"/>
+	</cache>
+	-->
 	<select id="findByNamePwd" resultMap="resultMap">
 		SELECT * FROM user WHERE
 		Name = #{name} AND Password = #{pwd}
