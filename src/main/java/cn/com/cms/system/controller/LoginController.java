@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.common.base.Strings;
 
 import cn.com.cms.base.config.BaseController;
+import cn.com.cms.framework.esb.cache.impl.IgniteCacheImpl;
 import cn.com.cms.framework.tree.MenuTreeNode;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.service.UserActionService;
@@ -37,6 +38,8 @@ public class LoginController extends BaseController {
 	private UserActionService userActionService;
 	@Resource
 	private UserService userService;
+	@Resource
+	private IgniteCacheImpl<User> userCache;
 
 	/**
 	 * 进入首页
@@ -92,7 +95,10 @@ public class LoginController extends BaseController {
 		log.debug("=======admin.security.check=========");
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
-		User currentUser = userService.findByNamePwd(name, StringUtil.encodeToMD5(password));
+		User currentUser = userCache.get(name.trim());
+		if (null == currentUser) {
+			currentUser = userService.findByNamePwd(name, StringUtil.encodeToMD5(password));
+		}
 		if (null == currentUser) {
 			return "/admin/login";
 		}

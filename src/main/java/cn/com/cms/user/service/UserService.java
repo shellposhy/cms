@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.config.SystemConstant;
+import cn.com.cms.framework.esb.cache.impl.IgniteCacheImpl;
 import cn.com.cms.user.constant.ELoginType;
 import cn.com.cms.user.dao.UserActionMapMapper;
 import cn.com.cms.user.dao.UserGroupMapMapper;
@@ -44,6 +45,8 @@ public class UserService {
 	private UserActionMapMapper userActionMapMapper;
 	@Resource
 	private OrgService orgService;
+	@Resource
+	private IgniteCacheImpl<User> userCache;
 
 	/**
 	 * 保存或更新用户
@@ -421,9 +424,15 @@ public class UserService {
 	 * @param pwd
 	 * @return
 	 */
-	@Cacheable(value = "user")
+	@Cacheable(key = "#name", value = "user")
 	public User findByNamePwd(String name, String pwd) {
-		return userMapper.findByNamePwd(name, pwd);
+		User user = userMapper.findByNamePwd(name, pwd);
+		if (null != user) {
+			// 用户信息写入缓存
+			userCache.put(name, user);
+			return user;
+		}
+		return null;
 	}
 
 	/**
