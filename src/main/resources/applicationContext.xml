@@ -55,7 +55,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="appConfig" class="cn.com.cms.base.config.AppConfig">
+	<bean id="appConfig" class="cn.com.cms.framework.config.AppConfig">
 		<property name="appName" value="新闻发布系统" />
 		<property name="appPath" value="" />
 		<property name="appPathHome" value="D:/cms" />

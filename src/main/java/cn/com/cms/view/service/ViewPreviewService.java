@@ -20,9 +20,6 @@ import com.google.common.collect.Lists;
 import com.microduo.index.lucene3.MdSortField;
 import com.microduo.index.lucene3.SearchResult;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.base.data.CmsData;
-import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.data.service.DataFieldService;
@@ -36,7 +33,10 @@ import cn.com.cms.view.model.ViewItem;
 import cn.com.cms.view.model.ViewPage;
 import cn.com.cms.view.vo.ViewPreviewVo;
 import cn.com.cms.data.util.DataUtil;
-import cn.com.cms.framework.base.Result;;
+import cn.com.cms.framework.base.Result;
+import cn.com.cms.framework.base.table.CmsData;
+import cn.com.cms.framework.base.table.FieldCodes;
+import cn.com.cms.framework.config.AppConfig;;
 
 /**
  * 页面配置发布预览服务类

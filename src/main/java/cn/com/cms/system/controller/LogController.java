@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.base.config.BaseController;
-import cn.com.cms.base.data.DataTablesVo;
-import cn.com.cms.base.data.JsonPara;
-import cn.com.cms.base.view.BaseMappingJsonView;
-import cn.com.cms.framework.base.BaseLog;
+import cn.com.cms.framework.base.BaseController;
+import cn.com.cms.framework.base.Log;
 import cn.com.cms.framework.base.Result;
+import cn.com.cms.framework.base.table.DataTablesVo;
+import cn.com.cms.framework.base.table.JsonPara;
+import cn.com.cms.framework.base.view.BaseMappingJsonView;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.system.service.LogFileService;
 import cn.com.cms.system.vo.LogVo;
 import cn.com.people.data.util.DateTimeUtil;
@@ -68,7 +68,7 @@ public class LogController extends BaseController {
 		if (("").equals(queryStr)) {
 			queryStr = null;
 		}
-		Result<BaseLog> result = (Result<BaseLog>) logFileService.searchLog(type, date, date, queryStr, firstResult,
+		Result<Log> result = (Result<Log>) logFileService.searchLog(type, date, date, queryStr, firstResult,
 				pageSize, true);
 		if (result != null) {
 			int totalCount = result.getTotalCount();

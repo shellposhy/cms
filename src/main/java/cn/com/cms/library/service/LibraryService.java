@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.base.data.DbTable;
 import cn.com.cms.data.dao.DataFieldMapper;
 import cn.com.cms.data.dao.DataTableMapper;
 import cn.com.cms.data.dao.BaseDbDao;
@@ -21,9 +19,11 @@ import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.framework.base.TaskMessage;
 import cn.com.cms.framework.base.dao.LibraryDao;
+import cn.com.cms.framework.base.table.DbTable;
 import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.framework.base.tree.DefaultTreeNode.PropertySetter;
 import cn.com.cms.framework.base.tree.LibraryTreeNode;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;

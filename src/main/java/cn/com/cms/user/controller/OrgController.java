@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.base.config.BaseController;
-import cn.com.cms.base.config.ControllerOperator;
-import cn.com.cms.base.view.BaseMappingJsonView;
+import cn.com.cms.framework.base.BaseController;
+import cn.com.cms.framework.base.ControllerOperator;
 import cn.com.cms.framework.base.Node;
 import cn.com.cms.framework.base.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.user.model.Org;
 import cn.com.cms.user.model.User;

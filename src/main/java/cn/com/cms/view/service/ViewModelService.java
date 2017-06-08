@@ -10,9 +10,9 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.com.cms.base.config.AppConfig;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.base.template.TemplateComposer;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.view.constant.EModelType;
 import cn.com.cms.view.dao.ViewItemMapper;
 import cn.com.cms.view.dao.ViewModelCategoryMapper;

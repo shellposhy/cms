@@ -14,7 +14,7 @@ import cn.com.cms.system.contant.ELogTargetType;
  * @author shishb
  * @version 1.0
  */
-public class BaseLog implements Serializable {
+public class Log implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String method;
@@ -179,8 +179,8 @@ public class BaseLog implements Serializable {
 	 * @param lineLog
 	 * @return
 	 */
-	public static BaseLog formatLog(String lineLog) {
-		BaseLog baseLog = new BaseLog();
+	public static Log formatLog(String lineLog) {
+		Log baseLog = new Log();
 		String[] values = lineLog.split(",", 11);
 		baseLog.setUserId(Integer.valueOf(values[0]));
 		baseLog.setUserName(values[1]);
@@ -203,7 +203,7 @@ public class BaseLog implements Serializable {
 	 * @param log
 	 * @return
 	 */
-	public static boolean isMatchQuery(String query, BaseLog log) {
+	public static boolean isMatchQuery(String query, Log log) {
 		if (log.getLogAction().toChinese().contains(query))
 			return true;
 		if (log.getLogTargetType().toChinese().contains(query))

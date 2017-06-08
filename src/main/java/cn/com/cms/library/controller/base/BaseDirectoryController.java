@@ -10,10 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.base.config.BaseController;
-import cn.com.cms.base.config.ControllerOperator;
-import cn.com.cms.base.view.BaseMappingJsonView;
+import cn.com.cms.framework.base.BaseController;
+import cn.com.cms.framework.base.ControllerOperator;
 import cn.com.cms.framework.base.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.view.BaseMappingJsonView;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.service.LibraryDirectoryService;

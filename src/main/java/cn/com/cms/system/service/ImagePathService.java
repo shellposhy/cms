@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 
-import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.util.FileUtil;
 
 /**

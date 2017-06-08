@@ -1,4 +1,4 @@
-package cn.com.cms.base.data;
+package cn.com.cms.framework.base.table;
 
 import java.io.Serializable;
 import java.util.Collection;

@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 
-import cn.com.cms.base.data.CmsData;
-import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.dao.DataTableMapper;
 import cn.com.cms.data.model.DataField;
@@ -22,6 +20,8 @@ import cn.com.cms.data.service.DataCopyService;
 import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.framework.base.Node;
 import cn.com.cms.framework.base.TaskMessage;
+import cn.com.cms.framework.base.table.CmsData;
+import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.framework.esb.jms.TaskMessageListener;
 import cn.com.cms.library.constant.ELibraryCopyType;
 import cn.com.cms.library.constant.EStatus;

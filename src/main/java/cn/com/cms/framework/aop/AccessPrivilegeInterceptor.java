@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.framework.base.BaseLog;
+import cn.com.cms.framework.base.Log;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.system.contant.EInterceptStatus;
 import cn.com.cms.system.service.LogService;
 import cn.com.cms.user.model.User;
@@ -103,7 +103,7 @@ public class AccessPrivilegeInterceptor implements HandlerInterceptor {
 	 * @return
 	 */
 	public void excuteLog(HttpServletRequest request, User user, boolean accessType) {
-		BaseLog log = new BaseLog();
+		Log log = new Log();
 		String qs = request.getQueryString();
 		log.setUri(request.getRequestURI());
 		if (qs == null || "null".equals(qs)) {
@@ -144,7 +144,7 @@ public class AccessPrivilegeInterceptor implements HandlerInterceptor {
 	 * @param log
 	 * @return
 	 */
-	private void saveLog(BaseLog log) {
+	private void saveLog(Log log) {
 		if (log.getUri().contains("/admin")) {
 			logService.logAdmin(log);
 		} else {

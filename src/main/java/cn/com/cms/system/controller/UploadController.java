@@ -16,9 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.base.config.BaseController;
-import cn.com.cms.base.view.BaseMappingJsonView;
+import cn.com.cms.framework.base.BaseController;
+import cn.com.cms.framework.base.view.BaseMappingJsonView;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.util.FileUtil;
 import cn.com.people.data.util.DateTimeUtil;
 

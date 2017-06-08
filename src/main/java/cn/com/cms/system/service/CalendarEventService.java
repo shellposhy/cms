@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.base.config.AppConfig;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.system.dao.CalendarEventMapper;
 import cn.com.cms.system.model.CalendarEvent;
 import cn.com.people.data.util.ChineseCalendar;

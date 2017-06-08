@@ -15,10 +15,10 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import com.google.common.collect.Lists;
 
-import cn.com.cms.base.config.BaseController;
-import cn.com.cms.base.data.JsonPara;
-import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.data.model.DataTable;
+import cn.com.cms.framework.base.BaseController;
+import cn.com.cms.framework.base.table.JsonPara;
+import cn.com.cms.framework.base.view.BaseMappingJsonView;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.system.model.RecordVisit;
 import cn.com.cms.system.service.RecordVisitService;

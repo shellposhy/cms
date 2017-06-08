@@ -6,13 +6,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.base.data.DbTable;
 import cn.com.cms.data.dao.DataFieldMapper;
 import cn.com.cms.data.dao.DataTableMapper;
 import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.framework.base.dao.LibraryTableDao;
+import cn.com.cms.framework.base.table.DbTable;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.library.dao.LibraryMapper;
 import cn.com.cms.library.model.BaseLibrary;
 

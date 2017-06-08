@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.com.cms.base.config.BaseController;
+import cn.com.cms.framework.base.BaseController;
 import cn.com.cms.view.service.ViewListService;
 
 /**

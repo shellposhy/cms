@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-import cn.com.cms.framework.base.BaseLog;
+import cn.com.cms.framework.base.Log;
 import cn.com.cms.system.contant.ELogAction;
 import cn.com.cms.system.contant.ELogTargetType;
 import cn.com.cms.system.model.RecordVisit;
@@ -54,7 +54,7 @@ public class LogService implements MessageListener {
 	 * @param log
 	 * @return
 	 */
-	public void logAdmin(final BaseLog log) {
+	public void logAdmin(final Log log) {
 		JmsTemplate.send(queue, new MessageCreator() {
 			public Message createMessage(Session session) throws JMSException {
 				ObjectMessage message = session.createObjectMessage(log);
@@ -70,7 +70,7 @@ public class LogService implements MessageListener {
 	 * @param log
 	 * @return
 	 */
-	public void logUser(final BaseLog log) {
+	public void logUser(final Log log) {
 		JmsTemplate.send(queue, new MessageCreator() {
 			public Message createMessage(Session session) throws JMSException {
 				ObjectMessage message = session.createObjectMessage(log);
@@ -88,7 +88,7 @@ public class LogService implements MessageListener {
 	 */
 	public void onMessage(Message message) {
 		ObjectMessage om = null;
-		BaseLog log = null;
+		Log log = null;
 		Logger logger = null;
 		try {
 			byte msgType = message.getByteProperty(MESSAGE_TYPE);
@@ -96,7 +96,7 @@ public class LogService implements MessageListener {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(new Date());
 				om = (ObjectMessage) message;
-				log = (BaseLog) om.getObject();
+				log = (Log) om.getObject();
 				log.setLogAction(getAccessType(log.getUri(), log.getMethod(), log.getId()));
 				log.setLogTargetType(getTargetType(log.getUri(), log.getUrl()));
 				if ((log.getLogTargetType().equals(ELogTargetType.DataBase))) {
@@ -174,7 +174,7 @@ public class LogService implements MessageListener {
 	 * @param log
 	 * @return
 	 */
-	public void writeRecordVisit(BaseLog log) {
+	public void writeRecordVisit(Log log) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		RecordVisit record = new RecordVisit();

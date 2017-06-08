@@ -16,7 +16,7 @@ import java.util.Properties;
 
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.framework.base.BaseLog;
+import cn.com.cms.framework.base.Log;
 import cn.com.cms.framework.base.Result;
 import cn.com.people.data.util.DateTimeUtil;
 
@@ -40,7 +40,7 @@ public class LogFileService {
 	 * @param desc
 	 * @return
 	 */
-	public Result<BaseLog> searchLog(int type, Date startDate, Date endDate, String query, int firstResult,
+	public Result<Log> searchLog(int type, Date startDate, Date endDate, String query, int firstResult,
 			int maxResult, boolean sortType) {
 		String logMainRoute1 = null;
 		String logMainRoute2 = null;
@@ -69,7 +69,7 @@ public class LogFileService {
 		todayCal.setTime(today);
 		dateCal.setTime(startDate);
 		List<File> logFileList = new ArrayList<File>();
-		while (BaseLog.dateCompare(startDate, endDate) <= 0) {
+		while (Log.dateCompare(startDate, endDate) <= 0) {
 			if (todayCal.get(Calendar.DATE) == dateCal.get(Calendar.DATE)
 					&& todayCal.get(Calendar.MONTH) == dateCal.get(Calendar.MONTH)
 					&& todayCal.get(Calendar.YEAR) == dateCal.get(Calendar.YEAR)) {
@@ -108,10 +108,10 @@ public class LogFileService {
 	 * @param sortType
 	 * @return
 	 */
-	private Result<BaseLog> getResult(List<File> logFiles, String query, int firstResult, int maxResult,
+	private Result<Log> getResult(List<File> logFiles, String query, int firstResult, int maxResult,
 			boolean sortType) {
 		try {
-			List<BaseLog> logList = new ArrayList<BaseLog>();
+			List<Log> logList = new ArrayList<Log>();
 			int totalCount = 0;
 			int lastResult = firstResult + maxResult;
 			for (File logFile : logFiles) {
@@ -131,8 +131,8 @@ public class LogFileService {
 				int maxIndex = logStrList.size() - 1;
 				if (sortType) {
 					for (int i = maxIndex; i >= 0; i--) {
-						BaseLog log = BaseLog.formatLog(logStrList.get(i));
-						if (query == null || BaseLog.isMatchQuery(query, log)) {
+						Log log = Log.formatLog(logStrList.get(i));
+						if (query == null || Log.isMatchQuery(query, log)) {
 							totalCount++;
 							if (totalCount >= firstResult && totalCount <= lastResult) {
 								logList.add(log);
@@ -141,8 +141,8 @@ public class LogFileService {
 					}
 				} else {
 					for (int i = 0; i <= maxIndex; i++) {
-						BaseLog log = BaseLog.formatLog(logStrList.get(i));
-						if (query == null || BaseLog.isMatchQuery(query, log)) {
+						Log log = Log.formatLog(logStrList.get(i));
+						if (query == null || Log.isMatchQuery(query, log)) {
 							totalCount++;
 							if (totalCount >= firstResult && totalCount <= lastResult) {
 								logList.add(log);
@@ -155,7 +155,7 @@ public class LogFileService {
 				inputStream.close();
 			}
 			if (logList.size() > 0) {
-				Result<BaseLog> result = new Result<BaseLog>();
+				Result<Log> result = new Result<Log>();
 				result.setList(logList);
 				result.setTotalCount(totalCount);
 				return result;

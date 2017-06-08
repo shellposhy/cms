@@ -13,10 +13,10 @@ import com.google.common.base.Strings;
 import com.microduo.index.lucene3.MdSortField;
 import com.microduo.index.lucene3.SearchResult;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
+import cn.com.cms.framework.base.table.FieldCodes;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.constant.ELibraryNodeType;

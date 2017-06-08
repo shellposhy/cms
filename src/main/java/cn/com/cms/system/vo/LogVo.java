@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import cn.com.cms.framework.base.BaseLog;
+import cn.com.cms.framework.base.Log;
 import cn.com.people.data.util.DateTimeUtil;
 
 /**
@@ -22,12 +22,12 @@ public class LogVo {
 	private String logAction = "";
 	private String targetName = "";
 
-	public static List<LogVo> changeVoList(List<BaseLog> list, int type) {
+	public static List<LogVo> changeVoList(List<Log> list, int type) {
 		List<LogVo> result = Lists.newArrayList();
 		if (null != list && list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
 				LogVo logVo = new LogVo();
-				BaseLog log = list.get(i);
+				Log log = list.get(i);
 				logVo.setIp(log.getIp());
 				logVo.setDateStr(DateTimeUtil.formatDateTime(new Date(Long.valueOf(log.getTime()))));
 				logVo.setUrl(log.getUrl());

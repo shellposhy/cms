@@ -27,14 +27,14 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import com.google.common.collect.Maps;
 
-import cn.com.cms.base.data.CmsData;
-import cn.com.cms.base.data.DbData;
-import cn.com.cms.base.data.DbTable;
-import cn.com.cms.base.data.FieldCodes;
 import cn.com.cms.data.constant.EDataTransErrPolicy;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.framework.base.Result;
+import cn.com.cms.framework.base.table.CmsData;
+import cn.com.cms.framework.base.table.DbData;
+import cn.com.cms.framework.base.table.DbTable;
+import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.user.model.User;

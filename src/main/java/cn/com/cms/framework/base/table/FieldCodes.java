@@ -1,4 +1,4 @@
-package cn.com.cms.base.data;
+package cn.com.cms.framework.base.table;
 
 public final class FieldCodes {
 	public static final String ID = "ID";

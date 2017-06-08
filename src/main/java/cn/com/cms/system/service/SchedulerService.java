@@ -9,12 +9,12 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.base.config.AppConfig;
-import cn.com.cms.base.data.DbTable;
 import cn.com.cms.data.dao.DataFieldMapper;
 import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
+import cn.com.cms.framework.base.table.DbTable;
+import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.library.constant.EDataFieldType;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
