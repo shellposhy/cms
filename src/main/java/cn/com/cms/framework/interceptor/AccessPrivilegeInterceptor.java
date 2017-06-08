@@ -1,4 +1,4 @@
-package cn.com.cms.framework.aop;
+package cn.com.cms.framework.interceptor;
 
 import java.util.Date;
 
