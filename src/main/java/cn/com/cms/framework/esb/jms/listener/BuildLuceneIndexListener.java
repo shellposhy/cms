@@ -1,4 +1,4 @@
-package cn.com.cms.system.service;
+package cn.com.cms.framework.esb.jms.listener;
 
 import javax.annotation.Resource;
 import javax.jms.JMSException;
@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 
-import cn.com.cms.framework.base.TaskMessage;
+import cn.com.cms.framework.esb.jms.model.TaskMessage;
 import cn.com.cms.system.dao.TaskErrorMapper;
 import cn.com.cms.system.dao.TaskMapper;
 import cn.com.cms.system.model.Task;
@@ -25,7 +25,7 @@ import cn.com.cms.system.model.TaskError;
  * @author shsihb
  * @version 1.0
  */
-public class TaskService implements MessageListener {
+public class BuildLuceneIndexListener implements MessageListener {
 	@Resource
 	private JmsTemplate jmsTemplate;
 	@Resource

@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.com.cms.framework.base.Log;
 import cn.com.cms.framework.config.AppConfig;
+import cn.com.cms.framework.esb.jms.listener.LogRecordListener;
 import cn.com.cms.system.contant.EInterceptStatus;
-import cn.com.cms.system.service.LogService;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.service.UserActionService;
 import cn.com.cms.user.service.UserSecurityService;
@@ -34,7 +34,7 @@ public class AccessPrivilegeInterceptor implements HandlerInterceptor {
 	@Resource
 	private UserSecurityService securityService;
 	@Resource
-	private LogService logService;
+	private LogRecordListener logService;
 	@Resource
 	private AppConfig appConfig;
 

@@ -1,4 +1,4 @@
-package cn.com.cms.system.service;
+package cn.com.cms.framework.esb.jms.listener;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +20,7 @@ import cn.com.cms.framework.base.Log;
 import cn.com.cms.system.contant.ELogAction;
 import cn.com.cms.system.contant.ELogTargetType;
 import cn.com.cms.system.model.RecordVisit;
+import cn.com.cms.system.service.RecordVisitService;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.model.UserGroup;
 import cn.com.cms.user.service.UserGroupService;
@@ -31,7 +32,7 @@ import cn.com.cms.user.service.UserService;
  * @author shishb
  * @version 1.0
  */
-public class LogService implements MessageListener {
+public class LogRecordListener implements MessageListener {
 	private static final String MESSAGE_TYPE = "MESSAGE_TYPE";
 	private static final byte ADMIN_LOG = 1;
 	private static final byte USER_LOG = 2;

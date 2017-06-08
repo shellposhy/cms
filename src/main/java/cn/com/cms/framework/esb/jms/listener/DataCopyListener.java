@@ -1,10 +1,9 @@
-package cn.com.cms.framework.esb.jms;
+package cn.com.cms.framework.esb.jms.listener;
 
 import javax.annotation.Resource;
 import javax.jms.MessageListener;
 
 import cn.com.cms.system.model.Task;
-import cn.com.cms.system.service.TaskService;
 import cn.com.people.data.util.DateTimeUtil;
 
 /**
@@ -13,9 +12,9 @@ import cn.com.people.data.util.DateTimeUtil;
  * @author shishb
  * @version 1.0
  */
-abstract public class TaskMessageListener implements MessageListener {
+abstract public class DataCopyListener implements MessageListener {
 	@Resource
-	private TaskService taskService;
+	private BuildLuceneIndexListener taskService;
 
 	protected void updateTaskStatus(Task task) {
 		task.setUpdateTime(DateTimeUtil.getCurrentDateTime());

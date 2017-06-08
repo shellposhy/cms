@@ -20,9 +20,9 @@ import cn.com.cms.data.service.DataCopyService;
 import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.Node;
-import cn.com.cms.framework.base.TaskMessage;
 import cn.com.cms.framework.base.table.FieldCodes;
-import cn.com.cms.framework.esb.jms.TaskMessageListener;
+import cn.com.cms.framework.esb.jms.listener.DataCopyListener;
+import cn.com.cms.framework.esb.jms.model.TaskMessage;
 import cn.com.cms.library.constant.ELibraryCopyType;
 import cn.com.cms.library.constant.EStatus;
 import cn.com.cms.library.dao.LibraryMapper;
@@ -38,7 +38,7 @@ import cn.com.people.data.util.SimpleLock;
  * @version 1.0
  */
 @Service
-public class LibraryCopyService<T extends BaseLibrary<T>> extends TaskMessageListener {
+public class LibraryCopyService<T extends BaseLibrary<T>> extends DataCopyListener {
 	private static final Logger logger = Logger.getLogger(LibraryCopyService.class.getName());
 	@Resource
 	private LibraryMapper<T> libraryMapper;

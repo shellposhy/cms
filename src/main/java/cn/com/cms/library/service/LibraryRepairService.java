@@ -29,11 +29,11 @@ import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.Result;
-import cn.com.cms.framework.base.TaskMessage;
 import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.framework.config.SystemConstant;
-import cn.com.cms.framework.esb.jms.TaskMessageListener;
+import cn.com.cms.framework.esb.jms.listener.DataCopyListener;
+import cn.com.cms.framework.esb.jms.model.TaskMessage;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.constant.EIndexType;
 import cn.com.cms.library.constant.EStatus;
@@ -53,7 +53,7 @@ import cn.com.people.data.util.SimpleLock;
  * @version 1.0
  */
 @Service
-public class LibraryRepairService<T extends BaseLibrary<T>> extends TaskMessageListener {
+public class LibraryRepairService<T extends BaseLibrary<T>> extends DataCopyListener {
 	// 区分任务是否是真正停滞
 	private final static long TASK_NO_PROGRESS_TIME = 3;
 	private static final Logger logger = Logger.getLogger(LibraryRepairService.class.getName());

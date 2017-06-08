@@ -1,4 +1,4 @@
-package cn.com.cms.framework.base;
+package cn.com.cms.framework.esb.jms.model;
 
 import java.io.Serializable;
 import java.util.HashMap;

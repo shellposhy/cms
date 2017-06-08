@@ -17,7 +17,6 @@ import cn.com.cms.data.dao.DataTableMapper;
 import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
-import cn.com.cms.framework.base.TaskMessage;
 import cn.com.cms.framework.base.dao.LibraryDao;
 import cn.com.cms.framework.base.table.DbTable;
 import cn.com.cms.framework.base.tree.DefaultTreeNode;
@@ -25,6 +24,8 @@ import cn.com.cms.framework.base.tree.DefaultTreeNode.PropertySetter;
 import cn.com.cms.framework.base.tree.LibraryTreeNode;
 import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.framework.config.SystemConstant;
+import cn.com.cms.framework.esb.jms.listener.BuildLuceneIndexListener;
+import cn.com.cms.framework.esb.jms.model.TaskMessage;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.constant.EStatus;
@@ -36,7 +37,6 @@ import cn.com.cms.library.model.DataNavigate;
 import cn.com.cms.system.contant.ETaskStatus;
 import cn.com.cms.system.contant.ETaskType;
 import cn.com.cms.system.model.Task;
-import cn.com.cms.system.service.TaskService;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.service.UserDataAuthorityService;
 import cn.com.cms.user.service.UserGroupService;
@@ -66,7 +66,7 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 	@Resource
 	private AppConfig appConfig;
 	@Resource
-	private TaskService taskService;
+	private BuildLuceneIndexListener taskService;
 
 	/**
 	 * 属性设置器
