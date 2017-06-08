@@ -10,7 +10,7 @@
 		<result property="code" column="Code" />
 		<result property="modelType" column="Model_Type" />
 		<result property="fileName" column="File_Name" />
-		<result property="content" column="Content" typeHandler="cn.com.cms.framework.view.BlobTypeHandler" />
+		<result property="content" column="Content" typeHandler="cn.com.cms.framework.base.view.BlobTypeHandler" />
 		<result property="orderId" column="Order_ID" />
 	</resultMap>
 

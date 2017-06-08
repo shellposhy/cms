@@ -1,4 +1,4 @@
-package cn.com.cms.framework.view;
+package cn.com.cms.framework.base.view;
 
 import java.beans.PropertyEditorSupport;
 

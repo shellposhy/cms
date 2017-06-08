@@ -1,4 +1,4 @@
-package cn.com.cms.framework.template;
+package cn.com.cms.framework.base.template;
 
 import java.io.BufferedReader;
 import java.io.File;

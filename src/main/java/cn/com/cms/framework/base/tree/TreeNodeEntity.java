@@ -1,10 +1,12 @@
-package cn.com.cms.framework.base;
+package cn.com.cms.framework.base.tree;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+
+import cn.com.cms.framework.base.BaseEntity;
 
 /**
  * 树形节点基础类

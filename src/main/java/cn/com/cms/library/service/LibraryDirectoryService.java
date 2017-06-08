@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import cn.com.cms.framework.base.dao.LibraryDirectoryDao;
-import cn.com.cms.framework.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.constant.EStatus;

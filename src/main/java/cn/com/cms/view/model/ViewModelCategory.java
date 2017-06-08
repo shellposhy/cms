@@ -1,6 +1,6 @@
 package cn.com.cms.view.model;
 
-import cn.com.cms.framework.base.TreeNodeEntity;
+import cn.com.cms.framework.base.tree.TreeNodeEntity;
 
 /**
  * 页面模板目录表

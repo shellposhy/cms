@@ -25,9 +25,8 @@ import cn.com.cms.base.config.ControllerOperator;
 import cn.com.cms.base.data.JsonPara;
 import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.data.service.DataSortService;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.framework.config.SystemConstant;
-import cn.com.cms.framework.security.UserSecurityService;
-import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.model.DataSort;
@@ -35,6 +34,7 @@ import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.service.UserActionService;
 import cn.com.cms.user.service.UserGroupService;
+import cn.com.cms.user.service.UserSecurityService;
 
 /**
  * 数据分类控制类

@@ -7,7 +7,7 @@ import cn.com.people.data.util.AESUtil;
 /**
  * 数据库属性文件解密
  */
-public class DecryptPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
+public class PropertyConfigurer extends PropertyPlaceholderConfigurer {
 	private final static String KEY = "ZHIHUI_DATA";
 
 	/**

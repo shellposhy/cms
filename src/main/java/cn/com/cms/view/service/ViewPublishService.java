@@ -16,7 +16,6 @@ import com.microduo.index.lucene3.SearchResult;
 
 import cn.com.cms.base.config.AppConfig;
 import cn.com.cms.base.data.FieldCodes;
-import cn.com.cms.framework.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.model.DataNavigate;
@@ -38,6 +37,7 @@ import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.FileUtil;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.people.data.util.FreeMarkerUtil;
 
 /**

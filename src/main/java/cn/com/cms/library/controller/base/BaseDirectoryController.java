@@ -13,12 +13,12 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 import cn.com.cms.base.config.BaseController;
 import cn.com.cms.base.config.ControllerOperator;
 import cn.com.cms.base.view.BaseMappingJsonView;
-import cn.com.cms.framework.security.UserSecurityService;
-import cn.com.cms.framework.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.model.BaseLibrary;
 import cn.com.cms.library.service.LibraryDirectoryService;
 import cn.com.cms.user.model.User;
+import cn.com.cms.user.service.UserSecurityService;
 
 /**
  * 库（Library）目录管理的基类

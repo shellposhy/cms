@@ -3,7 +3,7 @@ package cn.com.cms.view.model;
 import java.util.Date;
 import java.util.List;
 
-import cn.com.cms.framework.base.TreeNodeEntity;
+import cn.com.cms.framework.base.tree.TreeNodeEntity;
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.view.constant.EPageType;
 

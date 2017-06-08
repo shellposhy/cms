@@ -30,7 +30,6 @@ import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.data.util.CharacterPinyinUtil;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.config.SystemConstant;
-import cn.com.cms.framework.security.UserSecurityService;
 import cn.com.cms.library.constant.EDataFieldType;
 import cn.com.cms.library.model.ColumnModel;
 import cn.com.cms.library.model.ColumnModelFieldMap;
@@ -42,6 +41,7 @@ import cn.com.cms.system.contant.ETaskType;
 import cn.com.cms.system.dao.TaskMapper;
 import cn.com.cms.system.model.Task;
 import cn.com.cms.user.model.User;
+import cn.com.cms.user.service.UserSecurityService;
 
 /**
  * 数据库模板控制类

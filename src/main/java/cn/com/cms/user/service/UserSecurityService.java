@@ -1,4 +1,4 @@
-package cn.com.cms.framework.security;
+package cn.com.cms.user.service;
 
 import javax.servlet.http.HttpServletRequest;
 

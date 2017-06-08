@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import cn.com.cms.base.config.BaseController;
 import cn.com.cms.base.view.BaseMappingJsonView;
-import cn.com.cms.framework.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.view.model.ViewContent;

@@ -2,7 +2,7 @@ package cn.com.cms.user.model;
 
 import java.util.Date;
 
-import cn.com.cms.framework.base.TreeNodeEntity;
+import cn.com.cms.framework.base.tree.TreeNodeEntity;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.user.constant.EActionType;

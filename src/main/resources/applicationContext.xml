@@ -18,7 +18,7 @@
 	http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 	
 	<!-- data property -->
-	<bean id="propertyConfigurer" class="cn.com.cms.framework.config.DecryptPropertyPlaceholderConfigurer">
+	<bean id="propertyConfigurer" class="cn.com.cms.framework.config.PropertyConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath*:database.properties</value>

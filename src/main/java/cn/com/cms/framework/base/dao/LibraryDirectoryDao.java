@@ -1,6 +1,6 @@
 package cn.com.cms.framework.base.dao;
 
-import cn.com.cms.framework.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.model.BaseLibrary;
 

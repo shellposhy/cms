@@ -1,10 +1,10 @@
-package cn.com.cms.framework.tree;
+package cn.com.cms.framework.base.tree;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import cn.com.cms.framework.base.TreeNodeEntity;
+import cn.com.cms.framework.base.Node;
 
 /**
  * 系统默认树形节点

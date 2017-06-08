@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import cn.com.cms.framework.base.Result;
-import cn.com.cms.framework.security.UserSecurityService;
+import cn.com.cms.user.service.UserSecurityService;
 import cn.com.cms.view.constant.EPageType;
 import cn.com.cms.view.dao.ViewContentMapper;
 import cn.com.cms.view.dao.ViewPageMapper;

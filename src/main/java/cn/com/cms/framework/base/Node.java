@@ -1,4 +1,4 @@
-package cn.com.cms.framework.tree;
+package cn.com.cms.framework.base;
 
 /**
  * 节点对象

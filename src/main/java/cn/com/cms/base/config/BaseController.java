@@ -17,7 +17,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import cn.com.cms.framework.view.HtmlEscapeEditor;
+import cn.com.cms.framework.base.view.HtmlEscapeEditor;
 
 /**
  * 基础控制类

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.com.cms.base.config.AppConfig;
 import cn.com.cms.base.config.BaseController;
-import cn.com.cms.framework.security.UserSecurityService;
 import cn.com.cms.system.service.CalendarEventService;
+import cn.com.cms.user.service.UserSecurityService;
 import cn.com.cms.view.constant.EContentType;
 import cn.com.cms.view.constant.EPageType;
 import cn.com.cms.view.model.ViewContent;

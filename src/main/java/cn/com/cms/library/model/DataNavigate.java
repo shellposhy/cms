@@ -1,6 +1,6 @@
 package cn.com.cms.library.model;
 
-import cn.com.cms.framework.base.TreeNodeEntity;
+import cn.com.cms.framework.base.tree.TreeNodeEntity;
 import cn.com.cms.library.constant.EDataNavigateType;
 import cn.com.cms.library.constant.ELibraryNodeType;
 

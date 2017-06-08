@@ -1,4 +1,4 @@
-package cn.com.cms.framework.security;
+package cn.com.cms.analyze.service;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

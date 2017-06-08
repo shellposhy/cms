@@ -39,7 +39,7 @@ import cn.com.cms.base.data.DataTablesVo;
 import cn.com.cms.base.data.JsonPara;
 import cn.com.cms.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.base.Result;
-import cn.com.cms.framework.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.view.constant.EModelType;
 import cn.com.cms.view.model.ViewItem;
 import cn.com.cms.view.model.ViewModel;

@@ -6,7 +6,7 @@ import java.util.List;
 
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.framework.base.BaseEntity;
-import cn.com.cms.framework.base.TreeNodeEntity;
+import cn.com.cms.framework.base.tree.TreeNodeEntity;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.constant.EStatus;

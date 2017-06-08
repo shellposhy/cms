@@ -13,11 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.com.cms.base.config.AppConfig;
 import cn.com.cms.framework.base.BaseLog;
-import cn.com.cms.framework.security.UserSecurityService;
 import cn.com.cms.system.contant.EInterceptStatus;
 import cn.com.cms.system.service.LogService;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.service.UserActionService;
+import cn.com.cms.user.service.UserSecurityService;
 import cn.com.people.data.util.SystemUtil;
 
 /**

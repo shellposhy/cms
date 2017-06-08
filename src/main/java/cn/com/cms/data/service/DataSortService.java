@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.framework.tree.DefaultTreeNode;
-import cn.com.cms.framework.tree.DefaultTreeNode.PropertySetter;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
+import cn.com.cms.framework.base.tree.DefaultTreeNode.PropertySetter;
 import cn.com.cms.library.constant.EStatus;
 import cn.com.cms.library.dao.DataSortMapper;
 import cn.com.cms.library.dao.LibraryMapper;
