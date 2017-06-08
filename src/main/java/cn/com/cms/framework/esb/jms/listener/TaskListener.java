@@ -25,7 +25,7 @@ import cn.com.cms.system.model.TaskError;
  * @author shsihb
  * @version 1.0
  */
-public class BuildLuceneIndexListener implements MessageListener {
+public class TaskListener implements MessageListener {
 	@Resource
 	private JmsTemplate jmsTemplate;
 	@Resource

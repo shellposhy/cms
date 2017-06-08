@@ -24,7 +24,7 @@ import cn.com.cms.framework.base.tree.DefaultTreeNode.PropertySetter;
 import cn.com.cms.framework.base.tree.LibraryTreeNode;
 import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.framework.config.SystemConstant;
-import cn.com.cms.framework.esb.jms.listener.BuildLuceneIndexListener;
+import cn.com.cms.framework.esb.jms.listener.TaskListener;
 import cn.com.cms.framework.esb.jms.model.TaskMessage;
 import cn.com.cms.library.constant.ELibraryNodeType;
 import cn.com.cms.library.constant.ELibraryType;
@@ -66,7 +66,7 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 	@Resource
 	private AppConfig appConfig;
 	@Resource
-	private BuildLuceneIndexListener taskService;
+	private TaskListener taskService;
 
 	/**
 	 * 属性设置器

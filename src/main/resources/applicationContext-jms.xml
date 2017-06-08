@@ -39,10 +39,10 @@
         </constructor-arg>
     </bean>
 
-	<bean id="logService" class="cn.com.cms.system.service.LogService">
+	<bean id="logService" class="cn.com.cms.framework.esb.jms.listener.LogRecordListener">
 		<property name="queue" ref="logQueue"></property>
 	</bean>
-	<bean id="taskService" class="cn.com.cms.system.service.TaskService">
+	<bean id="taskService" class="cn.com.cms.framework.esb.jms.listener.TaskListener">
 		<property name="queue" ref="taskQueue"></property>
 	</bean>
 

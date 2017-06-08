@@ -14,7 +14,7 @@ import cn.com.people.data.util.DateTimeUtil;
  */
 abstract public class DataCopyListener implements MessageListener {
 	@Resource
-	private BuildLuceneIndexListener taskService;
+	private TaskListener taskService;
 
 	protected void updateTaskStatus(Task task) {
 		task.setUpdateTime(DateTimeUtil.getCurrentDateTime());
