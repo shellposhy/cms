@@ -14,7 +14,6 @@
 				<tr>
 					<th><label class="checkbox inline"><input type="checkbox" class="selAll" />事务名称</label></th>
 					<th>类型</th>
-					<th>创建人</th>
 					<th>进度</th>
 					<th>状态</th>
 					<th>创建日期</th>
@@ -27,7 +26,6 @@
 				<tr>
 					<th>事务名称</th>
 					<th>类型</th>
-					<th>创建人</th>
 					<th>进度</th>
 					<th>状态</th>
 					<th>创建日期</th>

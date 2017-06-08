@@ -92,7 +92,6 @@ public class TaskController extends BaseController {
 		if (null != result && null != result.getList() && result.getList().size() > 0) {
 			for (Task task : result.getList()) {
 				TaskVo vo = TaskVo.convert(task);
-				vo.setOwnerId(userService.find(task.getOwnerId()).getRealName());
 				list.add(vo);
 			}
 		}

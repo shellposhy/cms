@@ -24,9 +24,6 @@ function task_list() {
 					"mData" : "taskType"
 				},
 				{
-					"mData" : "ownerId"
-				},
-				{
 					"mData" : "progress",
 					'fnRender' : function(obj) {
 						var progress = obj.aData.progress;
