@@ -8,7 +8,7 @@ import org.apache.lucene.document.Document;
 
 import com.google.common.base.Strings;
 
-import cn.com.cms.framework.base.table.CmsData;
+import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.people.data.util.DateTimeUtil;
 

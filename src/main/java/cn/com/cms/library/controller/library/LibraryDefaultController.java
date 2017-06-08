@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import cn.com.cms.framework.base.table.JsonPara;
+import cn.com.cms.framework.config.JsonPara;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.controller.base.BaseLibraryController;
 import cn.com.cms.library.model.DataBase;

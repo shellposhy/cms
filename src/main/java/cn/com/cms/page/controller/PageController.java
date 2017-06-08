@@ -35,12 +35,12 @@ import cn.com.people.data.util.DateTimeUtil;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
 import cn.com.cms.framework.base.BaseController;
-import cn.com.cms.framework.base.table.CmsData;
+import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.table.DataTablesVo;
 import cn.com.cms.framework.base.table.FieldCodes;
-import cn.com.cms.framework.base.table.JsonPara;
 import cn.com.cms.framework.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.config.AppConfig;
+import cn.com.cms.framework.config.JsonPara;
 import cn.com.cms.framework.config.SystemConstant;
 
 /**

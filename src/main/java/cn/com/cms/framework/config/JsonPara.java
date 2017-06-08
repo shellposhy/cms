@@ -1,4 +1,4 @@
-package cn.com.cms.framework.base.table;
+package cn.com.cms.framework.config;
 
 import java.util.HashMap;
 import java.util.Map;

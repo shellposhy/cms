@@ -18,9 +18,9 @@ import cn.com.cms.data.service.DataFieldService;
 import cn.com.cms.framework.base.BaseController;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.base.table.DataTablesVo;
-import cn.com.cms.framework.base.table.JsonPara;
 import cn.com.cms.framework.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.config.AppConfig;
+import cn.com.cms.framework.config.JsonPara;
 import cn.com.cms.library.vo.DataFieldVo;
 
 /**

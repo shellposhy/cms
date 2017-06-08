@@ -33,8 +33,8 @@ import cn.com.cms.view.model.ViewItem;
 import cn.com.cms.view.model.ViewPage;
 import cn.com.cms.view.vo.ViewPreviewVo;
 import cn.com.cms.data.util.DataUtil;
+import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.Result;
-import cn.com.cms.framework.base.table.CmsData;
 import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.framework.config.AppConfig;;
 

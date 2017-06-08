@@ -18,7 +18,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.util.DataVo;
-import cn.com.cms.framework.base.table.JsonPara;
+import cn.com.cms.framework.config.JsonPara;
 import cn.com.cms.library.constant.ELibraryType;
 import cn.com.cms.library.controller.base.BaseDataController;
 import cn.com.cms.library.model.DataBase;

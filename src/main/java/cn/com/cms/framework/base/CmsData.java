@@ -1,4 +1,4 @@
-package cn.com.cms.framework.base.table;
+package cn.com.cms.framework.base;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.library.constant.EDataStatus;
 
 /**

@@ -26,7 +26,7 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.NumericField;
 
 import cn.com.cms.data.model.DataField;
-import cn.com.cms.framework.base.table.CmsData;
+import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.library.constant.EDataType;
