@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.service.DataFieldService;
-import cn.com.cms.data.util.CharacterPinyinUtil;
+import cn.com.cms.data.util.PinyinUtil;
 import cn.com.cms.framework.base.BaseController;
 import cn.com.cms.framework.base.ControllerOperator;
 import cn.com.cms.framework.base.Result;
@@ -208,7 +208,7 @@ public class LibraryModelController extends BaseController {
 					// 更新数据库模板时，写入任务调度，负责维护数据库字段和数据
 					Task task = new Task();
 					task.setName("Library_Model_Edit_" + columnModelId);
-					task.setCode(CharacterPinyinUtil.converterToFirstSpell(columnModel.getName()));
+					task.setCode(PinyinUtil.converterToFirstSpell(columnModel.getName()));
 					task.setTaskType(ETaskType.MODEL_EDIT);
 					task.setOwnerId(currentId);
 					task.setProgress(0);

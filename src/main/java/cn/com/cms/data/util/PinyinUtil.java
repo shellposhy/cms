@@ -17,7 +17,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  * @author shishb
  * 
  */
-public class CharacterPinyinUtil {
+public class PinyinUtil {
 	/**
 	 * 汉字转换位汉语拼音首字母
 	 * 
