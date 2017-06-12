@@ -364,7 +364,7 @@ public class LibraryService<T extends BaseLibrary<T>> implements LibraryDao<T> {
 	 * @return
 	 */
 	public DefaultTreeNode findTree() {
-		return DefaultTreeNode.parseTree(findAll(ELibraryType.values()));
+		return DefaultTreeNode.parseTree(findAll(ELibraryType.dataBases()));
 	}
 
 	/**

@@ -26,10 +26,12 @@ import cn.com.cms.framework.base.BaseController;
 import cn.com.cms.framework.base.ControllerOperator;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.base.table.DataTablesVo;
+import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.framework.base.view.BaseMappingJsonView;
 import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.framework.config.JsonPara;
 import cn.com.cms.framework.config.SystemConstant;
+import cn.com.cms.library.service.LibraryService;
 import cn.com.cms.user.dao.UserGroupMapMapper;
 import cn.com.cms.user.model.User;
 import cn.com.cms.user.model.UserGroup;
@@ -58,6 +60,8 @@ public class UserGroupController extends BaseController {
 	private UserGroupMapMapper userGroupMapMapper;
 	@Resource
 	private UserService userService;
+	@Resource
+	public LibraryService<?> libraryService;
 	@Resource
 	private AppConfig appConfig;
 
@@ -150,6 +154,9 @@ public class UserGroupController extends BaseController {
 		log.debug("========user.group.new========");
 		model.addAttribute(new UserGroup());
 		model.addAttribute("jsonActionTree", JsonUtil.getJsonFromObject(userActionService.findAdminTreeByGroup(null)));
+		DefaultTreeNode root = libraryService.findTree();
+		root.setName("全部");
+		model.addAttribute("node", root);
 		return "/admin/userGroup/edit";
 	}
 
@@ -182,6 +189,9 @@ public class UserGroupController extends BaseController {
 		}
 		model.addAttribute("jsonActionTree", JsonUtil.getJsonFromObject(userActionService.findAdminTreeByGroup(null)));
 		model.addAttribute(userGroup);
+		DefaultTreeNode root = libraryService.findTree();
+		root.setName("全部");
+		model.addAttribute("node", root);
 		return "/admin/userGroup/edit";
 	}
 

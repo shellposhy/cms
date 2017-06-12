@@ -71,6 +71,21 @@
 								确定</a>
 						</div>
 					</div>
+					<!--  treeTable  -->
+					<div class = "control-group one_input"  id = "user_group_readOnly_tree">
+						<div class="controls" >
+							 <table id="purview_table" class="tree_table table table-bordered no_uniform">
+						        <thead>
+						         	<tr><th rowspan="2">数据项</th><th colspan="2"  class="text-center">后台</th><th colspan="3">前台</th></tr>
+							          <tr><th>可读</th><th>可写</th><th>浏览</th><th>下载</th><th>打印</th></tr>
+						        </thead>
+						        <tbody>
+						        	 <jsp:include page="dataTree.jsp"/> 
+						      	</tbody>
+						      </table>
+						</div>
+					</div>
+					<!--  /treeTable  -->
 					<div class="control-group">
 						<label class="control-label" for="u_group_memo">前台首页类型</label>
 						<form:hidden path='defaultPageType' name='defaultPageType' id='defaultPageType' />
