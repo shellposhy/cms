@@ -1,5 +1,5 @@
 table.treetable {
-  border: 1px solid #888;
+  /*border: 1px solid #888;*/
   border-collapse: collapse;
   font-size: .8em;
   line-height: 1;
@@ -19,7 +19,7 @@ table.treetable thead {
 }
 
 table.treetable thead tr th {
-  border: 1px solid #888;
+ /* border: 1px solid #888;*/
   font-weight: normal;
   padding: .3em 1em .1em 1em;
   text-align: left;
