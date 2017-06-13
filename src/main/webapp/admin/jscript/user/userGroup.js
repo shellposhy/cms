@@ -68,6 +68,7 @@ function userGroup_add(){
 	if ($("#group_new_form").length > 0) {
 		userGroup_validate();
 		userGroup_admin_authority();
+		userGroup_data_authority();
 		usergroup_tree_menu();
 		userGroup_page_deault();
 	}
@@ -101,24 +102,49 @@ function userGroup_admin_authority() {
 	} else {
 		$(".allAuthor").addClass("disabled").siblings(".notAllAuthor").removeClass("disabled").end().siblings(".treeSel,.menuBtn").hide();
 	}
-	$(".allAuthor").click(
-			function() {
-				if (!$(this).hasClass("disabled")) {
-					$(this).addClass("disabled").siblings(".notAllAuthor").removeClass("disabled");
-					$(this).siblings(".treeSel,.menuBtn").hide();
-					$("input[name='allAdminAuthority']").attr("value", true);
-				}
-				return false;
-			});
-	$(".notAllAuthor").click(
-			function() {
-				if (!$(this).hasClass("disabled")) {
-					$(this).addClass("disabled").siblings(".allAuthor").removeClass("disabled");
-					$(this).siblings(".treeSel,.menuBtn").show();
-					$("input[name='allAdminAuthority']").attr("value", false);
-				}
-				return false;
-			});
+	$(".allAuthor").click(function() {
+		if (!$(this).hasClass("disabled")) {
+			$(this).addClass("disabled").siblings(".notAllAuthor").removeClass("disabled");
+			$(this).siblings(".treeSel,.menuBtn").hide();
+			$("input[name='allAdminAuthority']").attr("value", true);
+		}
+		return false;
+	});
+	$(".notAllAuthor").click(function() {
+		if (!$(this).hasClass("disabled")) {
+			$(this).addClass("disabled").siblings(".allAuthor").removeClass("disabled");
+			$(this).siblings(".treeSel,.menuBtn").show();
+			$("input[name='allAdminAuthority']").attr("value", false);
+		}
+		return false;
+	});
+}
+
+//数据库权限切换
+function userGroup_data_authority() {
+	if ($("input[name='allDataAuthority']").val() == "false") {
+		$(".notAllAuthorDb").addClass("disabled").siblings(".allAuthorDb").removeClass("disabled");
+		$("#user_group_readOnly_tree").show();
+	} else {
+		$(".allAuthorDb").addClass("disabled").siblings(".notAllAuthorDb").removeClass("disabled");
+		$("#user_group_readOnly_tree").hide();
+	}
+	$(".allAuthorDb").click(function() {
+		if (!$(this).hasClass("disabled")) {
+			$(this).addClass("disabled").siblings(".notAllAuthorDb").removeClass("disabled");
+			$("#user_group_readOnly_tree").hide();
+			$("input[name='allDataAuthority']").attr("value", true);
+		}
+		return false;
+	});
+	$(".notAllAuthorDb").click(function() {
+		if (!$(this).hasClass("disabled")) {
+			$(this).addClass("disabled").siblings(".allAuthorDb").removeClass("disabled");
+			$("#user_group_readOnly_tree").show();
+			$("input[name='allDataAuthority']").attr("value", false);
+		}
+		return false;
+	});
 }
 
 //加载后台权限树
@@ -144,7 +170,6 @@ function userGroup_page_deault() {
 		$("#defaultPageSel_Area").hide();
 		$("#defaultPageUrl_area").show();
 	}
-	
 	$("#para").change(function() {
 		var defaultPageTypeVal = $('#para').val();
 		$("#defaultPageType").val(defaultPageTypeVal);
@@ -157,6 +182,5 @@ function userGroup_page_deault() {
 			$("#defaultPageUrl_area").hide();
 			$("#defaultPageSel_Area").show();
 		}
-
 	});
 }

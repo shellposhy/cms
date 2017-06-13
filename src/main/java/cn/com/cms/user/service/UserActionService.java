@@ -84,7 +84,7 @@ public class UserActionService {
 			treeNode = DefaultTreeNode.parseTree(DefaultTreeNode.class, userActionList,
 					new PropertySetter<DefaultTreeNode, UserAction>() {
 						public void setProperty(DefaultTreeNode node, UserAction entity) {
-							if (userGroup.isAllAdminAuthority() || entity != null && ids.contains(entity.getId())) {
+							if (userGroup.getAllAdminAuthority() || entity != null && ids.contains(entity.getId())) {
 								node.checked = true;
 							}
 						}
@@ -138,7 +138,7 @@ public class UserActionService {
 					List<UserGroup> groups = userGroupMapper.findByUserId(user.getId());
 					if (null != groups && groups.size() > 0) {
 						for (UserGroup group : groups) {
-							if (group.isAllAdminAuthority()) {
+							if (group.getAllAdminAuthority()) {
 								hasPrivilege = true;
 								break;
 							}
@@ -246,7 +246,7 @@ public class UserActionService {
 		} else {
 			List<UserGroup> groupList = userGroupMapper.findByUserId(user.getId());
 			for (UserGroup group : groupList) {
-				if (group.isAllAdminAuthority()) {
+				if (group.getAllAdminAuthority()) {
 					allAdminAuthority = true;
 					break;
 				}

@@ -32,10 +32,13 @@ import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.framework.config.JsonPara;
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.library.service.LibraryService;
+import cn.com.cms.user.constant.EActionType;
 import cn.com.cms.user.dao.UserGroupMapMapper;
 import cn.com.cms.user.model.User;
+import cn.com.cms.user.model.UserDataAuthority;
 import cn.com.cms.user.model.UserGroup;
 import cn.com.cms.user.service.UserActionService;
+import cn.com.cms.user.service.UserDataAuthorityService;
 import cn.com.cms.user.service.UserGroupService;
 import cn.com.cms.user.service.UserService;
 import cn.com.cms.user.vo.UserGroupVo;
@@ -62,6 +65,8 @@ public class UserGroupController extends BaseController {
 	private UserService userService;
 	@Resource
 	public LibraryService<?> libraryService;
+	@Resource
+	private UserDataAuthorityService dataAuthorityService;
 	@Resource
 	private AppConfig appConfig;
 
@@ -175,7 +180,7 @@ public class UserGroupController extends BaseController {
 			throws JsonGenerationException, JsonMappingException, IOException {
 		log.debug("========user.group.edit========");
 		UserGroup userGroup = userGroupService.find(groupId);
-		boolean allAdminAuthority = userGroup.isAllAdminAuthority();
+		boolean allAdminAuthority = userGroup.getAllAdminAuthority();
 		if (allAdminAuthority == SystemConstant.ALL_ADMIN_VOTE_NO) {
 			List<Integer> selectIds = userActionService.findAdminActionByGroupId(groupId);
 			StringBuilder treeSelId = new StringBuilder();
@@ -192,6 +197,14 @@ public class UserGroupController extends BaseController {
 		DefaultTreeNode root = libraryService.findTree();
 		root.setName("全部");
 		model.addAttribute("node", root);
+		if (!userGroup.getAllDataAuthority()) {
+			List<UserDataAuthority> dataAuthorityList = dataAuthorityService.findByGroupId(groupId, null);
+			userGroup.setReadableIds(dataAuthorityService.getLibraryIds(dataAuthorityList));
+			userGroup.setWritableIds(dataAuthorityService.getLibraryIds(dataAuthorityList, EActionType.Write));
+			userGroup.setViewableIds(dataAuthorityService.getLibraryIds(dataAuthorityList, EActionType.View));
+			userGroup.setDownloadableIds(dataAuthorityService.getLibraryIds(dataAuthorityList, EActionType.Download));
+			userGroup.setPrintableIds(dataAuthorityService.getLibraryIds(dataAuthorityList, EActionType.Print));
+		}
 		return "/admin/userGroup/edit";
 	}
 
@@ -211,7 +224,7 @@ public class UserGroupController extends BaseController {
 				Integer currentId = currentUser.getId();
 				Integer groupId = userGroup.getId();
 				List<Integer> actionIdList = new ArrayList<Integer>();
-				if (userGroup.isAllAdminAuthority() == SystemConstant.ALL_ADMIN_VOTE_NO) {
+				if (!userGroup.getAllAdminAuthority()) {
 					if (null != userGroup.getTreeSelId() && !("").equals(userGroup.getTreeSelId())) {
 						String[] actIds = userGroup.getTreeSelId().split(SystemConstant.COMMA_SEPARATOR);
 						for (int i = 0; i < actIds.length; i++) {

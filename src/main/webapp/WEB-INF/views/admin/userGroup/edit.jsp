@@ -22,7 +22,8 @@
 						<div class="controls">
 							<form:hidden path="id" />
 							<form:hidden path="allAdminAuthority" name="allAdminAuthority" value="" />
-							<form:input path="name" name="name" class="typeahead" id="u_group_name" data-provide="typeahead" data-items="4" data-source='["admin","administrator","geust"]' />
+							<form:hidden path="allDataAuthority" name="allDataAuthority" value=""  />
+							<form:input path="name" name="name" class="typeahead" id="u_group_name" data-provide="typeahead" />
 							<label class="error"><form:errors path="name" cssClass="error" /></label>
 						</div>
 					</div>
@@ -69,6 +70,13 @@
 							<a class="btn sel_all ml10">全选</a> <a class="btn sel_none">全不选</a>
 							<a class="selOk btn btn-small" href="#"><i class="icon-ok"></i>
 								确定</a>
+						</div>
+					</div>
+					<div class="control-group"  id="use_group_tree_sel_db">
+						<label class="control-label" for="u_group_memo">数据权限配置</label>
+						<div class="controls">
+							<span class="btn ml10 allAuthorDb disabled" >完全权限</span>
+							<span class="btn ml10 notAllAuthorDb ">详细定制</span> 
 						</div>
 					</div>
 					<!--  treeTable  -->

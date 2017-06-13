@@ -263,7 +263,7 @@ public class UserService {
 	public boolean isAdminAuthority(User user) {
 		List<UserGroup> userGroups = userGroupMapper.findByUserId(user.getId());
 		for (UserGroup userGroup : userGroups) {
-			if (userGroup.isAllAdminAuthority()) {
+			if (userGroup.getAllAdminAuthority()) {
 				return true;
 			}
 			List<Integer> actionIds = userActionMapMapper.findActionIdsByGroupId(userGroup.getId());

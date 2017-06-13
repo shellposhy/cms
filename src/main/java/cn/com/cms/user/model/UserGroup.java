@@ -129,7 +129,7 @@ public class UserGroup extends BaseEntity implements Serializable {
 		this.code = code;
 	}
 
-	public boolean isAllDataAuthority() {
+	public boolean getAllDataAuthority() {
 		return allDataAuthority;
 	}
 
@@ -137,7 +137,7 @@ public class UserGroup extends BaseEntity implements Serializable {
 		this.allDataAuthority = allDataAuthority;
 	}
 
-	public boolean isAllAdminAuthority() {
+	public boolean getAllAdminAuthority() {
 		return allAdminAuthority;
 	}
 
@@ -185,7 +185,7 @@ public class UserGroup extends BaseEntity implements Serializable {
 		this.frontActionList = frontActionList;
 	}
 
-	public boolean isAllFrontAuthority() {
+	public boolean getAllFrontAuthority() {
 		return allFrontAuthority;
 	}
 

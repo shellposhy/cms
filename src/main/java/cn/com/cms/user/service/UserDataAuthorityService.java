@@ -30,6 +30,24 @@ public class UserDataAuthorityService {
 	@Resource
 	private UserGroupMapper userGroupMapper;
 
+	/**
+	 * Search the database authority by user role number and database type
+	 * 
+	 * @param groupId
+	 * @param type
+	 * @return
+	 */
+	public List<UserDataAuthority> findByGroupId(Integer groupId, ELibraryType type) {
+		return userDataAuthorityMapper.findByGroupId(groupId, type);
+	}
+
+	/**
+	 * Search the database authority by user number and database type
+	 * 
+	 * @param userId
+	 * @param type
+	 * @return
+	 */
 	public List<UserDataAuthority> findByUserId(Integer userId, ELibraryType type) {
 		List<UserDataAuthority> result = new ArrayList<UserDataAuthority>();
 		List<UserGroup> groups = userGroupMapper.findByUserId(userId);
@@ -39,6 +57,13 @@ public class UserDataAuthorityService {
 		return result;
 	}
 
+	/**
+	 * Search the database authority number by user number and database type
+	 * 
+	 * @param userId
+	 * @param type
+	 * @return
+	 */
 	public List<Integer> findDbIdsByUserId(Integer userId, ELibraryType type) {
 		List<Integer> result = new ArrayList<Integer>();
 		List<UserDataAuthority> list = findByUserId(userId, type);
@@ -49,53 +74,27 @@ public class UserDataAuthorityService {
 	}
 
 	/**
-	 * 根据全县类型获取相应权限的数据库Id
+	 * Change the database authority list to database number list
 	 * 
-	 * @param userId
-	 * @param actionType
+	 * @param list
 	 * @return
-	 * 
-	 * @author gj
 	 */
-	public List<Integer> findAppDbIdsByUser(Integer userId, EActionType actionType) {
-		List<UserDataAuthority> result = new ArrayList<UserDataAuthority>();
-		List<UserGroup> groups = userGroupMapper.findByUserId(userId);
-		boolean flagVote = false;
-		for (UserGroup userGroup : groups) {
-			if (userGroup.isAllDataAuthority()) {
-				flagVote = true;
-				break;
-			}
-		}
-		List<Integer> ids = new ArrayList<Integer>();
-		if (flagVote) {
-			// ids = libraryService.findAllIds(ELibraryType.values());
-		} else {
-			for (UserGroup userGroup : groups) {
-				result.addAll(userDataAuthorityMapper.findByGroupId(userGroup.getId(), null));
-			}
-
-			for (UserDataAuthority userDataAuthority : result) {
-				if (null != userDataAuthority.getAllowActionType()
-						&& userDataAuthority.getAllowActionType().contains(actionType.toString()))
-					ids.add(userDataAuthority.getObjId());
-			}
-		}
-		return ids;
-	}
-
 	public Integer[] getLibraryIds(List<UserDataAuthority> list) {
 		List<Integer> idList = new ArrayList<Integer>();
-
 		for (UserDataAuthority userDataAuthority : list) {
 			idList.add(userDataAuthority.getObjId());
 		}
-
 		Integer[] result = new Integer[idList.size()];
-
 		return idList.toArray(result);
 	}
 
+	/**
+	 * Change the database authority list to database number list
+	 * 
+	 * @param list
+	 * @param type
+	 * @return
+	 */
 	public Integer[] getLibraryIds(List<UserDataAuthority> list, EActionType type) {
 		List<Integer> idList = new ArrayList<Integer>();
 		for (UserDataAuthority userDataAuthority : list) {
@@ -107,18 +106,32 @@ public class UserDataAuthorityService {
 		return idList.toArray(result);
 	}
 
-	public List<UserDataAuthority> findByGroupId(Integer groupId, ELibraryType type) {
-		return userDataAuthorityMapper.findByGroupId(groupId, type);
-	}
-
+	/**
+	 * Search all
+	 * 
+	 * @return
+	 */
 	public List<UserDataAuthority> findAll() {
 		return userDataAuthorityMapper.findAll();
 	}
 
+	/**
+	 * Delete by group number
+	 * 
+	 * @param groupId
+	 * @return
+	 */
 	public void deleteByGroupID(Integer groupId) {
 		userDataAuthorityMapper.deleteByGroupID(groupId);
 	}
 
+	/**
+	 * batch insert
+	 * 
+	 * @param groups
+	 * @param library
+	 * @return
+	 */
 	public void batchInsert(List<UserGroup> groups, BaseLibrary<?> library) {
 		List<UserDataAuthority> userDataAuthorities = new ArrayList<UserDataAuthority>();
 		for (UserGroup group : groups) {

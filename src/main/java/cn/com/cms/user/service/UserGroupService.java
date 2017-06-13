@@ -1,6 +1,8 @@
 package cn.com.cms.user.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,14 +10,19 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
+
 import cn.com.cms.framework.base.Node;
 import cn.com.cms.framework.base.Result;
-import cn.com.cms.framework.config.SystemConstant;
+import cn.com.cms.library.model.BaseLibrary;
+import cn.com.cms.library.service.LibraryService;
+import cn.com.cms.user.constant.EActionType;
 import cn.com.cms.user.dao.UserActionMapMapper;
 import cn.com.cms.user.dao.UserDataAuthorityMapper;
 import cn.com.cms.user.dao.UserGroupMapMapper;
 import cn.com.cms.user.dao.UserGroupMapper;
 import cn.com.cms.user.model.UserActionMap;
+import cn.com.cms.user.model.UserDataAuthority;
 import cn.com.cms.user.model.UserGroup;
 
 /**
@@ -35,6 +42,8 @@ public class UserGroupService {
 	private UserGroupMapMapper userGroupMapMapper;
 	@Resource
 	private UserDataAuthorityMapper userDataAuthorityMapper;
+	@Resource
+	private LibraryService<?> libraryService;
 
 	/**
 	 * 分页查询用户组
@@ -64,19 +73,17 @@ public class UserGroupService {
 	 */
 	public void save(UserGroup userGroup) {
 		Integer id = userGroup.getId();
-		// 新建用户组操作
 		if (id == null) {
 			userGroupMapper.insert(userGroup);
 			id = userGroup.getId();
-		}
-		// 更新用户组操作
-		else {
+		} else {
+			userDataAuthorityMapper.deleteByGroupID(id);
 			userActionMapMapper.deleteByGroupId(id);
 			userGroupMapper.update(userGroup);
 		}
-		// 判断该用户组是否具有无限管理权
+		// admin access
 		List<Integer> actionList = userGroup.getActionList();
-		if (userGroup.isAllAdminAuthority() == SystemConstant.ALL_ADMIN_VOTE_NO && actionList.size() != 0) {
+		if (!userGroup.getAllAdminAuthority() && actionList.size() != 0) {
 			List<UserActionMap> userActionMapList = new ArrayList<UserActionMap>(actionList.size());
 			for (Integer actionId : actionList) {
 				UserActionMap userActionMap = new UserActionMap();
@@ -86,6 +93,47 @@ public class UserGroupService {
 				userActionMapList.add(userActionMap);
 			}
 			userActionMapMapper.batchInsert(userActionMapList);
+		}
+		// database access
+		if (!userGroup.getAllDataAuthority()) {
+			Integer[] readableIds = userGroup.getReadableIds();
+			Integer[] writableIds = userGroup.getWritableIds();
+			Integer[] viewableIds = userGroup.getViewableIds();
+			Integer[] downableIds = userGroup.getDownloadableIds();
+			Integer[] printableIds = userGroup.getPrintableIds();
+			if (null != readableIds && readableIds.length > 0) {
+				List<UserDataAuthority> dataAuthorityList = Lists.newArrayList();
+				for (Integer baseId : readableIds) {
+					BaseLibrary<?> dataBase = libraryService.find(baseId);
+					UserDataAuthority dataAuthority = new UserDataAuthority();
+					if (null != dataBase) {
+						dataAuthority.setGroupId(id);
+						dataAuthority.setAllDataTime(true);
+						dataAuthority.setCreateTime(userGroupMapper.find(id).getCreateTime());
+						dataAuthority.setUpdateTime(new Date());
+						dataAuthority.setCreatorId(userGroupMapper.find(id).getCreatorId());
+						dataAuthority.setUpdaterId(userGroup.getUpdaterId());
+						dataAuthority.setObjId(baseId);
+						dataAuthority.setObjType(dataBase.getType());
+						if (Arrays.asList(writableIds).contains(baseId)) {
+							dataAuthority.addAllowActionType(EActionType.Write);
+						}
+						if (Arrays.asList(viewableIds).contains(baseId)) {
+							dataAuthority.addAllowActionType(EActionType.View);
+						}
+						if (Arrays.asList(downableIds).contains(baseId)) {
+							dataAuthority.addAllowActionType(EActionType.Download);
+						}
+						if (Arrays.asList(printableIds).contains(baseId)) {
+							dataAuthority.addAllowActionType(EActionType.Print);
+						}
+						dataAuthorityList.add(dataAuthority);
+					}
+				}
+				if (dataAuthorityList.size() > 0) {
+					userDataAuthorityMapper.batchInsert(dataAuthorityList);
+				}
+			}
 		}
 	}
 
@@ -202,7 +250,7 @@ public class UserGroupService {
 	public boolean isAllDataAuthority(Integer userId) {
 		List<UserGroup> userGroupList = findByUserId(userId);
 		for (UserGroup userGroup : userGroupList) {
-			if (userGroup.isAllDataAuthority()) {
+			if (userGroup.getAllDataAuthority()) {
 				return true;
 			}
 		}
