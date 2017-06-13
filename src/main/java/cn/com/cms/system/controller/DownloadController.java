@@ -61,8 +61,7 @@ public class DownloadController extends BaseController {
 			inputStream.close();
 			response.reset();
 			response.addHeader("Content-Type", "text/html; charset=utf-8");
-			response.addHeader("Content-Disposition",
-					"attachment;filename=" + new String(outputName.getBytes("utf-8"), "iso8859-1"));
+			response.addHeader("Content-Disposition","attachment;filename=" + new String(outputName.getBytes("utf-8"), "iso8859-1"));
 			response.addHeader("Content-Length", "" + file.length());
 			response.setContentType("application/octet-stream");
 			out = new BufferedOutputStream(response.getOutputStream());

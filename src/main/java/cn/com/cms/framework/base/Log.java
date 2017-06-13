@@ -160,17 +160,19 @@ public class Log implements Serializable {
 	/**
 	 * 比较两个日期
 	 * 
-	 * @param date1
-	 * @param date2
+	 * @param start
+	 * @param end
 	 * @return
 	 */
-	public static int dateCompare(Date date1, Date date2) {
-		Calendar cal1 = Calendar.getInstance();
-		cal1.setTime(date1);
-		Calendar cal2 = Calendar.getInstance();
-		cal2.setTime(date2);
-		return cal1.get(Calendar.YEAR) * 10000 + cal1.get(Calendar.MONTH) * 100 + cal1.get(Calendar.DATE)
-				- (cal2.get(Calendar.YEAR) * 10000 + cal2.get(Calendar.MONTH) * 100 + cal2.get(Calendar.DATE));
+	public static int diffDate(Date start, Date end) {
+		Calendar calStart = Calendar.getInstance();
+		calStart.setTime(start);
+		Calendar calEnd = Calendar.getInstance();
+		calEnd.setTime(end);
+		int startInt = calStart.get(Calendar.YEAR) * 10000 + calStart.get(Calendar.MONTH) * 100
+				+ calStart.get(Calendar.DATE);
+		int endInt = (calEnd.get(Calendar.YEAR) * 10000 + calEnd.get(Calendar.MONTH) * 100 + calEnd.get(Calendar.DATE));
+		return startInt - endInt;
 	}
 
 	/**

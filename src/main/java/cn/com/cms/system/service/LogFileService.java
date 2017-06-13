@@ -37,11 +37,11 @@ public class LogFileService {
 	 * @param query
 	 * @param firstResult
 	 * @param maxResult
-	 * @param desc
+	 * @param sortType
 	 * @return
 	 */
-	public Result<Log> searchLog(int type, Date startDate, Date endDate, String query, int firstResult,
-			int maxResult, boolean sortType) {
+	public Result<Log> searchLog(int type, Date startDate, Date endDate, String query, int firstResult, int maxResult,
+			boolean sortType) {
 		String logMainRoute1 = null;
 		String logMainRoute2 = null;
 		try {
@@ -69,7 +69,7 @@ public class LogFileService {
 		todayCal.setTime(today);
 		dateCal.setTime(startDate);
 		List<File> logFileList = new ArrayList<File>();
-		while (Log.dateCompare(startDate, endDate) <= 0) {
+		while (Log.diffDate(startDate, endDate) <= 0) {
 			if (todayCal.get(Calendar.DATE) == dateCal.get(Calendar.DATE)
 					&& todayCal.get(Calendar.MONTH) == dateCal.get(Calendar.MONTH)
 					&& todayCal.get(Calendar.YEAR) == dateCal.get(Calendar.YEAR)) {
@@ -108,8 +108,7 @@ public class LogFileService {
 	 * @param sortType
 	 * @return
 	 */
-	private Result<Log> getResult(List<File> logFiles, String query, int firstResult, int maxResult,
-			boolean sortType) {
+	private Result<Log> getResult(List<File> logFiles, String query, int firstResult, int maxResult, boolean sortType) {
 		try {
 			List<Log> logList = new ArrayList<Log>();
 			int totalCount = 0;

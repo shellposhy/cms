@@ -16,8 +16,7 @@ import cn.com.cms.library.constant.EDataStatus;
  * @author Administrator
  */
 public class CmsData implements Serializable {
-
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 2361174804559756603L;
 	private Integer id;
 	private Integer tableId;
 	private Integer baseId;
