@@ -118,6 +118,7 @@
 			<artifactId>mybatis-ignite</artifactId>
 			<version>1.0.3</version>
 		</dependency>
+		
 		<!-- ignite  -->
 		<dependency>
 		    <groupId>org.apache.ignite</groupId>
