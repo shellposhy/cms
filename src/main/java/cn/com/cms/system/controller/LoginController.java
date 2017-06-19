@@ -95,10 +95,8 @@ public class LoginController extends BaseController {
 		log.debug("=======admin.security.check=========");
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
-		User currentUser = userCache.get(name.trim());
-		if (null == currentUser) {
-			currentUser = userService.findByNamePwd(name, StringUtil.encodeToMD5(password));
-		}
+		User currentUser = null == userCache.get(name.trim())
+				? userService.findByNamePwd(name, StringUtil.encodeToMD5(password)) : userCache.get(name.trim());
 		if (null == currentUser) {
 			return "/admin/login";
 		}
