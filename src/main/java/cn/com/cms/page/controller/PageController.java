@@ -21,8 +21,6 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.SearchResult;
 
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.model.BaseLibrary;
@@ -32,6 +30,8 @@ import cn.com.cms.library.vo.AttachVo;
 import cn.com.cms.page.util.PagingUtil;
 import cn.com.cms.util.FileUtil;
 import cn.com.people.data.util.DateTimeUtil;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
 import cn.com.cms.framework.base.BaseController;
@@ -121,13 +121,13 @@ public class PageController extends BaseController {
 		Integer first = Strings.isNullOrEmpty(request.getParameter("pageNum")) ? 1
 				: Integer.valueOf(request.getParameter("pageNum"));
 		Integer start = (first - 1) * appConfig.getAdminDataTablePageMinSize();
-		MdSortField[] dsSortFieldsArray = {
-				new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+		PepperSortField[] dsSortFieldsArray = {
+				new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
 		String[] hightLightFields = { FieldCodes.TITLE };
 		String word = request.getParameter("word");
 		String queryString = Strings.isNullOrEmpty(word) ? "*:*"
 				: "Title:" + word.trim() + " OR Content:" + word.trim();
-		SearchResult searchResult = libraryDataService.searchIndex(queryString,
+		PepperResult searchResult = libraryDataService.searchIndex(queryString,
 				appConfig.getDefaultIndexSearchNumHits(), dsSortFieldsArray, hightLightFields, start,
 				appConfig.getAdminDataTablePageMinSize(), id);
 		List<DataVo> result = Lists.newArrayList();
@@ -210,10 +210,10 @@ public class PageController extends BaseController {
 			queryString = "Title:" + word.trim() + " OR Content:" + word.trim();
 		}
 		int pageStart = (firstResult == null ? 0 : firstResult);
-		MdSortField[] dsSortFieldsArray = {
-				new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+		PepperSortField[] dsSortFieldsArray = {
+				new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
 		String[] hightLightFields = { FieldCodes.TITLE };
-		SearchResult searchResult = libraryDataService.searchIndex(queryString,
+		PepperResult searchResult = libraryDataService.searchIndex(queryString,
 				appConfig.getDefaultIndexSearchNumHits(), dsSortFieldsArray, hightLightFields, pageStart,
 				appConfig.getAdminDataTablePageSize(), (Integer[]) dbIds.toArray(new Integer[dbIds.size()]));
 		List<DataVo> result = Lists.newArrayList();

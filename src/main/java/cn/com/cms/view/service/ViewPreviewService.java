@@ -17,8 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.SearchResult;
 
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
@@ -32,6 +30,8 @@ import cn.com.cms.view.model.ViewContent;
 import cn.com.cms.view.model.ViewItem;
 import cn.com.cms.view.model.ViewPage;
 import cn.com.cms.view.vo.ViewPreviewVo;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.Result;
@@ -115,14 +115,14 @@ public class ViewPreviewService {
 			result.setLength(viewItem.getMaxWords());
 			try {
 				int numHits = appConfig.getDefaultIndexSearchNumHits();
-				MdSortField[] sortType = {
-						new MdSortField(FieldCodes.PROJECT_ID, DataUtil.dataType2SortType(EDataType.Int), false) };
+				PepperSortField[] sortType = {
+						new PepperSortField(FieldCodes.PROJECT_ID, DataUtil.dataType2SortType(EDataType.Int), false) };
 				List<CmsData> CmsDataList = new ArrayList<CmsData>();
 				StringBuilder queryStr = new StringBuilder();
 				queryStr.append("#int#").append(FieldCodes.DATA_STATUS).append(":3")
 						.append(content.getFilterCondition());
 				queryStr.append(" AND #int#").append(FieldCodes.PROJECT_ID).append(":" + content.getPageId());
-				SearchResult searchResult = new SearchResult();
+				PepperResult searchResult = new PepperResult();
 				searchResult = libraryDataService.searchIndex(queryStr.toString(), numHits, sortType, null, 0, rows,
 						baseId);
 				List<DataField> fieldList = dataFieldService.findFieldsByDBId(baseId);
@@ -176,13 +176,13 @@ public class ViewPreviewService {
 			result.setLength(viewItem.getMaxWords());
 			try {
 				int numHits = appConfig.getDefaultIndexSearchNumHits();
-				MdSortField[] sortType = {
-						new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+				PepperSortField[] sortType = { new PepperSortField(FieldCodes.DOC_TIME,
+						DataUtil.dataType2SortType(EDataType.DateTime), true) };
 				List<CmsData> CmsDataList = new ArrayList<CmsData>();
 				StringBuilder queryStr = new StringBuilder();
 				queryStr.append("#int#").append(FieldCodes.DATA_STATUS).append(":3")
 						.append(content.getFilterCondition());
-				SearchResult searchResult = new SearchResult();
+				PepperResult searchResult = new PepperResult();
 				searchResult = libraryDataService.searchIndex(queryStr.toString(), numHits, sortType, null, 0, rows,
 						baseId);
 				List<DataField> fieldList = dataFieldService.findFieldsByDBId(baseId);
@@ -246,10 +246,10 @@ public class ViewPreviewService {
 			result.setLength(viewItem.getMaxWords());
 			try {
 				int numHits = appConfig.getDefaultIndexSearchNumHits();
-				MdSortField[] dsSortFieldsArray = {
-						new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+				PepperSortField[] dsSortFieldsArray = { new PepperSortField(FieldCodes.DOC_TIME,
+						DataUtil.dataType2SortType(EDataType.DateTime), true) };
 				List<CmsData> CmsDataList = new ArrayList<CmsData>();
-				SearchResult searchResult = libraryDataService.searchIndex("*:*", numHits, dsSortFieldsArray, null, 0,
+				PepperResult searchResult = libraryDataService.searchIndex("*:*", numHits, dsSortFieldsArray, null, 0,
 						rows, baseId);
 				List<DataField> fieldList = dataFieldService.findFieldsByDBId(baseId);
 				List<CmsData> searchResultList = DataUtil.getPeopleDataList(searchResult, fieldList);

@@ -17,10 +17,6 @@ import org.apache.lucene.document.Document;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 
-import com.microduo.index.IndexException;
-import com.microduo.index.lucene3.IIndexService;
-import com.microduo.index.lucene3.IndexService;
-
 import cn.com.cms.data.dao.BaseDbDao;
 import cn.com.cms.data.dao.DataTableMapper;
 import cn.com.cms.data.model.DataField;
@@ -45,6 +41,9 @@ import cn.com.cms.system.model.TaskError;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.FileUtil;
 import cn.com.people.data.util.SimpleLock;
+import cn.com.pepper.PepperException;
+import cn.com.pepper.service.IndexDao;
+import cn.com.pepper.service.IndexService;
 
 /**
  * 数据库修复服务类
@@ -69,7 +68,7 @@ public class LibraryRepairService<T extends BaseLibrary<T>> extends DataCopyList
 	private BaseDbDao dbDao;
 	@Resource
 	private AppConfig appConfig;
-	private IIndexService indexService;
+	private IndexDao indexService;
 
 	public void onMessage(Message message) {
 		ObjectMessage om = (ObjectMessage) message;
@@ -143,7 +142,7 @@ public class LibraryRepairService<T extends BaseLibrary<T>> extends DataCopyList
 				this.updateTaskStatus(task);
 				currentProgress = task.getProgress();
 			}
-		} catch (IndexException e) {
+		} catch (PepperException e) {
 			TaskError error = new TaskError();
 			error.setTaskId(task.getId());
 			error.setContent(e.getMessage());

@@ -11,8 +11,6 @@ import org.apache.lucene.document.Document;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Maps;
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.SearchResult;
 
 import cn.com.cms.library.constant.EDataStatus;
 import cn.com.cms.library.constant.EDataType;
@@ -39,6 +37,8 @@ import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.framework.base.tree.DefaultTreeNode;
 import cn.com.cms.framework.config.AppConfig;
 import cn.com.people.data.util.FreeMarkerUtil;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
 
 /**
  * 页面发布类
@@ -102,7 +102,7 @@ public class ViewPublishService {
 		Map<Integer, ViewContent> contentMap = findViewContentMapByPageId(pageId);
 		Map<String, Object> calendarData = calendarEventService.calendarEventData();
 		for (ViewItem viewItem : itemList) {
-			ViewPreviewVo vo = viewPreviewService.preview(viewItem, contentMap, appPath,page);
+			ViewPreviewVo vo = viewPreviewService.preview(viewItem, contentMap, appPath, page);
 			data.put(viewItem.getCode(), null == vo ? new ViewPreviewVo() : vo);
 		}
 		data.putAll(calendarData);
@@ -179,12 +179,12 @@ public class ViewPublishService {
 		ViewPreviewVo result = new ViewPreviewVo();
 		Integer[] Ids = { databaseId };
 		int numHits = appConfig.getDefaultIndexSearchNumHits();
-		MdSortField[] sortField = {
-				new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+		PepperSortField[] sortField = {
+				new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
 		StringBuilder queryStr = new StringBuilder();
 		queryStr.append("Sort_Ids:" + sortId).append(" AND ").append("Project_ID:" + projectId);
 		try {
-			SearchResult datasResult = libraryDataService.searchIndex(queryStr.toString(), numHits, sortField, null,
+			PepperResult datasResult = libraryDataService.searchIndex(queryStr.toString(), numHits, sortField, null,
 					firstResult, pageSize, Ids);
 			result = result2ViewVO(datasResult, appPath, navigetaMap);
 		} catch (RuntimeException e) {
@@ -201,7 +201,7 @@ public class ViewPublishService {
 	 * @param navigetaMap
 	 * @return
 	 */
-	public ViewPreviewVo result2ViewVO(SearchResult result, String pathCode, Map<Integer, DataNavigate> navigetaMap) {
+	public ViewPreviewVo result2ViewVO(PepperResult result, String pathCode, Map<Integer, DataNavigate> navigetaMap) {
 		ViewPreviewVo view = new ViewPreviewVo();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {

@@ -10,8 +10,6 @@ import org.apache.lucene.document.Document;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Strings;
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.SearchResult;
 
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
@@ -33,6 +31,8 @@ import cn.com.cms.view.vo.ViewPreviewVo;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.FileUtil;
 import cn.com.people.data.util.FreeMarkerUtil;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
 
 /**
  * 列表/频道/专题页面发布类
@@ -115,12 +115,12 @@ public class ViewListService {
 	private ViewPreviewVo productData(Integer baseId, Integer firstResult, Integer pageSize, String appPath) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		Integer[] Ids = { baseId };
-		MdSortField[] dsSortFieldsArray = {
-				new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+		PepperSortField[] dsSortFieldsArray = {
+				new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
 		String queryStr = "*:*";
 		int numHits = appConfig.getDefaultIndexSearchNumHits();
 		try {
-			SearchResult hotDatasResult = libraryDataService.searchIndex(queryStr, numHits, dsSortFieldsArray, null,
+			PepperResult hotDatasResult = libraryDataService.searchIndex(queryStr, numHits, dsSortFieldsArray, null,
 					firstResult, pageSize, Ids);
 			result = document2ViewVo(hotDatasResult, appPath);
 		} catch (Exception e) {
@@ -137,7 +137,7 @@ public class ViewListService {
 	 * @param pathCode
 	 * @return
 	 */
-	private ViewPreviewVo document2ViewVo(SearchResult result, String pathCode) {
+	private ViewPreviewVo document2ViewVo(PepperResult result, String pathCode) {
 		ViewPreviewVo view = new ViewPreviewVo();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {

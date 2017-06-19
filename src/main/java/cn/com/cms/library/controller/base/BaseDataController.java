@@ -51,13 +51,13 @@ import cn.com.cms.user.service.UserService;
 import cn.com.cms.util.FileUtil;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.PkUtil;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.SearchResult;
 
 /**
  * 数据库数据基础控制类
@@ -234,10 +234,10 @@ public class BaseDataController<T extends BaseLibrary<T>> extends BaseController
 		if (null == queryStr || queryStr.isEmpty()) {
 			queryStr = "*:*";
 		}
-		SearchResult result = new SearchResult();
+		PepperResult result = new PepperResult();
 		try {
-			MdSortField[] sortFields = {
-					new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+			PepperSortField[] sortFields = {
+					new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
 			result = libraryDataService.searchIndex(queryStr, indexNumHits, sortFields, hightLightFields, pageStart,
 					pageCount, libraryIds);
 		} catch (Exception e) {

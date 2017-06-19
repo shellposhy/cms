@@ -18,20 +18,19 @@ import cn.com.cms.data.model.DataTable;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.cms.library.constant.EIndexType;
 import cn.com.people.data.util.DateTimeUtil;
+import cn.com.pepper.Configuration;
+import cn.com.pepper.PepperException;
+import cn.com.pepper.analyzer.IAnalyzer;
+import cn.com.pepper.analyzer.PaodingAnalyzer;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
+import cn.com.pepper.service.IndexDao;
+import cn.com.pepper.service.IndexService;
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.framework.config.AppConfig;
 import cn.com.cms.framework.config.SystemConstant;
-
-import com.microduo.index.IndexConfig;
-import com.microduo.index.IndexException;
-import com.microduo.index.lucene3.IAnalyzerFactory;
-import com.microduo.index.lucene3.IIndexService;
-import com.microduo.index.lucene3.IndexService;
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.PaodingAnalyzerFactory;
-import com.microduo.index.lucene3.SearchResult;
 
 @Service
 public class LibraryDataIndexService {
@@ -42,16 +41,16 @@ public class LibraryDataIndexService {
 	@Resource
 	protected DataTableMapper dataTableMapper;
 
-	protected IIndexService indexService;
+	protected IndexDao indexService;
 
 	@PostConstruct
 	public void init() {
 		String dicHome = appConfig.getAppPathHome() + "/dic";
-		IndexConfig indexConfig = new IndexConfig();
-		indexConfig.setAnalyzerFactory(new PaodingAnalyzerFactory(dicHome));
+		Configuration indexConfig = new Configuration();
+		indexConfig.setAnalyzerFactory(new PaodingAnalyzer(dicHome));
 		indexConfig.setHightLightPreTag(SystemConstant.HIGHT_LIGHT_PRE_TAG);
 		indexConfig.setHightLightPostTag(SystemConstant.HIGHT_LIGHT_POST_TAG);
-		indexConfig.setHightLightAnalyzerMode(IAnalyzerFactory.MAX_WORD_LENGTH_MODE);
+		indexConfig.setHightLightAnalyzerMode(IAnalyzer.MAX_WORD_LENGTH_MODE);
 		indexService = IndexService.getInstance(SystemConstant.PDS3_DB_INDEX_SERVICE);
 		indexService.setIndexConfig(indexConfig);
 	}
@@ -75,9 +74,9 @@ public class LibraryDataIndexService {
 	 *            数据库id
 	 * @return 查询结果
 	 */
-	public SearchResult searchIndex(String queryString, Integer numHits, MdSortField[] sortFields,
+	public PepperResult searchIndex(String queryString, Integer numHits, PepperSortField[] sortFields,
 			String[] hightLightFields, Integer firstResult, Integer maxResults, Integer... baseId) {
-		SearchResult result = new SearchResult();
+		PepperResult result = new PepperResult();
 		if (null == queryString || queryString.isEmpty()) {
 			queryString = "*:*";
 		}
@@ -90,7 +89,7 @@ public class LibraryDataIndexService {
 				return indexService.mSearch(getIndexPaths(baseId), queryString, numHits, sortFields, hightLightFields,
 						firstResult, maxResults);
 			}
-		} catch (IndexException e) {
+		} catch (PepperException e) {
 			result.documents = null;
 			result.totalHits = 0;
 			return result;
@@ -111,11 +110,10 @@ public class LibraryDataIndexService {
 	 * @param baseId
 	 * @return
 	 */
-	public SearchResult searchIndex(Integer firstResult, Integer maxResults, String queryString, Integer... baseId) {
-		MdSortField[] sortFields = {
-				new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
+	public PepperResult searchIndex(Integer firstResult, Integer maxResults, String queryString, Integer... baseId) {
+		PepperSortField[] sortFields = {
+				new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(EDataType.DateTime), true) };
 		int indexNumHits = appConfig.getDefaultIndexSearchNumHits();
-
 		return searchIndex(queryString, indexNumHits, sortFields, null, firstResult, maxResults, baseId);
 	}
 
@@ -171,7 +169,7 @@ public class LibraryDataIndexService {
 				.append(FieldCodes.ID).append(":(").append(dataId).append(")");
 		try {
 			this.indexService.deleteDocuments(getIndexPath(dataTable.getBaseId()), sb.toString());
-		} catch (IndexException ex) {
+		} catch (PepperException ex) {
 			ex.printStackTrace();
 		}
 	}
@@ -187,7 +185,7 @@ public class LibraryDataIndexService {
 	public void deleteIndex(int baseId, String uuid) {
 		String indexPath = getIndexPath(baseId);
 		try {
-			SearchResult result = indexService.search(indexPath, "UUID:" + uuid, 0, 1);
+			PepperResult result = indexService.search(indexPath, "UUID:" + uuid, 0, 1);
 			if (result != null && result.documents != null) {
 				for (Document doc : result.documents) {
 					Integer tableId = Integer.valueOf(doc.get(FieldCodes.TABLE_ID));
@@ -195,7 +193,7 @@ public class LibraryDataIndexService {
 					deleteIndex(tableId, dataId);
 				}
 			}
-		} catch (IndexException e) {
+		} catch (PepperException e) {
 			logger.error("删除数据出错", e);
 		}
 	}

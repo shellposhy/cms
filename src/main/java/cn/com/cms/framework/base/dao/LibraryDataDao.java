@@ -5,13 +5,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.SearchResult;
-
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.model.DataTable;
 import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.Result;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
 
 /**
  * 搜索引擎索引服务类
@@ -197,7 +196,7 @@ public interface LibraryDataDao {
 	 *            库id
 	 * @return 查询结果
 	 */
-	public SearchResult searchIndex(String queryString, Integer numHits, MdSortField[] sortFields,
+	public PepperResult searchIndex(String queryString, Integer numHits, PepperSortField[] sortFields,
 			String[] hightLightFields, Integer firstResult, Integer maxResults, Integer... baseId);
 
 	/**
@@ -214,7 +213,7 @@ public interface LibraryDataDao {
 	 *            库id
 	 * @return 查询结果
 	 */
-	public SearchResult searchIndex(Integer firstResult, Integer maxResults, String queryString, Integer... baseId);
+	public PepperResult searchIndex(Integer firstResult, Integer maxResults, String queryString, Integer... baseId);
 
 	/**
 	 * 保存

@@ -25,9 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
-import com.microduo.index.lucene3.MdSortField;
-import com.microduo.index.lucene3.SearchResult;
-
 import cn.com.cms.data.constant.ELogicType;
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.data.service.DataFieldService;
@@ -50,6 +47,8 @@ import cn.com.cms.library.service.LibraryTableService;
 import cn.com.cms.user.service.UserSecurityService;
 import cn.com.cms.user.service.UserService;
 import cn.com.people.data.util.DateTimeUtil;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField;
 
 /**
  * 数据搜索控制类
@@ -341,13 +340,13 @@ public class DataSearchController extends BaseController {
 		}
 		StringBuilder luneceStr = new StringBuilder();
 		// 默认排序
-		List<MdSortField> dsSortFields = new ArrayList<MdSortField>();
+		List<PepperSortField> dsSortFields = new ArrayList<PepperSortField>();
 		DataField dsSortField = dataFieldService.getByCode(FieldCodes.DOC_TIME);
 		dsSortFields
-				.add(new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(dsSortField.getDataType()), true));
-		MdSortField[] dsSortFieldsArray = new MdSortField[dsSortFields.size()];
+				.add(new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(dsSortField.getDataType()), true));
+		PepperSortField[] dsSortFieldsArray = new PepperSortField[dsSortFields.size()];
 		// 结果集合
-		SearchResult result = new SearchResult();
+		PepperResult result = new PepperResult();
 		String[] hightLightFields = { FieldCodes.AUTHORS, FieldCodes.TITLE, FieldCodes.CONTENT };
 		// 快捷查询
 		if ("qs".equals(iType)) {
@@ -386,11 +385,11 @@ public class DataSearchController extends BaseController {
 		else if ("ms".equals(iType) || "es".equals(iType)) {
 			luneceStr.append(mSearch);
 			// 排序
-			List<MdSortField> asSortFields = new ArrayList<MdSortField>();
+			List<PepperSortField> asSortFields = new ArrayList<PepperSortField>();
 			DataField asSortField = dataFieldService.getByCode(FieldCodes.DOC_TIME);
 			dsSortFields.add(
-					new MdSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(asSortField.getDataType()), true));
-			MdSortField[] asSortFieldsArray = new MdSortField[dsSortFields.size()];
+					new PepperSortField(FieldCodes.DOC_TIME, DataUtil.dataType2SortType(asSortField.getDataType()), true));
+			PepperSortField[] asSortFieldsArray = new PepperSortField[dsSortFields.size()];
 			List<String> hList = new ArrayList<String>(2);
 			String[] hightLightField = null;
 			if (mSearch.contains(FieldCodes.TITLE)) {

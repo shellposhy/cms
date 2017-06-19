@@ -77,11 +77,13 @@
 			<artifactId>paoding-analyzer</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>cn.com.zhihuigu</groupId>
 			<artifactId>lucene-core</artifactId>
 			<version>1.0</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>cn.com.zhihuigu</groupId>
 			<artifactId>pepper</artifactId>

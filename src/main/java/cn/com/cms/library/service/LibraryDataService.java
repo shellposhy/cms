@@ -38,10 +38,10 @@ import cn.com.cms.user.service.UserSecurityService;
 import cn.com.cms.user.service.UserService;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.PkUtil;
+import cn.com.pepper.PepperException;
+import cn.com.pepper.common.PepperResult;
 
 import com.google.common.collect.Maps;
-import com.microduo.index.IndexException;
-import com.microduo.index.lucene3.SearchResult;
 
 @Service
 public class LibraryDataService extends LibraryDataIndexService implements LibraryDataDao {
@@ -215,7 +215,7 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 	public void delete(int baseId, String uuid) {
 		String indexPath = getIndexPath(baseId);
 		try {
-			SearchResult result = indexService.search(indexPath, "UUID:" + uuid, 0, 1);
+			PepperResult result = indexService.search(indexPath, "UUID:" + uuid, 0, 1);
 			if (result != null && result.documents != null) {
 				for (Document doc : result.documents) {
 					Integer tableId = Integer.valueOf(doc.get(FieldCodes.TABLE_ID));
@@ -223,7 +223,7 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 					delete(tableId, dataId);
 				}
 			}
-		} catch (IndexException e) {
+		} catch (PepperException e) {
 			e.printStackTrace();
 			logger.error("===>删除数据出错", e);
 		}
@@ -428,7 +428,7 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 				dbDao.delete(dataTable.getName(), result.getList().get(0).getId());
 				try {
 					indexService.deleteDocuments(indexPath, FieldCodes.UUID + ":" + data.get(FieldCodes.UUID));
-				} catch (IndexException e) {
+				} catch (PepperException e) {
 					e.printStackTrace();
 				}
 				delCount++;
@@ -483,7 +483,7 @@ public class LibraryDataService extends LibraryDataIndexService implements Libra
 		// 建索引
 		try {
 			indexService.addDocuments(indexPath, docs);
-		} catch (IndexException e) {
+		} catch (PepperException e) {
 			errorList.clear();
 			for (int j = 0; j < dataList.size(); j++)
 				errorList.add(j);

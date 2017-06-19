@@ -25,9 +25,6 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.NumericField;
 
-import com.microduo.index.lucene3.MdSortField.FieldType;
-import com.microduo.index.lucene3.SearchResult;
-
 import cn.com.cms.data.model.DataField;
 import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.table.FieldCodes;
@@ -35,6 +32,8 @@ import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.library.constant.EDataType;
 import cn.com.people.data.util.DateTimeUtil;
 import cn.com.people.data.util.HtmlUtil;
+import cn.com.pepper.common.PepperResult;
+import cn.com.pepper.comparator.base.PepperSortField.FieldType;
 
 /**
  * 数据工具类
@@ -178,14 +177,14 @@ public class DataUtil {
 	/**
 	 * 索引搜索结果转PeopleData列表
 	 * 
-	 * @param searchResult
+	 * @param pepperResult
 	 * @param fieldList
 	 * @return
 	 */
-	public static List<CmsData> getPeopleDataList(SearchResult searchResult, List<DataField> fieldList) {
+	public static List<CmsData> getPeopleDataList(PepperResult pepperResult, List<DataField> fieldList) {
 		List<CmsData> result = new ArrayList<CmsData>();
-		if (null != searchResult && null != searchResult.documents) {
-			for (Document doc : searchResult.documents) {
+		if (null != pepperResult && null != pepperResult.documents) {
+			for (Document doc : pepperResult.documents) {
 				result.add(getPeopleData(doc, fieldList));
 			}
 		}
