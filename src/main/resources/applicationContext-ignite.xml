@@ -12,6 +12,7 @@
 
 	<!-- Provide configuration file path. -->
 	<bean id="cacheManager" class="org.apache.ignite.cache.spring.SpringCacheManager">
+		<!-- Linux and Windows Path:warning  -->
 		<property name="configurationPath" value="classpath:config/ignite-config.xml" />
 		<property name="gridName" value="cmsGrid" />
 		<property name="dynamicCacheConfiguration">
