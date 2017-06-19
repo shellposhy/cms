@@ -390,7 +390,8 @@ public class DataUtil {
 			return FieldType.Double;
 		case Time:
 		case DateTime:
-			return FieldType.Long;
+			return FieldType.StringVal;
+		// return FieldType.Long;
 		default:
 			return FieldType.StringVal;
 
