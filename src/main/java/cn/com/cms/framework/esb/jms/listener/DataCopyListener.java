@@ -12,7 +12,7 @@ import cn.com.people.data.util.DateTimeUtil;
  * @author shishb
  * @version 1.0
  */
-abstract public class DataCopyListener implements MessageListener {
+public abstract class DataCopyListener implements MessageListener {
 	@Resource
 	private TaskListener taskService;
 
