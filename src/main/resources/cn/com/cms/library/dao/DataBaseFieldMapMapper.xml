@@ -27,7 +27,6 @@
 		<![CDATA[ SELECT * FROM data_base_field_map WHERE Base_ID = #{dbId} AND  Is_Display= #{isDisplay}]]>
 	</select>
 
-
 	<select id="countByFieldId" resultType="int" parameterType="Integer">
 		SELECT COUNT(*) FROM data_base_field_map WHERE Field_ID = #{fieldId}
 	</select>
@@ -38,8 +37,7 @@
 	</select>
 
 	<insert id="insert">
-		<selectKey resultType="java.lang.Integer" order="AFTER"
-			keyProperty="id">
+		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO data_base_field_map(Base_ID,Field_ID,Type, Is_Display)

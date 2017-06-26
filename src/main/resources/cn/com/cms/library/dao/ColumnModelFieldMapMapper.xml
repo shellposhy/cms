@@ -38,11 +38,9 @@
 		SELECT * FROM column_model_field_map WHERE Column_Model_ID=#{columnModelId}
 	</select>
 
-
 	<update id="update">
 		UPDATE column_model_field_map SET
-		Column_Model_ID =
-		#{columnModelId},
+		Column_Model_ID =#{columnModelId},
 		Field_ID = #{fieldId}
 		WHERE ID=#{id}
 	</update>
