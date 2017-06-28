@@ -430,6 +430,7 @@ public class UserService {
 		if (null != user) {
 			// 用户信息写入缓存
 			userCache.put(name, user);
+			userCache.put("test", "test", 120);
 			return user;
 		}
 		return null;

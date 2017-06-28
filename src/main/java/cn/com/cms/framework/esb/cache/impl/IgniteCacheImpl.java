@@ -1,7 +1,15 @@
 package cn.com.cms.framework.esb.cache.impl;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.cache.expiry.AccessedExpiryPolicy;
+import javax.cache.expiry.CreatedExpiryPolicy;
+import javax.cache.expiry.Duration;
+import javax.cache.expiry.EternalExpiryPolicy;
+import javax.cache.expiry.ModifiedExpiryPolicy;
+import javax.cache.expiry.TouchedExpiryPolicy;
 
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
@@ -10,24 +18,26 @@ import org.apache.ignite.cache.spring.SpringCacheManager;
 import org.apache.ignite.configuration.CacheConfiguration;
 import org.springframework.stereotype.Service;
 
-import cn.com.cms.framework.esb.cache.base.Cache;
+import cn.com.cms.framework.esb.cache.base.EExpiryPolicy;
+import cn.com.cms.framework.esb.cache.dao.Cache;
 
 @Service
 public class IgniteCacheImpl<T> implements Cache<T> {
 	@Resource
 	private SpringCacheManager springCacheManager;
-	// Define the Properties
 	private Ignite ignite;
 	private String gridName;
 	private CacheConfiguration<Object, Object> cacheConfiguration;
 	IgniteCache<Object, Object> cache;
 
-	/**
-	 * Get the value by Key
-	 * 
-	 * @param key
-	 * @return
-	 */
+	@PostConstruct
+	public void init() throws Exception {
+		cacheConfiguration = springCacheManager.getDynamicCacheConfiguration();
+		gridName = springCacheManager.getGridName();
+		ignite = Ignition.ignite();
+		cache = getIgnite().getOrCreateCache(cacheConfiguration);
+	}
+
 	@SuppressWarnings("unchecked")
 	public T get(Object key) {
 		assert ignite != null;
@@ -37,13 +47,6 @@ public class IgniteCacheImpl<T> implements Cache<T> {
 		return null;
 	}
 
-	/**
-	 * Set the cache value
-	 * 
-	 * @param key
-	 * @param value
-	 * @return
-	 */
 	public void put(Object key, Object value) {
 		assert ignite != null;
 		if (null != getCache()) {
@@ -51,12 +54,22 @@ public class IgniteCacheImpl<T> implements Cache<T> {
 		}
 	}
 
-	/**
-	 * Remove the cache value
-	 * 
-	 * @param key
-	 * @return
-	 */
+	public void put(Object key, Object value, long time) {
+		assert ignite != null;
+		if (null != getCache()) {
+			IgniteCache<Object, Object> cache = getCache(EExpiryPolicy.Touched, time);
+			cache.put(key, value);
+		}
+	}
+
+	public void put(Object key, Object value, EExpiryPolicy expiryPolicy, long time) {
+		assert ignite != null;
+		if (null != getCache()) {
+			IgniteCache<Object, Object> cache = getCache(expiryPolicy, time);
+			cache.put(key, value);
+		}
+	}
+
 	public boolean remove(Object key) {
 		assert ignite != null;
 		if (null != getCache()) {
@@ -66,20 +79,6 @@ public class IgniteCacheImpl<T> implements Cache<T> {
 		}
 	}
 
-	/**
-	 * init method
-	 * 
-	 * @return
-	 */
-	@PostConstruct
-	public void init() throws Exception {
-		cacheConfiguration = springCacheManager.getDynamicCacheConfiguration();
-		gridName = springCacheManager.getGridName();
-		ignite = Ignition.ignite();
-		cache = getIgnite().getOrCreateCache(cacheConfiguration);
-	}
-
-	// getter and seter
 	public Ignite getIgnite() {
 		return ignite;
 	}
@@ -90,6 +89,22 @@ public class IgniteCacheImpl<T> implements Cache<T> {
 
 	public CacheConfiguration<Object, Object> getCacheConfiguration() {
 		return cacheConfiguration;
+	}
+
+	public IgniteCache<Object, Object> getCache(EExpiryPolicy policy, long time) {
+		switch (policy) {
+		case Accessed:
+			return getCache().withExpiryPolicy(new AccessedExpiryPolicy(new Duration(TimeUnit.SECONDS, time)));
+		case Created:
+			return getCache().withExpiryPolicy(new CreatedExpiryPolicy(new Duration(TimeUnit.SECONDS, time)));
+		case Eternal:
+			return getCache().withExpiryPolicy(new EternalExpiryPolicy());
+		case Modified:
+			return getCache().withExpiryPolicy(new ModifiedExpiryPolicy(new Duration(TimeUnit.SECONDS, time)));
+		case Touched:
+		default:
+			return getCache().withExpiryPolicy(new TouchedExpiryPolicy(new Duration(TimeUnit.SECONDS, time)));
+		}
 	}
 
 	public IgniteCache<Object, Object> getCache() {
