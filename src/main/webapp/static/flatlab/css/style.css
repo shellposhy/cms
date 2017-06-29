@@ -1214,11 +1214,11 @@ ul.about-flex-slides {
 }
 
 .team-social-link a:hover {
-	color: #f37c6b;
+	color: #428bca;
 }
 
 .person-info h4, .person-info h4 a {
-	color: #f37c6b;
+	color: #428bca;
 	font-weight: 300;
 	margin-bottom: 5px;
 }
@@ -1311,6 +1311,8 @@ ul.about-flex-slides {
 .date-wrap .active {
 	background: #2578be;
 	color: #fff;
+	border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 .date-wrap .date {
@@ -1453,7 +1455,7 @@ ul.tag li a {
 }
 
 .footer address a {
-	color: #f37c6b;
+	color: #428bca;
 }
 
 .tweet-box {
