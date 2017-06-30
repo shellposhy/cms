@@ -41,13 +41,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-sm-4">
-                    <h1>道源动态</h1>
+                    <h1>${dataBase.name}</h1>
                 </div>
                 <div class="col-lg-8 col-sm-8">
                     <ol class="breadcrumb pull-right">
                         <li><a href="#">首页</a></li>
-                        <li><a href="#">新闻中心</a></li>
-                        <li class="active">道源动态</li>
+                        <li><a href="#">${parentBase.name}</a></li>
+                        <li class="active">${dataBase.name}</li>
                     </ol>
                 </div>
             </div>
@@ -64,63 +64,74 @@
 	           		<!--  left-->
 	               <div class="col-lg-3 col-sm-3">
 	                   <div class="date-wrap">
-	                       <span class="page-title">新闻中心</span>
-	                       <span class="page-item active" attr-href="#">道源动态</span>
-	                       <span class="page-item" attr-href="#">行业资讯</span>
+	                       <span class="page-title">${parentBase.name}</span>
+	                       <#if peerBaseList?exists && (peerBaseList?size gt 0)>
+	                      		<#list peerBaseList as item>
+	                      			<#if item.id==dataBase.id >
+	                       				<span class="page-item active" attr-href="#">${item.name}</span>
+	                       			<#else>
+	                       				<span class="page-item" attr-href="/page/flatlab/list/${item.id}/1">${item.name}</span>
+	                       			</#if>
+	                       		</#list>
+	                       	</#if>
 	                   </div>
 	               </div>
 	               <!-- //left -->
 	               <!-- right -->
 	               <div class="col-lg-9 col-sm-9">
-						<div class="blog-item">
-							<div class="row">
-								<div class="col-lg-3 col-sm-3">
-									<div class="blog-img">
-										<img src="/pic/upic/40/2017/6/75651498724999337.jpg" />
-									</div>
-								</div>
-								<div class="col-lg-9 col-sm-9">
-									<h1>
-										<a href="#">六盘水明湖湿地公园</a>
-									</h1>
-									<p>项目将城市雨洪管理、水系统生态修复、城市开放空间的系统整合与城市滨水用地价值的提升有机结合在一起，充分发挥了景观做为城市生态基础设施综合的生态系统服务功能。项目将城市雨洪管理、水系统生态修复、城市开放空间的系统整合与城市滨水用地价值的提升有机结合在一起。</p>
-								</div>
-							</div>
-						</div>
-						<div class="blog-item">
-							<div class="row">
-								<div class="col-lg-12 col-sm-12">
-									<h1>
-										<a href="#">六盘水明湖湿地公园</a>
-									</h1>
-									<p>项目将城市雨洪管理、水系统生态修复、城市开放空间的系统整合与城市滨水用地价值的提升有机结合在一起，充分发挥了景观做为城市生态基础设施综合的生态系统服务功能。项目将城市雨洪管理、水系统生态修复、城市开放空间的系统整合与城市滨水用地价值的提升有机结合在一起。</p>
-								</div>
-							</div>
-						</div>
-						<div class="blog-item">
-							<div class="row">
-								<div class="col-lg-12 col-sm-12">
-									<h1>
-										<a href="#">六盘水明湖湿地公园</a>
-									</h1>
-									<p>项目将城市雨洪管理、水系统生态修复、城市开放空间的系统整合与城市滨水用地价值的提升有机结合在一起，充分发挥了景观做为城市生态基础设施综合的生态系统服务功能。项目将城市雨洪管理、水系统生态修复、城市开放空间的系统整合与城市滨水用地价值的提升有机结合在一起。</p>
-								</div>
-							</div>
-						</div>
+	               		<#if dataList?exists && (dataList?size gt 0)>
+	                      		<#list dataList as item>
+	                      			<#if item_index == 0>
+										<div class="blog-item">
+											<div class="row">
+												<div class="col-lg-3 col-sm-3">
+													<div class="blog-img">
+														<img src="${item.img}" />
+													</div>
+												</div>
+												<div class="col-lg-9 col-sm-9">
+													<h1>
+														<a href="#">${item.title}</a>
+													</h1>
+													<p>${item.summary}</p>
+												</div>
+											</div>
+										</div>
+									<#else>
+										<div class="blog-item">
+											<div class="row">
+												<div class="col-lg-12 col-sm-12">
+													<h1>
+														<a href="#">${item.title}</a>
+													</h1>
+													<p>${item.summary}</p>
+												</div>
+											</div>
+										</div>
+									</#if>
+	                       		</#list>
+	                       	</#if>
 	               </div>
 	               <!-- //right -->
 	           </div>
 	           <!-- //content -->
 	           <!-- paging -->
 	           <div class="row">
-		           	<div class="text-center">
-	                    <ul class="pagination">
-	                        <li><a href="#">«</a></li>
-	                        <li class="active"><a href="#">1</a></li>
-	                        <li><a href="#">2</a></li>
-	                        <li><a href="#">»</a></li>
-	                    </ul>
-	                </div>
+		           	<#if paging?exists>
+		                <div class="text-center">
+		                    <ul class="pagination">
+		                        <li><a href="/page/flatlab/list/${dataBase.id}/${paging.preNum}">«</a></li>
+		                        <#list paging.pageStart..paging.pageEnd as index>
+		                        	<#if paging.curNum==index>
+		                        		<li class="active"><a href="#">${index}</a></li>
+		                        	<#else>
+		                        		<li><a href="/page/flatlab/list/${dataBase.id}/${index}">${index}</a></li>
+		                        	</#if>
+		                        </#list>
+		                        <li><a href="/page/flatlab/list/${dataBase.id}/${paging.nextNum}">»</a></li>
+		                    </ul>
+		                </div>
+					</#if>
 	           </div>
 	           <!-- //paging -->
             </div>
