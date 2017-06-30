@@ -82,14 +82,65 @@ public class ViewPreviewService {
 				result = sortContentHandle(viewItem, viewContent, appPath, page);
 				break;
 			case OneImgList:
-				result = firstImgDataHandler(viewItem, viewContent, appPath);
+				result = firstImgDataHandler(viewItem, viewContent, appPath, page);
 			case ImgList:
-				result = imgDataListHandler(viewItem, viewContent, appPath);
+				result = imgDataListHandler(viewItem, viewContent, appPath, page);
 			default:
 				break;
 			}
 			return result;
 		}
+	}
+
+	/**
+	 * 通用列表
+	 * 
+	 * @param viewItem
+	 * @param content
+	 * @param appPath
+	 * @param page
+	 * @return
+	 */
+	private ViewPreviewVo dbContentHandle(ViewItem viewItem, ViewContent content, String appPath, ViewPage page) {
+		ViewPreviewVo result = new ViewPreviewVo();
+		result.setTitle(null == content.getName() ? "" : content.getName());
+		if (null != content.getNameLink()) {
+			result.setHref(content.getNameLink());
+		}
+		if (null != content.getContent() && !content.getContent().isEmpty()) {
+			int rows = viewItem.getMaxRows();
+			int baseId = Integer.valueOf(content.getContent());
+			DataTable dataTable = libraryService.getDataTable(baseId);
+			BaseLibrary<?> dataBase = libraryService.find(baseId);
+			DataField dataField = null;
+			result.setLength(viewItem.getMaxWords());
+			try {
+				int numHits = appConfig.getDefaultIndexSearchNumHits();
+				PepperSortField[] sortType = { new PepperSortField(FieldCodes.DOC_TIME,
+						DataUtil.dataType2SortType(EDataType.DateTime), true) };
+				List<CmsData> CmsDataList = new ArrayList<CmsData>();
+				StringBuilder queryStr = new StringBuilder();
+				queryStr.append("#int#").append(FieldCodes.DATA_STATUS).append(":3")
+						.append(content.getFilterCondition());
+				PepperResult searchResult = new PepperResult();
+				searchResult = libraryDataService.searchIndex(queryStr.toString(), numHits, sortType, null, 0, rows,
+						baseId);
+				List<DataField> fieldList = dataFieldService.findFieldsByDBId(baseId);
+				List<CmsData> searchResultList = DataUtil.getPeopleDataList(searchResult, fieldList);
+				CmsDataList.addAll(searchResultList);
+				if (null != dataTable) {
+					switch (viewItem.getItemType()) {
+					default:
+						result.initList(content, CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(),
+								dataField, page);
+						break;
+					}
+				}
+			} catch (Exception e) {
+				logger.warn("数据组装错误！", e);
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -154,57 +205,6 @@ public class ViewPreviewService {
 	}
 
 	/**
-	 * 头条新闻
-	 * 
-	 * @param viewItem
-	 * @param content
-	 * @param appPath
-	 * @return
-	 */
-	private ViewPreviewVo dbContentHandle(ViewItem viewItem, ViewContent content, String appPath, ViewPage page) {
-		ViewPreviewVo result = new ViewPreviewVo();
-		result.setTitle(null == content.getName() ? "" : content.getName());
-		if (null != content.getNameLink()) {
-			result.setHref(content.getNameLink());
-		}
-		if (null != content.getContent() && !content.getContent().isEmpty()) {
-			int rows = viewItem.getMaxRows();
-			int baseId = Integer.valueOf(content.getContent());
-			DataTable dataTable = libraryService.getDataTable(baseId);
-			BaseLibrary<?> dataBase = libraryService.find(baseId);
-			DataField dataField = null;
-			result.setLength(viewItem.getMaxWords());
-			try {
-				int numHits = appConfig.getDefaultIndexSearchNumHits();
-				PepperSortField[] sortType = { new PepperSortField(FieldCodes.DOC_TIME,
-						DataUtil.dataType2SortType(EDataType.DateTime), true) };
-				List<CmsData> CmsDataList = new ArrayList<CmsData>();
-				StringBuilder queryStr = new StringBuilder();
-				queryStr.append("#int#").append(FieldCodes.DATA_STATUS).append(":3")
-						.append(content.getFilterCondition());
-				PepperResult searchResult = new PepperResult();
-				searchResult = libraryDataService.searchIndex(queryStr.toString(), numHits, sortType, null, 0, rows,
-						baseId);
-				List<DataField> fieldList = dataFieldService.findFieldsByDBId(baseId);
-				List<CmsData> searchResultList = DataUtil.getPeopleDataList(searchResult, fieldList);
-				CmsDataList.addAll(searchResultList);
-				if (null != dataTable) {
-					switch (viewItem.getItemType()) {
-					default:
-						result.initList(content, CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(),
-								dataField, page);
-						break;
-					}
-				}
-			} catch (Exception e) {
-				logger.warn("数据组装错误！", e);
-			}
-		}
-		return result;
-
-	}
-
-	/**
 	 * 单图片模式
 	 * 
 	 * @param viewItem
@@ -212,7 +212,7 @@ public class ViewPreviewService {
 	 * @param appPath
 	 * @return
 	 */
-	private ViewPreviewVo firstImgDataHandler(ViewItem viewItem, ViewContent content, String appPath) {
+	private ViewPreviewVo firstImgDataHandler(ViewItem viewItem, ViewContent content, String appPath, ViewPage page) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		result.setTitle(null == content.getName() ? "" : content.getName());
 		if (null != content.getNameLink()) {
@@ -257,7 +257,8 @@ public class ViewPreviewService {
 				if (null != dataTable) {
 					switch (viewItem.getItemType()) {
 					default:
-						result.initImgList(CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(), dataField);
+						result.initImgList(CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(), dataField,
+								page);
 						break;
 					}
 				}
@@ -276,7 +277,7 @@ public class ViewPreviewService {
 	 * @param appPath
 	 * @return
 	 */
-	private ViewPreviewVo imgDataListHandler(ViewItem viewItem, ViewContent content, String appPath) {
+	private ViewPreviewVo imgDataListHandler(ViewItem viewItem, ViewContent content, String appPath, ViewPage page) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		result.setTitle(null == content.getName() ? "" : content.getName());
 		if (null != content.getNameLink()) {
@@ -307,7 +308,7 @@ public class ViewPreviewService {
 			}
 			result.setLength(viewItem.getMaxWords());
 			if (null != dataTable) {
-				result.initImgList(CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(), dataField);
+				result.initImgList(CmsDataList, appPath, dataBase.getPathCode(), dataTable.getId(), dataField, page);
 			}
 		}
 		return result;

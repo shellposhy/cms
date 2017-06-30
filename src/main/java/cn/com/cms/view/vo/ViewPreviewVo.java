@@ -62,7 +62,7 @@ public class ViewPreviewVo {
 			}
 		}
 		for (CmsData data : dataList) {
-			this.list.add(new Item(data, appPath + DATA_PATH + pathCode + tableId, dataField));
+			this.list.add(new Item(data, appPath + DATA_PATH + "/" + page.getCode() + pathCode + tableId, dataField));
 		}
 	}
 
@@ -88,7 +88,8 @@ public class ViewPreviewVo {
 			break;
 		}
 		for (CmsData data : dataList) {
-			this.list.add(new Item(data, appPath + DATA_PATH + pathCode + data.getTableId(), dataField));
+			this.list.add(new Item(data, appPath + DATA_PATH + "/" + page.getCode() + pathCode + data.getTableId(),
+					dataField));
 		}
 	}
 
@@ -103,9 +104,9 @@ public class ViewPreviewVo {
 	 * @return
 	 */
 	public void initImgList(List<CmsData> dataList, String appPath, String pathCode, Integer tableId,
-			DataField dataField) {
+			DataField dataField, ViewPage page) {
 		for (CmsData data : dataList) {
-			this.list.add(new Item(data, appPath + DATA_PATH + pathCode + tableId, dataField));
+			this.list.add(new Item(data, appPath + DATA_PATH + "/" + page.getCode() + pathCode + tableId, dataField));
 		}
 
 	}
@@ -122,14 +123,15 @@ public class ViewPreviewVo {
 	 * @return
 	 */
 	public void initHeadline(ViewContent content, List<CmsData> dataList, String appPath, String pathCode,
-			Integer tableId, DataField dataField) {
+			Integer tableId, DataField dataField, ViewPage page) {
 		if (null != dataList && dataList.size() > 0) {
 			for (int i = 0; i < dataList.size(); i++) {
 				if (0 == i) {
 					String title = (null == dataList.get(i).get(FieldCodes.TITLE)) ? ""
 							: dataList.get(i).get(FieldCodes.TITLE).toString();
 					this.setTitle(title);
-					this.setHref(appPath + DATA_PATH + pathCode + tableId + "_" + dataList.get(i).getId());
+					this.setHref(appPath + DATA_PATH + "/" + page.getCode() + pathCode + tableId + "_"
+							+ dataList.get(i).getId());
 					this.setSummary(null == dataList.get(i).get(FieldCodes.CONTENT) ? ""
 							: dataList.get(i).get(FieldCodes.CONTENT).toString());
 				}

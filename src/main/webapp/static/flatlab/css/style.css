@@ -1274,8 +1274,10 @@ ul.about-flex-slides {
 
 /*blog*/
 .blog-item {
-	margin-bottom: 40px;
-	padding-bottom: 40px;
+	/*margin-bottom: 40px;*/
+	/*padding-bottom: 40px;*/
+	margin-bottom: 10px;
+	padding-bottom: 10px;
 	border-bottom: 1px dashed #ddd;
 }
 
@@ -1362,8 +1364,9 @@ ul.about-flex-slides {
 }
 
 .blog-item h1 {
-	margin-bottom: 20px;
-	line-height: 35px;
+	/*margin-bottom: 20px;*/
+	/*line-height: 35px;*/
+	font-size: 16px;
 }
 
 .blog-item h1 a:hover {
