@@ -1,4 +1,4 @@
-package cn.com.cms.page.controller;
+package cn.com.cms.page.controller.base;
 
 import java.io.IOException;
 import java.util.Date;

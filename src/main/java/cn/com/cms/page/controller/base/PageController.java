@@ -1,4 +1,4 @@
-package cn.com.cms.page.controller;
+package cn.com.cms.page.controller.base;
 
 import java.io.IOException;
 import java.util.Date;
@@ -50,7 +50,7 @@ import cn.com.cms.framework.config.SystemConstant;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/page")
+@RequestMapping("/page/default")
 public class PageController extends BaseController {
 	private static Logger log = Logger.getLogger(PageController.class.getName());
 	@Resource

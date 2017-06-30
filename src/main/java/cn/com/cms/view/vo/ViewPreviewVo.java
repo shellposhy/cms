@@ -184,8 +184,8 @@ public class ViewPreviewVo {
 		this.list.add(new Item(title, img, href));
 	}
 
-	public void addListItem(DataVo dataVO, String pathCode) {
-		this.list.add(new Item(dataVO, pathCode));
+	public void addListItem(DataVo dataVO, String pathCode, ViewPage page) {
+		this.list.add(new Item(dataVO, pathCode, page));
 	}
 
 	public void removeList(int index) {
@@ -274,9 +274,14 @@ public class ViewPreviewVo {
 			this.href = pathCode + "_" + data.getId();
 		}
 
-		public Item(DataVo dataVO, String pathCode) {
+		public Item(DataVo dataVO, String pathCode, ViewPage page) {
 			this.title = dataVO.getTitle();
-			this.href = pathCode + DATA_PATH + "/" + dataVO.getTableId() + "_" + dataVO.getId();
+			if (null != page && !Strings.isNullOrEmpty(page.getCode())) {
+				this.href = pathCode + DATA_PATH + "/" + page.getCode() + "/" + dataVO.getTableId() + "_"
+						+ dataVO.getId();
+			} else {
+				this.href = pathCode + DATA_PATH + "/" + dataVO.getTableId() + "_" + dataVO.getId();
+			}
 			if (null != dataVO.getImg()) {
 				this.img = dataVO.getImg();
 			}

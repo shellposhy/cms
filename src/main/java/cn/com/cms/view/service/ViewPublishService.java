@@ -156,10 +156,10 @@ public class ViewPublishService {
 	 * @return
 	 */
 	public Map<String, Object> createDataSortData(DataNavigate node, String appPath, Integer projectId,
-			DefaultTreeNode sortTree, Map<Integer, DataNavigate> navigetaMap) {
+			DefaultTreeNode sortTree, Map<Integer, DataNavigate> navigetaMap, ViewPage page) {
 		Map<String, Object> result = Maps.newHashMap();
 		ViewPreviewVo dataList = new ViewPreviewVo();
-		dataList = createViewData(node.getBaseId(), node.getId(), projectId, 0, 1000, appPath, navigetaMap);
+		dataList = createViewData(node.getBaseId(), node.getId(), projectId, 0, 1000, appPath, navigetaMap, page);
 		result.put("dataList", dataList);
 		return result;
 	}
@@ -175,7 +175,7 @@ public class ViewPublishService {
 	 * @return
 	 */
 	public ViewPreviewVo createViewData(Integer databaseId, Integer sortId, Integer projectId, Integer firstResult,
-			Integer pageSize, String appPath, Map<Integer, DataNavigate> navigetaMap) {
+			Integer pageSize, String appPath, Map<Integer, DataNavigate> navigetaMap, ViewPage page) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		Integer[] Ids = { databaseId };
 		int numHits = appConfig.getDefaultIndexSearchNumHits();
@@ -186,7 +186,7 @@ public class ViewPublishService {
 		try {
 			PepperResult datasResult = libraryDataService.searchIndex(queryStr.toString(), numHits, sortField, null,
 					firstResult, pageSize, Ids);
-			result = result2ViewVO(datasResult, appPath, navigetaMap);
+			result = result2ViewVO(datasResult, appPath, navigetaMap, page);
 		} catch (RuntimeException e) {
 			log.warn("查询数据出错！", e);
 		}
@@ -201,7 +201,8 @@ public class ViewPublishService {
 	 * @param navigetaMap
 	 * @return
 	 */
-	public ViewPreviewVo result2ViewVO(PepperResult result, String pathCode, Map<Integer, DataNavigate> navigetaMap) {
+	public ViewPreviewVo result2ViewVO(PepperResult result, String pathCode, Map<Integer, DataNavigate> navigetaMap,
+			ViewPage page) {
 		ViewPreviewVo view = new ViewPreviewVo();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {
@@ -220,7 +221,7 @@ public class ViewPublishService {
 					dataVO.setDocTime(DateTimeUtil.formatDateTimeStr(document.get(FieldCodes.DOC_TIME)));
 				}
 				dataVO.setTableId(document.get(FieldCodes.TABLE_ID));
-				view.addListItem(dataVO, pathCode);
+				view.addListItem(dataVO, pathCode, page);
 			}
 		}
 		return view;

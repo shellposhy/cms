@@ -72,7 +72,7 @@ public class ViewListService {
 								Map<String, Object> data = new HashMap<String, Object>();
 								data.put("appPath", appConfig.getAppPath());
 								data.put("pageTitle", node.getName());
-								productData(node, data);
+								productData(node, data, page);
 								String folderPath = pathService.getStaticPhysicalParth() + "/" + page.getCode()
 										+ "/list" + node.getPathCode();
 								String htmlFileFullName = folderPath + SUBPAGE_FILE_NAME;
@@ -95,9 +95,9 @@ public class ViewListService {
 	 * @param result
 	 * @return
 	 */
-	private Map<String, Object> productData(DataBase node, Map<String, Object> result) {
+	private Map<String, Object> productData(DataBase node, Map<String, Object> result, ViewPage page) {
 		ViewPreviewVo vo = new ViewPreviewVo();
-		vo = productData(node.getId(), 0, appConfig.getAdminDataTablePageSize(), appConfig.getAppPath());
+		vo = productData(node.getId(), 0, appConfig.getAdminDataTablePageSize(), appConfig.getAppPath(), page);
 		result.put("dataList", vo);
 		return result;
 	}
@@ -112,7 +112,8 @@ public class ViewListService {
 	 * @param appPath
 	 * @return
 	 */
-	private ViewPreviewVo productData(Integer baseId, Integer firstResult, Integer pageSize, String appPath) {
+	private ViewPreviewVo productData(Integer baseId, Integer firstResult, Integer pageSize, String appPath,
+			ViewPage page) {
 		ViewPreviewVo result = new ViewPreviewVo();
 		Integer[] Ids = { baseId };
 		PepperSortField[] dsSortFieldsArray = {
@@ -122,7 +123,7 @@ public class ViewListService {
 		try {
 			PepperResult hotDatasResult = libraryDataService.searchIndex(queryStr, numHits, dsSortFieldsArray, null,
 					firstResult, pageSize, Ids);
-			result = document2ViewVo(hotDatasResult, appPath);
+			result = document2ViewVo(hotDatasResult, appPath, page);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -137,7 +138,7 @@ public class ViewListService {
 	 * @param pathCode
 	 * @return
 	 */
-	private ViewPreviewVo document2ViewVo(PepperResult result, String pathCode) {
+	private ViewPreviewVo document2ViewVo(PepperResult result, String pathCode, ViewPage page) {
 		ViewPreviewVo view = new ViewPreviewVo();
 		if (null != result && null != result.documents && result.documents.length > 0) {
 			for (Document document : result.documents) {
@@ -167,7 +168,7 @@ public class ViewListService {
 					dataVO.setDocTime(DateTimeUtil.formatDateTimeStr(document.get(FieldCodes.DOC_TIME)));
 				}
 				dataVO.setTableId(document.get(FieldCodes.TABLE_ID));
-				view.addListItem(dataVO, pathCode);
+				view.addListItem(dataVO, pathCode, page);
 			}
 		}
 		return view;

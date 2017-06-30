@@ -122,7 +122,7 @@ public class ViewChannelService {
 				data.put("pageId", dataBase.getId());
 				data.put("parentPath", navigetaMap.get(node.getParentID()).getPathCode());
 				data.putAll(
-						viewPublishService.createDataSortData(node, appConfig.getAppPath(), pageId, tree, navigetaMap));
+						viewPublishService.createDataSortData(node, appConfig.getAppPath(), pageId, tree, navigetaMap,page));
 				String folderPath = pathService.getStaticPhysicalParth() + node.getPathCode();
 				String htmlFileFullName = folderPath + SUBPAGE_FILE_NAME;
 				FileUtil.createFolder(folderPath);
