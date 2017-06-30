@@ -61,87 +61,17 @@
             <div class="col-lg-12 ">
             	<!-- content -->
 	           <div class="row">
-	           		<!--  left-->
-	               <div class="col-lg-3 col-sm-3">
-	                   <div class="date-wrap">
-	                       <span class="page-title">${parentBase.name}</span>
-	                       <#if peerBaseList?exists && (peerBaseList?size gt 0)>
-	                      		<#list peerBaseList as item>
-	                      			<#if item.id==dataBase.id >
-	                       				<span class="page-item active" attr-href="#">${item.name}</span>
-	                       			<#else>
-	                       				<span class="page-item" attr-href="/page/flatlab/list/${item.id}/1">${item.name}</span>
-	                       			</#if>
-	                       		</#list>
-	                       	</#if>
-	                   </div>
+	               <div class="col-lg-12 col-sm-12">
+	               		<div class="blog-item">
+							<div class="row">
+								<h1 class="center ">${data.title!""}</h1>
+								<h2 class="center dashed">作者：<b>${data.authors!""}</b> &nbsp;&nbsp;日期：<b>${data.docTime!""}</b></h2>
+								${data.content!""}
+							</div>
+						</div>
 	               </div>
-	               <!-- //left -->
-	               <!-- right -->
-	               <div class="col-lg-9 col-sm-9">
-	               		<#if dataList?exists && (dataList?size gt 0)>
-	                      		<#list dataList as item>
-	                      			<#if item_index == 0>
-										<div class="blog-item">
-											<div class="row">
-												<div class="col-lg-3 col-sm-3">
-													<div class="blog-img">
-														<img src="${item.img}" />
-													</div>
-												</div>
-												<div class="col-lg-9 col-sm-9">
-													<h1>
-														<a href="/page/flatlab/${item.tableId}_${item.id}">${item.title}</a>
-													</h1>
-													<p>${item.summary}</p>
-												</div>
-											</div>
-										</div>
-									<#else>
-										<div class="blog-item">
-											<div class="row">
-												<div class="col-lg-12 col-sm-12">
-													<h1>
-														<a href="/page/flatlab/${item.tableId}_${item.id}">${item.title}</a>
-													</h1>
-													<p>${item.summary}</p>
-												</div>
-											</div>
-										</div>
-									</#if>
-	                       		</#list>
-	                       	<#else>
-	                       		<div class="blog-item">
-									<div class="row">
-										<div class="col-lg-12 col-sm-12">
-											<h1>无数据</h1>
-										</div>
-									</div>
-								</div>
-	                       	</#if>
-	               </div>
-	               <!-- //right -->
 	           </div>
 	           <!-- //content -->
-	           <!-- paging -->
-	           <div class="row">
-		           	<#if paging?exists>
-		                <div class="text-center">
-		                    <ul class="pagination">
-		                        <li><a href="/page/flatlab/list/${dataBase.id}/${paging.preNum}">«</a></li>
-		                        <#list paging.pageStart..paging.pageEnd as index>
-		                        	<#if paging.curNum==index>
-		                        		<li class="active"><a href="#">${index}</a></li>
-		                        	<#else>
-		                        		<li><a href="/page/flatlab/list/${dataBase.id}/${index}">${index}</a></li>
-		                        	</#if>
-		                        </#list>
-		                        <li><a href="/page/flatlab/list/${dataBase.id}/${paging.nextNum}">»</a></li>
-		                    </ul>
-		                </div>
-					</#if>
-	           </div>
-	           <!-- //paging -->
             </div>
         </div>
     </div>

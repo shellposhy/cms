@@ -12,6 +12,7 @@ import com.google.common.collect.Lists;
 
 import cn.com.cms.data.util.DataUtil;
 import cn.com.cms.data.util.DataVo;
+import cn.com.cms.framework.base.CmsData;
 import cn.com.cms.framework.base.Result;
 import cn.com.cms.framework.base.table.FieldCodes;
 import cn.com.cms.framework.config.AppConfig;
@@ -31,6 +32,17 @@ public class WebPageService {
 	private LibraryDataService libraryDataService;
 	@Resource
 	private LibraryService<DataBase> libraryService;
+
+	/**
+	 * Get the detail data
+	 * 
+	 * @param tableId
+	 * @param dataId
+	 * @return
+	 */
+	public CmsData data(Integer tableId, Integer dataId) {
+		return libraryDataService.find(tableId, dataId);
+	}
 
 	/**
 	 * Search the peer library list
@@ -69,6 +81,10 @@ public class WebPageService {
 	 */
 	public DataBase findLibrary(Integer libraryId) {
 		return libraryService.find(libraryId);
+	}
+
+	public DataBase findByTableId(Integer tableId) {
+		return libraryService.findByTableId(tableId);
 	}
 
 	/**

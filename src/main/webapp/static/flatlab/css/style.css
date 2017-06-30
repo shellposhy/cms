@@ -6,7 +6,7 @@ body {
 		MingLiu;
 	padding: 0px !important;
 	margin: 0px !important;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 a, a:hover, a:focus {
@@ -1281,6 +1281,12 @@ ul.about-flex-slides {
 	border-bottom: 1px dashed #ddd;
 }
 
+.blog-item .dashed{
+	margin-bottom: 40px;
+    padding-bottom: 10px;
+	border-bottom: 1px dashed #ddd;
+}
+
 .date-wrap, .comnt-wrap {
 	margin-bottom: 20px;
 }
@@ -1366,10 +1372,27 @@ ul.about-flex-slides {
 .blog-item h1 {
 	/*margin-bottom: 20px;*/
 	/*line-height: 35px;*/
-	font-size: 16px;
+	font-size: 25px;
 }
 
 .blog-item h1 a:hover {
+	text-decoration: underline;
+}
+
+.blog-item h2, .blog-item h2 a {
+	font-size: 16px;
+	color: #797979;
+	font-weight: 100;
+	font-family: 'Fjalla One', sans-serif;
+}
+
+.blog-item h2 {
+	/*margin-bottom: 20px;*/
+	/*line-height: 35px;*/
+	font-size: 16px;
+}
+
+.blog-item h2 a:hover {
 	text-decoration: underline;
 }
 
@@ -1872,6 +1895,10 @@ ul#filters>li>a:hover, ul#filters>li>a:focus, ul#filters>.active>a, ul#filters>.
 /*----*/
 .mbot50 {
 	margin-bottom: 50px;
+}
+
+.mbot25 {
+	margin-bottom: 25px;
 }
 
 .article {
