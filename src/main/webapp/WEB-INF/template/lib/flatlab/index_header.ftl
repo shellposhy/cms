@@ -18,8 +18,8 @@
                     <li class="dropdown ">
                         <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">关于道源<b class=" fa fa-angle-down"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">公司简介</a></li>
-                            <li><a href="#">智库团队</a></li>
+                            <li><a href="/static/flatlab/about.html">公司简介</a></li>
+                            <li><a href="/static/flatlab/team.html">智库团队</a></li>
                             <li><a href="#">合作伙伴</a></li>
                         </ul>
                     </li>
