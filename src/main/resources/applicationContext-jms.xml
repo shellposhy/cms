@@ -28,6 +28,7 @@
 	</bean>
 
 	<!-- Queue -->
+	<!-- point to point -->
 	<bean id="logQueue" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg>
 			<value>log</value>
