@@ -83,12 +83,12 @@ public class UrlFilter implements Filter {
 
 	//初始化
 	public void init(FilterConfig config) throws ServletException {
-		filterConfig=config;
+		this.filterConfig=config;
 	}
 
 	//销毁
 	public void destroy() {
-		filterConfig=null;
+		this.filterConfig=null;
 	}
 
 }
