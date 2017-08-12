@@ -8,7 +8,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,7 +53,7 @@ import cn.com.cms.user.service.UserSecurityService;
 @Controller
 @RequestMapping("/admin/library/model")
 public class LibraryModelController extends BaseController {
-	public static Logger log = Logger.getLogger(LibraryModelController.class);
+	private static final Logger log = LoggerFactory.getLogger(LibraryModelController.class);
 
 	@Resource
 	private AppConfig appConfig;

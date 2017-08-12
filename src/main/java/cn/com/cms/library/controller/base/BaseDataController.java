@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -66,13 +67,12 @@ import com.google.common.collect.Lists;
  * @version 1.0
  */
 public class BaseDataController<T extends BaseLibrary<T>> extends BaseController {
-
+	private static final Logger LOG = LoggerFactory.getLogger(BaseDataController.class.getName());
 	protected ELibraryType getLibType() {
 		return ELibraryType.SYSTEM_DATA_BASE;
 	}
 
 	protected final String URL_PREFIX = "/admin/library/";
-	protected Logger LOG = Logger.getLogger(BaseDataController.class.getName());
 
 	@Resource
 	protected AppConfig appConfig;

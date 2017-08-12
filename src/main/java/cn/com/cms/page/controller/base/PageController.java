@@ -9,8 +9,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,7 +53,7 @@ import cn.com.cms.framework.config.SystemConstant;
 @Controller
 @RequestMapping("/page/default")
 public class PageController extends BaseController {
-	private static Logger log = Logger.getLogger(PageController.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PageController.class.getName());
 	@Resource
 	private AppConfig appConfig;
 	@Resource

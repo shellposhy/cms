@@ -6,9 +6,10 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,9 +41,7 @@ import cn.com.people.data.util.JsonUtil;
 @Controller
 @RequestMapping("/admin/org")
 public class OrgController extends BaseController {
-
-	public static Logger log = Logger.getLogger(OrgController.class);
-
+	public static final Logger LOG = LoggerFactory.getLogger(OrgController.class);
 	@Resource
 	private OrgService orgService;
 	@Resource
@@ -58,7 +57,7 @@ public class OrgController extends BaseController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		log.debug("=======org.list=======");
+		LOG.debug("=======org.list=======");
 		return "/admin/org/list";
 	}
 
@@ -69,7 +68,7 @@ public class OrgController extends BaseController {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView tree() {
-		log.debug("==org.tree====");
+		LOG.debug("==org.tree====");
 		DefaultTreeNode orgTree = orgService.findTree();
 		orgTree.name = "根机构";
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
@@ -84,7 +83,7 @@ public class OrgController extends BaseController {
 	 */
 	@RequestMapping(value = "/getNoUserOrgTree")
 	public MappingJacksonJsonView findAllNoUserOrgs() {
-		log.debug("==org.no.user.orgs====");
+		LOG.debug("==org.no.user.orgs====");
 		DefaultTreeNode orgTree = orgService.findAllNoUserOrgs();
 		orgTree.name = "根机构";
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
@@ -104,7 +103,7 @@ public class OrgController extends BaseController {
 	 */
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String preNew(Model model) throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("=======OrgController.preNew=======");
+		LOG.debug("=======OrgController.preNew=======");
 		model.addAttribute("org", new Org());
 		List<Node<Integer, String>> groups = userGroupService.findList(null);
 		model.addAttribute("groupListJson", JsonUtil.getJsonFromList(groups));
@@ -124,7 +123,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public String edit(@PathVariable("id") Integer id, Model model)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("=======org.edit==========");
+		LOG.debug("=======org.edit==========");
 		Org org = orgService.find(id);
 		StringBuilder treeSelId = new StringBuilder();
 		List<Integer> groupIds = orgService.findGroupIdsByOrgId(id);
@@ -153,7 +152,7 @@ public class OrgController extends BaseController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@Validated final Org org, BindingResult result, final Model model,
 			final HttpServletRequest httpServletRequest) {
-		log.debug("=======OrgController.save==========");
+		LOG.debug("=======OrgController.save==========");
 		return super.save(org, result, model, new ControllerOperator() {
 			public void operate() {
 				User currentUser = (User) httpServletRequest.getSession().getAttribute("currentUser");
@@ -183,7 +182,7 @@ public class OrgController extends BaseController {
 	 */
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
 	public MappingJacksonJsonView delete(@PathVariable("id") Integer id) {
-		log.debug("==org.delete====");
+		LOG.debug("==org.delete====");
 		int realUsrCount = userService.findByOrgId(id).size(); // 查看机构下是否有用户关联
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		if (orgService.hasChild(id)) {

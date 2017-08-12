@@ -4,7 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,7 @@ import cn.com.cms.user.service.UserSecurityService;
 @Controller
 @RequestMapping("/admin/library")
 public class LibraryController extends BaseController {
-	private static Logger log = Logger.getLogger(LibraryController.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(LibraryController.class.getName());
 	@Resource
 	private LibraryDirectoryService<?> libraryDirectoryService;
 	@Resource

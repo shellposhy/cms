@@ -17,9 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -60,7 +61,7 @@ import cn.com.cms.view.vo.ViewModelVo;
 @Controller
 @RequestMapping("/admin/view/model")
 public class ViewModelController extends BaseController {
-	private static Logger log = Logger.getLogger(ViewModelController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ViewModelController.class);
 
 	@Resource
 	private AppConfig appConfig;
@@ -78,7 +79,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String list() {
-		log.debug("====view.model.list====");
+		LOG.debug("====view.model.list====");
 		return "/admin/view/model/list";
 	}
 
@@ -89,7 +90,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView search(@RequestBody JsonPara[] jsonParas) {
-		log.debug("==view.model.search==");
+		LOG.debug("==view.model.search==");
 		Map<String, String> jsonMap = JsonPara.getParaMap(jsonParas);
 		Integer sEcho = Integer.parseInt(jsonMap.get(JsonPara.DataTablesParaNames.sEcho));
 		Integer iDisplayStart = Integer.parseInt(jsonMap.get(JsonPara.DataTablesParaNames.iDisplayStart));
@@ -123,7 +124,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/directory/tree", method = RequestMethod.POST)
 	public MappingJacksonJsonView getDirectoryTree() {
-		log.debug("==view.model.category.tree==");
+		LOG.debug("==view.model.category.tree==");
 		List<ViewModelCategory> cats = viewModelService.findAllCategory();
 		DefaultTreeNode tree = null;
 		if (cats.size() > 0) {
@@ -143,7 +144,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping("/find/{categoryId}")
 	public MappingJacksonJsonView find(@PathVariable("categoryId") Integer categoryId) {
-		log.debug("==view.model.find==");
+		LOG.debug("==view.model.find==");
 		List<ViewModel> models = viewModelService.findModelByCategoryId(categoryId);
 		List<ViewModelVo> viewModelVos = new ArrayList<ViewModelVo>();
 		for (ViewModel viewModel : models) {
@@ -169,7 +170,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping("/directory/new/{parentId}")
 	public String preNewDirectory(@PathVariable("parentId") int parentId, Model model) {
-		log.debug("==view.model.category.new==");
+		LOG.debug("==view.model.category.new==");
 		ViewModelCategory category = new ViewModelCategory();
 		category.setParentID(parentId);
 		model.addAttribute("category", category);
@@ -185,7 +186,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping("/directory/{id}/edit")
 	public String editDirectory(@PathVariable("id") int id, Model model) {
-		log.debug("==view.model.category.edit==");
+		LOG.debug("==view.model.category.edit==");
 		ViewModelCategory category = viewModelService.findCategoryById(id);
 		model.addAttribute("category", category);
 		return "/admin/view/model/directory/edit";
@@ -199,7 +200,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/directory/{id}/delete", method = RequestMethod.POST)
 	public MappingJacksonJsonView deleteDirectory(@PathVariable("id") Integer id) {
-		log.debug("==view.model.category.delete==");
+		LOG.debug("==view.model.category.delete==");
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		List<ViewModel> models = viewModelService.findModelByCategoryId(id);
 		List<ViewModelCategory> categories = viewModelService.findCategoryByParentId(id);
@@ -223,7 +224,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/directory/save", method = RequestMethod.POST)
 	public String saveDirectory(@Valid ViewModelCategory category, BindingResult result, final Model model) {
-		log.debug("==view.model.category.save==");
+		LOG.debug("==view.model.category.save==");
 		category.setOrderId(0);
 		viewModelService.saveCategory(category);
 		return "/admin/view/model/list";
@@ -241,7 +242,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/{id}/readFiles", method = RequestMethod.GET)
 	public String readFiles(@PathVariable("id") Integer viewModeId, Model model, HttpServletRequest request,
 			HttpServletResponse response) {
-		log.debug("===view.model.readFiles===");
+		LOG.debug("===view.model.readFiles===");
 		ViewModel viewModel = viewModelService.find(viewModeId);
 		model.addAttribute("viewModel", viewModel);
 		return "/admin/view/model/fileMng";
@@ -257,7 +258,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/import/{id}", method = RequestMethod.POST)
 	public String importModel(@RequestParam("file") MultipartFile file, @PathVariable("id") Integer viewModelId,
 			Model model) {
-		log.debug("===view.model.import===");
+		LOG.debug("===view.model.import===");
 		ViewModel viewModel = viewModelService.find(viewModelId);
 		viewModelService.uploadModel(file, viewModel.getCode());
 		model.addAttribute("viewModel", viewModel);
@@ -276,7 +277,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/path/readFile", method = RequestMethod.POST)
 	public MappingJacksonJsonView readFileByPath(@RequestBody JsonPara jsonPara, HttpServletRequest request,
 			HttpServletResponse response) {
-		log.debug("===view.model.path.readFiles===");
+		LOG.debug("===view.model.path.readFiles===");
 		String filePath = jsonPara.value;
 		String fileContent = "";
 		try {
@@ -299,7 +300,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/saveFile", method = RequestMethod.POST)
 	public MappingJacksonJsonView saveFileByPath(HttpServletRequest request) {
-		log.debug("===view.model.path.saveFiles===");
+		LOG.debug("===view.model.path.saveFiles===");
 		String filePath = request.getParameter("filePath");
 		String fileContent = request.getParameter("fileContent");
 		if (fileContent == null) {
@@ -325,7 +326,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String edit(@PathVariable(value = "id") Integer viewModelId, Model model)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("===view.model.edit===");
+		LOG.debug("===view.model.edit===");
 		ViewModel viewModel = viewModelService.find(viewModelId);
 		model.addAttribute("viewModel", viewModel);
 		return "/admin/view/model/edit";
@@ -344,7 +345,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String save(@Valid final ViewModel viewModel, @RequestParam("file") MultipartFile file, BindingResult result,
 			final Model model, HttpServletRequest request) {
-		log.debug("===view.model.save===");
+		LOG.debug("===view.model.save===");
 		String ret = super.save(viewModel, result, model, new ControllerOperator() {
 			public void operate() {
 				viewModel.setFileName("index.html");
@@ -376,7 +377,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/new/{categoryId}", method = RequestMethod.GET)
 	public String preNew(Model model, @PathVariable("categoryId") Integer categoryId)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("===view.model.new===");
+		LOG.debug("===view.model.new===");
 		ViewModel viewModel = new ViewModel();
 		viewModel.setCategoryId(categoryId);
 		viewModel.setOrderId(1);
@@ -393,7 +394,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	public String delete(@PathVariable("id") Integer id)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("===view.model.delete===");
+		LOG.debug("===view.model.delete===");
 		try {
 			viewModelService.delete(new Integer[] { id });
 		} catch (Exception e) {
@@ -411,7 +412,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/scan/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public void scan(@PathVariable("id") Integer id) {
-		log.debug("===view.model.scan===");
+		LOG.debug("===view.model.scan===");
 		viewModelService.updateModelContent(id);
 	}
 
@@ -423,7 +424,7 @@ public class ViewModelController extends BaseController {
 	 */
 	@RequestMapping(value = "/{id}/fileTree", method = RequestMethod.GET)
 	public MappingJacksonJsonView getFileTree(@PathVariable("id") Integer viewModelId) {
-		log.debug("===view.model.tree===");
+		LOG.debug("===view.model.tree===");
 		ViewModel model = viewModelService.find(viewModelId);
 		StringBuilder rootPath = new StringBuilder();
 		rootPath.append(appConfig.getTemplatePath()).append("/").append(model.getCode());
@@ -457,7 +458,7 @@ public class ViewModelController extends BaseController {
 	@RequestMapping(value = "/contentHtml/{pageId}", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String findContentHtml(@PathVariable int pageId, HttpServletRequest request) {
-		log.debug("===view.model.file.content===");
+		LOG.debug("===view.model.file.content===");
 		String itemCode = request.getParameter("itemCode");
 		ViewPage viewPage = viewPageService.findById(pageId);
 		ViewItem viewItem = viewItemService.findByModelIdAndCode(viewPage.getModelId(), itemCode);

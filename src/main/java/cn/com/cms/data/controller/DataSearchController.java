@@ -11,8 +11,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -59,7 +60,7 @@ import cn.com.pepper.comparator.base.PepperSortField;
 @Controller
 @RequestMapping("/admin/data")
 public class DataSearchController extends BaseController {
-	private static Logger log = Logger.getLogger(DataSearchController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DataSearchController.class);
 	private static final String LOGIC_TYPE = "logic";
 	private static final String TODAY = "today";
 	private static final String MONTH = "month";
@@ -116,7 +117,7 @@ public class DataSearchController extends BaseController {
 	@RequestMapping(value = "/{type}/as", method = RequestMethod.POST)
 	public String getAsQueryStr(@PathVariable int type, HttpServletRequest request, HttpServletResponse response)
 			throws UnsupportedEncodingException {
-		log.debug("===data.search.as.list===");
+		LOG.debug("===data.search.as.list===");
 		String searchIdStr = request.getParameter("searchIdStr");
 		// 存放带有逻辑NOT的查询字段和查询内容语句的map
 		Map<DataField, String> notQueryMap = new HashMap<DataField, String>();
@@ -258,7 +259,7 @@ public class DataSearchController extends BaseController {
 	@RequestMapping(value = "/field", method = RequestMethod.POST)
 	@ResponseBody
 	public List<DataFieldVo> searchSelField(@RequestBody JsonPara jsonPara) {
-		log.debug("=====data.search.field======");
+		LOG.debug("=====data.search.field======");
 		String dbIdStr = jsonPara.value;
 		List<DataField> dataFields = dataFieldService.findFieldsInBasesByAccess(dbIdStr);
 		List<DataFieldVo> dataFieldQueryVos = new ArrayList<DataFieldVo>();
@@ -289,7 +290,7 @@ public class DataSearchController extends BaseController {
 			@RequestParam(value = "mSearch", required = false) String mSearch,
 			@RequestParam(value = "sortField", required = false) String sortField, HttpServletRequest request)
 			throws UnsupportedEncodingException {
-		log.debug("===data.search.list===");
+		LOG.debug("===data.search.list===");
 		model.addAttribute("iType", iType);
 		if (null != mSearch && !"".equals(mSearch)) {
 			mSearch = java.net.URLDecoder.decode(mSearch, "UTF-8");
@@ -319,7 +320,7 @@ public class DataSearchController extends BaseController {
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView search(@RequestParam String iType, @RequestParam String searchIdStr,
 			@RequestParam(value = "mSearch", required = false) String mSearch, @RequestBody JsonPara[] jsonParas) {
-		log.debug("=====data.search.search====");
+		LOG.debug("=====data.search.search====");
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		Map<String, String> paraMap = JsonPara.getParaMap(jsonParas);
 		// dataTable默认参数

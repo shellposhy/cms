@@ -5,7 +5,8 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
@@ -27,14 +28,12 @@ import cn.com.cms.user.service.UserSecurityService;
  * @version 1.0
  */
 public class BaseDirectoryController<T extends BaseLibrary<T>> extends BaseController {
+	private static final Logger LOG = LoggerFactory.getLogger(BaseDirectoryController.class.getName());
+	protected final String URL_PREFIX = "/admin/library/";
 
 	protected ELibraryType getLibType() {
 		return ELibraryType.SYSTEM_DATA_BASE;
 	}
-
-	protected final String URL_PREFIX = "/admin/library/";
-
-	protected Logger LOG = Logger.getLogger(BaseDirectoryController.class.getName());
 
 	@Resource
 	private LibraryDirectoryService<T> libraryDirectoryService;
@@ -83,9 +82,9 @@ public class BaseDirectoryController<T extends BaseLibrary<T>> extends BaseContr
 			directory.setType(getLibType());
 			model.addAttribute(directory);
 		} catch (InstantiationException e) {
-			LOG.error(e);
+			LOG.error("The class instanced fail.", e);
 		} catch (IllegalAccessException e) {
-			LOG.error(e);
+			LOG.error("if the class or its nullary constructor is not accessible.", e);
 		}
 		return URL_PREFIX + getLibType().getCode() + "/directory/edit";
 	}

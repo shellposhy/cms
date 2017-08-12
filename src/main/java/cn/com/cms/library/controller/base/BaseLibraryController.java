@@ -7,7 +7,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,8 +55,8 @@ public class BaseLibraryController<T extends BaseLibrary<T>> extends BaseControl
 	private DataFieldService dataFieldService;
 	@Resource
 	private LibraryModelService columnModelService;
+	private static final Logger LOG = LoggerFactory.getLogger(BaseLibraryController.class.getName());
 	protected final String URL_PREFIX = "/admin/library/";
-	protected Logger LOG = Logger.getLogger(BaseLibraryController.class.getName());
 
 	protected ELibraryType getLibType() {
 		return ELibraryType.SYSTEM_DATA_BASE;
@@ -144,9 +145,9 @@ public class BaseLibraryController<T extends BaseLibrary<T>> extends BaseControl
 			model.addAttribute("dsTypeOptions", EDataSourceType.values());
 			model.addAttribute("library", library);
 		} catch (InstantiationException e) {
-			LOG.error(e);
+			LOG.error("The class instanced fail.", e);
 		} catch (IllegalAccessException e) {
-			LOG.error(e);
+			LOG.error("if the class or its nullary constructor is not accessible.", e);
 		}
 		return URL_PREFIX + getLibType().getCode() + "/edit";
 	}

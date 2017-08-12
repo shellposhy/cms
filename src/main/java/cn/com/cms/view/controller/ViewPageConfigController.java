@@ -7,7 +7,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ import freemarker.template.TemplateException;
 @Controller
 @RequestMapping("/admin/view/page/config")
 public class ViewPageConfigController extends BaseController {
-	private Logger log = Logger.getLogger(ViewPageConfigController.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(ViewPageConfigController.class.getName());
 	@Resource
 	private AppConfig appConfig;
 	@Resource
@@ -74,7 +75,7 @@ public class ViewPageConfigController extends BaseController {
 	 */
 	@RequestMapping(value = "/{pageId}")
 	public String config(@PathVariable Integer pageId, Model model) {
-		log.debug("=====view.page.config====");
+		LOG.debug("=====view.page.config====");
 		ViewPage viewPage = viewPageService.findById(pageId);
 		model.addAttribute("pageId", pageId);
 		model.addAttribute("pageTitle", viewPage.getName());
@@ -94,7 +95,7 @@ public class ViewPageConfigController extends BaseController {
 	 */
 	@RequestMapping(value = "/preview/{pageId}")
 	public String preview(HttpServletRequest request, @PathVariable("pageId") Integer pageId) {
-		log.debug("=====view.page.preview====");
+		LOG.debug("=====view.page.preview====");
 		String appPath = appConfig.getAppPath();
 		ViewPage page = viewPageService.findById(pageId);
 		ViewModel viewModel = viewModelService.find(page.getModelId());

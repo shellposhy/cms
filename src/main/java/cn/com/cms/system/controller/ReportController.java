@@ -6,7 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ import cn.com.cms.view.service.ViewPageService;
 @Controller
 @RequestMapping("/admin/report")
 public class ReportController extends BaseController {
-	private static Logger log = Logger.getLogger(ReportController.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(ReportController.class.getName());
 	@Resource
 	public UserGroupService userGroupService;
 	@Resource
@@ -55,7 +56,7 @@ public class ReportController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String report() {
-		log.debug("===log.report===");
+		LOG.debug("===log.report===");
 		return "/admin/log/report/global";
 	}
 

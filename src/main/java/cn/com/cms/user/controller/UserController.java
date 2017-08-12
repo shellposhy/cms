@@ -10,9 +10,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,9 +49,7 @@ import cn.com.people.data.util.StringUtil;
 @Controller
 @RequestMapping("/admin/user")
 public class UserController extends BaseController {
-
-	private static Logger log = Logger.getLogger(UserController.class.getName());
-
+	private static final Logger LOG = LoggerFactory.getLogger(UserController.class.getName());
 	@Resource
 	private UserService userService;
 	@Resource
@@ -60,7 +59,7 @@ public class UserController extends BaseController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		log.debug("=====user.list=========");
+		LOG.debug("=====user.list=========");
 		return "/admin/user/list";
 	}
 
@@ -73,7 +72,7 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView searchAll(@RequestBody JsonPara[] jsonParas, HttpServletRequest request) {
-		log.debug("=====user.search=========");
+		LOG.debug("=====user.search=========");
 		Map<String, String> paraMap = JsonPara.getParaMap(jsonParas);
 		int sEcho = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.sEcho));
 		Integer iDisplayStart = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.iDisplayStart));
@@ -118,7 +117,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/{orgId}/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView search(@PathVariable("orgId") Integer orgId, @RequestBody JsonPara[] jsonParas,
 			HttpServletRequest request) {
-		log.debug("=====user.org.search=========");
+		LOG.debug("=====user.org.search=========");
 		Map<String, String> paraMap = JsonPara.getParaMap(jsonParas);
 		int sEcho = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.sEcho));
 		Integer iDisplayStart = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.iDisplayStart));
@@ -152,7 +151,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/{orgId}/new", method = RequestMethod.GET)
 	public String preNew(@PathVariable("orgId") Integer orgId, Model model)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("=====user.org.new=========");
+		LOG.debug("=====user.org.new=========");
 		User user = new User();
 		user.setOrgID(orgId);
 		model.addAttribute("user", user);
@@ -173,7 +172,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public String edit(@PathVariable("id") Integer userId, Model model)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("====user.edit=========");
+		LOG.debug("====user.edit=========");
 		User user = userService.find(userId);
 		StringBuilder treeSelId = new StringBuilder();
 		for (int i = 0; i < user.getUserGroupList().size(); i++) {
@@ -200,7 +199,7 @@ public class UserController extends BaseController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String save(@Valid final User user, BindingResult result, final Model model,
 			final HttpServletRequest request) {
-		log.debug("=====user.save=========");
+		LOG.debug("=====user.save=========");
 		return super.save(user, result, model, new ControllerOperator() {
 			public void operate() {
 				User currentUser = (User) request.getSession().getAttribute("currentUser");
@@ -272,7 +271,7 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(@RequestBody JsonPara jsonPara) {
-		log.debug("=========user.delete===========");
+		LOG.debug("=========user.delete===========");
 		String[] idStr = jsonPara.value.split(SystemConstant.COMMA_SEPARATOR);
 		Integer[] userIds = new Integer[idStr.length];
 		try {

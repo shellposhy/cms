@@ -7,7 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +40,7 @@ import cn.com.cms.system.vo.ParamVo;
 @Controller
 @RequestMapping("/admin/param")
 public class ParamController extends BaseController {
-	private static Logger log = Logger.getLogger(ParamController.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(ParamController.class.getName());
 	@Resource
 	private SysParameterService sysParameterService;
 	@Resource

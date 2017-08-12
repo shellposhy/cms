@@ -10,9 +10,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,8 +54,7 @@ import cn.com.people.data.util.JsonUtil;
 @Controller
 @RequestMapping("/admin/userGroup")
 public class UserGroupController extends BaseController {
-
-	private static Logger log = Logger.getLogger(UserGroupController.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(UserGroupController.class.getName());
 	@Resource
 	private UserGroupService userGroupService;
 	@Resource
@@ -82,7 +82,7 @@ public class UserGroupController extends BaseController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		log.debug("========user.group.list========");
+		LOG.debug("========user.group.list========");
 		return "/admin/userGroup/list";
 	}
 
@@ -98,7 +98,7 @@ public class UserGroupController extends BaseController {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView search(@RequestBody JsonPara[] jsonParas, HttpServletRequest request) {
-		log.debug("========user.group.search========");
+		LOG.debug("========user.group.search========");
 		Map<String, String> paraMap = JsonPara.getParaMap(jsonParas);
 		int sEcho = Integer.parseInt(paraMap.get(JsonPara.DataTablesParaNames.sEcho));
 		int firstResult = 0;
@@ -156,7 +156,7 @@ public class UserGroupController extends BaseController {
 	 */
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String preNew(Model model) throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("========user.group.new========");
+		LOG.debug("========user.group.new========");
 		model.addAttribute(new UserGroup());
 		model.addAttribute("jsonActionTree", JsonUtil.getJsonFromObject(userActionService.findAdminTreeByGroup(null)));
 		DefaultTreeNode root = libraryService.findTree();
@@ -178,7 +178,7 @@ public class UserGroupController extends BaseController {
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public String edit(@PathVariable(value = "id") Integer groupId, Model model)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("========user.group.edit========");
+		LOG.debug("========user.group.edit========");
 		UserGroup userGroup = userGroupService.find(groupId);
 		boolean allAdminAuthority = userGroup.getAllAdminAuthority();
 		if (allAdminAuthority == SystemConstant.ALL_ADMIN_VOTE_NO) {
@@ -217,7 +217,7 @@ public class UserGroupController extends BaseController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String save(@Valid final UserGroup userGroup, BindingResult result, final Model model,
 			final HttpServletRequest request) {
-		log.debug("========user.group.save========");
+		LOG.debug("========user.group.save========");
 		return super.save(userGroup, result, model, new ControllerOperator() {
 			public void operate() {
 				User currentUser = (User) request.getSession().getAttribute("currentUser");
@@ -273,7 +273,7 @@ public class UserGroupController extends BaseController {
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(@RequestBody JsonPara jsonpara, HttpServletRequest request)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("========user.group.delete========");
+		LOG.debug("========user.group.delete========");
 		String[] idStr = jsonpara.value.split(SystemConstant.COMMA_SEPARATOR);
 		Integer[] ids = new Integer[idStr.length];
 		for (int i = 0; i < ids.length; i++) {

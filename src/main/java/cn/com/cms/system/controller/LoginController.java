@@ -5,10 +5,11 @@ import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ import cn.com.people.data.util.StringUtil;
 @Controller
 @RequestMapping("/admin")
 public class LoginController extends BaseController {
-	private static Logger log = Logger.getLogger(LoginController.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(LoginController.class.getName());
 	@Resource
 	private UserActionService userActionService;
 	@Resource
@@ -64,7 +65,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, Model model) {
-		log.debug("=======admin.login=========");
+		LOG.debug("=======admin.login=========");
 		if (!Strings.isNullOrEmpty(request.getParameter("from"))) {
 			model.addAttribute("from", request.getParameter("from"));
 		}
@@ -79,7 +80,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request) {
-		log.debug("=======admin.logout=========");
+		LOG.debug("=======admin.logout=========");
 		request.getSession().setAttribute("currentUser", null);
 		return "/admin/login";
 	}
@@ -92,7 +93,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value = "/security/check", method = RequestMethod.POST)
 	public String excute(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("=======admin.security.check=========");
+		LOG.debug("=======admin.security.check=========");
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
 		User currentUser = null == userCache.get(name.trim())
@@ -119,7 +120,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request) {
-		log.debug("=======admin.index=========");
+		LOG.debug("=======admin.index=========");
 		User currentUser = (User) request.getSession().getAttribute("currentUser");
 		if (null == currentUser) {
 			return "/admin/login";

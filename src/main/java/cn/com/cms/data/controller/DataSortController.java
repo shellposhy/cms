@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,7 +46,7 @@ import cn.com.cms.user.service.UserSecurityService;
 @Controller
 @RequestMapping("/admin/data/sort")
 public class DataSortController extends BaseController {
-	private static Logger LOG = Logger.getLogger(DataSortController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DataSortController.class);
 	@Resource
 	private DataSortService dataSortService;
 	@Resource

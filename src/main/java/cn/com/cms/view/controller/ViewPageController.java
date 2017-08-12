@@ -9,7 +9,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +50,7 @@ import cn.com.people.data.util.DateTimeUtil;
 @Controller
 @RequestMapping("/admin/view/page")
 public class ViewPageController extends BaseController {
-	private Logger logger = Logger.getLogger(ViewPageController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ViewPageController.class);
 	@Resource
 	private AppConfig appConfig;
 	@Resource
@@ -69,7 +70,7 @@ public class ViewPageController extends BaseController {
 	 */
 	@RequestMapping
 	public String list(Model model) {
-		logger.debug("====view.page.list====");
+		LOG.debug("====view.page.list====");
 		return "/admin/view/page/list";
 	}
 
@@ -81,7 +82,7 @@ public class ViewPageController extends BaseController {
 	 */
 	@RequestMapping(value = "/publish", method = RequestMethod.POST)
 	public MappingJacksonJsonView publish(@RequestBody JsonPara jsonPara) {
-		logger.debug("====view.page.home.publish====");
+		LOG.debug("====view.page.home.publish====");
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		String[] pageIdStr = jsonPara.value.split(SystemConstant.COMMA_SEPARATOR);
 		for (String pageId : pageIdStr) {
@@ -111,7 +112,7 @@ public class ViewPageController extends BaseController {
 	 */
 	@RequestMapping(value = "/s", method = RequestMethod.POST)
 	public MappingJacksonJsonView search(@RequestBody JsonPara[] jsonParas) {
-		logger.debug("====view.page.search====");
+		LOG.debug("====view.page.search====");
 		Map<String, String> jsonMap = JsonPara.getParaMap(jsonParas);
 		Integer sEcho = Integer.parseInt(jsonMap.get(JsonPara.DataTablesParaNames.sEcho));
 		Integer iDisplayStart = Integer.parseInt(jsonMap.get(JsonPara.DataTablesParaNames.iDisplayStart));
@@ -149,7 +150,7 @@ public class ViewPageController extends BaseController {
 	 */
 	@RequestMapping("/new")
 	public String preNew(Model model) {
-		logger.debug("=====view.page.new====");
+		LOG.debug("=====view.page.new====");
 		return "/admin/view/page/edit";
 	}
 
@@ -161,7 +162,7 @@ public class ViewPageController extends BaseController {
 	 */
 	@RequestMapping("/model/{type}")
 	public MappingJacksonJsonView getPageModel(@PathVariable EModelType type) {
-		logger.debug("========view.page.model.list========");
+		LOG.debug("========view.page.model.list========");
 		MappingJacksonJsonView mv = new BaseMappingJsonView();
 		List<ViewModel> viewModels = viewModelService.findByType(type);
 		List<ViewModelVo> modelList = new ArrayList<ViewModelVo>();
@@ -185,7 +186,7 @@ public class ViewPageController extends BaseController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public String save(HttpServletRequest request) {
-		logger.debug("========view.page.save========");
+		LOG.debug("========view.page.save========");
 		User currentUser = userSecurityService.currentUser(request);
 		String title = request.getParameter("title");
 		String code = request.getParameter("code");
