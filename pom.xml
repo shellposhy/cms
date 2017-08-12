@@ -152,11 +152,6 @@
 			<artifactId>ignite-log4j</artifactId>
 			<version>${ignite.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
 
 		<!-- mysql and pool -->
 		<dependency>
@@ -336,16 +331,6 @@
 			<version>2.3</version>
 		</dependency>
 
-		<!-- pdf -->
-		<!-- <dependency> <groupId>com.lowagie</groupId> <artifactId>itext</artifactId> 
-			<version>2.1.7</version> </dependency> <dependency> <groupId>cn.com.zhihuigu</groupId> 
-			<artifactId>iText-Asian</artifactId> <version>1.0</version> </dependency> 
-			<dependency> <groupId>cn.com.zhihuigu</groupId> <artifactId>pdf-renderer</artifactId> 
-			<version>1.0</version> </dependency> <dependency> <groupId>jtidy</groupId> 
-			<artifactId>jtidy</artifactId> <version>4aug2000r7-dev</version> <type>jar</type> 
-			<scope>compile</scope> </dependency> <dependency> <groupId>avalon-framework</groupId> 
-			<artifactId>avalon-framework-impl</artifactId> <version>4.2.0</version> </dependency> -->
-
 		<!-- barcode -->
 		<dependency>
 			<groupId>net.sf.barcode4j</groupId>
@@ -373,6 +358,23 @@
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
 			<version>1.9.0</version>
+		</dependency>
+		
+		<!-- log -->
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-api</artifactId>
+		    <version>1.7.20</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-log4j12</artifactId>
+		    <version>1.7.20</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
 
 		<!-- junit -->
