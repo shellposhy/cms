@@ -1,7 +1,7 @@
 <%@page import="cn.com.cms.system.service.ImagePathService"%>
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
-<%@page import="cn.com.cms.base.data.FieldCodes"%>
+<%@page import="cn.com.cms.framework.base.table.FieldCodes"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="cn.com.cms.util.Uploader"%>
 <%

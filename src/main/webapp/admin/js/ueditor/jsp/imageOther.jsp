@@ -1,7 +1,7 @@
 <%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
-<%@page import="cn.com.cms.base.data.FieldCodes"%>
-<%@page import="cn.com.cms.base.config.AppConfig"%>
+<%@page import="cn.com.cms.framework.base.table.FieldCodes"%>
+<%@page import="cn.com.cms.framework.config.AppConfig"%>
 <%@ page language="java" pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
