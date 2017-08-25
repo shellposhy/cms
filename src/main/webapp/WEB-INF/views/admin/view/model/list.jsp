@@ -10,7 +10,7 @@
 			</div>
 			<div class="box-content">
 				<div class="padlrn span12 action_buttons">
-					<a class="btn btn-small" href="#" id="add_directory_model" target="_self"><i class="icon-plus"></i> 添加模板目录</a>
+					<a class="btn btn-small" href="/admin/view/model/directory/new/0" id="add_directory_model" target="_self"><i class="icon-plus"></i> 添加模板目录</a>
 					<div class="input-append floatr">
 						<input id="search_model" size="16" type="text" />
 						<button id="search_model_btn" class="btn" type="button">搜索</button>
