@@ -43,7 +43,7 @@
 			<div class="fontlt">查看</div>
 			<span class="notification red">查看</span> 
 		</a>
-		<a data-rel="tooltip" class="well span4 top-block padtb20" href="${appPath}/admin/data/qs" target="_self" data-original-title="数据检索服务">
+		<a data-rel="tooltip" class="well span4 top-block padtb20" href="${appPath}/admin/data/qs" target="_self" data-original-title="数据查询">
 			<span class="icon32 icon-green icon-search"></span>
 			<div>数据查询</div>
 			<div class="fontlt">查看</div> 
