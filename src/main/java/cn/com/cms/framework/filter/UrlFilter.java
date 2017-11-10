@@ -20,17 +20,20 @@ import cn.com.cms.util.MessageResources;
  * @version 1.0
  */
 public class UrlFilter implements Filter {
-	
-	//属性
+
+	// 过滤器属性
 	FilterConfig filterConfig;
 
 	// 静态资源
-	private static final String[] staticResourceType = { ".css", ".js", ".ico", ".jpg", ".jpeg", ".gif", ".html",".png", ".doc", ".pdf", ".docx", ".ppt", ".pptx", ".xls", ".xlsx" };
+	private static final String[] staticResourceType = { ".css", ".js", ".ico", ".jpg", ".jpeg", ".gif", ".html",
+			".png", ".doc", ".pdf", ".docx", ".ppt", ".pptx", ".xls", ".xlsx" };
 	private static final String[] staticResourcePath = { "/page", "/static", "/default", "/pic", "/tmp", "/doc" };
-	private static final String[] excludePath = { "/admin/security/check", "/admin/logout", "/admin/login","/admin/task/progress"};
+	private static final String[] excludePath = { "/admin/security/check", "/admin/logout", "/admin/login",
+			"/admin/task/progress" };
 
 	// 过滤器
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 		servletRequest.setAttribute("appName", MessageResources.getValue("app.name"));
 		String uri = servletRequest.getRequestURI();
@@ -81,14 +84,14 @@ public class UrlFilter implements Filter {
 		return result;
 	}
 
-	//初始化
+	// 初始化
 	public void init(FilterConfig config) throws ServletException {
-		this.filterConfig=config;
+		this.filterConfig = config;
 	}
 
-	//销毁
+	// 销毁
 	public void destroy() {
-		this.filterConfig=null;
+		this.filterConfig = null;
 	}
 
 }

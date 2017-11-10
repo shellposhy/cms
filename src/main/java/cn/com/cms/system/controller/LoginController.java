@@ -107,6 +107,9 @@ public class LoginController extends BaseController {
 		request.getSession().setAttribute("jsonActionTree", jsonActionTree);
 		request.getSession().setAttribute("currentUser", currentUser);
 		if (!Strings.isNullOrEmpty(request.getParameter("from"))) {
+			if (!Strings.isNullOrEmpty(request.getParameter("from"))) {
+				return "redirect:" + request.getParameter("from");
+			}
 			return "redirect:" + request.getParameter("from");
 		}
 		return "redirect:/admin/index";
