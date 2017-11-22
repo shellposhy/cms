@@ -923,7 +923,6 @@
     _masonryReset : function() {
       // layout-specific props
       this.masonry = {};
-      // FIXME shouldn't have to call this again
       this._getSegments();
       var i = this.masonry.cols;
       this.masonry.colYs = [];
@@ -1113,7 +1112,6 @@
     _masonryHorizontalReset : function() {
       // layout-specific props
       this.masonryHorizontal = {};
-      // FIXME shouldn't have to call this again
       this._getSegments( true );
       var i = this.masonryHorizontal.rows;
       this.masonryHorizontal.rowXs = [];

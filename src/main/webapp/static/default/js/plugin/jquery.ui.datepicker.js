@@ -125,7 +125,6 @@ $.extend(Datepicker.prototype, {
 			console.log.apply('', arguments);
 	},
 	
-	// TODO rename to "widget" when switching to widget factory
 	_widgetDatepicker: function() {
 		return this.dpDiv;
 	},

@@ -48,48 +48,6 @@ $(document).ready(function(){
 			$(this).parent().addClass('active');
 	});
 	
-	//establish history variables
-	// 浏览历史变量
-	/*var
-		History = window.History, // Note: We are using a capital H instead of a lower h
-		State = History.getState(),
-		$log = $('#log');*/
-
-	//bind to State Change
-	// 状态转换
-	/*History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-		var State = History.getState(); // Note: We are using History.getState() instead of event.state
-		$.ajax({
-			url:State.url,
-			success:function(msg){
-				$('#content').html($(msg).find('#content').html());
-				$('#loading').remove();
-				$('#content').fadeIn();
-				docReady();
-			}
-		});
-	});*/
-	
-	//ajaxify menus
-	// 右侧菜单切换页面
-	/*$('a.ajax-link').click(function(e){
-		if($.browser.msie) e.which=1;
-		if(e.which!=1 || !$('#is-ajax').prop('checked') || $(this).parent().hasClass('active')) return;
-		e.preventDefault();
-		if($('.btn-navbar').is(':visible'))
-		{
-			$('.btn-navbar').click();
-		}
-		$('#loading').remove();
-		$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
-		var $clink=$(this);
-		History.pushState(null, null, $clink.attr('href'));
-		$('ul.main-menu li.active').removeClass('active');
-		$clink.parent('li').addClass('active');	
-	});*/
-	
-	//animating menus on hover
-	//右侧菜单动画
 	$('ul.main-menu li:not(.nav-header)').hover(function(){
 		$(this).animate({'margin-left':'+=5'},300);
 	},
