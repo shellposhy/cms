@@ -15,12 +15,12 @@ a, a:hover, a:focus {
 }
 
 ::selection {
-	background: #2578be;
+	background: #800000;
 	color: #fff;
 }
 
 ::-moz-selection {
-	background: #2578be;
+	background: #800000;
 	color: #fff;
 }
 
@@ -33,7 +33,7 @@ a {
 }
 
 a:hover {
-	color: #2578be;
+	color: #800000;
 }
 
 .center {
@@ -110,7 +110,7 @@ p {
 	.header-frontend .nav li.active ul.dropdown-menu li a:hover,
 	.header-frontend .nav li.active ul.dropdown-menu li.active a {
 	color: #fff;
-	background-color: #2578be;
+	background-color: #800000;
 	-webkit-transition: all .3s ease;
 	-moz-transition: all .3s ease;
 	-ms-transition: all .3s ease;
@@ -121,7 +121,7 @@ p {
 .header-frontend .navbar-default .navbar-nav>.open>a, .header-frontend .navbar-default .navbar-nav>.open>a:hover,
 	.header-frontend .navbar-default .navbar-nav>.open>a:focus {
 	color: #fff;
-	background-color: #2578be;
+	background-color: #800000;
 	-webkit-transition: all .3s ease;
 	-moz-transition: all .3s ease;
 	-ms-transition: all .3s ease;
@@ -332,11 +332,11 @@ p {
 	line-height: normal;
 	margin-top: 40px;
 	display: block;
-	color: #2578be;
+	color: #800000;
 }
 
 .f-box:hover, .f-box.active {
-	background: #2578be;
+	background: #800000;
 	border-radius: 10px;
 	padding: 20px;
 	text-align: center;
@@ -473,7 +473,7 @@ p {
 }
 
 .p-head {
-	color: #2578be;
+	color: #800000;
 	font-size: 14px;
 	font-weight: 400;
 }
@@ -864,7 +864,7 @@ ul.about-flex-slides {
 }
 
 .bx-wrapper {
-	margin-bottom: 120px;
+	/*margin-bottom: 120px;*/
 }
 
 /*pricing table*/
@@ -883,7 +883,7 @@ ul.about-flex-slides {
 }
 
 .most-popular {
-	background: #2578be;
+	background: #800000;
 	color: #fff;
 }
 
@@ -1011,7 +1011,7 @@ ul.about-flex-slides {
 }
 
 .breadcrumb li a {
-	/*color: #2578be;*/
+	/*color: #800000;*/
 	color: #fff;
 	font-weight: bold;
 }
@@ -1317,7 +1317,7 @@ ul.about-flex-slides {
 }
 
 .date-wrap .active {
-	background: #2578be;
+	background: #800000;
 	color: #fff;
 	border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -1326,7 +1326,7 @@ ul.about-flex-slides {
 .date-wrap .date {
 	font-size: 30px;
 	font-weight: 300;
-	background: #2578be;
+	background: #800000;
 	color: #fff;
 	border-radius: 4px 4px 0 0;
 	-webkit-border-radius: 4px 4px 0 0;
@@ -1364,7 +1364,7 @@ ul.about-flex-slides {
 
 .blog-item h1, .blog-item h1 a {
 	font-size: 25px;
-	color: #2578be;
+	color: #800000;
 	font-weight: 300;
 	font-family: 'Fjalla One', sans-serif;
 }
@@ -1402,7 +1402,7 @@ ul.about-flex-slides {
 }
 
 .author a, .shate-view a {
-	color: #2578be;
+	color: #800000;
 }
 
 .shate-view {
@@ -1513,7 +1513,7 @@ ul.tag li a {
 }
 
 .tweet-box  a:hover {
-	color: #2578be;
+	color: #800000;
 }
 
 .tweet-box i {
@@ -1544,7 +1544,7 @@ ul.tag li a {
 }
 
 .social-link-footer li a:hover {
-	background: #2578be;
+	background: #800000;
 	-webkit-transition: all .3s ease;
 	-moz-transition: all .3s ease;
 	-ms-transition: all .3s ease;
@@ -1609,7 +1609,7 @@ ul.tag li a {
 .slide_btn {
 	font-family: 'Open Sans';
 	font-weight: 300;
-	background: #2578be;
+	background: #800000;
 	padding: 15px 20px;
 	color: #fff;
 	font-size: 14px;
@@ -1650,7 +1650,7 @@ ul.tag li a {
 }
 
 .bx-controls-direction a:hover {
-	background-color: #2578be !important;
+	background-color: #800000 !important;
 	-webkit-transition: all .3s ease;
 	-moz-transition: all .3s ease;
 	-ms-transition: all .3s ease;
@@ -1700,7 +1700,7 @@ a.btn-purchase {
 }
 
 a.btn-purchase:hover, a.btn-purchase:focus {
-	background: #2578be;
+	background: #800000;
 	color: #fff;
 	-webkit-transition: all .3s ease;
 	-moz-transition: all .3s ease;
@@ -1782,7 +1782,7 @@ ul#filters li a {
 
 ul#filters>li>a:hover, ul#filters>li>a:focus, ul#filters>.active>a, ul#filters>.active>span
 	{
-	background: #2578be;
+	background: #800000;
 	padding: 10px 15px;
 	display: inline-block;
 	color: #fff;
@@ -1876,7 +1876,7 @@ ul#filters>li>a:hover, ul#filters>li>a:focus, ul#filters>.active>a, ul#filters>.
 
 /*parallax*/
 .parallax1 {
-	background: url("../img/flat_parallax.jpg") no-repeat fixed 0 0 #2578be;
+	background: url("../img/flat_parallax.jpg") no-repeat fixed 0 0 #800000;
 	background-size: cover;
 	width: 100%;
 	min-height: 400px;

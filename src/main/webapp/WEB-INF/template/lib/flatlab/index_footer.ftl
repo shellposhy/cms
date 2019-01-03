@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
         	<div class="col-lg-3 col-sm-3">
-                <h1>道源咨询</h1>
+                <h1>国理律师事务所</h1>
                 <ul class="social-link-footer list-unstyled">
                     <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i></a></li>
                     <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
@@ -14,21 +14,21 @@
             <div class="col-lg-3 col-sm-3">
                 <h1>服务导航</h1>
                 <address>
-                    <p>道源首页</p>
+                    <p>国理首页</p>
                     <p>加入我们</p>
-                    <p>服务范围</p>
+                    <p>专业领域</p>
                     <p>案例成果</p>
-                    <p>道源研究</p>
+                    <p>国理智库</p>
                 </address>
             </div>
             <div class="col-lg-3 col-sm-3">
                 <h1>友情链接</h1>
                 <address>
-                    <p>国家旅游局</p>
-                    <p>文化部</p>
-                    <p>国杰研究院</p>
-                    <p>北京社科院</p>
-                    <p>北京市旅游发展委员会</p>
+                    <p>北京市司法局</p>
+                    <p>北京市东城区律师协会</p>
+                    <p>北京市律师协会</p>
+                    <p>社科院法学所</p>
+                    <p>北大法律信息网</p>
                 </address>
             </div>
              <div class="col-lg-3 col-sm-3">
