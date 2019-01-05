@@ -10,6 +10,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cn.com.cms.framework.config.SystemConstant;
 import cn.com.cms.util.MessageResources;
 
@@ -20,6 +23,7 @@ import cn.com.cms.util.MessageResources;
  * @version 1.0
  */
 public class UrlFilter implements Filter {
+	private static final Logger LOG = LoggerFactory.getLogger(UrlFilter.class.getName());
 
 	// 过滤器属性
 	FilterConfig filterConfig;
@@ -37,6 +41,7 @@ public class UrlFilter implements Filter {
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 		servletRequest.setAttribute("appName", MessageResources.getValue("app.name"));
 		String uri = servletRequest.getRequestURI();
+		LOG.info("============uri=" + uri);
 		if ("/".equals(uri) || matchExcludePath(uri) || matchStaticPath(uri) || matchStaticResource(uri)) {
 			chain.doFilter(request, response);
 		} else {
