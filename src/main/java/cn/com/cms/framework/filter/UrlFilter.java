@@ -41,7 +41,7 @@ public class UrlFilter implements Filter {
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 		servletRequest.setAttribute("appName", MessageResources.getValue("app.name"));
 		String uri = servletRequest.getRequestURI();
-		LOG.info("============uri=" + uri);
+		LOG.debug("============uri=" + uri);
 		if ("/".equals(uri) || matchExcludePath(uri) || matchStaticPath(uri) || matchStaticResource(uri)) {
 			chain.doFilter(request, response);
 		} else {
