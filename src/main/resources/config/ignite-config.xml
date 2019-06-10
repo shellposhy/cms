@@ -10,6 +10,8 @@
 	<bean class="org.apache.ignite.configuration.IgniteConfiguration">
 		<!-- Set to true to enable distributed class loading, default is false. -->
 		<property name="peerClassLoadingEnabled" value="true" />
+		<!-- Set not show metrics for local node  -->
+		<property name="metricsLogFrequency" value="0"/>
 		<!-- Enable only some events and leave other ones disabled -->
 		<property name="includeEventTypes">
 			<list>
