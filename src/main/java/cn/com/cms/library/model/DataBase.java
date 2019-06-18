@@ -7,6 +7,6 @@ package cn.com.cms.library.model;
  * @version 1.0
  */
 public class DataBase extends BaseLibrary<DataBase> {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6622320003196192293L;
 
 }
