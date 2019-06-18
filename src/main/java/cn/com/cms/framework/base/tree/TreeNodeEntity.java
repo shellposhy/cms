@@ -9,7 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 import cn.com.cms.framework.base.BaseEntity;
 
 /**
- * 树形节点基础类
+ * 树形节点基础对象类
  * 
  * @author shishb
  * @version 1.0
