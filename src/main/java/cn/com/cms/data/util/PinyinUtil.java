@@ -267,7 +267,7 @@ public class PinyinUtil {
 
 	public static void main(String[] args) {
 		// 重当参差 重庆的j 刘煜,帕哈丁
-		String str = "重当参2";
+		String str = "颐和园";
 		System.out.println(converterToFirstSpell(str));
 		System.out.println(converterToSpell(str));
 	}
