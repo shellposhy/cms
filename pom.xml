@@ -9,7 +9,7 @@
 	<url>http://maven.apache.org</url>
 	<!-- properties -->
 	<properties>
-		<spring.version>3.2.3.RELEASE</spring.version>
+		<spring.version>5.3.18</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.7</jdk.version>
 		<ignite.version>1.9.0</ignite.version>
